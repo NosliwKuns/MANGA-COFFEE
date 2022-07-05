@@ -1,1 +1,0 @@
-let lolo : string = 'lolo'

@@ -1,1 +1,0 @@
-export let name: string = "Andrea"
