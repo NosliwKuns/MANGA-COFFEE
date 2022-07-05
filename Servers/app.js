@@ -1,4 +1,5 @@
 const express = require('express')
+const { ObjectId } = require('mongodb')
 const { connectToDB, getDB } = require('./db') 
 
 const app = express()
@@ -29,3 +30,20 @@ app.get('/manga', (req, res)=>{
 
     res.json({mssg: 'welcome to the api'})
 })
+
+    app.get('/manga/id', (req, res) => {
+
+        if (ObjectId.isValid(req.params.id)){
+            
+            db.collection('manga')
+            .findOne({_id: ObjectId(req.params.id)})
+            .then(doc => {
+                res.status(200).json(doc)
+            })
+            .catch(() => {
+                res.status(500).json({error: 'Cloud not fetch the documents'})
+            })
+        }else {
+            res.status(500).json({error: 'Not a valid ID'})
+        }
+        })
