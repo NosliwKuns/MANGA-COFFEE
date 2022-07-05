@@ -3,6 +3,8 @@ const { ObjectId } = require('mongodb')
 const { connectToDB, getDB } = require('./db') 
 
 const app = express()
+app.use(express.json())
+
 let db
 connectToDB((err) => {
 if (!err){
@@ -28,10 +30,12 @@ app.get('/manga', (req, res)=>{
     })
 
 
-    res.json({mssg: 'welcome to the api'})
+  //  res.json({mssg: 'welcome to the api'})
 })
 
-    app.get('/manga/id', (req, res) => {
+
+
+    app.get('/manga/:id', (req, res) => {
 
         if (ObjectId.isValid(req.params.id)){
             
@@ -47,3 +51,17 @@ app.get('/manga', (req, res)=>{
             res.status(500).json({error: 'Not a valid ID'})
         }
         })
+
+
+    app.post('/manga', (req, res) => {
+        const book = req.body
+
+        db.collection('manga')
+        .insertOne(book)
+        .then(result => {
+            res.status(201).json(result)
+        })
+        .catch(err => {
+            res.status(500).json({err: 'cloud not create a new document'})
+        })
+    })
