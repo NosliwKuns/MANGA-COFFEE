@@ -1,28 +1,31 @@
-const mongoose = require('mongoose');
-const {Schema} = mongoose
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
+const { Schema } = mongoose_1.default;
 const MangaSchema = new Schema({
-    title:{
+    title: {
         type: String,
         required: true
     },
-    genres:{
-        type:[String],
+    genres: {
+        type: [String],
         required: true
     },
-    image_backgraund:{
+    image_backgraund: {
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String,
         required: true
     },
-    chapters:{
-        type:[String],
+    chapters: {
+        type: [String],
         required: true
     }
-})
-
-const Manga = mongoose.model('Manga', MangaSchema)
-module.exports = Manga
+});
+const Manga = mongoose_1.default.model('Manga', MangaSchema);
+exports.default = Manga;
