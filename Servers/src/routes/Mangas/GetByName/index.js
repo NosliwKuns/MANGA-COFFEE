@@ -1,13 +1,11 @@
-const express = require('express');
-const router = express.Router();
-const {getDB } = require('./db');
-let db = getDB();
+const { Router } = require('express');
+const router = Router();
 
-router.get('/', async(req, res, next) => {
+router.get('/', (req, res, next) => {
+    console.log('ruta')
     const {name} = req.query;
-    try {
-        let manga = await db.collection('manga').find({ "title": name })
-        res.status(200).json(manga)
+    try {        
+        res.status(200).send('bienvenido a Manga Coffe ' + name)
     } catch (error) {
         next(error)
     }

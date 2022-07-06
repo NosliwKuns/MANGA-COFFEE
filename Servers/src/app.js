@@ -1,12 +1,13 @@
 const express = require('express');
-const routes = require('./routes/index.js');
+const routes = require('./routes/index');
+require('dotenv').config();
+require('./db.js');
 
 const server = express();
 
 server.use(express.json());
 
-
-server.use('/', routes);
+server.use('/api', routes);
 
 
 server.use((err, req, res, next) => {
