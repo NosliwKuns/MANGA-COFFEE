@@ -23,12 +23,12 @@ const MangaSchema = new Schema({
         required: true
     },
     mangas: {
-        type: { chapter: String, link: [String] },
+        type: [{ chapter: Number, link: [String] }],
         required: true
     },
     rating: {
         type: String,
-        enum: ['1', '2', '3', '4', '5']
+        enum: [1, 2, 3, 4, 5]
     },
     comments: {
         type: [{ name: String, body: String }]
