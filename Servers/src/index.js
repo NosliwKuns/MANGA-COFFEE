@@ -17,6 +17,8 @@ const port = process.env.PORT || 3000;
 
 var express = require('express');
 var app     = express();
+const cors = require('cors');
+app_js_1.default.use(cors());
 
 app.set('port', (process.env.PORT || 5000));
 
