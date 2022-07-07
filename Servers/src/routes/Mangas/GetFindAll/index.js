@@ -17,7 +17,7 @@ const Manga_js_1 = __importDefault(require("../../../models/Manga.js"));
 const router = (0, express_1.Router)();
 router.get('/', (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const mangas = yield Manga_js_1.default.find().lean();
+        const mangas = yield Manga_js_1.default.find({}, ["title", "image_backgraund", "genres"]);
         res.status(200).json(mangas);
     }
     catch (error) {
