@@ -8,9 +8,9 @@ import DeleteById from './Mangas/DeleteById/index';
 
 const router = Router();
 
+router.use('/manga', GetByName);
 router.use('/manga', GetFindAll);
 router.use('/manga', GetById);
-router.use('/manga', GetByName);
 router.use('/manga', PostManga);
 router.use('/manga', DeleteById);
 
