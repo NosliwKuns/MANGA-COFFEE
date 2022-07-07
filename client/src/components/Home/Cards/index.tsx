@@ -1,6 +1,7 @@
-import {fetchAllManga} from '../../features/manga/mangaSlice'
-import {useAppDispatch ,useAppSelector} from '../../app/hooks'
+import {fetchAllManga} from '../../../features/manga/mangaSlice'
+import {useAppDispatch ,useAppSelector} from '../../../app/hooks'
 import {useEffect} from 'react'
+import '../../../scss/Home/Cards.scss'
 
 const Cards = () => {
     const {mangas} = useAppSelector(state => state.mangas)
@@ -11,7 +12,7 @@ const Cards = () => {
     console.log(mangas.length)
     console.log('hola')
     return (
-      <div className="five">
+      <div className="cards-container">
         {
           mangas.map(e=><div key={e._id}>
             <header>{e.title}</header>
