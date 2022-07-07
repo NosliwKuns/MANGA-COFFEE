@@ -12,7 +12,7 @@ interface Detail {
 }
 
 type InitialState = {
-    mangas: Array<any>,
+    mangas: Detail[], // Array<any>
     manga : Detail
   }
 
@@ -37,7 +37,7 @@ const initialState: InitialState = {
         state.mangas.push(...action.payload)
       },
       getDetailManga : (state , action) =>{
-        state.manga = state.mangas.find(e=>e._id === action.payload) 
+        state.manga = action.payload 
       }
     }
   })
@@ -46,6 +46,14 @@ const initialState: InitialState = {
     return async (dispatch) => {
       const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/manga")
       dispatch(getAddMangas(data.results))
+      return data.results
+    }
+  }
+
+  export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
+    return async (dispatch) => {
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/${id}`)
+      dispatch(getDetailManga(data.results))
       return data.results
     }
   }

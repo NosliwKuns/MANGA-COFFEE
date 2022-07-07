@@ -1,18 +1,18 @@
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { getDetailManga } from "../../features/manga/mangaSlice";
+import { fetchDetailManga } from "../../features/manga/mangaSlice";
 import { useEffect } from "react";
 const Detail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   useEffect(() => {
-    dispatch(getDetailManga(id));
+    dispatch(fetchDetailManga ( id ));
   }, [dispatch, id]);
 
   const { manga } = useAppSelector((state) => state.mangas);
 
   return (
-    <div>
+    <div className="five">
       <header>{manga.title}</header>
       <ul>
         {manga.genres.map((genre: string, i: number) => (
