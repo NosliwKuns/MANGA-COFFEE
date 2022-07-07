@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
     console.log('ruta');
     const { name } = req.query;
     try {
-        const manga = yield Manga_js_1.default.find({ name }).lean();
+        const manga = yield Manga_js_1.default.find({ title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "image_backgraund"]);
         res.status(200).json(manga);
     }
     catch (error) {
