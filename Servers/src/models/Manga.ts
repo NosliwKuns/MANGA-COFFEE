@@ -10,7 +10,7 @@ const MangaSchema = new Schema({
         type:[String],
         required: true
     },
-    image_backgraund:{
+    cover_image:{
         type: String,
         required: true
     },
@@ -18,9 +18,16 @@ const MangaSchema = new Schema({
         type: String,
         required: true
     },
-    chapters:{
-        type:[String],
+    mangas:{
+        type:{chapter: String, link: [String]},
         required: true
+    },
+    rating:{
+        type:String,
+        enum: ['1', '2','3','4','5']
+    },
+    comments: {
+        type:[{ name: String, body: String }]
     }
 })
 
