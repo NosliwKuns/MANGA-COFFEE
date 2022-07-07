@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.scss'
+import Cards from './components/Cards/Cards';
+import Detail from './components/Detail/Detail';
 
 function App() {
 
@@ -32,9 +34,9 @@ function App() {
         <div className="greeting"></div>
       </div>
       <Routes>
-        <Route path="/" element={<h1>I'm the Manga content component</h1>} />
+        <Route path="/" element={<Cards/>} />
         <Route path="/store" element={<h1>I'm the Store component</h1>} />
-        <Route path="/detail" element={<h1>Detail</h1>} />
+        <Route path="/detail/:id" element={<Detail/>} />
       </Routes>
       <div className="six">
         <div></div>
