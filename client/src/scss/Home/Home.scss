@@ -1,21 +1,26 @@
-body, html {
+.manga-content {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 1em;
+  color: #ffffff;
+
   ::-webkit-scrollbar {
-    width: .5em;
+    width: 1em;
   }
 
     /* Track */
   ::-webkit-scrollbar-track {
-    background: #92111100;
+    background: #a31616;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #9394A9;
-    border-radius: 2em;
+    background: #888;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #9394a97e;
+    background: #555;
   }
+
 }
