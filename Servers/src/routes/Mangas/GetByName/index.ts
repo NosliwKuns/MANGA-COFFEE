@@ -2,7 +2,7 @@ import { Router } from 'express';
 import Manga from '../../../models/Manga.js';
 const router = Router();
 
-router.get('/', async(req, res, next) => {
+router.get('/search', async(req, res, next) => {
     console.log('ruta')
     const {name} = req.query;
     try { 
