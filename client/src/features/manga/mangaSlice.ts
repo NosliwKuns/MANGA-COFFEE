@@ -33,10 +33,10 @@ const initialState: InitialState = {
     name: 'mangas',
     initialState,
     reducers: {
-      getAddMangas : (state , action ) =>{
+      getAddMangas : (state , action : PayloadAction<Detail[]> ) =>{
         state.mangas.push(...action.payload)
       },
-      getDetailManga : (state , action ) =>{
+      getDetailManga : (state , action : PayloadAction<Detail> ) =>{
         state.manga = action.payload 
       }
     }
