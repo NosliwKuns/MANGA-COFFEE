@@ -1,7 +1,8 @@
 
-const SearchAndFilter = ({ appear, setAppear }) => {
+const SearchAndFilter = ({ appear , setAppear }: { appear: boolean; setAppear: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
-  const HandleClick = (event: MouseEvent) => {
+  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setAppear(!appear); 
   }
 
