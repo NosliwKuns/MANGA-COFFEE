@@ -1,43 +1,45 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
+import './App.scss'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <div className="one">
+        <h2>MANGA COFFEE</h2>
+        <h3>MC</h3>
+      </div>
+      <div className="two">
+        <section className="search-and-filter">
+          <h3>SearchBar</h3>
+          <button>F</button>
+        </section>
+        <section className="display">
+          {/* <LinkZone /> */}
+          <h2>WishList</h2>
+          <h2>Card</h2>
+          <button className="bubble-chat">C</button>
+          <button>A</button>
+        </section>
+      </div>
+      <div className="three">
+        {/* <LinkZone /> */}
+        <h2>WishList</h2>
+        <h2>Card</h2>
+      </div>
+      <div className="four">
+        <div className="side-bar"></div>
+        <div className="greeting"></div>
+      </div>
+      <Routes>
+        <Route path="/" element={<h1>I'm the Manga content component</h1>} />
+        <Route path="/store" element={<h1>I'm the Store component</h1>} />
+        <Route path="/detail" element={<h1>Detail</h1>} />
+      </Routes>
+      <div className="six">
+        <div></div>
+        <div></div>
+      </div>
     </div>
   )
 }
