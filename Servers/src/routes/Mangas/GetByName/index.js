@@ -18,7 +18,7 @@ const router = (0, express_1.Router)();
 router.get('/search', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.query;
     try {
-        const manga = yield Manga_js_1.default.find({ title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "image_backgraund"]);
+        const manga = yield Manga_js_1.default.find({ title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "cover_image"]);
         res.status(200).json(manga);
     }
     catch (error) {
