@@ -5,26 +5,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const index_1 = __importDefault(require("./routes/index"));
+const passport_1 = __importDefault(require("passport"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const morgan_1 = __importDefault(require("morgan"));
+const Passport_1 = __importDefault(require("./middlewares/Passport/Passport"));
 require("./db.js");
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
 const server = (0, express_1.default)();
 server.use(express_1.default.json());
-server.use('/api', index_1.default);
 //-------------------cors config--------------------//
-server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-server.use(bodyParser.json({ limit: '50mb' }));
-server.use(cookieParser());
-server.use(morgan('dev'));
+server.use(body_parser_1.default.urlencoded({ extended: true, limit: '50mb' }));
+server.use(body_parser_1.default.json({ limit: '50mb' }));
+server.use((0, cookie_parser_1.default)());
+server.use((0, morgan_1.default)('dev'));
 server.use((_req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
 //
+server.use(passport_1.default.initialize());
+passport_1.default.use(Passport_1.default);
+server.use('/api', index_1.default);
 server.use((err, _req, res, _next) => {
     const status = err.status || 500;
     const message = err.message || err;
