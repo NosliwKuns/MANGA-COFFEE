@@ -1,7 +1,13 @@
 import { InitialState } from "../../../features/user/userSlice";
 
 export const validate = (input: any) => {
-  const errors: InitialState = { id: "" , email: "", password: "" , loged :false};
+  const errors: InitialState = {
+    id: "",
+    email: "",
+    password: "",
+    loged: false,
+    user: "",
+  };
   let regExpEmail =
     /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
   let email = input.email.match(regExpEmail);
@@ -16,10 +22,10 @@ export const validate = (input: any) => {
   }
 
   if (!input.password) {
-    errors.email = "copy an password ";
+    errors.password = "copy an password ";
   } else if (!password?.length) {
-    errors.email = "copy a valid password! ";
+    errors.password = "copy a valid password! ";
   }
 
-  return errors
+  return errors;
 };
