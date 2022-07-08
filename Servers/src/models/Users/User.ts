@@ -1,11 +1,17 @@
 import mongoose from'mongoose';
-const {Schema} = mongoose
+import bCrypt from 'bcrypt';
+const {Schema, model} = mongoose;
+
+export interface IUser extends mongoose.Document{
+    email: string,
+    password: string,
+    comparePassword: (pasword: string) => Promise<boolean>,
+};
 
 const UserSchema = new Schema({
-    user:{
+    users:{
         type: String,
         required: true,
-        unique: true
     },
     name:{
         type:String,
@@ -32,8 +38,21 @@ const UserSchema = new Schema({
     favorites:{
         type:[String]
     }
-})
+});
 
-const User = mongoose.model('Manga', UserSchema)
+UserSchema.pre('save', async function(next) {
+    const user = this;
+    if (!user.isModified('password')){
+        return next();
+    };
+    const salt = await bCrypt.genSalt(10);
+    const hash = await bCrypt.hash(user.password, salt);
+    user.password = hash;
+    next();
+});
 
-export default User
+UserSchema.methods.comparePassword = async function(password: string): Promise<boolean> {
+   return await bCrypt.compare(password, this.password)
+};
+
+export default model<IUser>('User', UserSchema);

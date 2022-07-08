@@ -13,13 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Manga_js_1 = __importDefault(require("../../../models/Manga.js"));
+const User_1 = __importDefault(require("../../../models/Users/User"));
 const router = (0, express_1.Router)();
-router.get('/search', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.query;
+router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { users, name, lastname, email, favorites, telephone, address, password } = req.body;
     try {
-        const manga = yield Manga_js_1.default.find({ title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "genres", "cover_image"]);
-        res.status(200).json(manga);
+        if (!email || !password) {
+            return res.status(400).json({ msg: "Por favor, llenar todos los campos" });
+        }
+        ;
+        const user = yield User_1.default.find({ email });
+        console.log(user);
+        if (user.length) {
+            return res.status(400).json({ msg: "Ususario existente" });
+        }
+        ;
+        const newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });
+        yield newuser.save();
+        res.status(201).json(newuser);
     }
     catch (error) {
         next(error);

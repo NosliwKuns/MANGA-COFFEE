@@ -12,17 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const Manga_js_1 = __importDefault(require("../../../models/Manga.js"));
-const router = (0, express_1.Router)();
-router.get('/search', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name } = req.query;
+const passport_jwt_1 = require("passport-jwt");
+const User_1 = __importDefault(require("../../models/Users/User"));
+const config_1 = __importDefault(require("../../config/config"));
+const opts = {
+    jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: config_1.default.jwtsecret
+};
+exports.default = new passport_jwt_1.Strategy(opts, (payload, done) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const manga = yield Manga_js_1.default.find({ title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "genres", "cover_image"]);
-        res.status(200).json(manga);
+        const user = yield User_1.default.findById(payload.id);
+        if (user) {
+            return done(null, user);
+        }
+        return done(null, false);
     }
     catch (error) {
-        next(error);
+        console.log(error);
     }
 }));
-exports.default = router;
