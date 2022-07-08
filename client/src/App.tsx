@@ -3,8 +3,10 @@ import { useState } from 'react'
 import './App.scss'
 import Home from './components/Home';
 import SearchAndFilter from './components/SearchAndFilter';
+import SideBar from './components/Home/SideBar';
 import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
+
 
 function App() {
 
@@ -25,7 +27,9 @@ function App() {
         <h2>Card</h2>
       </div>
       <div className="four">
-        <div className="side-bar"></div>
+        <div className="side-bar">
+        <SideBar/>
+        </div>
         <div className="greeting"></div>
       </div>
         
