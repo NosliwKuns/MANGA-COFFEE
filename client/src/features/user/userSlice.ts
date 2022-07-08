@@ -5,6 +5,7 @@ export type InitialState = {
   email: string;
   password: string;
   loged: boolean;
+  user : ''
 };
 
 const initialState: InitialState = {
@@ -12,6 +13,7 @@ const initialState: InitialState = {
   email: "",
   password: "",
   loged: false,
+  user : ''
 };
 
 const userSlice = createSlice({
@@ -23,7 +25,7 @@ const userSlice = createSlice({
       state.email = email;
       state.password = password;
       state.loged = true;
-
+      //modificar userName
       console.log(state.email);
       console.log(state.loged);
     },
