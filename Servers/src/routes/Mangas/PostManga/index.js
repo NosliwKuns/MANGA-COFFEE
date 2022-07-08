@@ -16,9 +16,9 @@ const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Manga.js"));
 const router = (0, express_1.Router)();
 router.post('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, genres, image_backgraund, description, chapters } = req.body;
+    const { title, genres, cover_image, description, mangas, rating, comments } = req.body;
     try {
-        const manga = new Manga_js_1.default({ title, genres, image_backgraund, description, chapters });
+        const manga = new Manga_js_1.default({ title, genres, cover_image, description, mangas, rating, comments });
         let newmanga = yield manga.save();
         res.status(200).json(newmanga);
     }

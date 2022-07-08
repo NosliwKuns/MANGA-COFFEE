@@ -1,4 +1,4 @@
-
+import SearchBar from "../SearchBar/SearchBar";
 const SearchAndFilter = ({ appear , setAppear }: { appear: boolean; setAppear: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -9,7 +9,7 @@ const SearchAndFilter = ({ appear , setAppear }: { appear: boolean; setAppear: R
   return (
     <div className="two">
         <section className="search-and-filter">
-          <h3>SearchBar</h3>
+          <SearchBar/>
           <button onClick={HandleClick}>F</button>
           <div className={appear ? "appear" : "desappear"}>
             <h2>Action</h2>

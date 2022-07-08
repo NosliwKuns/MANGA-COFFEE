@@ -11,11 +11,15 @@ interface Detail {
   chapters : Array<string> ,
 }
 
+// export type Search = {
+//   name: string
+// }
+
 type InitialState = {
     mangas: Detail[], // Array<any>
-    manga : Detail
+    manga : Detail,
+    // mangaName: Search
   }
-
 
 const initialState: InitialState = {
     mangas: [],
@@ -33,11 +37,14 @@ const initialState: InitialState = {
     name: 'mangas',
     initialState,
     reducers: {
-      getAddMangas : (state , action ) =>{
+      getAddMangas : (state , action : PayloadAction<Detail[]> ) =>{
         state.mangas.push(...action.payload)
       },
-      getDetailManga : (state , action ) =>{
+      getDetailManga : (state , action : PayloadAction<Detail> ) =>{
         state.manga = action.payload 
+      },
+      searchMangaByName: (state, action : PayloadAction<any>) => {
+        state.mangas.push(action.payload)
       }
     }
   })
@@ -47,7 +54,6 @@ const initialState: InitialState = {
       const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/manga")
       console.log(data)
       dispatch(getAddMangas(data))
-      return data
     }
   }
 
@@ -58,9 +64,16 @@ const initialState: InitialState = {
       return data
     }
   }
+  
+  export const fetchMangaByName = (name: string | number): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/search?name=${name}`)
+      dispatch(searchMangaByName(data))
+    }
+  }
 
   
   export default mangaSlice.reducer
-  export const { getAddMangas , getDetailManga } = mangaSlice.actions
+  export const { getAddMangas , getDetailManga, searchMangaByName } = mangaSlice.actions
   
 
