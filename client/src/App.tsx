@@ -3,7 +3,6 @@ import { useState } from 'react'
 import './App.scss'
 import Home from './components/Home';
 import SearchAndFilter from './components/SearchAndFilter';
-import { useState } from 'react'
 import SideBar from './components/Home/SideBar';
 import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
