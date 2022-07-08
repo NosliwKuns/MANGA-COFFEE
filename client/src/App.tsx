@@ -1,9 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react'
 import './App.scss'
 import Home from './components/Home';
-import Detail from './components/Detail/Detail';
 import SearchAndFilter from './components/SearchAndFilter';
-import { useState } from 'react'
+import Detail from './components/Detail/Detail';
+import Logeo from './components/Logeo/Logeo';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<h1>I'm the Store component</h1>} />
         <Route path="/detail/:id" element={<Detail/>} />
+        <Route path='/logeo' element={<Logeo/>}/>
       </Routes>
       <div className="six">
         <div></div>
