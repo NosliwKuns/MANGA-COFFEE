@@ -47,7 +47,6 @@ const initialState: InitialState = {
       const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/manga")
       console.log(data)
       dispatch(getAddMangas(data))
-      return data
     }
   }
 

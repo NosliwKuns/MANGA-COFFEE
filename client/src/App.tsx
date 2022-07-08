@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.scss'
 import Cards from './components/Cards/Cards';
 import Detail from './components/Detail/Detail';
+import Logeo from './components/Logeo/Logeo';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<Cards/>} />
         <Route path="/store" element={<h1>I'm the Store component</h1>} />
         <Route path="/detail/:id" element={<Detail/>} />
+        <Route path='/logeo' element={<Logeo/>}/>
       </Routes>
       <div className="six">
         <div></div>
