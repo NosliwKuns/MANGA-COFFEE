@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Detail from './components/Detail/Detail';
 import SearchAndFilter from './components/SearchAndFilter';
 import { useState } from 'react'
+import SideBar from './components/Home/SideBar';
 
 function App() {
 
@@ -24,7 +25,9 @@ function App() {
         <h2>Card</h2>
       </div>
       <div className="four">
-        <div className="side-bar"></div>
+        <div className="side-bar">
+        <SideBar/>
+        </div>
         <div className="greeting"></div>
       </div>
         
