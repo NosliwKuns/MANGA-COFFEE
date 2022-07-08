@@ -15,11 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Manga.js"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('ruta');
+router.get('/search', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.query;
     try {
-        const manga = yield Manga_js_1.default.find({ name }).lean();
+        const manga = yield Manga_js_1.default.find({ title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "cover_image"]);
         res.status(200).json(manga);
     }
     catch (error) {

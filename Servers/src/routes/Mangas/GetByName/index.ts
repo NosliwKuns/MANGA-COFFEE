@@ -2,11 +2,10 @@ import { Router } from 'express';
 import Manga from '../../../models/Manga.js';
 const router = Router();
 
-router.get('/', async(req, res, next) => {
-    console.log('ruta')
+router.get('/search', async(req, res, next) => {
     const {name} = req.query;
     try { 
-        const manga = await Manga.find({name}).lean()
+        const manga = await Manga.find({title: { $regex: '.*' + name + '.*', $options: 'i' } }, ["title", "cover_image"])
         res.status(200).json(manga)
     } catch (error) {
         next(error)
