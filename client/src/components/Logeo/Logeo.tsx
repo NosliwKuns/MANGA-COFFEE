@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginUser, userLog } from "../../features/user/userSlice";
 import { InitialState } from "../../features/user/userSlice";
 import { validate } from "./func/validate";
+import {Link} from 'react-router-dom'
 
 const Logeo = () => {
   const [input, setInput] = useState<InitialState>({
@@ -13,7 +14,8 @@ const Logeo = () => {
     password: "", // sds2
     loged: false,
     user : "",
-    token :""
+    token :"",
+    favorites :[]
   });
 
   const [errors, setErrors] = useState<any>({
@@ -54,7 +56,8 @@ const Logeo = () => {
       password: "", // sds2
       loged: false,
       user:"",
-      token: ""
+      token: "",
+      favorites :[]
     })
     setErrors({
       email: "",
@@ -64,6 +67,8 @@ const Logeo = () => {
   };
 
   return (
+    <div>
+
     <form onSubmit={handleSubmit}>
       <h1>Welcome</h1>
       <label htmlFor="emial">Email :</label>
@@ -88,6 +93,14 @@ const Logeo = () => {
       {errors.password.length >1 && <p>{errors.password}</p>}
       <button>Log in</button>
     </form>
+    <Link to={'/user'}>
+    <div>
+      userrrr
+
+    </div>
+    </Link>
+    </div>
+    
   );
 };
 
