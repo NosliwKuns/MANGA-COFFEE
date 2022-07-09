@@ -8,7 +8,7 @@ import FilterByGenre from './Mangas/FilterByGenre/index';
 import PostUserCreated from './user/PostUserCreated/index';
 import PostUserinit from './user/PostUserinit/index';
 import GetByIdUser from './user/GetByIdUser/index'
-
+import PutByIdUser from './user/PutByIdUser/index'
 
 const router = Router();
 
@@ -22,6 +22,8 @@ router.use('/manga', DeleteById);
 router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
+router.use('/user', PutByIdUser);
+
 
 
 

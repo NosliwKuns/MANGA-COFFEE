@@ -4,7 +4,7 @@ import User from '../../../models/Users/User.js';
 const router = Router();
 
 router.get('/:id', passport.authenticate("jwt", { session: false }), async(req, res, next) => {
-    console.log('ruta')
+    console.log('GetByIdUser')
     const {id} = req.params;
     try { 
         console.log(id)
