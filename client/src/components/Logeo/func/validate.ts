@@ -7,6 +7,7 @@ export const validate = (input: any) => {
     password: "",
     loged: false,
     user: "",
+    token: '',
   };
   let regExpEmail =
     /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
