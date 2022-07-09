@@ -2,10 +2,11 @@ import mongoose from'mongoose';
 import bCrypt from 'bcrypt';
 const {Schema, model} = mongoose;
 
-export interface IUser extends mongoose.Document{
+export interface IUser extends mongoose.Document{    
     email: string,
     password: string,
     comparePassword: (pasword: string) => Promise<boolean>,
+    favorites: [Object],
 };
 
 const UserSchema = new Schema({
@@ -34,7 +35,7 @@ const UserSchema = new Schema({
         type: String,
     },
     favorites:{
-        type:[String]
+        type:[Object]
     }
 });
 

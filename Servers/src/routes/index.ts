@@ -5,10 +5,11 @@ import GetFindAll from './Mangas/GetFindAll/index';
 import GetById from './Mangas/GetById/index';
 import DeleteById from './Mangas/DeleteById/index';
 import FilterByGenre from './Mangas/FilterByGenre/index';
-import PostUserCreated from './user/PostUserCreated/index';
-import PostUserinit from './user/PostUserinit/index';
-import GetByIdUser from './user/GetByIdUser/index'
-import PutByIdUser from './user/PutByIdUser/index'
+import PostUserCreated from './Users/PostUserCreated/index';
+import PostUserinit from './Users/PostUserinit/index';
+import GetByIdUser from './Users/GetByIdUser/index'
+import PutByIdUser from './Users/PutByIdUser/index'
+import PutByIdUserFav from './Users/PutByIdUserFav/index'
 
 const router = Router();
 
@@ -23,6 +24,7 @@ router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
 router.use('/user', PutByIdUser);
+router.use('/user', PutByIdUserFav);
 
 
 
