@@ -7,7 +7,7 @@ export type InitialState = {
   email: string;
   password: string;
   loged: boolean;
-  user : string
+  user : string;
 };
 
 const initialState: InitialState = {
@@ -15,7 +15,7 @@ const initialState: InitialState = {
   email: "",
   password: "",
   loged: false,
-  user : ""
+  user : "",
 };
 
 const userSlice = createSlice({
@@ -46,7 +46,13 @@ const userSlice = createSlice({
 export  const singUpUser = (user:InitialState):AppThunk => {
   return async (dispatch) => {
     dispatch(createUser(user))
-    const {data} = await axios.post("https://localhots:3000/api/manga", user)
+    console.log(user)
+    const {data} = await axios.post("http://localhost:5000/api/user/register", {
+      users : user.user,
+      email : user.email ,
+      password : user.password
+    })
+    console.log(data)
     return data
   }
 }
@@ -54,7 +60,11 @@ export  const singUpUser = (user:InitialState):AppThunk => {
 export const userLog = (user:InitialState):AppThunk =>{
   return async (dispatch) =>{
     dispatch(loginUser(user))
-    const {data} = await axios.post("https://localhots:3000/api/manga", user)
+    const {data} = await axios.post("https://manga-coffee.herokuapp.com/api/user/login",{
+      email : user.email ,
+      password : user.password
+    })
+    console.log(data)
     return data
   }
 }

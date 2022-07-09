@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../app/hooks";
-import { createUser } from "../../features/user/userSlice";
+import { AppThunk } from "../../app/store";
+import { createUser, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 
 const Registration = () => {
@@ -33,26 +34,32 @@ const Registration = () => {
     );
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (errors.email || errors.password || !input.email || !input.password)
       return;
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
-    dispatch(createUser(input)); //
-    alert("Your count was created");
+
+    const verificate: any = await dispatch(singUpUser(input));
+ 
+    if (typeof verificate === 'string') {
+      alert("existe");
+    } else {
+      alert("Your count was created");
+    }
     setInput({
       id: "",
       email: "", // segio@
       password: "", // sds2
       loged: false,
-      user:""
-    })
+      user: "",
+    });
     setErrors({
       email: "",
       password: "",
       loged: false,
-      user: ""
+      user: "",
     });
   };
 
@@ -99,9 +106,8 @@ const Registration = () => {
 
 export default Registration;
 
-
 // ! login
-// Email : 
+// Email :
 // -------------------
 // password :
 // -------------------
@@ -109,10 +115,9 @@ export default Registration;
 // ||||||||||||||||||
 // google
 
-
 // ! Registration
 
-// Email : 
+// Email :
 // -------------------
 // password :
 // -------------------

@@ -2,7 +2,7 @@ import { Target, ValueTarget } from "framer-motion";
 import { KeyboardEventHandler, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { loginUser } from "../../features/user/userSlice";
+import { loginUser, userLog } from "../../features/user/userSlice";
 import { InitialState } from "../../features/user/userSlice";
 import { validate } from "./func/validate";
 
@@ -45,8 +45,8 @@ const Logeo = () => {
       return;
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
-    dispatch(loginUser(input)); //
-    alert("Your count was created");
+    dispatch(userLog(input)); //
+    alert("acces");
     setInput({
       id: "",
       email: "", // segio@
