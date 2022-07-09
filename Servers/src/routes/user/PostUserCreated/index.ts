@@ -11,7 +11,7 @@ router.post('/register', async (req, res, next) => {
         const user = await User.find({email});
         console.log(user)
         if (user.length){
-            return res.status(400).json({msg: "Ususario existente"});
+            return res.status(200).json("Ususario existente");
         };
         const newuser = new User({users, name, lastname, email, favorites, telephone, address, password});
         await newuser.save();

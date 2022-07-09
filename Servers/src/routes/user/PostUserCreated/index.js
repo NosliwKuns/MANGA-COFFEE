@@ -25,7 +25,7 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
         const user = yield User_1.default.find({ email });
         console.log(user);
         if (user.length) {
-            return res.status(400).json({ msg: "Ususario existente" });
+            return res.status(200).json("Ususario existente");
         }
         ;
         const newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });
