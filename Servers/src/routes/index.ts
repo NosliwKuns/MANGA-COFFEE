@@ -10,7 +10,7 @@ import PostUserinit from './Users/PostUserinit/index';
 import GetByIdUser from './Users/GetByIdUser/index'
 import PutByIdUser from './Users/PutByIdUser/index'
 import PutByIdUserFav from './Users/PutByIdUserFav/index'
-
+import PostProducts from './Products/PostProducts/index';
 const router = Router();
 
 router.use('/manga', FilterByGenre)
@@ -25,6 +25,8 @@ router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
 router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
+
+router.use('/products', PostProducts)
 
 
 
