@@ -1,14 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { AppThunk } from '../../app/store'
-
+interface Chapter  {
+  chapter : number, 
+  link : Array<string>
+}
 interface Detail {
   _id : string,
   title : string ,
   genres : Array<string> ,
   description : string,
   cover_image : string,
-  /* mangas : Arry , */
+   mangas : Chapter[]
 }
 
 type InitialState = {
@@ -23,8 +26,8 @@ const initialState: InitialState = {
       title : '',
       genres : [''],
       description : '',
-      cover_image : '',
-      /* chapter : 0 , */
+      cover_image : '', 
+      mangas : []
     }
   }
   

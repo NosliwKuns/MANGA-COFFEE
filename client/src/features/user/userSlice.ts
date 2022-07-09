@@ -36,7 +36,6 @@ const userSlice = createSlice({
     createUser: (state, action: PayloadAction<InitialState>) => {
       const { id, email, password, loged, user, token }: InitialState =
         action.payload;
-
       state.id = id;
       state.email = email;
       state.password = password;
@@ -82,6 +81,7 @@ export const userLog = (user: InitialState): AppThunk => {
     );
   };
 };
+
 export const singUpUser = (user: InitialState): AppThunk => {
   return async (dispatch) => {
     dispatch(createUser(user));
