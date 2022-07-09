@@ -11,7 +11,8 @@ const Registration = () => {
     password: "", // sds2
     loged: false,
     user: "",
-    token : ""
+    token : "",
+    favorites : []
   });
   const [errors, setErrors] = useState({
     email: "",
@@ -55,7 +56,8 @@ const Registration = () => {
       password: "", // sds2
       loged: false,
       user: "",
-      token : ""
+      token : "",
+      favorites : []
     });
     setErrors({
       email: "",
