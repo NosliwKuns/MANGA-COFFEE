@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Manga.js"));
 const router = (0, express_1.Router)();
-router.get('/generos', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/genres', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { genres } = req.body;
     let generos = [];
     let unicos = [];

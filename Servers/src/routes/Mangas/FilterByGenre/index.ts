@@ -2,7 +2,7 @@ import { Router } from 'express';
 import Manga from '../../../models/Manga.js';
 const router = Router();
 
-router.get('/generos', async (req, res, next) => {
+router.get('/genres', async (req, res, next) => {
     const{genres}=req.body;
     let generos:any=[]
     let unicos:any=[]

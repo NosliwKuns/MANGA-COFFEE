@@ -12,12 +12,12 @@ import GetByIdUser from './user/GetByIdUser/index'
 
 const router = Router();
 
+router.use('/manga', FilterByGenre)
 router.use('/manga', GetFindAll);
 router.use('/manga', GetByName);
 router.use('/manga', GetById);
 router.use('/manga', PostManga);
 router.use('/manga', DeleteById);
-router.use('/manga',FilterByGenre)
 
 router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
