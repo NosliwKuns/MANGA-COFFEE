@@ -40,6 +40,9 @@ const initialState: InitialState = {
       },
       searchMangaByName: (state, action : PayloadAction<Detail[]>) => {
         state.mangas = action.payload
+      },
+      filterMangaByGenres: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
       }
     }
   })
@@ -67,8 +70,23 @@ const initialState: InitialState = {
     }
   }
 
+  export const fetchMangaByGenres = (genre: string): AppThunk => {
+    console.log(genre)
+    return async (dispatch) => {
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga`)
+      let a = data.filter((e: any) => e.genres.includes(genre));
+      console.log(a)
+      dispatch(filterMangaByGenres(a))
+    }
+  }
+
   
   export default mangaSlice.reducer
-  export const { getAddMangas , getDetailManga, searchMangaByName } = mangaSlice.actions
+  export const { 
+      getAddMangas, 
+      getDetailManga, 
+      searchMangaByName, 
+      filterMangaByGenres
+  } = mangaSlice.actions
   
 
