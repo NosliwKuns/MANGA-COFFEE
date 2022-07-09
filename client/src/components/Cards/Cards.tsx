@@ -1,18 +1,17 @@
-import {fetchAllManga} from '../../../features/manga/mangaSlice'
-import {useAppDispatch ,useAppSelector} from '../../../app/hooks'
+import {fetchAllManga} from '../../features/manga/mangaSlice'
+import {useAppDispatch ,useAppSelector} from '../../app/hooks'
 import {useEffect} from 'react'
-import '../../../scss/Home/Cards.scss'
 
 const Cards = () => {
     const {mangas} = useAppSelector(state => state.mangas)
     const dispatch = useAppDispatch ()
     useEffect (()=>{
       dispatch(fetchAllManga())
-    },[dispatch])
+    },[])
     console.log(mangas.length)
     console.log('hola')
     return (
-      <div className="cards-container">
+      <div className="five">
         {
           mangas.map(e=><div key={e._id}>
             <header>{e.title}</header>

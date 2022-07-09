@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { AppThunk } from "../../app/store";
 
 export type InitialState = {
   id: string;
   email: string;
   password: string;
   loged: boolean;
-  user : ''
+  user : string
 };
 
 const initialState: InitialState = {
@@ -13,7 +15,7 @@ const initialState: InitialState = {
   email: "",
   password: "",
   loged: false,
-  user : ''
+  user : ""
 };
 
 const userSlice = createSlice({
@@ -28,9 +30,34 @@ const userSlice = createSlice({
       //modificar userName
       console.log(state.email);
       console.log(state.loged);
+      return state
     },
+    createUser: (state, action: PayloadAction<InitialState>) =>{
+      const { email, password ,user}: InitialState = action.payload;
+      state.email = email;
+      state.password = password;
+      state.loged = true;
+      state.user = user;
+      return state
+    }
   },
 });
 
+export  const singUpUser = (user:InitialState):AppThunk => {
+  return async (dispatch) => {
+    dispatch(createUser(user))
+    const {data} = await axios.post("https://localhots:3000/api/manga", user)
+    return data
+  }
+}
+
+export const userLog = (user:InitialState):AppThunk =>{
+  return async (dispatch) =>{
+    dispatch(loginUser(user))
+    const {data} = await axios.post("https://localhots:3000/api/manga", user)
+    return data
+  }
+}
+ 
 export default userSlice.reducer;
-export const { loginUser } = userSlice.actions;
+export const { loginUser ,createUser } = userSlice.actions;
