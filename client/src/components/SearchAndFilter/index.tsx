@@ -1,4 +1,4 @@
-import SearchBar from "../SearchBar/SearchBar";
+import SearchBar from "./SearchBar/SearchBar";
 import FilterMangas from "./FilterMangas";
 const SearchAndFilter = ({ appear , setAppear }: { appear: boolean; setAppear: React.Dispatch<React.SetStateAction<boolean>>}) => {
 

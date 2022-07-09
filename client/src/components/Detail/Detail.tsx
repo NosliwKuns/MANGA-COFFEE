@@ -21,11 +21,12 @@ const Detail = () => {
       </ul>
       <img src={`${manga.cover_image}`} alt={`cover_page_${manga._id}`} />
       <p>{manga.description}</p>
-      <ul>
+      {/* <h3>{manga.chapter}nop</h3> */}
+      {/* <ul>
         {manga.chapters.map((charapter: string, i: number) => (
           <li key={`${manga.title}_charapter ${i}`}>{charapter}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
