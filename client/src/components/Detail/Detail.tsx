@@ -19,7 +19,7 @@ const Detail = () => {
           <li key={`${manga.title}_detail ${i}`}>{genre}</li>
         ))}
       </ul>
-      <img src={`${manga.image_backgraund}`} alt={`cover_page_${manga._id}`} />
+      <img src={`${manga.cover_image}`} alt={`cover_page_${manga._id}`} />
       <p>{manga.description}</p>
       <ul>
         {manga.chapters.map((charapter: string, i: number) => (
@@ -37,6 +37,6 @@ export default Detail;
 //   title : '',
 //   genre : [''],
 //   description : '',
-//   image_backgraund : '',
+//   cover_image : '',
 //   chapters : [''] ,
 // }
