@@ -19,7 +19,7 @@ router.use('/manga', index_1.default);
 router.use('/manga', index_4.default);
 router.use('/manga', index_2.default);
 router.use('/manga', index_5.default);
-router.use('/manga', index_6.default);
+router.use('/Filter', index_6.default);
 router.use('/user', index_7.default);
 router.use('/user', index_8.default);
 router.use('/user', index_9.default);
