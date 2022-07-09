@@ -8,7 +8,7 @@ interface Detail {
   genres : Array<string> ,
   description : string,
   cover_image : string,
-  chapters : Array<string> ,
+  /* mangas : Arry , */
 }
 
 type InitialState = {
@@ -24,7 +24,7 @@ const initialState: InitialState = {
       genres : [''],
       description : '',
       cover_image : '',
-      chapters : [''] ,
+      /* chapter : 0 , */
     }
   }
   
