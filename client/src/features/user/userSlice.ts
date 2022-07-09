@@ -8,6 +8,7 @@ export type InitialState = {
   password: string;
   loged: boolean;
   user : string;
+  token : string;
 };
 
 const initialState: InitialState = {
@@ -16,7 +17,10 @@ const initialState: InitialState = {
   password: "",
   loged: false,
   user : "",
+  token : ""
 };
+
+console.log(initialState)
 
 const userSlice = createSlice({
   name: "user",
@@ -27,9 +31,9 @@ const userSlice = createSlice({
       state.email = email;
       state.password = password;
       state.loged = true;
+      console.log(state.password)
+      console.log(state)
       //modificar userName
-      console.log(state.email);
-      console.log(state.loged);
       return state
     },
     createUser: (state, action: PayloadAction<InitialState>) =>{
@@ -38,6 +42,7 @@ const userSlice = createSlice({
       state.password = password;
       state.loged = true;
       state.user = user;
+      
       return state
     }
   },

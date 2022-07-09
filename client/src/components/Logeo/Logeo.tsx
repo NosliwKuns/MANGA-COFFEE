@@ -1,5 +1,5 @@
-import { Target, ValueTarget } from "framer-motion";
-import { KeyboardEventHandler, useState } from "react";
+
+import {  useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginUser, userLog } from "../../features/user/userSlice";
@@ -12,7 +12,8 @@ const Logeo = () => {
     email: "", // segio@
     password: "", // sds2
     loged: false,
-    user : ''
+    user : "",
+    token :""
   });
 
   const [errors, setErrors] = useState<any>({
@@ -52,7 +53,8 @@ const Logeo = () => {
       email: "", // segio@
       password: "", // sds2
       loged: false,
-      user:''
+      user:"",
+      token: ""
     })
     setErrors({
       email: "",
@@ -61,7 +63,6 @@ const Logeo = () => {
     });
   };
 
-  console.log(errors)
   return (
     <form onSubmit={handleSubmit}>
       <h1>Welcome</h1>
