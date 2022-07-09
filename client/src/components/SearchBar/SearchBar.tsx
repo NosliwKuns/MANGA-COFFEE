@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useAppDispatch } from "../../app/hooks"
 import { GoSearch } from "react-icons/go"
-import { searchMangaByName } from "../../features/manga/mangaSlice"
+import { fetchMangaByName } from "../../features/manga/mangaSlice"
 
 const SearchBar = () => {
     const dispatch = useAppDispatch()
@@ -11,9 +11,9 @@ const SearchBar = () => {
         e.preventDefault();
         setInput(e.target.value);
     }
-    const handleInputSubmit = (e: any) => {
+    const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(searchMangaByName(input));
+        dispatch(fetchMangaByName(input));
         setInput('');
     }
 
@@ -27,10 +27,10 @@ const SearchBar = () => {
                     onChange ={(e) => handleInputChange(e)}
                     placeholder="Search..."
                 />
+                <button type="submit">
+                    <GoSearch />
+                </button>
             </form>
-            <button type="submit">
-                <GoSearch />
-            </button>
         </div>
     )
 }
