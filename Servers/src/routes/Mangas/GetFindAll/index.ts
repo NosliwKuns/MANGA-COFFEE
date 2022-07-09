@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Manga from '../../../models/Manga.js';
+import Manga from '../../../models/Mangas/Manga.js';
 const router = Router();
 
 router.get('/', async(_req, res, next) => {    

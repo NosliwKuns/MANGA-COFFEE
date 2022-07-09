@@ -36,7 +36,7 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
         ;
         const istmach = yield user.comparePassword(password);
         if (istmach) {
-            return res.status(200).json({ token: crateToken(user) });
+            return res.status(200).json({ token: crateToken(user), usuario: user });
         }
         ;
         return res.status(400).json({ msg: "informacion no coincide" });

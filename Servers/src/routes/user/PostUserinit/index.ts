@@ -22,7 +22,7 @@ router.post('/login', async(req, res, next) => {
         };
         const istmach = await user.comparePassword(password);
         if (istmach){
-            return res.status(200).json({token:crateToken(user)});
+            return res.status(200).json({token:crateToken(user), usuario: user});
         };
         return res.status(400).json({msg: "informacion no coincide"});
     } catch (error) {
