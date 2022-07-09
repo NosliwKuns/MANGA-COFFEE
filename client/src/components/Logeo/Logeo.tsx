@@ -1,10 +1,11 @@
-import { Target, ValueTarget } from "framer-motion";
-import { KeyboardEventHandler, useState } from "react";
+
+import {  useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loginUser, userLog } from "../../features/user/userSlice";
 import { InitialState } from "../../features/user/userSlice";
 import { validate } from "./func/validate";
+import {Link} from 'react-router-dom'
 
 const Logeo = () => {
   const [input, setInput] = useState<InitialState>({
@@ -12,7 +13,9 @@ const Logeo = () => {
     email: "", // segio@
     password: "", // sds2
     loged: false,
-    user : ''
+    user : "",
+    token :"",
+    favorites :[]
   });
 
   const [errors, setErrors] = useState<any>({
@@ -52,7 +55,9 @@ const Logeo = () => {
       email: "", // segio@
       password: "", // sds2
       loged: false,
-      user:''
+      user:"",
+      token: "",
+      favorites :[]
     })
     setErrors({
       email: "",
@@ -61,8 +66,9 @@ const Logeo = () => {
     });
   };
 
-  console.log(errors)
   return (
+    <div>
+
     <form onSubmit={handleSubmit}>
       <h1>Welcome</h1>
       <label htmlFor="emial">Email :</label>
@@ -87,6 +93,14 @@ const Logeo = () => {
       {errors.password.length >1 && <p>{errors.password}</p>}
       <button>Log in</button>
     </form>
+    <Link to={'/user'}>
+    <div>
+      userrrr
+
+    </div>
+    </Link>
+    </div>
+    
   );
 };
 

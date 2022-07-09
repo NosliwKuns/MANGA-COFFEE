@@ -3,10 +3,11 @@ import { useState } from 'react'
 import './App.scss'
 import Home from './components/Home';
 import SearchAndFilter from './components/SearchAndFilter';
-import SideBar from './components/Home/SideBar';
+import SideBar from './components/SideBar';
 import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
 import Registration from './components/Registration/Registration';
+import User from './components/User/User';
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
+        <Route path='/user' element={<User/>}/>
       </Routes>
       <div className="six">
         <div></div>

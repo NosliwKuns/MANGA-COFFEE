@@ -20,6 +20,10 @@ const UserSchema = new Schema({
     lastname:{
         type: String,
     },
+    user_image:{
+        type: String,
+        required: true
+    },
     email:{
         type: String,
         required: true

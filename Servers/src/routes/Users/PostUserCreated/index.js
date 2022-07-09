@@ -19,13 +19,12 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
     const { users, name, lastname, email, favorites, telephone, address, password } = req.body;
     try {
         if (!email || !password) {
-            return res.status(400).json({ msg: "Por favor, llenar todos los campos" });
+            return res.status(200).json("Por favor, llenar todos los campos");
         }
         ;
         const user = yield User_1.default.find({ email });
-        console.log(user);
         if (user.length) {
-            return res.status(200).json("Ususario existente");
+            return res.status(200).json("Usuario existente");
         }
         ;
         const newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });

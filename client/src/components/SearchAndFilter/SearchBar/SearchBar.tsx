@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { useAppDispatch } from "../../app/hooks"
+import { useAppDispatch } from "../../../app/hooks"
 import { GoSearch } from "react-icons/go"
-import { fetchMangaByName } from "../../features/manga/mangaSlice"
+import { fetchMangaByName } from "../../../features/manga/mangaSlice"
 
 const SearchBar = () => {
     const dispatch = useAppDispatch()

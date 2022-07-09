@@ -15,27 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.get('/genres', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { genres } = req.body;
+router.get('/genero', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { genres } = req.query;
     let generos = [];
-    let unicos = [];
     try {
-        for (let i = 0; i < genres.length; i++) {
-            const filters = yield Manga_js_1.default.find({ genres: genres[i] }, ["title", "cover_image", "genres"]);
-            generos.push(filters);
-        }
-        for (let j = 0; j < generos.length; j++) {
-            let contador = 0;
-            for (let c = 1; c < unicos.length; c++) {
-                contador = c;
-                if (unicos[c]._id === generos[j]._id) {
-                    return;
-                }
-            }
-            if (contador === unicos.length) {
-                unicos.push(generos[j]);
-            }
-        }
+        const filters = yield Manga_js_1.default.find({ genres: genres }, ["title", "cover_image", "genres"]);
+        generos.push(filters);
+        const unicos = generos.filter((valor, indice) => {
+            return generos.indexOf(valor) == indice;
+        });
         res.status(200).json(unicos);
     }
     catch (error) {
