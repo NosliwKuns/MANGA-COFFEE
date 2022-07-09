@@ -38,7 +38,7 @@ const initialState: InitialState = {
     initialState,
     reducers: {
       getAddMangas : (state , action : PayloadAction<Detail[]> ) =>{
-        state.mangas.push(...action.payload)
+        state.mangas = action.payload
       },
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
         state.manga = action.payload 
