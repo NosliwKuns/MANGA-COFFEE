@@ -4,6 +4,7 @@ import PostManga from './Mangas/PostManga/index';
 import GetFindAll from './Mangas/GetFindAll/index';
 import GetById from './Mangas/GetById/index';
 import DeleteById from './Mangas/DeleteById/index';
+import FilterByGenre from './Mangas/FilterByGenre/index';
 import PostUserCreated from './user/PostUserCreated/index';
 import PostUserinit from './user/PostUserinit/index';
 import GetByIdUser from './user/GetByIdUser/index'
@@ -11,6 +12,7 @@ import GetByIdUser from './user/GetByIdUser/index'
 
 const router = Router();
 
+router.use('/manga', FilterByGenre)
 router.use('/manga', GetFindAll);
 router.use('/manga', GetByName);
 router.use('/manga', GetById);
