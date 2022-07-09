@@ -26,12 +26,12 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
     const { email, password } = req.body;
     try {
         if (!email || !password) {
-            return res.status(400).json({ msg: "Por favor, llenar todos los campos" });
+            return res.status(200).json("Por favor, llenar todos los campos");
         }
         ;
         const user = yield User_1.default.findOne({ email });
         if (!user) {
-            return res.status(400).json({ msg: "Ususario inexistente" });
+            return res.status(200).json("Usuario inexistente");
         }
         ;
         const istmach = yield user.comparePassword(password);
@@ -39,7 +39,7 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
             return res.status(200).json({ token: crateToken(user), usuario: user });
         }
         ;
-        return res.status(400).json({ msg: "informacion no coincide" });
+        return res.status(200).json("Informacion no coincide");
     }
     catch (error) {
         next(error);

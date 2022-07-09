@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import passport from "passport";
+// import passport from "passport";
 import User from '../../../models/Users/User.js';
 const router = Router();
 
-router.put('/update/:id', passport.authenticate("jwt", { session: false }), async(req, res, next) => {
+// passport.authenticate("jwt", { session: false }),
+router.put('/update/:id', async(req, res, next) => {
     console.log('PutByIdUser')
     const {id} = req.params;   
     try {          

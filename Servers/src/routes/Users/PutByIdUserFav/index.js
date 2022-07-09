@@ -13,10 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const passport_1 = __importDefault(require("passport"));
+// import passport from "passport";
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
-router.put('/fav/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+// passport.authenticate("jwt", { session: false }),
+router.put('/fav/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('PutByIdUser');
     const { id } = req.params;
     const { favorites } = req.body;
