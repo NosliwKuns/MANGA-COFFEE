@@ -11,14 +11,9 @@ interface Detail {
   chapters : Array<string> ,
 }
 
-// export type Search = {
-//   name: string
-// }
-
 type InitialState = {
     mangas: Detail[], // Array<any>
-    manga : Detail,
-    // mangaName: Search
+    manga : Detail
   }
 
 const initialState: InitialState = {
@@ -43,8 +38,8 @@ const initialState: InitialState = {
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
         state.manga = action.payload 
       },
-      searchMangaByName: (state, action : PayloadAction<any>) => {
-        state.mangas.push(action.payload)
+      searchMangaByName: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
       }
     }
   })
