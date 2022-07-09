@@ -42,7 +42,7 @@ const UserSchema = new Schema({
         type: String,
     },
     favorites: {
-        type: [String]
+        type: [Object]
     }
 });
 UserSchema.pre('save', function (next) {
