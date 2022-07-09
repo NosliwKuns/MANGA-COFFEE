@@ -7,7 +7,7 @@ const Cards = () => {
     const dispatch = useAppDispatch ()
     useEffect (()=>{
       dispatch(fetchAllManga())
-    },[dispatch])
+    },[])
     console.log(mangas.length)
     console.log('hola')
     return (
@@ -15,7 +15,7 @@ const Cards = () => {
         {
           mangas.map(e=><div key={e._id}>
             <header>{e.title}</header>
-            <img src={`${e.image_backgraund}`} alt={`cover_page_${e._id}`} />
+            <img src={`${e.cover_image}`} alt={`cover_page_${e._id}`} />
             <ul>
                 {
                     e.genres.map( (genre:string , i :number) => (<li 

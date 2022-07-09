@@ -7,7 +7,7 @@ interface Detail {
   title : string ,
   genres : Array<string> ,
   description : string,
-  image_backgraund : string,
+  cover_image : string,
   chapters : Array<string> ,
 }
 
@@ -24,7 +24,7 @@ const initialState: InitialState = {
       title : '',
       genres : [''],
       description : '',
-      image_backgraund : '',
+      cover_image : '',
       chapters : [''] ,
     }
   }
@@ -34,7 +34,7 @@ const initialState: InitialState = {
     initialState,
     reducers: {
       getAddMangas : (state , action : PayloadAction<Detail[]> ) =>{
-        state.mangas.push(...action.payload)
+        state.mangas= action.payload
       },
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
         state.manga = action.payload 

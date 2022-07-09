@@ -64,7 +64,7 @@ const Logeo = () => {
   console.log(errors)
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Welcome</h1>
+      <h1>Welcome Back</h1>
       <label htmlFor="emial">Email :</label>
       <input
         name="email"
