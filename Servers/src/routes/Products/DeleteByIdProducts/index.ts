@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import Products from '../../../models/Products/index';
+import Products from '../../../models/Products/index.js';
 
 const router = Router();
 
 router.delete('/:id', async(req, res, next) => {
     const {id} = req.params;
     try {
-        let deleteproduct = await Products.findByIdAndDelete(id)
-        console.log(deleteproduct)
-        res.status(200).json(deleteproduct)
+        let deleteProduct = await Products.findByIdAndDelete(id);
+        res.json({message: 'Product deleted'});
     } catch (error) {
         next(error)
     }
