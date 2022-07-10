@@ -22,4 +22,5 @@ const router = Router();
             res.status(500).json(error)
         }
     })
-    export default router;
+export default router;
+    

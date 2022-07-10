@@ -16,10 +16,15 @@ const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.get('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+    const id = req.params.id;
     try {
         let product = yield index_1.default.findById(id);
-        res.status(200).json(product);
+        if (product) {
+            res.json(product);
+        }
+        else {
+            res.status(404).json({ message: 'Product not found' });
+        }
     }
     catch (error) {
         res.status(500).json({ message: 'Error' });
