@@ -19,7 +19,7 @@ router.get('/', async(req, res, next) => {
             sortBy = {title:1}
             }
             
-            const mangas = await Manga.find({}, ["title", "genres", "cover_image"])
+            const mangas = await Manga.find({}, ["title", "genres", "rating" ,"cover_image"])
             .sort(sortBy)
             .skip(Number(page) * mgPerPage)
             .limit(mgPerPage)
