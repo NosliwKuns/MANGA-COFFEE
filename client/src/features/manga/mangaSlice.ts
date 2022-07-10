@@ -56,6 +56,9 @@ const initialState: InitialState = {
       },
       SortByRating: (state, action : PayloadAction<Detail[]>) => {
         state.mangas = action.payload
+      },
+      paginate: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
       }
     }
   })
@@ -106,6 +109,13 @@ const initialState: InitialState = {
       dispatch(searchMangaByName(data))
     }
   }
+
+  export const fetchPagination = (page: string): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${page}`)
+      dispatch(paginate(data))
+    }
+  }
   
   export default mangaSlice.reducer
   export const { 
@@ -114,7 +124,8 @@ const initialState: InitialState = {
       searchMangaByName, 
       filterMangaByGenres,
       SortByName,
-      SortByRating
+      SortByRating,
+      paginate
   } = mangaSlice.actions
   
 
