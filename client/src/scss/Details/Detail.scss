@@ -1,0 +1,51 @@
+.detail-container {
+  display: grid;
+  gap: 1em;
+  color: var(--light);
+
+  header {
+    background: var(--primary);
+    display: inherit;
+    height: 4em;
+    border-radius: 1.2em;
+    padding-left: 1em;
+    justify-content: start;
+    align-items: center;
+
+    h2 {
+      font-size: xx-large;
+    }
+  }
+
+  section{
+    display: flex;
+    gap: 2em;
+    overflow: hidden;
+    border-radius: 1.2em;
+    min-height: 40vh;
+
+    .image-container {
+      overflow: hidden;
+      width: 22vw;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .info-container {
+      background: var(--dark--600);
+      width: 100%;
+    }
+  }
+
+  .sub-title {
+    color: var(--primary);
+    text-align: start;
+  }
+
+  p {
+    text-align: justify;
+  }
+}
