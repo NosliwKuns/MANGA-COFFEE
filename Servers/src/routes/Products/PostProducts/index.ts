@@ -3,9 +3,9 @@ import Products from '../../../models/Products/index';
 
 const router = Router();
 router.post('/', async(req, res) => {
-    const {name, description, product_image, price, rating, comments, category} = req.body;
+    const {name, description, product_image, price} = req.body;
     try {
-        let product = await Products.create({name, description, product_image, price, rating, comments, category})
+        let product = await Products.create({name, description, product_image, price})
         res.status(200).json(product)
     } catch (error) {
         res.status(500).json(error)

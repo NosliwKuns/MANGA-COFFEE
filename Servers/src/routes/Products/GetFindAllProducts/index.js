@@ -15,11 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, description, product_image, price } = req.body;
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let product = yield index_1.default.create({ name, description, product_image, price });
-        res.status(200).json(product);
+        let products = yield index_1.default.find({});
+        res.status(200).json(products);
     }
     catch (error) {
         res.status(500).json(error);

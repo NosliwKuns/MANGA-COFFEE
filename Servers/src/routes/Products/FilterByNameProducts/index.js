@@ -15,14 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.delete('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name } = req.query;
     try {
-        let deleteproduct = yield index_1.default.findByIdAndDelete(id);
-        console.log(deleteproduct);
-        res.status(200).json(deleteproduct);
+        if (name) {
+            let product = yield index_1.default.find({ name: { $regex: name, $options: 'i' } });
+            res.status(200).json(product);
+        }
+        else {
+            let product = yield index_1.default.find();
+            res.status(200).json(product);
+        }
     }
     catch (error) {
-        next(error);
+        res.status(500).json(error);
     }
 }));
+exports.default = router;
