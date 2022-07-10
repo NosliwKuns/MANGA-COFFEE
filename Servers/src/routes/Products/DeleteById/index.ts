@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import Products from '../../../models/Products/Products.js';
+import Products from '../../../models/Products/index';
 
 const router = Router();
 
@@ -13,5 +13,3 @@ router.delete('/:id', async(req, res, next) => {
         next(error)
     }
 });
-
-
