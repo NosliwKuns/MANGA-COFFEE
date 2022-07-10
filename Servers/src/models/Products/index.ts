@@ -6,10 +6,10 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-   /* category:{
+   category:{
         type:[String],
         required: true
-    },*/
+    },
     product_image:{
         type: String,
         required: true
@@ -22,13 +22,13 @@ const ProductSchema = new Schema({
         type: Number,
         required: true
     },
-   /* rating:{
+    rating:{
         type:String,
         enum: [ 1 , 2 , 3 , 4 , 5 ]
     },
     comments: {
         type:[{ name: String, body: String }]
-    }*/
+    }
 })
 
 const Product = mongoose.model('Product', ProductSchema)

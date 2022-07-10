@@ -15,14 +15,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, description, product_image, price, stock, category, rating, comments } = req.body;
+//todavia en prueba 
+router.get('/cat', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { category } = req.query;
+    let categorias = [];
     try {
-        const product = yield index_1.default.create({ name, description, product_image, price, stock, category, rating, comments });
-        res.json(product);
+        let products = yield index_1.default.find({ category: category });
+        products.forEach(product => {
+            if (categorias.indexOf(product.category) === -1) {
+                categorias.push(product.category);
+            }
+        });
+        res.status(200).json(categorias);
     }
     catch (error) {
-        res.status(500).json("error");
+        res.status(500).json(error);
     }
 }));
 exports.default = router;
