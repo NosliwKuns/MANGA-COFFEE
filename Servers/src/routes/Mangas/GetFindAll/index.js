@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
             value = Number(rating);
             sortBy = { rating: value };
         }
-        else {
+        if (!value) {
             sortBy = { title: 1 };
         }
         const mangas = yield Manga_js_1.default.find({}, ["title", "genres", "cover_image"])
