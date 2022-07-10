@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import headers from "../../app/headers";
 import { AppThunk } from "../../app/store";
 
 export type favoritesMangas = {
@@ -17,6 +18,7 @@ export type InitialState = {
   favorites : Array<favoritesMangas>
 };
 
+
 const initialState: InitialState = {
   id: "",
   email: "",
@@ -24,7 +26,7 @@ const initialState: InitialState = {
   loged: false,
   user: "",
   token: "",
-  favorites :[]
+  favorites :[],
 };
 
 console.log(initialState);
@@ -39,7 +41,6 @@ const userSlice = createSlice({
       state.id = id;
       state.email = email;
       state.password = password;
-      state.loged = false;
       state.user = user;
       state.loged = loged;
       state.token = token
@@ -68,17 +69,20 @@ export const userLog = (user: InitialState): AppThunk => {
       email: user.email,
       password: user.password,
     });
+
+    const copyInitialState = {
+      id: data.usuario._id,
+      email: data.usuario.email,
+      password: data.usuario.password,
+      loged: false,
+      user: data.usuario.users,
+      token: data.token,
+      favorites : data.usuario.favorites
+    }
     dispatch(
-      loginUser({
-        id: data.usuario._id,
-        email: data.usuario.email,
-        password: data.usuario.password,
-        loged: false,
-        user: data.usuario.users,
-        token: data.token,
-        favorites : data.usuario.favorites
-      })
+      loginUser(copyInitialState)
     );
+    window.localStorage.setItem("copySliceUser",JSON.stringify(copyInitialState))
   };
 };
 
@@ -98,6 +102,13 @@ export const singUpUser = (user: InitialState): AppThunk => {
     return data;
   };
 };
+
+export const setDetailUser = (id:string , headers: object):AppThunk => {
+  return async () => {
+    const {data} = await axios.get(`http://localhost:5000/api/user/${id}`, headers )
+    console.log(data)
+  }
+}
 
 export default userSlice.reducer;
 export const { loginUser, createUser } = userSlice.actions;

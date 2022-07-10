@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.scss'
 import Home from './components/Home';
 import SearchAndFilter from './components/SearchAndFilter';
@@ -8,12 +8,22 @@ import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
 import Registration from './components/Registration/Registration';
 import User from './components/User/User';
-
+import { useAppDispatch } from './app/hooks';
+import { loginUser } from './features/user/userSlice';
+import UserDetail from './components/UseDetail';
 
 function App() {
 
   const [ appear, setAppear ] = useState<boolean>(false)
-  console.log(appear);
+  const dispatch = useAppDispatch()
+
+  useEffect(()=>{
+    const localUser:any  = localStorage.getItem('copySliceUser')
+    const user = JSON.parse(localUser)
+    if(user){
+     dispatch(loginUser(user))
+    }
+  },[])
   return (
     <div className="App">
       <div className="one">
@@ -42,6 +52,7 @@ function App() {
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
+        <Route path='/userDetail' element={<UserDetail/>}/>
       </Routes>
       <div className="six">
         <div></div>
