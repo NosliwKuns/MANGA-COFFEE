@@ -3,12 +3,16 @@ import Products from '../../../models/Products/index';
 
 const router = Router();
 router.post('/', async(req, res) => {
-    const {name, description, product_image, price} = req.body;
+    const {name, description, image, price, stock, rating, comments} = req.body;
     try {
-        let product = await Products.create({name, description, product_image, price})
-        res.status(200).json(product)
+        if(!name || !description || !image || !price || !stock || !rating || !comments){
+            res.status(400).json({message: 'Please fill all the fields'})
+        }else{
+            let newproduct = await Products.create({name, description, image, price, stock, rating, comments})
+            res.status(200).json(newproduct)
+        }
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json("error")
     }
 })
 

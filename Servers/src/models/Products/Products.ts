@@ -1,37 +1,36 @@
 import mongoose from'mongoose';
 const {Schema} = mongoose
 
-const ProductSchema = new Schema({
+const ProductsSchema = new Schema({
     name:{
         type: String,
         required: true
     },
-   /* category:{
+    description:{
         type:[String],
         required: true
-    },*/
-    product_image:{
-        type: String,
-        required: true
     },
-    description:{
+    image:{
         type: String,
         required: true
     },
     price:{
-        type: Number,
+        type: String,
         required: true
     },
-   /* rating:{
+    stock:{
+        type:[{chapter: Number, link: [String]}],
+        required: true
+    },
+    rating:{
         type:String,
         enum: [ 1 , 2 , 3 , 4 , 5 ]
     },
     comments: {
         type:[{ name: String, body: String }]
-    }*/
+    }
 })
 
-const Product = mongoose.model('Product', ProductSchema)
+const Products = mongoose.model('Products', ProductsSchema)
 
-export default Product;
-// esto lo borro despues
+export default Products
