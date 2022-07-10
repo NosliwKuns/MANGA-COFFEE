@@ -16,13 +16,15 @@ const UserSchema = new Schema({
     },
     name:{
         type:String,
+        default: ""
     },
     lastname:{
         type: String,
+        default: ""
     },
     user_image:{
         type: String,
-        required: true
+        default: ""
     },
     email:{
         type: String,
@@ -33,13 +35,16 @@ const UserSchema = new Schema({
         required: true
     },
     telephone:{
-        type: Number
+        type: Number,
+        default: 0
     },
     address:{
         type: String,
+        default: ""
     },
     favorites:{
-        type:[Object]
+        type:[Object],
+        default: [{}]
     }
 });
 
