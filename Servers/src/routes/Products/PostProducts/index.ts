@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import Products from '../../../models/Products/Products.js';
+import Products from '../../../models/Products/index';
 
 const router = Router();
 router.post('/', async(req, res) => {
