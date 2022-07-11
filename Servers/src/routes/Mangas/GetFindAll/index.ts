@@ -25,10 +25,12 @@ router.get('/', async(req, res, next) => {
 
         if(!genre && !search) {
             mutate = {};
-        } else if (!genre) {
+        } else if (genre && search) {
             mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } }
         } else if (!search) {
             mutate = { genres: genre }
+        } else if (!genre) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } }
         }
 
         const mangas = await Manga.paginate(mutate,{
