@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { AppThunk } from "../../app/store";
-import { createUser, singUpUser } from "../../features/user/userSlice";
+import { singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 
 const Registration = () => {

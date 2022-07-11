@@ -12,6 +12,10 @@ const User = () => {
   
   return (
     <div>
+      {
+        user.token ? 
+      <div>
+
       <FaUserCircle size={44} color={'white'}/>
       <p>{user.user}</p>
       {
@@ -26,6 +30,13 @@ const User = () => {
         navigate("/", { replace: true })
         dispatch(logOutUser())
         }}>Log Out</button>
+      </div>
+      : <div>
+        <button  onClick={()=>{ navigate("/logeo", { replace: true })}}>logIn</button>
+        <button
+         onClick={()=>{ navigate("/registration", { replace: true })}}>LogSing</button>
+        </div>
+      }
      
     </div>
   )

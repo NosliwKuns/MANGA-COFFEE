@@ -71,7 +71,7 @@ const Logeo = () => {
     <div>
 
     <form onSubmit={handleSubmit}>
-      <h1>Welcome</h1>
+      <h1>Welcome Back !</h1>
       <label htmlFor="emial">Email :</label>
       <input
         name="email"
@@ -94,12 +94,6 @@ const Logeo = () => {
       {errors.password.length >1 && <p>{errors.password}</p>}
       <button>Log in</button>
     </form>
-    <Link to={'/user'}>
-    <div>
-      userrrr
-
-    </div>
-    </Link>
     </div>
     
   );
