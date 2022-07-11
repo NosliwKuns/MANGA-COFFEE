@@ -12,7 +12,6 @@ import { useAppDispatch } from './app/hooks';
 import { loginUser } from './features/user/userSlice';
 import UserDetail from './components/UseDetail';
 import UserButtons from './components/UserButtons';
-/* import Leer from './components/Leer' */
 import Chat from './components/Chat/Chat'
 
 function App() {
