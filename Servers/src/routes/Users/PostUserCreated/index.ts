@@ -1,14 +1,7 @@
 import  { Router } from'express';
-import jwt from 'jsonwebtoken';
-import User, { IUser } from '../../../models/Users/User';
-import config from '../../../config/config'
+import User from '../../../models/Users/User';
+import createToken from '../../../controles/CreatedToken/index';
 const router = Router();
-
-function crateToken(user: IUser) {
-    return jwt.sign({id: user._id, email: user.email}, config.jwtsecret,{
-       expiresIn: 86400
-   })
-}
 
 router.post('/register', async (req, res, next) => { 
     const {users, name, lastname, email, favorites, telephone, address, password} = req.body;
@@ -22,7 +15,7 @@ router.post('/register', async (req, res, next) => {
         };
         let newuser = new User({users, name, lastname, email, favorites, telephone, address, password});
         newuser = await newuser.save();
-        res.status(201).json({token:crateToken(newuser), usuario: newuser});
+        res.status(201).json({token:createToken(newuser), usuario: newuser});
     } catch (error) {
         next(error);
     }
