@@ -4,9 +4,10 @@ const router = Router();
 
 router.get('/', async(req, res, next) => {   
     try { 
-        let {name , rating } = req.query
+        let {name , rating, page, search } = req.query
         let sortBy = {}
         let value = Number(name)
+
         if(name) {
             sortBy = {title:value}
         }
@@ -16,9 +17,10 @@ router.get('/', async(req, res, next) => {
         }
         if(!value) {
             sortBy = {title:1}
-        }
+    }
         
         const mangas = await Manga.paginate({},{
+            page:Number(page),
             limit:12,
             select: ["title", "genres", "rating" ,"cover_image"],
             sort:sortBy
