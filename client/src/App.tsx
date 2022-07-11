@@ -12,6 +12,7 @@ import { useAppDispatch } from './app/hooks';
 import { loginUser } from './features/user/userSlice';
 import UserDetail from './components/UseDetail';
 import UserButtons from './components/UserButtons';
+import Leer from './components/Leer'
 import Chat from './components/Chat/Chat'
 
 function App() {
@@ -57,6 +58,8 @@ function App() {
         setAppear={setAppear}
         setSearch={setSearch}
         setGender={setGender}
+        setAlph={setAlph}
+        setRate={setRate}
       />
       <div className="three">
         {/* <LinkZone /> */}
@@ -86,6 +89,7 @@ function App() {
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
         <Route path='/userDetail' element={<UserDetail/>}/>
+        {/* <Route path='/chapter/:id' element={<Leer/>}/> */}
         <Route path='/user/fav' element={<h1>I'm the Favorites component</h1>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
