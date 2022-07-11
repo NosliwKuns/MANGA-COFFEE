@@ -25,14 +25,27 @@ interface Detail {
   comments : Comments[]
 }
 
+interface allMangas {
+  docs: Detail[]
+  hasNextPage: boolean
+  hasPrevPage: boolean
+  totalPages: number
+}
+
 type InitialState = {
-    mangas: Detail[], // Array<any>
+    mangas: allMangas, // Array<any>
     manga : Detail,
-    comments : Comments[]
+    comments : Comments[],
+    genres: Array<string>
   }
 
 const initialState: InitialState = {
-    mangas: [],
+    mangas: {
+      docs: [],
+      hasNextPage: true,
+      hasPrevPage: true,
+      totalPages: 0,
+    },
     manga : {
       _id : '',
       title : '',
@@ -43,29 +56,31 @@ const initialState: InitialState = {
       rating : 0,
       comments : []
     },
-    comments : []
+    comments : [],
+    genres : []
   }
   
   const mangaSlice = createSlice({
     name: 'mangas',
     initialState,
     reducers: {
-      getAddMangas : (state , action : PayloadAction<Detail[]> ) =>{
+      getAddMangas : (state , action : PayloadAction<allMangas> ) =>{
+        console.log(action.payload, 'whatttt');
         state.mangas = action.payload
       },
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
         state.manga = action.payload 
       },
-      searchMangaByName: (state, action : PayloadAction<Detail[]>) => {
+      searchMangaByName: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
       },
-      filterMangaByGenres: (state, action : PayloadAction<Detail[]>) => {
+      filterMangaByGenres: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
       },
-      SortByName: (state, action : PayloadAction<Detail[]>) => {
+      SortByName: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
       },
-      SortByRating: (state, action : PayloadAction<Detail[]>) => {
+      SortByRating: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
       },
       mangaComments: (state, action : PayloadAction<Comments[]>) => {
@@ -86,8 +101,12 @@ const initialState: InitialState = {
           comments : []
         }
       },
-      paginate: (state, action : PayloadAction<Detail[]>) => {
+      paginate: (state, action : PayloadAction<allMangas>) => {
+        console.log('REDUCEEEEERRR!!!!!', action.payload)
         state.mangas = action.payload
+      },
+      getGenres: (state, action : PayloadAction<string[]>) => {
+        state.genres = action.payload
       }
     }
   })
@@ -96,7 +115,7 @@ const initialState: InitialState = {
     return async (dispatch) => {
       const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/manga")
       console.log(data)
-      dispatch(getAddMangas(data.docs))
+      dispatch(getAddMangas(data))
     }
   }
 
@@ -109,7 +128,7 @@ const initialState: InitialState = {
   
   export const fetchMangaByName = (name: string | number): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/search?name=${name}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?search=${name}`)
       dispatch(searchMangaByName(data))
     }
   }
@@ -117,24 +136,22 @@ const initialState: InitialState = {
   export const fetchMangaByGenres = (genre: string): AppThunk => {
     console.log(genre)
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?filter=${genre}`)
-      let a = data.filter((e: any) => e.genres.includes(genre));
-      console.log(a)
-      dispatch(filterMangaByGenres(a))
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?genre=${genre}`)
+      dispatch(filterMangaByGenres(data))
     }
   }
   
   export const fetchMangaSortByName = (name: string): AppThunk => {
     return async (dispatch) => {
       const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${name}`)
-      dispatch(searchMangaByName(data.docs))
+      dispatch(searchMangaByName(data))
     }
   }
 
   export const fetchMangaSortByRating = (rating: string): AppThunk => {
     return async (dispatch) => {
       const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${rating}`)
-      dispatch(searchMangaByName(data.docs))
+      dispatch(searchMangaByName(data))
     }
   };
 
@@ -148,14 +165,22 @@ const initialState: InitialState = {
     return (dispatch : any)  => {
       dispatch(cleanDetails())
     }
-  }
+  };
 
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${page}`)
-      dispatch(paginate(data.docs))
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?page=${page}`)
+      console.log('PAGINADOOOOO',data)
+      dispatch(paginate(data))
     }
-  }
+  };
+
+  export const fetchGetGenres = () : AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/genres`)
+      dispatch(getGenres(data))
+    }
+  };
   
   export default mangaSlice.reducer
   export const { 
@@ -168,6 +193,7 @@ const initialState: InitialState = {
       mangaComments,
       cleanDetails,
       paginate,
+      getGenres,
   } = mangaSlice.actions
 
   

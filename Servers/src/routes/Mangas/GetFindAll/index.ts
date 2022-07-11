@@ -4,7 +4,8 @@ const router = Router();
 
 router.get('/', async(req, res, next) => {   
     try { 
-        let {name , rating, page, search } = req.query
+        let {name , rating, genre, search } = req.query 
+        let page = req.query.page || 1
         let sortBy = {}
         let value = Number(name)
 
@@ -17,9 +18,22 @@ router.get('/', async(req, res, next) => {
         }
         if(!value) {
             sortBy = {title:1}
-    }
-        
-        const mangas = await Manga.paginate({},{
+
+        }
+
+        var mutate;
+
+        if(!genre && !search) {
+            mutate = {};
+        } else if (genre && search) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } }
+        } else if (!search) {
+            mutate = { genres: genre }
+        } else if (!genre) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } }
+        }
+
+        const mangas = await Manga.paginate(mutate,{
             page:Number(page),
             limit:12,
             select: ["title", "genres", "rating" ,"cover_image"],
