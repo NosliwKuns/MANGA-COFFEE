@@ -84,7 +84,7 @@ const Logeo = () => {
             value={input.email}
           />
 
-          {errors.email.length > 1 && <label>{errors.email}</label>}
+          {errors.email.length > 1 && <p>{errors.email}</p>}
         </div>
 
         <div className="form_Registration_input">
