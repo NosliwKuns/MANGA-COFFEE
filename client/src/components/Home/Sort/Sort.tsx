@@ -22,8 +22,8 @@ const Sort = () => {
                 <option value="default">Sort By</option>
                 <option value="name=1">Name A-Z</option>
                 <option value="name=-1">Name Z-A</option>
-                <option value="rating=1">Most rated</option>
-                <option value="rating=-1">Least rated</option>
+                <option value="rating=-1">Most rated</option>
+                <option value="rating=1">Least rated</option>
             </select>
         </div>
     )

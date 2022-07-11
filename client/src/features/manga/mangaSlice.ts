@@ -28,7 +28,8 @@ interface Detail {
 type InitialState = {
     mangas: Detail[], // Array<any>
     manga : Detail,
-    comments : Comments[]
+    comments : Comments[],
+    totalPages: number
   }
 
 const initialState: InitialState = {
@@ -43,7 +44,8 @@ const initialState: InitialState = {
       rating : 0,
       comments : []
     },
-    comments : []
+    comments : [],
+    totalPages: 0
   }
   
   const mangaSlice = createSlice({
@@ -87,8 +89,13 @@ const initialState: InitialState = {
         }
       },
       paginate: (state, action : PayloadAction<Detail[]>) => {
+        console.log('REDUCEEEEERRR!!!!!', action.payload)
         state.mangas = action.payload
-      }
+      },
+      allPages:(state, action : PayloadAction<number>) => {
+        console.log('OTRO REDUCEEEEERRR!!!!!', action.payload)
+        state.totalPages = action.payload
+      },
     }
   })
 
@@ -148,12 +155,21 @@ const initialState: InitialState = {
     return (dispatch : any)  => {
       dispatch(cleanDetails())
     }
-  }
+  };
 
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
       const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${page}`)
+      console.log('PAGINADOOOOO',data)
       dispatch(paginate(data.docs))
+    }
+  };
+
+  export const fetchTotalPages = (): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga`)
+      console.log('PAGINADOOOOO',data)
+      dispatch(allPages(data.totalPages))
     }
   }
   
@@ -168,6 +184,7 @@ const initialState: InitialState = {
       mangaComments,
       cleanDetails,
       paginate,
+      allPages,
   } = mangaSlice.actions
 
   
