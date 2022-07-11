@@ -32,9 +32,9 @@ const User = () => {
         }}>Log Out</button>
       </div>
       : <div>
-        <button  onClick={()=>{ navigate("/logeo", { replace: true })}}>logIn</button>
+        <button  onClick={()=>{ navigate("/logeo", { replace: true })}}>Sign In</button>
         <button
-         onClick={()=>{ navigate("/registration", { replace: true })}}>LogSing</button>
+         onClick={()=>{ navigate("/registration", { replace: true })}}>Log In</button>
         </div>
       }
      
