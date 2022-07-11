@@ -33,6 +33,10 @@ const UserSchema = new Schema({
         type: String,
         default: ""
     },
+    user_banner: {
+        type: String,
+        default: ""
+    },
     email: {
         type: String,
         required: true
@@ -40,6 +44,10 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    user_description: {
+        type: String,
+        default: ""
     },
     telephone: {
         type: Number,
