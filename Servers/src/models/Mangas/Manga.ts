@@ -1,5 +1,12 @@
 import mongoose from'mongoose';
+import paginate from 'mongoose-paginate-v2';
 const {Schema} = mongoose
+export interface IMangas extends mongoose.Document{
+    title:string,
+    genres:string,
+    cover_image:string,
+    rating:string
+};
 
 const MangaSchema = new Schema({
     title:{
@@ -31,6 +38,11 @@ const MangaSchema = new Schema({
     }
 })
 
-const Manga = mongoose.model('Manga', MangaSchema)
+MangaSchema.plugin(paginate);
 
+const Manga = mongoose.model<
+IMangas,
+mongoose.PaginateModel<IMangas>
+>('Manga', MangaSchema)
 export default Manga
+
