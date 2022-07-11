@@ -8,6 +8,7 @@ import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
 import Registration from './components/Registration/Registration';
 import User from './components/User/User';
+import UserButtons from './components/UserButtons';
 
 
 function App() {
@@ -25,8 +26,7 @@ function App() {
         setAppear={setAppear} />
       <div className="three">
         {/* <LinkZone /> */}
-        <h2>WishList</h2>
-        <h2>Card</h2>
+        <UserButtons/>
       </div>
       <div className="four">
         <div className="side-bar">
@@ -42,6 +42,9 @@ function App() {
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
+        <Route path='/user/fav' element={<h1>I'm the Favorites component</h1>} />
+        <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
+        <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
       </Routes>
       <div className="six">
         <div></div>
