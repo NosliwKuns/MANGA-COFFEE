@@ -124,10 +124,9 @@ const initialState: InitialState = {
   export const fetchMangaByGenres = (genre: string): AppThunk => {
     console.log(genre)
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?filter=${genre}`)
-      let a = data.filter((e: any) => e.genres.includes(genre));
-      console.log(a)
-      dispatch(filterMangaByGenres(a))
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/genero/?genres=${genre}`)
+      console.log(data)
+      dispatch(filterMangaByGenres(data[0]))
     }
   }
   
