@@ -72,6 +72,10 @@ const userSlice = createSlice({
       };
       window.localStorage.setItem("copySliceUser",JSON.stringify(""))
       window.location.reload()
+    },
+    favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
+      state.favorites = action.payload
+      
     }
   },
 });
@@ -125,8 +129,21 @@ export const setDetailUser = (id:string , headers: object):AppThunk => {
   }
 }
 
+export const FetchFavoriteMangas = (id:string , title: string, headers: object):AppThunk => {
+  return async (dispatch) => {
+    const {data} = await axios.put(`http://localhost:5000/api/user/fav/${id}`, [{
+      id,
+      title
+    }], headers )
+    console.log(data)
+    dispatch(favoriteMangas(data))
+  }
+}
+
+// http://localhost:5000/api/user/fav/:id 
+
 //get ('/' , headers)
 //post ('/' , {} , headers)
 
 export default userSlice.reducer;
-export const { loginUser, createUser ,logOutUser } = userSlice.actions;
+export const { loginUser, createUser ,logOutUser, favoriteMangas } = userSlice.actions;
