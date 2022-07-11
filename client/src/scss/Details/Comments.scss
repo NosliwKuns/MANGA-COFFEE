@@ -1,0 +1,32 @@
+.comments-container {
+  display: grid;
+  gap: 1em;
+  text-align: start;
+
+  .title-text {
+    display: flex;
+    gap: 1em;
+  }
+
+  .separator {
+    height: 1px;
+    background: var(--light--200);
+  }
+
+  .comment {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+
+    .input-text {
+      display: grid;
+      width: 100%;
+
+      input {
+        background: transparent;
+        border: none;
+        border-bottom: solid var(--primary) 2px;
+      }
+    }
+  }
+}

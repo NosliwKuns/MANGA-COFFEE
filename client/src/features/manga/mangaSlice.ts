@@ -7,6 +7,13 @@ interface Chapter  {
   link : Array<string>
 }
 
+interface Comments {
+  name : string,
+  body : string,
+  _id : string,
+  time: string
+}
+
 interface Detail {
   _id : string,
   title : string ,
@@ -14,12 +21,14 @@ interface Detail {
   description : string,
   cover_image : string,
   mangas : Chapter[],
-  rating : number
+  rating : number,
+  comments : Comments[]
 }
 
 type InitialState = {
     mangas: Detail[], // Array<any>
-    manga : Detail
+    manga : Detail,
+    comments : Comments[]
   }
 
 const initialState: InitialState = {
@@ -31,8 +40,10 @@ const initialState: InitialState = {
       description : '',
       cover_image : '', 
       mangas : [],
-      rating : 0
-    }
+      rating : 0,
+      comments : []
+    },
+    comments : []
   }
   
   const mangaSlice = createSlice({
@@ -56,6 +67,24 @@ const initialState: InitialState = {
       },
       SortByRating: (state, action : PayloadAction<Detail[]>) => {
         state.mangas = action.payload
+      },
+      mangaComments: (state, action : PayloadAction<Comments[]>) => {
+        state.comments = [
+          Object.assign(action.payload),
+          ...state.comments
+        ]
+      },
+      cleanDetails: (state) => {
+        state.manga = {
+          _id : '',
+          title : '',
+          genres : [''],
+          description : '',
+          cover_image : '', 
+          mangas : [],
+          rating : 0,
+          comments : []
+        }
       },
       paginate: (state, action : PayloadAction<Detail[]>) => {
         state.mangas = action.payload
@@ -108,6 +137,18 @@ const initialState: InitialState = {
       const { data } = await axios.get(`http://localhost:5000/api/manga/?${rating}`)
       dispatch(searchMangaByName(data))
     }
+  };
+
+  export const fetchMangaComments = (comment : any): AppThunk => {
+    return async (dispatch) => {
+      dispatch(mangaComments(comment))
+    }
+  };
+
+  export const fetchCleanDetails = () => {
+    return (dispatch : any)  => {
+      dispatch(cleanDetails())
+    }
   }
 
   export const fetchPagination = (page: string): AppThunk => {
@@ -125,7 +166,10 @@ const initialState: InitialState = {
       filterMangaByGenres,
       SortByName,
       SortByRating,
-      paginate
+      mangaComments,
+      cleanDetails,
+      paginate,
   } = mangaSlice.actions
+
   
 
