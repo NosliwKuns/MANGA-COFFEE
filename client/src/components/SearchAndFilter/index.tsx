@@ -6,9 +6,11 @@ type Props = {
   setAppear: React.Dispatch<React.SetStateAction<boolean>>;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setGender: React.Dispatch<React.SetStateAction<string>>;
+  setAlph: React.Dispatch<React.SetStateAction<string>>;
+  setRate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchAndFilter = ({ appear , setAppear, setSearch, setGender }: Props) => {
+const SearchAndFilter = ({ appear , setAppear, setSearch, setGender, setAlph, setRate }: Props) => {
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -28,6 +30,12 @@ const SearchAndFilter = ({ appear , setAppear, setSearch, setGender }: Props) =>
               setSearch={setSearch}
             />
           </div>
+          <button onClick={() => {
+            setSearch('')
+            setGender('')
+            setAlph('')
+            setRate('')
+          }}>Clear</button>
         </section>
         <section className="display">
           <h2>WishList</h2>

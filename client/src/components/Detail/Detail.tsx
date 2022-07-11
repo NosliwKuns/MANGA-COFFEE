@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchDetailManga, fetchCleanDetails } from "../../features/manga/mangaSlice";
 import { useEffect} from "react";
+import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import '../../scss/Details/Detail.scss';
 import Comments from "./Comments";
@@ -42,7 +43,19 @@ const Detail = () => {
       <p>{manga.description}</p>
       <p>{manga.description}</p>
       <p>{manga.description}</p>
-      <p>{manga.mangas.map((c : any) => c.chapter)}</p>
+        <div>
+          {
+            manga.mangas.map((e : any)=> {
+              return (
+               
+                  <div>{e.chapter}
+                  {e.link.map((e : any)=> <img src={e}/>)}
+                  </div>
+                
+              )
+            })
+          }
+        </div>
       <Comments comments={manga.comments}/>
     </div>
   );
