@@ -125,5 +125,8 @@ export const setDetailUser = (id:string , headers: object):AppThunk => {
   }
 }
 
+//get ('/' , headers)
+//post ('/' , {} , headers)
+
 export default userSlice.reducer;
 export const { loginUser, createUser ,logOutUser } = userSlice.actions;

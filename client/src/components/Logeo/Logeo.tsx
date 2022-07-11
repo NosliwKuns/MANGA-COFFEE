@@ -1,11 +1,10 @@
-
-import {  useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { loginUser, userLog } from "../../features/user/userSlice";
+import { userLog } from "../../features/user/userSlice";
 import { InitialState } from "../../features/user/userSlice";
 import { validate } from "./func/validate";
-import {Link} from 'react-router-dom'
+import "../../scss/User/Registration.scss";
 
 const Logeo = () => {
   const [input, setInput] = useState<InitialState>({
@@ -13,9 +12,9 @@ const Logeo = () => {
     email: "", // segio@
     password: "", // sds2
     loged: false,
-    user : "",
-    token :"",
-    favorites :[]
+    user: "",
+    token: "",
+    favorites: [],
   });
 
   const [errors, setErrors] = useState<any>({
@@ -55,47 +54,58 @@ const Logeo = () => {
       email: "", // segio@
       password: "", // sds2
       loged: false,
-      user:"",
+      user: "",
       token: "",
-      favorites :[]
-    })
+      favorites: [],
+    });
     setErrors({
       email: "",
       password: "",
       loged: false,
     });
-    navigate("/", { replace: true })
+    navigate("/", { replace: true });
   };
 
   return (
-    <div>
+    <div className={"form_Registration_container"}>
+      <form onSubmit={handleSubmit}>
+        <div className="form_Registration_title">
+          <h1>Welcome Back !</h1>
+        </div>
 
-    <form onSubmit={handleSubmit}>
-      <h1>Welcome Back !</h1>
-      <label htmlFor="emial">Email :</label>
-      <input
-        name="email"
-        type="text"
-        placeholder="email"
-        onChange={handleChange}
-        value={input.email}
-      />
+        <div className="form_Registration_input">
+          <label htmlFor="emial">Email :</label>
+          <input
+            name="email"
+            type="text"
+            placeholder="email"
+            onChange={handleChange}
+            value={input.email}
+          />
 
-      {errors.email.length>1 && <label>{errors.email}</label>}
+          {errors.email.length > 1 && <p>{errors.email}</p>}
+        </div>
 
-      <label htmlFor="password">Password :</label>
-      <input
-        name="password"
-        type="text"
-        placeholder="password"
-        onChange={handleChange}
-        value={input.password}
-      />
-      {errors.password.length >1 && <p>{errors.password}</p>}
-      <button>Log in</button>
-    </form>
+        <div className="form_Registration_input">
+          <label htmlFor="password">Password :</label>
+          <input
+            name="password"
+            type="text"
+            placeholder="password"
+            onChange={handleChange}
+            value={input.password}
+          />
+          {errors.password.length > 1 && <p>{errors.password}</p>}
+        </div>
+        <div>
+        <button>Log in</button>
+        </div>
+        <span>------------------------------------------</span>
+        <div>
+          <h5>Logeo con Google</h5>
+        </div>
+      </form>
     </div>
-    
   );
 };
 
