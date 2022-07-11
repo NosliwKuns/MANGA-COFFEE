@@ -37,7 +37,7 @@ const User = () => {
          onClick={()=>{ navigate("/registration", { replace: true })}}>Log In</button>
         </div>
       }
-     
+     <span>HOLA</span>
     </div>
   )
 }
