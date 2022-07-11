@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
-
+import "../../scss/User/Registration.scss";
 const Registration = () => {
   const [input, setInput] = useState({
     id: "",
@@ -11,8 +11,8 @@ const Registration = () => {
     password: "", // sds2
     loged: false,
     user: "",
-    token : "",
-    favorites : []
+    token: "",
+    favorites: [],
   });
   const [errors, setErrors] = useState({
     email: "",
@@ -22,7 +22,7 @@ const Registration = () => {
   });
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleChange = (event: any) => {
     setInput({
@@ -45,8 +45,8 @@ const Registration = () => {
     // ? no te olvides enviar el user name modificado en el reducer
 
     const verificate: any = await dispatch(singUpUser(input));
-    console.log(verificate)
-    if (typeof verificate === 'string') {
+    console.log(verificate);
+    if (typeof verificate === "string") {
       alert("existe");
     } else {
       alert("Your count was created");
@@ -57,8 +57,8 @@ const Registration = () => {
       password: "", // sds2
       loged: false,
       user: "",
-      token : "",
-      favorites : []
+      token: "",
+      favorites: [],
     });
     setErrors({
       email: "",
@@ -67,46 +67,61 @@ const Registration = () => {
       user: "",
     });
 
-    navigate("/", { replace: true })
+    navigate("/", { replace: true });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Welcome</h1>
-      <label htmlFor="emial">Email :</label>
-      <input
-        name="email"
-        type="text"
-        placeholder="email"
-        onChange={handleChange}
-        value={input.email}
-      />
+    <div className={"form_Registration_container"}>
+      <form onSubmit={handleSubmit}>
+        <div className="form_Registration_title">
+          <h1>Welcome</h1>
+        </div>
+        <div className="form_Registration_input">
+          <label htmlFor="emial">Email :</label>
+          <input
+            name="email"
+            type="text"
+            placeholder="email"
+            onChange={handleChange}
+            value={input.email}
+          />
 
-      {errors.email.length > 1 && <label>{errors.email}</label>}
+          {errors.email.length > 1 && <div>{errors.email}</div>}
+        </div>
 
-      <label htmlFor="password">Password :</label>
-      <input
-        name="password"
-        type="text"
-        placeholder="password"
-        onChange={handleChange}
-        value={input.password}
-      />
-      {errors.password.length > 1 && <p>{errors.password}</p>}
+        <div className="form_Registration_input">
+          <label htmlFor="password">Password :</label>
+          <input
+            name="password"
+            type="text"
+            placeholder="password"
+            onChange={handleChange}
+            value={input.password}
+          />
+          {errors.password.length > 1 && <div>{errors.password}</div>}
+        </div>
 
-      <label htmlFor="user"> NickName :</label>
-      <input
-        name="user"
-        type="text"
-        placeholder="user"
-        onChange={handleChange}
-        value={input.user}
-      />
+        <div className="form_Registration_input">
+          <label htmlFor="user"> NickName :</label>
+          <input
+            name="user"
+            type="text"
+            placeholder="user"
+            onChange={handleChange}
+            value={input.user}
+          />
 
-      {errors.user.length > 1 && <label>{errors.user}</label>}
-
-      <button>Log in</button>
-    </form>
+          {errors.user.length > 1 && <div>{errors.user}</div>}
+        </div>
+        <div>
+          <button>Log in</button>
+        </div>
+        <span>------------------------------------------</span>
+        <div>
+          <h5>Logeo con Google</h5>
+        </div>
+      </form>
+    </div>
   );
 };
 
