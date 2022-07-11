@@ -1,6 +1,5 @@
 import { fetchPagination } from '../../../features/manga/mangaSlice'
 import { useAppDispatch } from '../../../app/hooks';
-import { useEffect, useState } from 'react';
 
 const Pagination = () =>{
     const dispatch = useAppDispatch();
