@@ -1,20 +1,14 @@
-import { fetchPagination, fetchTotalPages } from '../../../features/manga/mangaSlice'
+import { fetchPagination } from '../../../features/manga/mangaSlice'
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { useEffect } from 'react';
 import '../../../scss/Home/Pagination.scss'
 
 const Pagination = () =>{
     const dispatch = useAppDispatch();
-    const totalPages:number = useAppSelector(state=> state.mangas.totalPages)
+    const totalPages:number = useAppSelector(state=> state.mangas.mangas.totalPages)
     const pages = Array(totalPages).fill(0)
 
-    useEffect(()=>{
-        dispatch(fetchTotalPages())
-    },[dispatch])
-
     const handleClick=(e:any) =>{
-        const back = `page=${e}`
-        dispatch(fetchPagination(back));
+        dispatch(fetchPagination(e));
     }
     return(
         <div className='btn'>

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 const Cards = () => {
     const {mangas} = useAppSelector(state => state.mangas)
     const dispatch = useAppDispatch()
+    console.log(mangas, 'seraaaaaaaa')
     useEffect (()=>{
       dispatch(fetchAllManga())
     },[dispatch])
@@ -14,7 +15,7 @@ const Cards = () => {
     return (
       <div className="cards-container">
         {
-          mangas.map(e=> {
+          mangas.docs.map(e=> {
             return (
               <Link to={`/detail/${e._id}`}>
                 <div key={e._id}>
