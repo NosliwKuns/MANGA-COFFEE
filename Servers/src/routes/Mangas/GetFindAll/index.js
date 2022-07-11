@@ -17,7 +17,8 @@ const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
 router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { name, rating, page, search } = req.query;
+        let { name, rating, genre, search } = req.query;
+        let page = req.query.page || 1;
         let sortBy = {};
         let value = Number(name);
         if (name) {
@@ -30,7 +31,17 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         if (!value) {
             sortBy = { title: 1 };
         }
-        const mangas = yield Manga_js_1.default.paginate({}, {
+        var mutate;
+        if (!genre && !search) {
+            mutate = {};
+        }
+        else if (!genre) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
+        }
+        else if (!search) {
+            mutate = { genres: genre };
+        }
+        const mangas = yield Manga_js_1.default.paginate(mutate, {
             page: Number(page),
             limit: 12,
             select: ["title", "genres", "rating", "cover_image"],

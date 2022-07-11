@@ -15,16 +15,16 @@ const FilterMangas = () => {
   let b : Array<string> = ['action', 'adventure', 'fantasy', 'comedy', 'drama', 'mystery', 'romance', 'Drama', 'Action', 'horror', 'sciFi', 'school life']
   console.log(genres);
 
-  const [change, setChange] = useState<any>([])
+  /* const [change, setChange] = useState<any>([]) */
 
   const handleClick = (event: any) => {
     console.log(event.target.innerText);
 
-    const newArr = !change.includes(event.target.innerText)
+    /* const newArr = !change.includes(event.target.innerText)
       ? [...change, event.target.innerText]
       : [...change.filter((genre : string) => genre !== event.target.innerText)]
   
-    setChange(newArr)
+    setChange(newArr) */
     console.log(event.target.innerText)
   
     dispatch(fetchMangaByGenres(event.target.innerText))
@@ -34,7 +34,7 @@ const FilterMangas = () => {
   return (
     <>
     {
-      b.map( (genre: string) => {
+      genres.map( (genre: string) => {
         return (
           <div
             key={`${id}_${genre}`}
