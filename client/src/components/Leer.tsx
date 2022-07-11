@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../app/hooks";
-import {}
+// import { useParams } from "react-router-dom";
+// import { useAppSelector, useAppDispatch } from "../app/hooks";
+// import {}
 
 // const Leer = () => {
 //   const id = useParams()
