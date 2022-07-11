@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { AppThunk } from "../../app/store";
 import { createUser, singUpUser } from "../../features/user/userSlice";
@@ -22,6 +23,7 @@ const Registration = () => {
   });
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const handleChange = (event: any) => {
     setInput({
@@ -44,7 +46,7 @@ const Registration = () => {
     // ? no te olvides enviar el user name modificado en el reducer
 
     const verificate: any = await dispatch(singUpUser(input));
- 
+    console.log(verificate)
     if (typeof verificate === 'string') {
       alert("existe");
     } else {
@@ -65,9 +67,10 @@ const Registration = () => {
       loged: false,
       user: "",
     });
+
+    navigate("/", { replace: true })
   };
 
-  console.log(input);
   return (
     <form onSubmit={handleSubmit}>
       <h1>Welcome</h1>

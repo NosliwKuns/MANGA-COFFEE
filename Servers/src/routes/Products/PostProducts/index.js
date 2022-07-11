@@ -13,18 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Products_js_1 = __importDefault(require("../../../models/Products/Products.js"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, description, image, price, stock, rating, comments } = req.body;
+    const { name, description, product_image, price, stock, category, rating, comments } = req.body;
     try {
-        if (!name || !description || !image || !price || !stock || !rating || !comments) {
-            res.status(400).json({ message: 'Please fill all the fields' });
-        }
-        else {
-            let newproduct = yield Products_js_1.default.create({ name, description, image, price, stock, rating, comments });
-            res.status(200).json(newproduct);
-        }
+        const product = yield index_1.default.create({ name, description, product_image, price, stock, category, rating, comments });
+        res.json(product);
     }
     catch (error) {
         res.status(500).json("error");

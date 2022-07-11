@@ -64,6 +64,7 @@ const Logeo = () => {
       password: "",
       loged: false,
     });
+    navigate("/", { replace: true })
   };
 
   return (

@@ -13,17 +13,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const passport_1 = __importDefault(require("passport"));
-const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const index_js_1 = __importDefault(require("../../../models/Products/index.js"));
 const router = (0, express_1.Router)();
-router.get('/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('GetByIdUser');
+router.delete('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        console.log(id);
-        const user = yield User_js_1.default.findById(id);
-        console.log(user);
-        res.status(200).json(user);
+        let deleteProduct = yield index_js_1.default.findByIdAndDelete(id);
+        res.json({ message: 'Product deleted' });
     }
     catch (error) {
         next(error);

@@ -10,7 +10,14 @@ import PostUserinit from './Users/PostUserinit/index';
 import GetByIdUser from './Users/GetByIdUser/index'
 import PutByIdUser from './Users/PutByIdUser/index'
 import PutByIdUserFav from './Users/PutByIdUserFav/index'
-import PostProducts from './Products/PostProducts/index';
+import GetMangaFavoUser from './Users/GetMangaFavoUser/index'
+import DeleteByIdProducts from './Products/DeleteByIdProducts/index'
+import FilterByIdProducts from './Products/FilterByIdProducts/index'
+import FilterByNameProducts from './Products/FilterByNameProducts/index'
+import GetFindAllProducts from './Products/GetFindAllProducts/index'
+import PostProducts from './Products/PostProducts/index'
+import FilterByCategory from './Products/FilterByCategory/index'
+
 const router = Router();
 
 router.use('/manga', FilterByGenre)
@@ -25,8 +32,16 @@ router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
 router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
+router.use('/user', GetMangaFavoUser);
 
-router.use('/products', PostProducts)
+router.use('/products', DeleteByIdProducts);
+router.use('/products', FilterByIdProducts);
+router.use('/products', FilterByNameProducts);
+router.use('/products', GetFindAllProducts);
+router.use('/products', PostProducts);
+router.use('/products', FilterByCategory);
+
+
 
 
 

@@ -13,16 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Products_js_1 = __importDefault(require("../../../models/Products/Products.js"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.delete('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+router.get('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
     try {
-        let deleteproduct = yield Products_js_1.default.findByIdAndDelete(id);
-        console.log(deleteproduct);
-        res.status(200).json(deleteproduct);
+        let product = yield index_1.default.findById(id);
+        if (product) {
+            res.json(product);
+        }
+        else {
+            res.status(404).json({ message: 'Product not found' });
+        }
     }
     catch (error) {
-        next(error);
+        res.status(500).json({ message: 'Error' });
     }
 }));
+exports.default = router;

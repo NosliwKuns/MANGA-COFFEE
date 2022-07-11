@@ -13,20 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const passport_1 = __importDefault(require("passport"));
-const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.get('/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('GetByIdUser');
-    const { id } = req.params;
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(id);
-        const user = yield User_js_1.default.findById(id);
-        console.log(user);
-        res.status(200).json(user);
+        let products = yield index_1.default.find({});
+        res.status(200).json(products);
     }
     catch (error) {
-        next(error);
+        res.status(500).json(error);
     }
 }));
 exports.default = router;

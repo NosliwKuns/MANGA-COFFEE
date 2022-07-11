@@ -23,13 +23,19 @@ const UserSchema = new Schema({
     },
     name: {
         type: String,
+        default: ""
     },
     lastname: {
         type: String,
+        default: ""
     },
     user_image: {
         type: String,
-        required: true
+        default: ""
+    },
+    user_banner: {
+        type: String,
+        default: ""
     },
     email: {
         type: String,
@@ -39,14 +45,21 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    user_description: {
+        type: String,
+        default: ""
+    },
     telephone: {
-        type: Number
+        type: Number,
+        default: 0
     },
     address: {
         type: String,
+        default: ""
     },
     favorites: {
-        type: [Object]
+        type: [Object],
+        default: []
     }
 });
 UserSchema.pre('save', function (next) {

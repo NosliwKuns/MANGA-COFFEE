@@ -86,6 +86,9 @@ const initialState: InitialState = {
           comments : []
         }
       },
+      paginate: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
+      }
     }
   })
 
@@ -148,6 +151,13 @@ const initialState: InitialState = {
     }
   }
 
+  export const fetchPagination = (page: string): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${page}`)
+      dispatch(paginate(data))
+    }
+  }
+  
   export default mangaSlice.reducer
   export const { 
       getAddMangas, 
@@ -157,7 +167,9 @@ const initialState: InitialState = {
       SortByName,
       SortByRating,
       mangaComments,
-      cleanDetails
+      cleanDetails,
+      paginate,
   } = mangaSlice.actions
+
   
 
