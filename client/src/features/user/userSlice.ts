@@ -69,7 +69,7 @@ export const userLog = (user: InitialState): AppThunk => {
       email: user.email,
       password: user.password,
     });
-
+    console.log(data)
     const copyInitialState = {
       id: data.usuario._id,
       email: data.usuario.email,
@@ -82,6 +82,7 @@ export const userLog = (user: InitialState): AppThunk => {
     dispatch(
       loginUser(copyInitialState)
     );
+
     window.localStorage.setItem("copySliceUser",JSON.stringify(copyInitialState))
   };
 };
@@ -99,6 +100,7 @@ export const singUpUser = (user: InitialState): AppThunk => {
       }
     );
     console.log(data);
+    dispatch (userLog(user))
     return data;
   };
 };

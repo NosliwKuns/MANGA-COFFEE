@@ -55,7 +55,7 @@ function App() {
         <Route path='/userDetail' element={<UserDetail/>}/>
       </Routes>
       <div className="six">
-        <div></div>
+        <div><User/></div>
         <div></div>
       </div>
     </div>
