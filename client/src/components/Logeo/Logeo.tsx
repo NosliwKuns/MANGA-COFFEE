@@ -24,6 +24,7 @@ const Logeo = () => {
   });
 
   const user = useAppSelector((state) => state.user);
+  const [switchButton , setSwitchB] = useState<boolean>(false)
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -83,22 +84,24 @@ const Logeo = () => {
             value={input.email}
           />
 
-          {errors.email.length > 1 && <p>{errors.email}</p>}
+          {errors.email.length > 1 && <label>{errors.email}</label>}
         </div>
 
         <div className="form_Registration_input">
           <label htmlFor="password">Password :</label>
           <input
             name="password"
-            type="text"
+            type={switchButton ? "text" : "password"}
             placeholder="password"
             onChange={handleChange}
             value={input.password}
           />
+          <button onClick={()=>setSwitchB(!switchButton)}>👀</button>
           {errors.password.length > 1 && <p>{errors.password}</p>}
         </div>
         <div>
         <button>Log in</button>
+
         </div>
         <span>------------------------------------------</span>
         <div>
