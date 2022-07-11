@@ -15,7 +15,7 @@ export type InitialState = {
   loged: boolean;
   user: string;
   token: string;
-  favorites : Array<favoritesMangas>
+  favorites : Array<favoritesMangas>;
 };
 
 

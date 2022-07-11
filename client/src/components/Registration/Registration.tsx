@@ -23,6 +23,7 @@ const Registration = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [switchButton , setSwitchB] = useState<boolean>(false)
 
   const handleChange = (event: any) => {
     setInput({
@@ -93,11 +94,12 @@ const Registration = () => {
           <label htmlFor="password">Password :</label>
           <input
             name="password"
-            type="text"
+            type={switchButton ? "text" : "password"}
             placeholder="password"
             onChange={handleChange}
             value={input.password}
           />
+          <button onClick={()=>setSwitchB(!switchButton)}>👀</button>
           {errors.password.length > 1 && <div>{errors.password}</div>}
         </div>
 
