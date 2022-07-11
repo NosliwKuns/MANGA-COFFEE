@@ -13,33 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { name, description, product_image, price, stock, category, rating, comments } = req.body;
     try {
-        let page = req.query.page || 0;
-        let { name, rating } = req.query;
-        const mgPerPage = 12;
-        let sortBy = {};
-        let value = Number(name);
-        if (name) {
-            sortBy = { title: value };
-        }
-        if (rating) {
-            value = Number(rating);
-            sortBy = { rating: value };
-        }
-        if (!value) {
-            sortBy = { title: 1 };
-        }
-        const mangas = yield Manga_js_1.default.find({}, ["title", "genres", "rating", "cover_image"])
-            .sort(sortBy)
-            .skip(Number(page) * mgPerPage)
-            .limit(mgPerPage);
-        res.status(200).json(mangas);
+        const product = yield index_1.default.create({ name, description, product_image, price, stock, category, rating, comments });
+        res.json(product);
     }
     catch (error) {
-        next(error);
+        res.status(500).json("error");
     }
 }));
 exports.default = router;

@@ -13,33 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
     try {
-        let page = req.query.page || 0;
-        let { name, rating } = req.query;
-        const mgPerPage = 12;
-        let sortBy = {};
-        let value = Number(name);
-        if (name) {
-            sortBy = { title: value };
+        let product = yield index_1.default.findById(id);
+        if (product) {
+            res.json(product);
         }
-        if (rating) {
-            value = Number(rating);
-            sortBy = { rating: value };
+        else {
+            res.status(404).json({ message: 'Product not found' });
         }
-        if (!value) {
-            sortBy = { title: 1 };
-        }
-        const mangas = yield Manga_js_1.default.find({}, ["title", "genres", "rating", "cover_image"])
-            .sort(sortBy)
-            .skip(Number(page) * mgPerPage)
-            .limit(mgPerPage);
-        res.status(200).json(mangas);
     }
     catch (error) {
-        next(error);
+        res.status(500).json({ message: 'Error' });
     }
 }));
 exports.default = router;

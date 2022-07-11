@@ -1,17 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { AppThunk } from '../../app/store'
+
 interface Chapter  {
   chapter : number, 
   link : Array<string>
 }
+
 interface Detail {
   _id : string,
   title : string ,
   genres : Array<string> ,
   description : string,
   cover_image : string,
-   mangas : Chapter[]
+  mangas : Chapter[],
+  rating : number
 }
 
 type InitialState = {
@@ -27,7 +30,8 @@ const initialState: InitialState = {
       genres : [''],
       description : '',
       cover_image : '', 
-      mangas : []
+      mangas : [],
+      rating : 0
     }
   }
   
@@ -46,13 +50,22 @@ const initialState: InitialState = {
       },
       filterMangaByGenres: (state, action : PayloadAction<Detail[]>) => {
         state.mangas = action.payload
+      },
+      SortByName: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
+      },
+      SortByRating: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
+      },
+      paginate: (state, action : PayloadAction<Detail[]>) => {
+        state.mangas = action.payload
       }
     }
   })
 
   export const fetchAllManga = ():AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/manga")
+      const {data} = await axios.get("http://localhost:5000/api/manga/")
       console.log(data)
       dispatch(getAddMangas(data))
     }
@@ -72,7 +85,7 @@ const initialState: InitialState = {
       dispatch(searchMangaByName(data))
     }
   }
-
+  
   export const fetchMangaByGenres = (genre: string): AppThunk => {
     console.log(genre)
     return async (dispatch) => {
@@ -82,14 +95,37 @@ const initialState: InitialState = {
       dispatch(filterMangaByGenres(a))
     }
   }
+  
+  export const fetchMangaSortByName = (name: string): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${name}`)
+      dispatch(searchMangaByName(data))
+    }
+  }
 
+  export const fetchMangaSortByRating = (rating: string): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${rating}`)
+      dispatch(searchMangaByName(data))
+    }
+  }
+
+  export const fetchPagination = (page: string): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${page}`)
+      dispatch(paginate(data))
+    }
+  }
   
   export default mangaSlice.reducer
   export const { 
       getAddMangas, 
       getDetailManga, 
       searchMangaByName, 
-      filterMangaByGenres
+      filterMangaByGenres,
+      SortByName,
+      SortByRating,
+      paginate
   } = mangaSlice.actions
   
 

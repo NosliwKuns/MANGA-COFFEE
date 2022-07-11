@@ -6,7 +6,7 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-    category:{
+   category:{
         type:[String],
         required: true
     },
@@ -33,4 +33,5 @@ const ProductSchema = new Schema({
 
 const Product = mongoose.model('Product', ProductSchema)
 
-export default Product
+export default Product;
+// esto lo borro despues
