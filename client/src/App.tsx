@@ -12,6 +12,7 @@ import { useAppDispatch } from './app/hooks';
 import { loginUser } from './features/user/userSlice';
 import UserDetail from './components/UseDetail';
 import UserButtons from './components/UserButtons';
+import Chat from './components/Chat/Chat'
 
 function App() {
 
@@ -65,7 +66,7 @@ function App() {
       </Routes>
       <div className="six">
         <div><User/></div>
-        <div></div>
+        <div><Chat/></div>
       </div>
     </div>
   )
