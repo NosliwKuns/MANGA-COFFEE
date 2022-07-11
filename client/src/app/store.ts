@@ -2,11 +2,13 @@ import {Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import mangaReducer from '../features/manga/mangaSlice'
 import productsReducer from '../features/products/productsSlice'
 import userReducer from '../features/user/userSlice'
+import chatReducer from '../features/ChatSlice/ChatSlice'
 const store = configureStore({
   reducer: {
     mangas : mangaReducer,
     products : productsReducer ,
-    user : userReducer
+    user : userReducer,
+    chat: chatReducer
   }
 })
 
