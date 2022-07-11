@@ -35,11 +35,14 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         if (!genre && !search) {
             mutate = {};
         }
-        else if (!genre) {
+        else if (genre && search) {
             mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
         }
         else if (!search) {
             mutate = { genres: genre };
+        }
+        else if (!genre) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
         }
         const mangas = yield Manga_js_1.default.paginate(mutate, {
             page: Number(page),
