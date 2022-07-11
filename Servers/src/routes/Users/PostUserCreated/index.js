@@ -34,8 +34,8 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             return res.status(200).json("Usuario existente");
         }
         ;
-        const newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });
-        yield newuser.save();
+        let newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });
+        newuser = yield newuser.save();
         res.status(201).json({ token: crateToken(newuser), usuario: newuser });
     }
     catch (error) {

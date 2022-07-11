@@ -20,8 +20,8 @@ router.post('/register', async (req, res, next) => {
         if (user.length){
             return res.status(200).json("Usuario existente");
         };
-        const newuser = new User({users, name, lastname, email, favorites, telephone, address, password});
-        await newuser.save();
+        let newuser = new User({users, name, lastname, email, favorites, telephone, address, password});
+        newuser = await newuser.save();
         res.status(201).json({token:crateToken(newuser), usuario: newuser});
     } catch (error) {
         next(error);
