@@ -16,14 +16,16 @@ function App() {
 
   const [ appear, setAppear ] = useState<boolean>(false)
   const dispatch = useAppDispatch()
+  const localUser:any  = localStorage.getItem('copySliceUser')
+  const rerender = useState<string>(localUser)
+  const user = JSON.parse(localUser)
 
   useEffect(()=>{
-    const localUser:any  = localStorage.getItem('copySliceUser')
-    const user = JSON.parse(localUser)
     if(user){
      dispatch(loginUser(user))
     }
-  },[])
+  },[rerender])
+
   return (
     <div className="App">
       <div className="one">

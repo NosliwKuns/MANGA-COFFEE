@@ -60,6 +60,19 @@ const userSlice = createSlice({
 
     console.log(state.email, state.token ,'hola')
     },
+    logOutUser: (state)=>{
+      state = {
+        id: "",
+        email: "",
+        password: "",
+        loged: false,
+        user: "",
+        token: "",
+        favorites :[],
+      };
+      window.localStorage.setItem("copySliceUser",JSON.stringify(""))
+      window.location.reload()
+    }
   },
 });
 
@@ -113,4 +126,4 @@ export const setDetailUser = (id:string , headers: object):AppThunk => {
 }
 
 export default userSlice.reducer;
-export const { loginUser, createUser } = userSlice.actions;
+export const { loginUser, createUser ,logOutUser } = userSlice.actions;
