@@ -3,7 +3,7 @@ import { FaUserCircle } from 'react-icons/fa';
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchGlobalChat } from '../../features/ChatSlice/ChatSlice';
-import '../../../scss/Details/Comments.scss'
+// import '../../../scss/Details/Comments.scss'
 
 const Chat = () => {
   const id = useId();
@@ -33,7 +33,7 @@ const Chat = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if(!input.body) {
+    if(!input.message) {
       return alert('Invalid action')
     }
     dispatch(fetchGlobalChat(input))
@@ -87,9 +87,9 @@ const Chat = () => {
           >
             <input 
               type="text" 
-              id="body" 
-              name="body" 
-              value={input.body}
+              id="message" 
+              name="message" 
+              value={input.message}
               onChange={handleChange}
               placeholder="Chat with others..."/>
             <section>
