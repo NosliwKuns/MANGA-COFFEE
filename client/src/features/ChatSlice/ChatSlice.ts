@@ -22,8 +22,8 @@ type InitialState = {
     reducers: {
       GlobalChat: (state, action : PayloadAction<Array<Chat>>) => {
         state.chat = [
+          ...state.chat,
           Object.assign(action.payload),
-          ...state.chat
         ]
       },
     }
