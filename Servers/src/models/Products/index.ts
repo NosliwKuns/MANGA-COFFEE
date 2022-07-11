@@ -28,6 +28,10 @@ const ProductSchema = new Schema({
     },
     comments: {
         type:[{ name: String, body: String }]
+    },
+    stock:{
+        type: Number,
+        required: true
     }
 })
 

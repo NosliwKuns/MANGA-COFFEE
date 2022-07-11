@@ -16,6 +16,7 @@ import FilterByNameProducts from './Products/FilterByNameProducts/index'
 import GetFindAllProducts from './Products/GetFindAllProducts/index'
 import PostProducts from './Products/PostProducts/index'
 import FilterByCategory from './Products/FilterByCategory/index'
+import PutProducts from './Products/PutProducts/index'
 
 const router = Router();
 
@@ -38,6 +39,7 @@ router.use('/products', FilterByNameProducts);
 router.use('/products', GetFindAllProducts);
 router.use('/products', PostProducts);
 router.use('/products', FilterByCategory);
+router.use('/products', PutProducts)
 
 
 

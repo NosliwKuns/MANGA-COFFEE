@@ -15,14 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
     const { name, description, product_image, stock, price, category, rating, comments } = req.body;
     try {
-        const product = yield index_1.default.create({ name, description, product_image, price, stock, category, rating, comments });
-        res.json(product);
+        yield index_1.default.findByIdAndUpdate(id, {
+            name,
+            description,
+            product_image,
+            stock,
+            price,
+            category,
+            rating,
+            comments
+        });
+        // Send response in here
+        res.send('Item Updated!');
     }
     catch (error) {
-        res.status(500).json("error");
+        res.send(400).send('Server Error');
     }
 }));
 exports.default = router;
