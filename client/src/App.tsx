@@ -38,8 +38,7 @@ function App() {
         setAppear={setAppear} />
       <div className="three">
         {/* <LinkZone /> */}
-        <h2>WishList</h2>
-        <h2>Card</h2>
+        <UserButtons/>
       </div>
       <div className="four">
         <div className="side-bar">
