@@ -44,7 +44,7 @@ const UserSchema = new Schema({
     },
     favorites:{
         type:[Object],
-        default: [{}]
+        default: []
     }
 });
 

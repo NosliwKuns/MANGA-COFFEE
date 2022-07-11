@@ -51,7 +51,7 @@ const UserSchema = new Schema({
     },
     favorites: {
         type: [Object],
-        default: [{}]
+        default: []
     }
 });
 UserSchema.pre('save', function (next) {
