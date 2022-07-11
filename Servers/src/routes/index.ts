@@ -10,6 +10,7 @@ import PostUserinit from './Users/PostUserinit/index';
 import GetByIdUser from './Users/GetByIdUser/index'
 import PutByIdUser from './Users/PutByIdUser/index'
 import PutByIdUserFav from './Users/PutByIdUserFav/index'
+import GetMangaFavoUser from './Users/GetMangaFavoUser/index'
 import DeleteByIdProducts from './Products/DeleteByIdProducts/index'
 import FilterByIdProducts from './Products/FilterByIdProducts/index'
 import FilterByNameProducts from './Products/FilterByNameProducts/index'
@@ -31,6 +32,7 @@ router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
 router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
+router.use('/user', GetMangaFavoUser);
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
