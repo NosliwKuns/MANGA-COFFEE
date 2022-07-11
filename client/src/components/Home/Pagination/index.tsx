@@ -1,14 +1,20 @@
 import { fetchPagination } from '../../../features/manga/mangaSlice'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+/* import { useAppDispatch, useAppSelector } from '../../../app/hooks'; */
 import '../../../scss/Home/Pagination.scss'
 
-const Pagination = () =>{
-    const dispatch = useAppDispatch();
-    const totalPages:number = useAppSelector(state=> state.mangas.mangas.totalPages)
+type Props = {
+    totalPages: number;
+    setPageNumber: React.Dispatch<React.SetStateAction<number>>
+  }
+
+const Pagination = ({ totalPages, setPageNumber }: Props) =>{
+    /* const dispatch = useAppDispatch(); */
+    /* const totalPages:number = useAppSelector(state=> state.mangas.mangas.totalPages) */
     const pages = Array(totalPages).fill(0)
 
-    const handleClick=(e:any) =>{
-        dispatch(fetchPagination(e));
+    const handleClick=(e: number) =>{
+        /* dispatch(fetchPagination(e)); */
+        setPageNumber(e)
     }
     return(
         <div className='btn'>

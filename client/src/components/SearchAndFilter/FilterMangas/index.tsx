@@ -3,7 +3,12 @@ import { useEffect } from 'react';
 import { fetchMangaByGenres, fetchGetGenres } from "../../../features/manga/mangaSlice";
 import { useAppDispatch , useAppSelector } from "../../../app/hooks";
 
-const FilterMangas = () => {
+type Props = {
+  setGender: React.Dispatch<React.SetStateAction<string>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const FilterMangas = ({ setGender, setSearch } : Props) => {
 
   const id = useId();
   const dispatch = useAppDispatch();
@@ -15,7 +20,9 @@ const FilterMangas = () => {
 
 
   const handleClick = (event: any) => {
-    dispatch(fetchMangaByGenres(event.target.innerText))
+    /* dispatch(fetchMangaByGenres(event.target.innerText)) */
+    setSearch('')
+    setGender(event.target.innerText)
   }
 
 
