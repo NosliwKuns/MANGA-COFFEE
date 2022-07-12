@@ -17,7 +17,7 @@ import GetFindAllProducts from './Products/GetFindAllProducts/index'
 import PostProducts from './Products/PostProducts/index'
 import FilterByCategory from './Products/FilterByCategory/index'
 import PutProducts from './Products/PutProducts/index'
-
+import PostCommentsProducts from './Products/PostCommentsProducts/index'
 const router = Router();
 
 router.use('/manga', FilterByGenre)
@@ -40,6 +40,7 @@ router.use('/products', GetFindAllProducts);
 router.use('/products', PostProducts);
 router.use('/products', FilterByCategory);
 router.use('/products', PutProducts)
+router.use('/products', PostCommentsProducts)
 
 
 
