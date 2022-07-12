@@ -1,4 +1,4 @@
-import config from '../../config/config';
+import config from '../../../config/ConfigEntorno/config';
 import jwt from 'jsonwebtoken';
 
 const ReadTokenData = (authorization: any) => {

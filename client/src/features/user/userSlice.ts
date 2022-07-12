@@ -120,8 +120,12 @@ export const singUpUser = (user: InitialState): AppThunk => {
 
 export const setDetailUser = (headers: object):AppThunk => {
   return async () => {
-    const {data} = await axios.get(`http://localhost:5000/api/user/detail`, headers )
-    console.log(data)
+    try{
+      const {data} = await axios.get(`http://localhost:5000/api/user/detail`, headers )
+      console.log(data)
+    } catch  (e) {
+      console.log('hola')
+    }
   }
 }
 
