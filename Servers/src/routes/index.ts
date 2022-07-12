@@ -5,12 +5,15 @@ import GetFindAll from './Mangas/GetFindAll/index';
 import GetById from './Mangas/GetById/index';
 import DeleteById from './Mangas/DeleteById/index';
 import FilterByGenre from './Mangas/FilterByGenre/index';
+import PutManga from './Mangas/PutManga/index';
+
+
 import PostUserCreated from './Users/PostUserCreated/index';
 import PostUserinit from './Users/PostUserinit/index';
 import GetByIdUser from './Users/GetByIdUser/index'
 import PutByIdUser from './Users/PutByIdUser/index'
 import PutByIdUserFav from './Users/PutByIdUserFav/index'
-import GetMangaFavoUser from './Users/GetMangaFavoUser/index'
+import GetMangaFavoUser from './Users/GetMangaFavoUser/index';
 import DeleteUsers from './Users/DeleteUsers/index'
 import DeleteByIdProducts from './Products/DeleteByIdProducts/index'
 import FilterByIdProducts from './Products/FilterByIdProducts/index'
@@ -30,6 +33,7 @@ router.use('/manga', GetByName);
 router.use('/manga', GetById);
 router.use('/manga', PostManga);
 router.use('/manga', DeleteById);
+router.use('/manga', PutManga);
 
 router.use('/user', DeleteUsers);
 router.use('/user', PostUserCreated);
