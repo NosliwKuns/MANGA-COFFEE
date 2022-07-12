@@ -7,7 +7,7 @@ const router = Router();
 router.put('/fav/:id', async(req, res, next) => {
     console.log('PutByIdUser')
     const {id} = req.params;
-    const {favorites} = req.body; 
+    const {favorites} = req.body;
     try { 
         const oldUser = await User.findById(id); 
         let favOld = oldUser?.favorites;
