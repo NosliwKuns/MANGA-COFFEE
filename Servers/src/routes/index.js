@@ -53,4 +53,3 @@ router.use('/products', index_22.default);
 router.use('/products', index_22.default);
 router.use('/products', index_23.default);
 exports.default = router;
-

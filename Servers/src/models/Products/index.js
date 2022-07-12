@@ -7,8 +7,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema } = mongoose_1.default;
 const ProductSchema = new Schema({
     id_User: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+        type: String,
         required: true
     },
     name: {
@@ -36,7 +35,8 @@ const ProductSchema = new Schema({
         enum: [1, 2, 3, 4, 5]
     },
     comments: {
-        type: [{ name: String, body: String }]
+        type: [{ name: String, body: String }],
+        created_at: { type: Date, required: true, default: Date.now }
     },
     stock: {
         type: Number,
