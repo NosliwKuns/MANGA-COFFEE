@@ -7,6 +7,7 @@ export interface IUser extends mongoose.Document{
     password: string,
     comparePassword: (pasword: string) => Promise<boolean>,
     favorites: [Object],
+    verificated: boolean
 };
 
 const UserSchema = new Schema({

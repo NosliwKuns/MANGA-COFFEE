@@ -7,5 +7,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 exports.default = {
     jwtsecret: process.env.JWT_SECRET || "mysecretmangacoffetoken",
-    Db: process.env.URI || "mongodb+srv://Default2310:dUWDSYBmgpwjgu5x@cluster0.iqdewrr.mongodb.net/Manga-Coffe"
+    Db: process.env.URI || "mongodb+srv://Default2310:dUWDSYBmgpwjgu5x@cluster0.iqdewrr.mongodb.net/Manga-Coffe",
+    mail: 'mangacoffe2310@gmail.com',
+    pass: 'manga23coffe10'
 };

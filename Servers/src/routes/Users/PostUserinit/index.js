@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_1 = __importDefault(require("../../../models/Users/User"));
-const index_1 = __importDefault(require("../../../controles/CreatedToken/index"));
+const index_1 = __importDefault(require("../../../controles/Token/CreatedToken/index"));
 const router = (0, express_1.Router)();
 router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;

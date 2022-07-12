@@ -1,5 +1,5 @@
 import  mongoose from 'mongoose';
-import config from './config/config'
+import config from '../ConfigEntorno/config'
 
 mongoose.connect( config.Db )
     .then(() => console.log('database conect'))

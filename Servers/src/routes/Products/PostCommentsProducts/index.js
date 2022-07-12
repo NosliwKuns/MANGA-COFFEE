@@ -13,20 +13,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const passport_1 = __importDefault(require("passport"));
-const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
-const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.get('/detail', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('GetByIdUser');
-    const { authorization } = req.headers;
+router.post('/comments/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const newcomments = req.body;
     try {
-        const data = (0, index_1.default)(authorization);
-        const user = yield User_js_1.default.findById(data.id);
-        res.status(200).json(user);
+        let product = yield index_1.default.findById(id);
+        if (product) {
+            product.comments.push(newcomments);
+            yield product.save(newcomments);
+            res.json(product);
+        }
+        else {
+            res.status(404).json({ message: 'Product not foundh' });
+        }
     }
     catch (error) {
-        next(error);
+        res.status(500).json({ message: 'Error' });
     }
 }));
 exports.default = router;
