@@ -17,7 +17,7 @@ const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const index_js_1 = __importDefault(require("../../../controles/ReadTokenData/index.js"));
 const router = (0, express_1.Router)();
-router.get('/', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/detail', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('GetByIdUser');
     const { authorization } = req.headers;
     try {

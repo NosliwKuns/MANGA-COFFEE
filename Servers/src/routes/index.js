@@ -15,7 +15,6 @@ const index_8 = __importDefault(require("./Users/PostUserinit/index"));
 const index_9 = __importDefault(require("./Users/GetByIdUser/index"));
 const index_10 = __importDefault(require("./Users/PutByIdUser/index"));
 const index_11 = __importDefault(require("./Users/PutByIdUserFav/index"));
-
 const index_12 = __importDefault(require("./Users/GetMangaFavoUser/index"));
 const index_13 = __importDefault(require("./Users/DeleteUsers/index"));
 const index_14 = __importDefault(require("./Products/DeleteByIdProducts/index"));
@@ -25,7 +24,6 @@ const index_17 = __importDefault(require("./Products/GetFindAllProducts/index"))
 const index_18 = __importDefault(require("./Products/PostProducts/index"));
 const index_19 = __importDefault(require("./Products/FilterByCategory/index"));
 const index_20 = __importDefault(require("./Products/PutProducts/index"));
-
 const router = (0, express_1.Router)();
 router.use('/manga', index_6.default);
 router.use('/manga', index_3.default);
@@ -47,5 +45,4 @@ router.use('/products', index_17.default);
 router.use('/products', index_18.default);
 router.use('/products', index_19.default);
 router.use('/products', index_20.default);
-
 exports.default = router;

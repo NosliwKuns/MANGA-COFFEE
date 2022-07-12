@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 
 const ReadTokenData = (authorization: any) => {
     const header: any = authorization.split(' ');
-    let token = header[2];
+    let token = header[1];
+
     let data: any;
     jwt.verify(token, config.jwtsecret, (err: any, decoded: any) => {
         if(err) {

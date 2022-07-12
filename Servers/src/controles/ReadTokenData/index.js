@@ -7,7 +7,7 @@ const config_1 = __importDefault(require("../../config/config"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const ReadTokenData = (authorization) => {
     const header = authorization.split(' ');
-    let token = header[2];
+    let token = header[1];
     let data;
     jsonwebtoken_1.default.verify(token, config_1.default.jwtsecret, (err, decoded) => {
         if (err) {
