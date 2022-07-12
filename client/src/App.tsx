@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.scss'
 import Home from './components/Home';
 import SearchAndFilter from './components/SearchAndFilter';
@@ -8,12 +8,44 @@ import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
 import Registration from './components/Registration/Registration';
 import User from './components/User/User';
-
+import { useAppDispatch } from './app/hooks';
+import { loginUser } from './features/user/userSlice';
+import UserDetail from './components/UseDetail';
+import UserButtons from './components/UserButtons';
+import Chat from './components/Chat/Chat'
 
 function App() {
 
   const [ appear, setAppear ] = useState<boolean>(false)
-  console.log(appear);
+  const dispatch = useAppDispatch()
+  const localUser:any  = localStorage.getItem('copySliceUser')
+  const rerender = useState<string>(localUser)
+  const user = JSON.parse(localUser);
+
+  const [fetchedData, setFetchedData] = useState<any>([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [search, setSearch] = useState('');
+  const [gender, setGender] = useState('');
+  const [alph, setAlph] = useState('');
+  const [rate, setRate] = useState('');
+  const { docs, totalPages } = fetchedData;
+
+  const API_KEY = `https://manga-coffee.herokuapp.com/api/manga/?page=${pageNumber}&search=${search}&genre=${gender}&name=${alph}&rating=${rate}`
+
+  useEffect(()=>{
+    if(user){
+     dispatch(loginUser(user))
+    }
+    
+    (async () => {
+      let data = await fetch(API_KEY).then(res => res.json())
+      setFetchedData(data);
+    })()
+    
+  },[API_KEY])
+
+  console.log(docs, 'el fetch')
+
   return (
     <div className="App">
       <div className="one">
@@ -22,11 +54,15 @@ function App() {
       </div>
       <SearchAndFilter 
         appear={appear}
-        setAppear={setAppear} />
+        setAppear={setAppear}
+        setSearch={setSearch}
+        setGender={setGender}
+        setAlph={setAlph}
+        setRate={setRate}
+      />
       <div className="three">
         {/* <LinkZone /> */}
-        <h2>WishList</h2>
-        <h2>Card</h2>
+        <UserButtons/>
       </div>
       <div className="four">
         <div className="side-bar">
@@ -36,16 +72,34 @@ function App() {
       </div>
         
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+          <Home 
+            docs={docs} 
+            totalPages={totalPages}
+            setPageNumber={setPageNumber}
+            setAlph={setAlph}
+            setRate={setRate}
+
+          />} 
+        />
         <Route path="/store" element={<h1>I'm the Store component</h1>} />
         <Route path="/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
+        <Route path='/userDetail' element={<UserDetail/>}/>
+        {/* <Route path='/chapter/:id' element={<Leer/>}/> */}
+        <Route path='/user/fav' element={<h1>I'm the Favorites component</h1>} />
+        <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
+        <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
+        <Route path='/categories' element={<h1>I'm the Categories component</h1>} />
+        <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
+        <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
+        <Route path='/history' element={<h1>I'm the History component</h1>} />
       </Routes>
       <div className="six">
-        <div></div>
-        <div></div>
+        <div><User/></div>
+        <div><Chat/></div>
       </div>
     </div>
   )

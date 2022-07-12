@@ -3,20 +3,15 @@ import Manga from '../../../models/Mangas/Manga.js';
 const router = Router();
 
 
-router.get('/genero', async (req, res, next)=>{
-    const {genres}=req.query;
-    let generos:any=[]
+router.get('/genres', async (_req, res, next)=>{
 
     try{
-        const filters= await Manga.find({genres:genres},["title","cover_image","genres"]);
-        generos.push(filters);
-
-        const unicos=generos.filter((valor:any,indice:any)=>{
-            return generos.indexOf(valor)==indice
-        })
-
-        
-        res.status(200).json(unicos)
+        const filters= await Manga.find();
+        const data : Array<string> = filters.flatMap(e => e.genres); 
+        const dataArr = new Set(data);
+        const genres : Array<string> = [...dataArr];
+       
+        res.status(200).json(genres)
     }catch (error) {
         next(error);
     }

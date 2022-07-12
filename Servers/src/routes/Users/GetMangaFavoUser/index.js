@@ -13,16 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const passport_1 = __importDefault(require("passport"));
+// import passport from "passport";
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
-router.get('/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+// passport.authenticate("jwt", { session: false })
+router.get('/favorites/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('GetByIdUser');
     const { id } = req.params;
     try {
         console.log(id);
-        const user = yield User_js_1.default.findById(id);
-        console.log(user);
+        const user = yield User_js_1.default.findById(id, ['favorites']);
         res.status(200).json(user);
     }
     catch (error) {

@@ -17,9 +17,8 @@ const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
 router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let page = req.query.page || 0;
-        let { name, rating } = req.query;
-        const mgPerPage = 12;
+        let { name, rating, genre, search } = req.query;
+        let page = req.query.page || 1;
         let sortBy = {};
         let value = Number(name);
         if (name) {
@@ -32,10 +31,25 @@ router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* 
         if (!value) {
             sortBy = { title: 1 };
         }
-        const mangas = yield Manga_js_1.default.find({}, ["title", "genres", "rating", "cover_image"])
-            .sort(sortBy)
-            .skip(Number(page) * mgPerPage)
-            .limit(mgPerPage);
+        var mutate;
+        if (!genre && !search) {
+            mutate = {};
+        }
+        else if (genre && search) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
+        }
+        else if (!search) {
+            mutate = { genres: genre };
+        }
+        else if (!genre) {
+            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
+        }
+        const mangas = yield Manga_js_1.default.paginate(mutate, {
+            page: Number(page),
+            limit: 12,
+            select: ["title", "genres", "rating", "cover_image"],
+            sort: sortBy
+        });
         res.status(200).json(mangas);
     }
     catch (error) {

@@ -15,16 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.get('/genero', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { genres } = req.query;
-    let generos = [];
+router.get('/genres', (_req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const filters = yield Manga_js_1.default.find({ genres: genres }, ["title", "cover_image", "genres"]);
-        generos.push(filters);
-        const unicos = generos.filter((valor, indice) => {
-            return generos.indexOf(valor) == indice;
-        });
-        res.status(200).json(unicos);
+        const filters = yield Manga_js_1.default.find();
+        const data = filters.flatMap(e => e.genres);
+        const dataArr = new Set(data);
+        const genres = [...dataArr];
+        res.status(200).json(genres);
     }
     catch (error) {
         next(error);
