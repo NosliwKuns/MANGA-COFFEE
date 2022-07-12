@@ -58,7 +58,7 @@ const userSlice = createSlice({
     state.loged = loged;
     state.token = token;
 
-    console.log(state.email, state.token ,'hola')
+    // console.log(state.email, state.token ,'hola')
     },
     logOutUser: (state)=>{
       state = {
@@ -74,8 +74,8 @@ const userSlice = createSlice({
       window.location.reload()
     },
     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
+      console.log('FAVORITEEEES', action.payload)
       state.favorites = action.payload
-      
     }
   },
 });
@@ -86,7 +86,7 @@ export const userLog = (user: InitialState): AppThunk => {
       email: user.email,
       password: user.password,
     });
-    console.log(data)
+    // console.log(data)
     const copyInitialState = {
       id: data.usuario._id,
       email: data.usuario.email,
@@ -116,7 +116,7 @@ export const singUpUser = (user: InitialState): AppThunk => {
         password: user.password,
       }
     );
-    console.log(data);
+    // console.log(data);
     dispatch (userLog(user))
     return data;
   };
@@ -125,17 +125,16 @@ export const singUpUser = (user: InitialState): AppThunk => {
 export const setDetailUser = (id:string , headers: object):AppThunk => {
   return async () => {
     const {data} = await axios.get(`http://localhost:5000/api/user/${id}`, headers )
-    console.log(data)
+    // console.log(data)
   }
 }
 
-export const FetchFavoriteMangas = (id:string , title: string, headers: object):AppThunk => {
+export const FetchFavoriteMangas = (id: string, mangaId: string, headers: object):AppThunk => {
   return async (dispatch) => {
-    const {data} = await axios.put(`http://localhost:5000/api/user/fav/${id}`, [{
-      id,
-      title
-    }], headers )
-    console.log(data)
+    const {data} = await axios.put(`http://localhost:5000/api/user/fav/${id}`, {
+      favorites: [mangaId]
+    }, headers )
+    console.log('OTROOOOOOO', data)
     dispatch(favoriteMangas(data))
   }
 }

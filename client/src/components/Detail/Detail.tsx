@@ -13,7 +13,9 @@ const Detail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { manga } = useAppSelector((state) => state.mangas);
+  console.log('ID MANGAAAAAA', manga._id)
   const { token } = useAppSelector((state) => state.user);
+  const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
 
   
@@ -37,7 +39,7 @@ const Detail = () => {
         <div className="info-container">
           <Rating rating={manga.rating}/>
             <span>
-                <button onClick={() =>FetchFavoriteMangas(manga._id, manga.title, headers)}><IoIosHeart /></button>
+                <button onClick={() =>dispatch(FetchFavoriteMangas(userId, manga._id, headers))}><IoIosHeart /></button>
             </span>
           <ul>
             {manga.genres.map((genre: string, i: number) => (
