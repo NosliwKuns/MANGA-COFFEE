@@ -32,6 +32,10 @@ const ProductSchema = new Schema({
     },
     comments: {
         type: [{ name: String, body: String }]
+    },
+    stock: {
+        type: Number,
+        required: true
     }
 });
 const Product = mongoose_1.default.model('Product', ProductSchema);
