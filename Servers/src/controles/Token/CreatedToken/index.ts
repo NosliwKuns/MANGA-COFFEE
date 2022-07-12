@@ -1,5 +1,5 @@
-import config from '../../config/config';
-import { IUser } from '../../models/Users/User';
+import config from '../../../config/ConfigEntorno/config';
+import { IUser } from '../../../models/Users/User';
 import jwt from 'jsonwebtoken';
 
 function createToken(user: IUser) {
