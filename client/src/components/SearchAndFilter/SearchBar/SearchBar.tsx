@@ -1,10 +1,14 @@
-import React, { useState } from "react"
-import { useAppDispatch } from "../../../app/hooks"
+import { useState } from "react"
+/* import { useAppDispatch } from "../../../app/hooks" */
 import { GoSearch } from "react-icons/go"
-import { fetchMangaByName } from "../../../features/manga/mangaSlice"
+/* import { fetchMangaByName } from "../../../features/manga/mangaSlice" */
 
-const SearchBar = () => {
-    const dispatch = useAppDispatch()
+type Props = {
+    setSearch: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchBar = ({ setSearch } : Props) => {
+    /* const dispatch = useAppDispatch() */
     const [input, setInput] = useState("")
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +17,8 @@ const SearchBar = () => {
     }
     const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        dispatch(fetchMangaByName(input));
+        /* dispatch(fetchMangaByName(input)); */
+        setSearch(input)
         setInput('');
     }
 

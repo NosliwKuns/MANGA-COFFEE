@@ -3,7 +3,7 @@
   gap: 1em;
   color: var(--light);
 
-  header {
+  title {
     background: var(--primary);
     display: inherit;
     height: 4em;
@@ -17,7 +17,7 @@
     }
   }
 
-  section{
+  header{
     display: flex;
     gap: 2em;
     overflow: hidden;

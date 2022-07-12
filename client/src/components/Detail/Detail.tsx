@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchDetailManga } from "../../features/manga/mangaSlice";
+import { fetchDetailManga, fetchCleanDetails } from "../../features/manga/mangaSlice";
 import { useEffect} from "react";
+import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import '../../scss/Details/Detail.scss';
+import Comments from "./Comments";
 
 const Detail = () => {
   const dispatch = useAppDispatch();
@@ -12,15 +14,16 @@ const Detail = () => {
   
   useEffect(() => {
     dispatch(fetchDetailManga ( id ));
+    return dispatch(fetchCleanDetails());
   }, [dispatch, id]);
   
 
   return (
     <div className="five detail-container">
-      <header>
+      <title>
         <h2>{manga.title}</h2>
-      </header>
-      <section>
+      </title>
+      <header>
         <div className="image-container">
           <img src={`${manga.cover_image}`} alt={`cover_page_${manga._id}`} />
         </div>
@@ -32,7 +35,7 @@ const Detail = () => {
             ))}
           </ul>
         </div>
-      </section>
+      </header>
       <h2 className="sub-title">Description :</h2>
       <p>{manga.description}</p>
       <p>{manga.description}</p>
@@ -40,7 +43,20 @@ const Detail = () => {
       <p>{manga.description}</p>
       <p>{manga.description}</p>
       <p>{manga.description}</p>
-      <p>{manga.mangas.map((c : any) => c.chapter)}</p>
+        <div>
+          {
+            manga.mangas.map((e : any)=> {
+              return (
+               
+                  <div>{e.chapter}
+                  {e.link.map((e : any)=> <img src={e}/>)}
+                  </div>
+                
+              )
+            })
+          }
+        </div>
+      <Comments comments={manga.comments}/>
     </div>
   );
 };
