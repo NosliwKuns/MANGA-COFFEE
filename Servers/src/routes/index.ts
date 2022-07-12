@@ -19,6 +19,7 @@ import GetFindAllProducts from './Products/GetFindAllProducts/index'
 import PostProducts from './Products/PostProducts/index'
 import FilterByCategory from './Products/FilterByCategory/index'
 import PutProducts from './Products/PutProducts/index'
+import PatchComments from './Mangas/PatchComments/index';
 
 
 const router = Router();
@@ -29,6 +30,7 @@ router.use('/manga', GetByName);
 router.use('/manga', GetById);
 router.use('/manga', PostManga);
 router.use('/manga', DeleteById);
+router.use('/manga', PatchComments);
 
 router.use('/user', DeleteUsers);
 router.use('/user', PostUserCreated);

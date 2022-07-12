@@ -24,6 +24,7 @@ const index_17 = __importDefault(require("./Products/GetFindAllProducts/index"))
 const index_18 = __importDefault(require("./Products/PostProducts/index"));
 const index_19 = __importDefault(require("./Products/FilterByCategory/index"));
 const index_20 = __importDefault(require("./Products/PutProducts/index"));
+const index_21 = __importDefault(require("./Mangas/PatchComments/index"));
 const router = (0, express_1.Router)();
 router.use('/manga', index_6.default);
 router.use('/manga', index_3.default);
@@ -31,6 +32,7 @@ router.use('/manga', index_1.default);
 router.use('/manga', index_4.default);
 router.use('/manga', index_2.default);
 router.use('/manga', index_5.default);
+router.use('/manga', index_21.default);
 router.use('/user', index_13.default);
 router.use('/user', index_7.default);
 router.use('/user', index_8.default);
