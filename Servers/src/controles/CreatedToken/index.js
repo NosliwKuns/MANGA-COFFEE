@@ -7,7 +7,7 @@ const config_1 = __importDefault(require("../../config/config"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function createToken(user) {
     return jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, config_1.default.jwtsecret, {
-        expiresIn: 86400
+        expiresIn: '1000000000000000000000000000000000000000000000000 years'
     });
 }
 exports.default = createToken;
