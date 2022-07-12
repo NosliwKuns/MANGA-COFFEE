@@ -17,6 +17,16 @@ const index_10 = __importDefault(require("./Users/PutByIdUser/index"));
 const index_11 = __importDefault(require("./Users/PutByIdUserFav/index"));
 const index_12 = __importDefault(require("./Users/GetMangaFavoUser/index"));
 const index_13 = __importDefault(require("./Users/DeleteUsers/index"));
+//<<<<<<< ConfiEmailVerificate
+const index_14 = __importDefault(require("./Users/GetConfirmarCuenta/index"));
+const index_15 = __importDefault(require("./Products/DeleteByIdProducts/index"));
+const index_16 = __importDefault(require("./Products/FilterByIdProducts/index"));
+const index_17 = __importDefault(require("./Products/FilterByNameProducts/index"));
+const index_18 = __importDefault(require("./Products/GetFindAllProducts/index"));
+const index_19 = __importDefault(require("./Products/PostProducts/index"));
+const index_20 = __importDefault(require("./Products/FilterByCategory/index"));
+const index_21 = __importDefault(require("./Products/PutProducts/index"));
+//=======
 const index_14 = __importDefault(require("./Products/DeleteByIdProducts/index"));
 const index_15 = __importDefault(require("./Products/FilterByIdProducts/index"));
 const index_16 = __importDefault(require("./Products/FilterByNameProducts/index"));
@@ -25,6 +35,7 @@ const index_18 = __importDefault(require("./Products/PostProducts/index"));
 const index_19 = __importDefault(require("./Products/FilterByCategory/index"));
 const index_20 = __importDefault(require("./Products/PutProducts/index"));
 const index_21 = __importDefault(require("./Products/PostCommentsProducts/index"));
+//>>>>>>> development
 const router = (0, express_1.Router)();
 router.use('/manga', index_6.default);
 router.use('/manga', index_3.default);
@@ -39,7 +50,7 @@ router.use('/user', index_9.default);
 router.use('/user', index_10.default);
 router.use('/user', index_11.default);
 router.use('/user', index_12.default);
-router.use('/products', index_14.default);
+router.use('/user', index_14.default);
 router.use('/products', index_15.default);
 router.use('/products', index_16.default);
 router.use('/products', index_17.default);
