@@ -13,6 +13,7 @@ import { loginUser } from './features/user/userSlice';
 import UserDetail from './components/UseDetail';
 import UserButtons from './components/UserButtons';
 import Chat from './components/Chat/Chat'
+import Favorites from './components/User/Favorites';
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
 
   useEffect(()=>{
     if(user){
-     dispatch(loginUser(user))
+    dispatch(loginUser(user))
     }
     
     (async () => {
@@ -89,7 +90,7 @@ function App() {
         <Route path='/user' element={<User/>}/>
         <Route path='/userDetail' element={<UserDetail/>}/>
         {/* <Route path='/chapter/:id' element={<Leer/>}/> */}
-        <Route path='/user/fav' element={<h1>I'm the Favorites component</h1>} />
+        <Route path='/user/fav' element={<Favorites/>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
         <Route path='/categories' element={<h1>I'm the Categories component</h1>} />

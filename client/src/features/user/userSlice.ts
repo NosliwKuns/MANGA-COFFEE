@@ -5,7 +5,8 @@ import { AppThunk } from "../../app/store";
 
 export type favoritesMangas = {
   id : string ;
-  title : string
+  title : string;
+  cover_image : string
 }
 
 export type InitialState = {
@@ -74,9 +75,11 @@ const userSlice = createSlice({
       window.location.reload()
     },
     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
-      console.log('FAVORITEEEES', action.payload)
       state.favorites = action.payload
-    }
+    },
+    getFavoriteManga : (state , action : PayloadAction<Array<favoritesMangas>> ) =>{
+      state.favorites = action.payload 
+    },
   },
 });
 
@@ -138,15 +141,22 @@ export const FetchFavoriteMangas = (id: string, mangaId: string, headers: object
     const {data} = await axios.put(`http://localhost:5000/api/user/fav/${id}`, {
       favorites: [mangaId]
     }, headers )
-    console.log('OTROOOOOOO', data)
     dispatch(favoriteMangas(data))
   }
 }
 
+export const getFavManga = ( id : string, headers: object ):AppThunk =>{
+  return async (dispatch) => {
+    const {data} = await axios.get(`http://localhost:5000/api/user/favorites/${id}`, headers)
+    console.log('MY FAVORITEEEEE', data);
+    
+    dispatch(getFavoriteManga(data))
+  }
+}
 // http://localhost:5000/api/user/fav/:id 
 
 //get ('/' , headers)
 //post ('/' , {} , headers)
 
 export default userSlice.reducer;
-export const { loginUser, createUser ,logOutUser, favoriteMangas } = userSlice.actions;
+export const { loginUser, createUser ,logOutUser, favoriteMangas, getFavoriteManga } = userSlice.actions;
