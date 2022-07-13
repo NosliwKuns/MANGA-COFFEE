@@ -2,7 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import headers from "../../app/headers";
 import { AppThunk } from "../../app/store";
-import { GoogleAuthProvider ,signInWithPopup , createUserWithEmailAndPassword} from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../../firebase";
 
 export type favoritesMangas = {
@@ -60,7 +66,6 @@ const userSlice = createSlice({
       state.token = token;
 
       console.log(state.email, state.token, "hola");
-
     },
     logOutUser: (state) => {
       state = {
@@ -73,13 +78,13 @@ const userSlice = createSlice({
         favorites: [],
       };
 
-      window.localStorage.setItem("copySliceUser",JSON.stringify(""))
-      window.location.reload()
+      window.localStorage.setItem("copySliceUser", JSON.stringify(""));
+      window.location.reload();
     },
     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
-      console.log('FAVORITEEEES', action.payload)
-      state.favorites = action.payload
-    }
+      console.log("FAVORITEEEES", action.payload);
+      state.favorites = action.payload;
+    },
   },
 });
 
@@ -141,34 +146,53 @@ export const setDetailUser = (headers: object): AppThunk => {
   };
 };
 
-export const loginWithGoogle = ( user : InitialState): AppThunk => {
-  return async () => {
-  const googleProvider = new GoogleAuthProvider()
-  const userGoogle = await signInWithPopup (auth, googleProvider)
-  return userGoogle
-  }
+export const FetchFavoriteMangas = (
+  id: string,
+  mangaId: string,
+  headers: object
+  ): AppThunk => {
+    return async (dispatch) => {
+      const { data } = await axios.put(
+        `http://localhost:5000/api/user/fav/${id}`,
+        {
+          favorites: [mangaId],
+      },
+      headers
+    );
+    dispatch(favoriteMangas(data));
+  };
 };
 
-export const signUp = (email :string , password :string): AppThunk =>{
-  return async () => 
-  await createUserWithEmailAndPassword(auth , email , password)
-}
+export const signUp = (email: string, password: string): AppThunk => {
+  return async () =>
+  await createUserWithEmailAndPassword(auth, email, password);
+};
 
-export const FetchFavoriteMangas = (id: string, mangaId: string, headers: object):AppThunk => {
-  return async (dispatch) => {
-    const {data} = await axios.put(`http://localhost:5000/api/user/fav/${id}`, {
-      favorites: [mangaId]
-    }, headers )
-    console.log('OTROOOOOOO', data)
-    dispatch(favoriteMangas(data))
-  }
-}
+export const logIn = (email: string, password: string): AppThunk => {
+  return async () => {
+    await signInWithEmailAndPassword(auth, email, password);
+  };
+};
 
-// http://localhost:5000/api/user/fav/:id 
+export const logOut = (): AppThunk =>{
+  return async () => {
+    await signOut(auth);
+  };
+}
+export const loginWithGoogle = (): AppThunk => {
+  return async () => {
+    const googleProvider = new GoogleAuthProvider();
+    const userGoogle = await signInWithPopup(auth, googleProvider);
+    console.log(userGoogle)
+    return userGoogle;
+  };
+};
+// http://localhost:5000/api/user/fav/:id
 
 //get ('/' , headers)
 //post ('/' , {} , headers)
 
 export default userSlice.reducer;
 
-export const { loginUser, createUser ,logOutUser, favoriteMangas } = userSlice.actions;
+export const { loginUser, createUser, logOutUser, favoriteMangas } =
+  userSlice.actions;
