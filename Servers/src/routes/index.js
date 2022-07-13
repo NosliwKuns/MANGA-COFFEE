@@ -1,3 +1,4 @@
+
 "use strict";
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
@@ -56,4 +57,5 @@ router.use('/products', index_21.default);
 router.use('/products', index_22.default);
 router.use('/products', index_22.default);
 router.use('/products', index_23.default);
+
 exports.default = router;
