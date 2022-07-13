@@ -20,13 +20,31 @@ function App() {
   const dispatch = useAppDispatch()
   const localUser:any  = localStorage.getItem('copySliceUser')
   const rerender = useState<string>(localUser)
-  const user = JSON.parse(localUser)
+  const user = JSON.parse(localUser);
+
+  const [fetchedData, setFetchedData] = useState<any>([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [search, setSearch] = useState('');
+  const [gender, setGender] = useState('');
+  const [alph, setAlph] = useState('');
+  const [rate, setRate] = useState('');
+  const { docs, totalPages } = fetchedData;
+
+  const API_KEY = `https://manga-coffee.herokuapp.com/api/manga/?page=${pageNumber}&search=${search}&genre=${gender}&name=${alph}&rating=${rate}`
 
   useEffect(()=>{
     if(user){
      dispatch(loginUser(user))
     }
-  },[rerender])
+    
+    (async () => {
+      let data = await fetch(API_KEY).then(res => res.json())
+      setFetchedData(data);
+    })()
+    
+  },[API_KEY])
+
+  console.log(docs, 'el fetch')
 
   return (
     <div className="App">
@@ -36,7 +54,12 @@ function App() {
       </div>
       <SearchAndFilter 
         appear={appear}
-        setAppear={setAppear} />
+        setAppear={setAppear}
+        setSearch={setSearch}
+        setGender={setGender}
+        setAlph={setAlph}
+        setRate={setRate}
+      />
       <div className="three">
         {/* <LinkZone /> */}
         <UserButtons/>
@@ -49,13 +72,23 @@ function App() {
       </div>
         
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+          <Home 
+            docs={docs} 
+            totalPages={totalPages}
+            setPageNumber={setPageNumber}
+            setAlph={setAlph}
+            setRate={setRate}
+
+          />} 
+        />
         <Route path="/store" element={<h1>I'm the Store component</h1>} />
         <Route path="/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
         <Route path='/userDetail' element={<UserDetail/>}/>
+        {/* <Route path='/chapter/:id' element={<Leer/>}/> */}
         <Route path='/user/fav' element={<h1>I'm the Favorites component</h1>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />

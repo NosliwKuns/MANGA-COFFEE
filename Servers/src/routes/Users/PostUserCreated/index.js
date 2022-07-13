@@ -13,15 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
-const config_1 = __importDefault(require("../../../config/config"));
+const index_1 = __importDefault(require("../../../controles/Token/CreatedToken/index"));
+const index_2 = __importDefault(require("../../../controles/Email/Template/index"));
+const index_3 = __importDefault(require("../../../controles/Email/SendEmail/index"));
 const router = (0, express_1.Router)();
-function crateToken(user) {
-    return jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, config_1.default.jwtsecret, {
-        expiresIn: 86400
-    });
-}
 router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { users, name, lastname, email, favorites, telephone, address, password } = req.body;
     try {
@@ -35,8 +31,11 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
         }
         ;
         let newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });
+        const token = (0, index_1.default)(newuser);
         newuser = yield newuser.save();
-        res.status(201).json({ token: crateToken(newuser), usuario: newuser });
+        const template = (0, index_2.default)(users, newuser.id);
+        yield (0, index_3.default)(email, 'Confirmacion de cuenta', template);
+        res.status(201).json({ token, usuario: newuser });
     }
     catch (error) {
         next(error);

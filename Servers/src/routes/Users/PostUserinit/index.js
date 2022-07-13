@@ -13,15 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
-const config_1 = __importDefault(require("../../../config/config"));
+const index_1 = __importDefault(require("../../../controles/Token/CreatedToken/index"));
 const router = (0, express_1.Router)();
-function crateToken(user) {
-    return jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, config_1.default.jwtsecret, {
-        expiresIn: 86400
-    });
-}
 router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
@@ -36,7 +30,7 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
         ;
         const istmach = yield user.comparePassword(password);
         if (istmach) {
-            return res.status(200).json({ token: crateToken(user), usuario: user });
+            return res.status(200).json({ token: (0, index_1.default)(user), usuario: user });
         }
         ;
         return res.status(200).json("Informacion no coincide");

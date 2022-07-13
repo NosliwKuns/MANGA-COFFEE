@@ -1,14 +1,7 @@
 import  { Router } from'express';
-import jwt from 'jsonwebtoken';
-import User, { IUser } from '../../../models/Users/User';
-import config from '../../../config/config'
+import User from '../../../models/Users/User';
+import createToken from '../../../controles/Token/CreatedToken/index';
 const router = Router();
-
-function crateToken(user: IUser) {
-     return jwt.sign({id: user._id, email: user.email}, config.jwtsecret,{
-        expiresIn: 86400
-    })
-}
 
 router.post('/login', async(req, res, next) => { 
     const {email, password} = req.body;
@@ -22,7 +15,7 @@ router.post('/login', async(req, res, next) => {
         };
         const istmach = await user.comparePassword(password);
         if (istmach){
-            return res.status(200).json({token:crateToken(user), usuario: user});
+            return res.status(200).json({token:createToken(user), usuario: user});
         };
         return res.status(200).json("Informacion no coincide");
     } catch (error) {
