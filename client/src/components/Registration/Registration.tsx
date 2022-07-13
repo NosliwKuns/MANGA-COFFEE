@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { singUpUser } from "../../features/user/userSlice";
+import { signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 import "../../scss/User/Registration.scss";
 const Registration = () => {
@@ -37,14 +37,15 @@ const Registration = () => {
       })
     );
   };
-
+  
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (errors.email || errors.password || !input.email || !input.password)
-      return;
+    return;
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
-
+    const firebase = await dispatch(signUp(input.email ,input.password))
+    console.log(firebase)
     const verificate: any = await dispatch(singUpUser(input));
     console.log(verificate);
     if (typeof verificate === "string") {
@@ -67,13 +68,16 @@ const Registration = () => {
       loged: false,
       user: "",
     });
-
     navigate("/", { replace: true });
   };
-
+  
+  const passwordText = () => {
+    setSwitchB (!switchButton)
+  }
+  
   return (
     <div className={"form_Registration_container"}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <div className="form_Registration_title">
           <h1>Welcome</h1>
         </div>
@@ -91,6 +95,7 @@ const Registration = () => {
         </div>
 
         <div className="form_Registration_input">
+          <div className="form_Registration_view_password">
           <label htmlFor="password">Password :</label>
           <input
             name="password"
@@ -99,7 +104,8 @@ const Registration = () => {
             onChange={handleChange}
             value={input.password}
           />
-          <button onClick={()=>setSwitchB(!switchButton)}>👀</button>
+          <div onClick={passwordText} className='form_Registration_view'>👀</div>
+          </div>
           {errors.password.length > 1 && <div>{errors.password}</div>}
         </div>
 
@@ -116,8 +122,8 @@ const Registration = () => {
           {errors.user.length > 1 && <div>{errors.user}</div>}
         </div>
         <div>
-          <button>Log in</button>
-        </div>
+        <input type="submit" value={"Logn In"}/>
+        </div> 
         <span>------------------------------------------</span>
         <div>
           <h5>Logeo con Google</h5>
