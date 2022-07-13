@@ -14,7 +14,6 @@ const Detail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { manga } = useAppSelector((state) => state.mangas);
-  console.log('ID MANGAAAAAA', manga._id)
   const { token } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
