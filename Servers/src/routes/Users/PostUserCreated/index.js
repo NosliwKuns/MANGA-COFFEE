@@ -34,7 +34,7 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
         const token = (0, index_1.default)(newuser);
         newuser = yield newuser.save();
         const template = (0, index_2.default)(users, newuser.id);
-        yield (0, index_3.default)(email, 'Confirmacion de cuenta', template);
+        (0, index_3.default)(email, 'Confirmacion de cuenta', template);
         res.status(201).json({ token, usuario: newuser });
     }
     catch (error) {

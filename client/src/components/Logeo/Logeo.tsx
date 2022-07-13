@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { userLog } from "../../features/user/userSlice";
+import { logIn, loginUser, loginWithGoogle, userLog } from "../../features/user/userSlice";
 import { InitialState } from "../../features/user/userSlice";
 import { validate } from "./func/validate";
 import "../../scss/User/Registration.scss";
@@ -23,6 +23,7 @@ const Logeo = () => {
     loged: false,
   });
 
+  const [error, setError] = useState <string>('')
   const user = useAppSelector((state) => state.user);
   const [switchButton , setSwitchB] = useState<boolean>(false)
   const dispatch = useAppDispatch();
@@ -42,34 +43,54 @@ const Logeo = () => {
     );
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit =async (e: any) => {
     e.preventDefault();
     if (errors.email || errors.password || !input.email || !input.password)
       return;
+      setError('')
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
-    dispatch(userLog(input)); //
-    alert("acces");
-    setInput({
-      id: "",
-      email: "", // segio@
-      password: "", // sds2
-      loged: false,
-      user: "",
-      token: "",
-      favorites: [],
-    });
-    setErrors({
-      email: "",
-      password: "",
-      loged: false,
-    });
-    navigate("/", { replace: true });
+    try {
+      await dispatch(logIn(input.email,input.password))
+      dispatch(userLog(input)); //
+      alert("acces");
+      navigate("/", { replace: true });
+      setInput({
+        id: "",
+        email: "", // segio@
+        password: "", // sds2
+        loged: false,
+        user: "",
+        token: "",
+        favorites: [],
+      });
+      setErrors({
+        email: "",
+        password: "",
+        loged: false,
+      });
+    } catch (e :any) {
+      if(e.code === 'auth/user-not-found') {
+        setError('Correo invalido')
+      }
+      setError('Correo invalido')
+    }
   };
+
+  const handleGoogleSignin = async () =>{
+    try{
+      await dispatch (loginWithGoogle())
+      navigate("/", { replace: true });
+    } catch(e :any){
+      setError(e.message)
+    }
+  
+  }
 
   return (
     <div className={"form_Registration_container"}>
       <form onSubmit={handleSubmit}>
+       {error && <div className="form_Registration_span"> <span>{error}</span></div>}
         <div className="form_Registration_title">
           <h1>Welcome Back !</h1>
         </div>
@@ -79,7 +100,7 @@ const Logeo = () => {
           <input
             name="email"
             type="text"
-            placeholder="email"
+            placeholder="youremail@company.ldt"
             onChange={handleChange}
             value={input.email}
           />
@@ -88,15 +109,18 @@ const Logeo = () => {
         </div>
 
         <div className="form_Registration_input">
+        <div className="form_Registration_view_password">
+
           <label htmlFor="password">Password :</label>
           <input
             name="password"
             type={switchButton ? "text" : "password"}
-            placeholder="password"
+            placeholder="**********"
             onChange={handleChange}
             value={input.password}
           />
-          <button onClick={()=>setSwitchB(!switchButton)}>👀</button>
+          <div onClick={()=>setSwitchB(!switchButton)}>👀</div>
+        </div>
           {errors.password.length > 1 && <p>{errors.password}</p>}
         </div>
         <div>
@@ -104,8 +128,8 @@ const Logeo = () => {
 
         </div>
         <span>------------------------------------------</span>
-        <div>
-          <h5>Logeo con Google</h5>
+        <div onClick={handleGoogleSignin}>
+          <h5>Google Login</h5>
         </div>
       </form>
     </div>

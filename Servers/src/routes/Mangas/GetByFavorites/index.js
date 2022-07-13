@@ -12,12 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const googleapis_1 = require("googleapis");
-const config_1 = __importDefault(require("../ConfigEntorno/config"));
-const mail_rover = () => __awaiter(void 0, void 0, void 0, function* () {
-    const oAuth2Client = new googleapis_1.google.auth.OAuth2(config_1.default.CLIENTD_ID, config_1.default.CLIENTD_SECRET, config_1.default.URI_REDIRECT);
-    oAuth2Client.setCredentials({ refresh_token: config_1.default.CLIENTD_REFRESHTOKEN });
-    const accessToken = yield oAuth2Client.getAccessToken();
-    return accessToken;
-});
-exports.default = mail_rover;
+const express_1 = require("express");
+const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
+const router = (0, express_1.Router)();
+router.get('/favoritesbyid/fav', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('ruta');
+    const ids = req.body;
+    let manga = {};
+    try {
+        manga = yield Manga_js_1.default.find({ _id: ids.favorites })
+            .select(["title", "genres", "rating", "cover_image"]);
+        res.status(200).json(manga);
+    }
+    catch (error) {
+        next(error);
+    }
+}));
+exports.default = router;
