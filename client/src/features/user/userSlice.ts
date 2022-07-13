@@ -12,8 +12,9 @@ import {
 import { auth } from "../../firebase";
 
 export type favoritesMangas = {
-  id: string;
+  _id: string;
   title: string;
+  cover_image : string,
 };
 
 export type InitialState = {
@@ -84,6 +85,9 @@ const userSlice = createSlice({
     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
       console.log("FAVORITEEEES", action.payload);
       state.favorites = action.payload;
+    },
+    getFavoriteManga : (state , action : PayloadAction<Array<favoritesMangas>> ) =>{
+      state.favorites = action.payload 
     },
   },
 });
@@ -187,6 +191,16 @@ export const loginWithGoogle = (): AppThunk => {
     return userGoogle;
   };
 };
+export const getFavManga = ( id : string, headers: object ):AppThunk =>{
+  return async (dispatch) => {
+    const {data} = await axios.get(`http://localhost:5000/api/user/favorites/${id}`, headers)
+    console.log('MY FAVORITEEEEE', data.docs);
+    
+    dispatch(getFavoriteManga(data.docs))
+  }
+}
+
+
 // http://localhost:5000/api/user/fav/:id
 
 //get ('/' , headers)
@@ -194,5 +208,5 @@ export const loginWithGoogle = (): AppThunk => {
 
 export default userSlice.reducer;
 
-export const { loginUser, createUser, logOutUser, favoriteMangas } =
+export const { loginUser, createUser, logOutUser, favoriteMangas, getFavoriteManga } =
   userSlice.actions;
