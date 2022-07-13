@@ -84,6 +84,7 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       mangaComments: (state, action : PayloadAction<Comments[]>) => {
+        console.log(action.payload)
         state.comments = [
           Object.assign(action.payload),
           ...state.comments
@@ -155,8 +156,12 @@ const initialState: InitialState = {
     }
   };
 
-  export const fetchMangaComments = (comment : any): AppThunk => {
+  export const fetchMangaComments = (comment : any, id: string, name: string): AppThunk => {
     return async (dispatch) => {
+      const {data} = await axios.patch(`http://localhost:5000/api/manga/${id}`, {
+        name,
+        body: comment
+      })
       dispatch(mangaComments(comment))
     }
   };

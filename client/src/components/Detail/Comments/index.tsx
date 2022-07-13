@@ -13,6 +13,7 @@ const Comments = ({ comments }: Props) => {
   const id = useId();
   const dispatch = useAppDispatch();
   const comm = useAppSelector(state => state.mangas)
+  const {user} = useAppSelector(state => state.user)
   const [input, setInput] = useState<any>({
     name : 'Tartaglia',
     body : '',
@@ -40,7 +41,7 @@ const Comments = ({ comments }: Props) => {
     if(!input.body) {
       return alert('Invalid action')
     }
-    dispatch(fetchMangaComments(input))
+    dispatch(fetchMangaComments(input, comm.manga._id ,user))
     setInput({
       name : 'Tartaglia',
       body : '',
