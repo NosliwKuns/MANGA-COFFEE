@@ -5,9 +5,9 @@ import GetFindAll from './Mangas/GetFindAll/index';
 import GetById from './Mangas/GetById/index';
 import DeleteById from './Mangas/DeleteById/index';
 import FilterByGenre from './Mangas/FilterByGenre/index';
+import PatchComments from './Mangas/PatchComments/index';
 import PostUserCreated from './Users/PostUserCreated/index';
 import PostUserinit from './Users/PostUserinit/index';
-//<<<<<<< ConfiEmailVerificate
 import GetByIdUser from './Users/GetByIdUser/index';
 import PutByIdUser from './Users/PutByIdUser/index';
 import PutByIdUserFav from './Users/PutByIdUserFav/index';
@@ -21,22 +21,8 @@ import GetFindAllProducts from './Products/GetFindAllProducts/index';
 import PostProducts from './Products/PostProducts/index';
 import FilterByCategory from './Products/FilterByCategory/index';
 import PutProducts from './Products/PutProducts/index';
-//=======
-import GetByIdUser from './Users/GetByIdUser/index'
-import PutByIdUser from './Users/PutByIdUser/index'
-import PutByIdUserFav from './Users/PutByIdUserFav/index'
-import GetMangaFavoUser from './Users/GetMangaFavoUser/index'
-import DeleteUsers from './Users/DeleteUsers/index'
-import DeleteByIdProducts from './Products/DeleteByIdProducts/index'
-import FilterByIdProducts from './Products/FilterByIdProducts/index'
-import FilterByNameProducts from './Products/FilterByNameProducts/index'
-import GetFindAllProducts from './Products/GetFindAllProducts/index'
-import PostProducts from './Products/PostProducts/index'
-import FilterByCategory from './Products/FilterByCategory/index'
-import PutProducts from './Products/PutProducts/index'
-import PostCommentsProducts from './Products/PostCommentsProducts/index'
-
-//>>>>>>> development
+import PostCommentsProducts from './Products/PostCommentsProducts/index';
+import PutManga from './Mangas/PutManga/index';
 
 const router = Router();
 
@@ -46,6 +32,8 @@ router.use('/manga', GetByName);
 router.use('/manga', GetById);
 router.use('/manga', PostManga);
 router.use('/manga', DeleteById);
+router.use('/manga', PatchComments);
+router.use('/manga', PutManga);
 
 router.use('/user', DeleteUsers);
 router.use('/user', PostUserCreated);
@@ -62,16 +50,8 @@ router.use('/products', FilterByNameProducts);
 router.use('/products', GetFindAllProducts);
 router.use('/products', PostProducts);
 router.use('/products', FilterByCategory);
-//<<<<<<< ConfiEmailVerificate
 router.use('/products', PutProducts);
-//=======
-router.use('/products', PutProducts)
-router.use('/products', PostCommentsProducts)
-
-
-
-
-
-//>>>>>>> development
+router.use('/products', PutProducts);
+router.use('/products', PostCommentsProducts);
 
 export default router;

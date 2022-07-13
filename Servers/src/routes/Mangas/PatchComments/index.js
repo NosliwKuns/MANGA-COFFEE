@@ -13,16 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_1 = __importDefault(require("../../../models/Products/index"));
+const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_User, name, description, product_image, stock, price, category, rating, comments } = req.body;
+router.patch('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const updates = req.body;
+    const { id } = req.params;
     try {
-        const product = yield index_1.default.create({ id_User, name, description, product_image, price, stock, category, rating, comments });
-        res.json(product);
+        let patchmanga = yield Manga_js_1.default.findByIdAndUpdate((id), { $push: { comments: [updates] } });
+        console.log(id);
+        res.status(200).json(patchmanga);
     }
     catch (error) {
-        res.status(500).json("error");
+        next(error);
     }
 }));
 exports.default = router;

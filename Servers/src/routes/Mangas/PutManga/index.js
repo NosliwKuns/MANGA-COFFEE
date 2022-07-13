@@ -13,16 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_1 = __importDefault(require("../../../models/Products/index"));
+const Manga_1 = __importDefault(require("../../../models/Mangas/Manga"));
 const router = (0, express_1.Router)();
-router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_User, name, description, product_image, stock, price, category, rating, comments } = req.body;
+router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const { title, genres, cover_image, description, mangas, rating, comments } = req.body;
     try {
-        const product = yield index_1.default.create({ id_User, name, description, product_image, price, stock, category, rating, comments });
-        res.json(product);
+        yield Manga_1.default.findByIdAndUpdate(id, {
+            title,
+            genres,
+            cover_image,
+            description,
+            mangas,
+            rating,
+            comments
+        });
+        res.send('Item Updated!');
     }
     catch (error) {
-        res.status(500).json("error");
+        res.status(500).json({ message: 'Error' });
     }
 }));
 exports.default = router;
