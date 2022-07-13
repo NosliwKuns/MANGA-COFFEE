@@ -1,6 +1,16 @@
 import SearchBar from "./SearchBar/SearchBar";
 import FilterMangas from "./FilterMangas";
-const SearchAndFilter = ({ appear , setAppear }: { appear: boolean; setAppear: React.Dispatch<React.SetStateAction<boolean>>}) => {
+
+type Props = {
+  appear: boolean;
+  setAppear: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setGender: React.Dispatch<React.SetStateAction<string>>;
+  setAlph: React.Dispatch<React.SetStateAction<string>>;
+  setRate: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const SearchAndFilter = ({ appear , setAppear, setSearch, setGender, setAlph, setRate }: Props) => {
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -10,11 +20,22 @@ const SearchAndFilter = ({ appear , setAppear }: { appear: boolean; setAppear: R
   return (
     <div className="two">
         <section className="search-and-filter">
-          <SearchBar/>
+          <SearchBar
+            setSearch={setSearch}
+          />
           <button onClick={HandleClick}>F</button>
           <div className={appear ? "appear" : "desappear"}>
-            <FilterMangas />
+            <FilterMangas 
+              setGender={setGender}
+              setSearch={setSearch}
+            />
           </div>
+          <button onClick={() => {
+            setSearch('')
+            setGender('')
+            setAlph('')
+            setRate('')
+          }}>Clear</button>
         </section>
         <section className="display">
           <h2>WishList</h2>

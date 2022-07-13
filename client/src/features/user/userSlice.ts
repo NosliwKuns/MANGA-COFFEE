@@ -122,7 +122,7 @@ export const singUpUser = (user: InitialState): AppThunk => {
   };
 };
 
-export const setDetailUser = (id:string , headers: object):AppThunk => {
+export const setDetailUser = (headers: object):AppThunk => {
   return async () => {
     const {data} = await axios.get(`http://localhost:5000/api/user/${id}`, headers )
     // console.log(data)
@@ -136,6 +136,13 @@ export const FetchFavoriteMangas = (id: string, mangaId: string, headers: object
     }, headers )
     console.log('OTROOOOOOO', data)
     dispatch(favoriteMangas(data))
+
+    try{
+      const {data} = await axios.get(`http://localhost:5000/api/user/detail`, headers )
+      console.log(data)
+    } catch  (e) {
+      console.log('hola')
+    }
   }
 }
 

@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const { Schema } = mongoose_1.default;
 const ProductSchema = new Schema({
+    id_User: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -31,7 +35,12 @@ const ProductSchema = new Schema({
         enum: [1, 2, 3, 4, 5]
     },
     comments: {
-        type: [{ name: String, body: String }]
+        type: [{ name: String, body: String }],
+        created_at: { type: Date, required: true, default: Date.now }
+    },
+    stock: {
+        type: Number,
+        required: true
     }
 });
 const Product = mongoose_1.default.model('Product', ProductSchema);

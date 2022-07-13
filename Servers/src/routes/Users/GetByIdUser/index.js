@@ -15,14 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
 const router = (0, express_1.Router)();
-router.get('/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/detail', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('GetByIdUser');
-    const { id } = req.params;
+    const { authorization } = req.headers;
     try {
-        console.log(id);
-        const user = yield User_js_1.default.findById(id);
-        console.log(user);
+        const data = (0, index_1.default)(authorization);
+        const user = yield User_js_1.default.findById(data.id);
         res.status(200).json(user);
     }
     catch (error) {

@@ -18,18 +18,12 @@ const router = (0, express_1.Router)();
 //todavia en prueba 
 router.get('/cat', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { category } = req.query;
-    let categorias = [];
     try {
-        let products = yield index_1.default.find({ category: category });
-        products.forEach(product => {
-            if (categorias.indexOf(product.category) === -1) {
-                categorias.push(product.category);
-            }
-        });
-        res.status(200).json(categorias);
+        const product = yield index_1.default.find({ category });
+        res.json(product);
     }
     catch (error) {
-        res.status(500).json(error);
+        res.status(500).json("error");
     }
 }));
 exports.default = router;
