@@ -1,21 +1,30 @@
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchDetailManga, fetchCleanDetails } from "../../features/manga/mangaSlice";
+import {FetchFavoriteMangas} from '../../features/user/userSlice';
 import { useEffect} from "react";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
 import '../../scss/Details/Detail.scss';
 import Comments from "./Comments";
+import { IoIosHeart } from "react-icons/io";
+import useHeaders from "../../app/headers";
 
 const Detail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { manga } = useAppSelector((state) => state.mangas);
+  const { token } = useAppSelector((state) => state.user);
+  const userId = useAppSelector((state) => state.user.id);
+  const headers = useHeaders(token)
+
   
   useEffect(() => {
     dispatch(fetchDetailManga ( id ));
     return dispatch(fetchCleanDetails());
   }, [dispatch, id]);
+
+
   
 
   return (
@@ -29,6 +38,9 @@ const Detail = () => {
         </div>
         <div className="info-container">
           <Rating rating={manga.rating}/>
+            <span>
+                <button onClick={() =>dispatch(FetchFavoriteMangas(userId, manga._id, headers))}><IoIosHeart /></button>
+            </span>
           <ul>
             {manga.genres.map((genre: string, i: number) => (
               <li key={`${manga.title}_detail ${i}`}>{genre}</li>
