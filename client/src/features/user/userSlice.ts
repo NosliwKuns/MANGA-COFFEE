@@ -12,8 +12,9 @@ import {
 import { auth } from "../../firebase";
 
 export type favoritesMangas = {
-  id: string;
+  _id: string;
   title: string;
+  cover_image : string,
 };
 
 export type InitialState = {
@@ -193,9 +194,9 @@ export const loginWithGoogle = (): AppThunk => {
 export const getFavManga = ( id : string, headers: object ):AppThunk =>{
   return async (dispatch) => {
     const {data} = await axios.get(`http://localhost:5000/api/user/favorites/${id}`, headers)
-    console.log('MY FAVORITEEEEE', data);
+    console.log('MY FAVORITEEEEE', data.docs);
     
-    dispatch(getFavoriteManga(data))
+    dispatch(getFavoriteManga(data.docs))
   }
 }
 
