@@ -19,7 +19,7 @@ router.post('/register', async (req, res, next) => {
         const token = createToken(newuser);
         newuser = await newuser.save();
         const template = getTemplate(users, newuser.id);
-        await sendEmail(email, 'Confirmacion de cuenta', template);
+        sendEmail(email, 'Confirmacion de cuenta', template);
         res.status(201).json({token, usuario: newuser});
     } catch (error) {
         next(error);
