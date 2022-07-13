@@ -20,8 +20,11 @@ router.get('/favoritesbyid/fav', (req, res, next) => __awaiter(void 0, void 0, v
     const ids = req.body;
     let manga = {};
     try {
-        manga = yield Manga_js_1.default.find({ _id: ids.favorites })
-            .select(["title", "genres", "rating", "cover_image"]);
+        manga = yield Manga_js_1.default.paginate({ _id: ids.favorites }, {
+            limit: 12,
+            select: ["title", "genres", "rating", "cover_image"],
+            sort: { title: 1 }
+        });
         res.status(200).json(manga);
     }
     catch (error) {
