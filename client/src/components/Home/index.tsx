@@ -21,9 +21,9 @@ const Home = ({ mangas, totalPages, setPageNumber, setAlph, setRate }: Props) =>
         setAlph={setAlph}
         setRate={setRate}
       />
-      <Cards mangas={mangas}/>
+      <Cards /* mangas={mangas} *//>
       <Pagination 
-        totalPages={totalPages}
+        /* totalPages={totalPages} */
         setPageNumber={setPageNumber}
       />
     </div>
