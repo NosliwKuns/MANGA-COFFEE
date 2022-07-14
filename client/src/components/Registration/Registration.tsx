@@ -1,23 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { signUp, singUpUser } from "../../features/user/userSlice";
+import { CreateUser, signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 import "../../scss/User/Registration.scss";
 const Registration = () => {
-  const [input, setInput] = useState({
-    id: "",
-    email: "", // segio@
-    password: "", // sds2
-    loged: false,
+  const [input, setInput] = useState<CreateUser>({
+    email: "", 
+    password: "", 
     user: "",
-    token: "",
-    favorites: [],
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<CreateUser>({
     email: "",
     password: "",
-    loged: false,
     user: "",
   });
 
@@ -57,18 +52,13 @@ const Registration = () => {
       alert("Your count was created");
     }
     setInput({
-      id: "",
       email: "", // segio@
       password: "", // sds2
-      loged: false,
       user: "",
-      token: "",
-      favorites: [],
     });
     setErrors({
       email: "",
       password: "",
-      loged: false,
       user: "",
     });
     } catch(e:any){
@@ -146,19 +136,3 @@ const Registration = () => {
 };
 
 export default Registration;
-
-// ! login
-// Email :
-// -------------------
-// password :
-// -------------------
-//             olvidaste
-// ||||||||||||||||||
-// google
-
-// ! Registration
-
-// Email :
-// -------------------
-// password :
-// -------------------

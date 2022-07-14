@@ -11,6 +11,17 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 
+export type Verificated = {
+  email : any ;
+  password :any
+}
+
+export type CreateUser = {
+  email : any ;
+  password :any ;
+  user : any
+}
+
 export type favoritesMangas = {
   _id: string;
   title: string;
@@ -18,12 +29,12 @@ export type favoritesMangas = {
 };
 
 export type InitialState = {
-  id: string;
-  email: string;
-  password: string;
+  id: string | null;
+  email: string | null;
+  password: string | null;
   loged: boolean;
-  user: string;
-  token: string;
+  user: string | null;
+  token: string | null;
   favorites: Array<favoritesMangas>;
 };
 
@@ -43,15 +54,13 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    createUser: (state, action: PayloadAction<InitialState>) => {
-      const { id, email, password, loged, user, token }: InitialState =
+    createUser: (state, action: PayloadAction<CreateUser>) => {
+      const { email, password, user } =
         action.payload;
-      state.id = id;
+
       state.email = email;
       state.password = password;
       state.user = user;
-      state.loged = loged;
-      state.token = token;
 
       return state;
     },
@@ -92,7 +101,7 @@ const userSlice = createSlice({
   },
 });
 
-export const userLog = (user: InitialState): AppThunk => {
+export const userLog = (user: Verificated): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.post("http://localhost:5000/api/user/login", {
       email: user.email,
@@ -118,7 +127,7 @@ export const userLog = (user: InitialState): AppThunk => {
   };
 };
 
-export const singUpUser = (user: InitialState): AppThunk => {
+export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
     dispatch(createUser(user));
     console.log(user);
@@ -162,11 +171,19 @@ export const FetchFavoriteMangas = (
           favorites: [mangaId],
       },
       headers
-    );
-    dispatch(favoriteMangas(data));
+      );
+      dispatch(favoriteMangas(data));
+    };
   };
-};
-
+  
+  export const getFavManga = ( id : string, headers: object ):AppThunk =>{
+    return async (dispatch) => {
+      const {data} = await axios.get(`http://localhost:5000/api/user/favorites/${id}`, headers)
+      console.log('MY FAVORITEEEEE', data.docs);
+      
+      dispatch(getFavoriteManga(data.docs))
+    }
+  }
 export const signUp = (email: string, password: string): AppThunk => {
   return async () =>
   await createUserWithEmailAndPassword(auth, email, password);
@@ -184,21 +201,29 @@ export const logOut = (): AppThunk =>{
   };
 }
 export const loginWithGoogle = (): AppThunk => {
-  return async () => {
+  return async (dispatch) => {
     const googleProvider = new GoogleAuthProvider();
-    const userGoogle = await signInWithPopup(auth, googleProvider);
-    console.log(userGoogle)
-    return userGoogle;
+    const {
+      user: { displayName, email, phoneNumber, photoURL },
+    } = await signInWithPopup(auth, googleProvider);
+    const {data} = await axios.post(
+      "http://localhost:5000/api/user/register",
+      {
+        users: displayName,
+        email: email,
+        password: email,
+        telephone: phoneNumber,
+        user_image: photoURL,
+      }
+    );
+    console.log(data)
+    const obj : Verificated = {
+      email: email,
+      password: email,
+    };
+    dispatch(userLog(obj));
   };
 };
-export const getFavManga = ( id : string, headers: object ):AppThunk =>{
-  return async (dispatch) => {
-    const {data} = await axios.get(`http://localhost:5000/api/user/favorites/${id}`, headers)
-    console.log('MY FAVORITEEEEE', data.docs);
-    
-    dispatch(getFavoriteManga(data.docs))
-  }
-}
 
 
 // http://localhost:5000/api/user/fav/:id
