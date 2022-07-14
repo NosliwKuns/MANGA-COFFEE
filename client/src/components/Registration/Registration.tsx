@@ -1,29 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
-import { singUpUser } from "../../features/user/userSlice";
+import { CreateUser, signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 import "../../scss/User/Registration.scss";
 const Registration = () => {
-  const [input, setInput] = useState({
-    id: "",
-    email: "", // segio@
-    password: "", // sds2
-    loged: false,
+  const [input, setInput] = useState<CreateUser>({
+    email: "", 
+    password: "", 
     user: "",
-    token: "",
-    favorites: [],
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<CreateUser>({
     email: "",
     password: "",
-    loged: false,
     user: "",
   });
 
+  const [error, setError] = useState <string>('')
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [switchButton , setSwitchB] = useState<boolean>(false)
+  const [switchButton, setSwitchB] = useState<boolean>(false);
 
   const handleChange = (event: any) => {
     setInput({
@@ -41,38 +38,45 @@ const Registration = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (errors.email || errors.password || !input.email || !input.password)
-      return;
+    return;
+    setError('')
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
-
+    try {
+   dispatch(signUp(input.email ,input.password))
     const verificate: any = await dispatch(singUpUser(input));
-    console.log(verificate);
+    navigate("/", { replace: true });
     if (typeof verificate === "string") {
       alert("existe");
     } else {
       alert("Your count was created");
     }
     setInput({
-      id: "",
       email: "", // segio@
       password: "", // sds2
-      loged: false,
       user: "",
-      token: "",
-      favorites: [],
     });
     setErrors({
       email: "",
       password: "",
-      loged: false,
       user: "",
     });
+    } catch(e:any){
+      if(e.code === 'auth/inter-error') {
+        setError('Correo invalido')
+      }
+      setError(e.message)
+    }
+    
+  };
 
-    navigate("/", { replace: true });
+  const passwordText = () => {
+    setSwitchB(!switchButton);
   };
 
   return (
     <div className={"form_Registration_container"}>
+      {error && <div> <span>{error}</span></div>}
       <form onSubmit={handleSubmit}>
         <div className="form_Registration_title">
           <h1>Welcome</h1>
@@ -82,7 +86,7 @@ const Registration = () => {
           <input
             name="email"
             type="text"
-            placeholder="email"
+            placeholder="youremail@company.ldt"
             onChange={handleChange}
             value={input.email}
           />
@@ -91,15 +95,19 @@ const Registration = () => {
         </div>
 
         <div className="form_Registration_input">
-          <label htmlFor="password">Password :</label>
-          <input
-            name="password"
-            type={switchButton ? "text" : "password"}
-            placeholder="password"
-            onChange={handleChange}
-            value={input.password}
-          />
-          <button onClick={()=>setSwitchB(!switchButton)}>👀</button>
+          <div className="form_Registration_view_password">
+            <label htmlFor="password">Password :</label>
+            <input
+              name="password"
+              type={switchButton ? "text" : "password"}
+              placeholder="**********"
+              onChange={handleChange}
+              value={input.password}
+            />
+            <div onClick={passwordText} className="form_Registration_view">
+              👀
+            </div>
+          </div>
           {errors.password.length > 1 && <div>{errors.password}</div>}
         </div>
 
@@ -116,7 +124,7 @@ const Registration = () => {
           {errors.user.length > 1 && <div>{errors.user}</div>}
         </div>
         <div>
-          <button>Log in</button>
+          <input type="submit" value={"Sign In"} />
         </div>
         <span>------------------------------------------</span>
         <div>
@@ -128,19 +136,3 @@ const Registration = () => {
 };
 
 export default Registration;
-
-// ! login
-// Email :
-// -------------------
-// password :
-// -------------------
-//             olvidaste
-// ||||||||||||||||||
-// google
-
-// ! Registration
-
-// Email :
-// -------------------
-// password :
-// -------------------

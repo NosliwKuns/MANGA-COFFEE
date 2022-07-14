@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from "passport";
 import User from '../../../models/Users/User.js';
-import ReadTokenData from '../../../controles/ReadTokenData/index.js';
+import ReadTokenData from '../../../controles/Token/ReadTokenData/index';
 const router = Router();
 
 router.get('/detail', passport.authenticate("jwt", { session: false }), async(req, res, next) => {

@@ -1,14 +1,9 @@
-import { InitialState } from "../../../features/user/userSlice";
 
 export const validate = (input: any) => {
-  const errors: InitialState = {
-    id: "",
+  const errors = {
     email: "",
     password: "",
-    loged: false,
     user: "",
-    token: '',
-    favorites : []
   };
   let regExpEmail =
     /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;

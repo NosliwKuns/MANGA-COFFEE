@@ -14,10 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_1 = __importDefault(require("../../../models/Users/User"));
-const index_1 = __importDefault(require("../../../controles/CreatedToken/index"));
+const index_1 = __importDefault(require("../../../controles/Token/CreatedToken/index"));
+const index_2 = __importDefault(require("../../../controles/Email/Template/confirCuenta/index"));
+const index_3 = __importDefault(require("../../../controles/Email/SendEmail/index"));
+const bienvenida_1 = __importDefault(require("../../../controles/Email/Template/bienvenida"));
 const router = (0, express_1.Router)();
 router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { users, name, lastname, email, favorites, telephone, address, password } = req.body;
+    const { users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address } = req.body;
     try {
         if (!email || !password) {
             return res.status(200).json("Por favor, llenar todos los campos");
@@ -28,9 +31,19 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             return res.status(200).json("Usuario existente");
         }
         ;
-        let newuser = new User_1.default({ users, name, lastname, email, favorites, telephone, address, password });
+        let newuser = new User_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address });
+        const token = (0, index_1.default)(newuser);
         newuser = yield newuser.save();
-        res.status(201).json({ token: (0, index_1.default)(newuser), usuario: newuser });
+        let template;
+        if (newuser.verificated) {
+            template = (0, bienvenida_1.default)(users);
+            (0, index_3.default)(email, 'Mensaje de Bienvenida', template);
+        }
+        else {
+            template = (0, index_2.default)(users, token);
+            (0, index_3.default)(email, 'Confirmacion de cuenta', template);
+        }
+        res.status(201).json({ token, usuario: newuser });
     }
     catch (error) {
         next(error);
