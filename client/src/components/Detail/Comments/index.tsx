@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
@@ -10,55 +10,61 @@ type Props = {
 }
 
 const Comments = ({ comments }: Props) => {
-  const id = useId();
   const dispatch = useAppDispatch();
-  const comm = useAppSelector(state => state.mangas)
-  const {user} = useAppSelector(state => state.user)
+  const { _id } = useAppSelector(state => state.mangas.manga)
+  const comm = useAppSelector(state => state.mangas.manga.comments)
+  console.log("MYCOMENTTTTTT", comm)
+  const { user } = useAppSelector(state => state.user)
   const [input, setInput] = useState<any>({
-    name : 'Tartaglia',
+    name : '',
     body : '',
-    _id : id,
+    _id : '',
     time : ''
   });
- 
+  
   let currentTime = moment().format();
 
   const timeAgo = (value : string) => {
     return moment.utc(value).local().startOf('seconds').fromNow();
   };
-  
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget
-    setInput({
-      ...input,
-      [name] : value,
-      time: currentTime
-    })
-  };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if(!input.body) {
-      return alert('Invalid action')
-    }
-    dispatch(fetchMangaComments(input, comm.manga._id ,user))
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("EEEEEEEEEE", e)
+    e.preventDefault()
     setInput({
-      name : 'Tartaglia',
+        name: user,
+        body: e.target.value,
+        _id: _id,
+        time: currentTime
+    })
+    console.log("INPUUUUUT11111111111", input)
+  }
+  console.log("INPUUUUUT3333333333333333", input)
+  const arr = [...comm]
+  console.log('ARRRRRRRRR', arr)
+
+  useEffect(()=>{
+    arr
+  },[arr])
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("EEEEEEEEEE222222222", e)
+    console.log("INPUUUUUT22222222222", input)
+    e.preventDefault()
+    dispatch(fetchMangaComments(input, _id, user))
+    setInput({
+      name : '',
       body : '',
-      _id : id,
+      _id : _id,
       time : ''
     })
-  };
-
-  const arr = [...comm.comments, comments]
-  const myArray = arr.flatMap(e => e)
-  console.log(myArray, 'flatmap');
+  }
 
   return (
     <div className="comments-container">
       <section className="title-text">
         <h2>Comments</h2>
-        <h2>{myArray.length}</h2>
+        <h2>{arr.length}</h2>
       </section>
       <div className="comment">
         <FaUserCircle
@@ -66,14 +72,14 @@ const Comments = ({ comments }: Props) => {
         />
         <div className="input-text">
           <form 
-            onSubmit={handleSubmit}
+            onSubmit={(e) => handleSubmit(e)}
           >
             <input 
               type="text" 
               id="body" 
               name="body" 
               value={input.body}
-              onChange={handleChange}
+              onChange={(e) => handleChange(e)}
               placeholder="Add a comment..."/>
             <section>
               <button>Cancel</button>
@@ -83,19 +89,19 @@ const Comments = ({ comments }: Props) => {
         </div>
       </div>
       {
-        myArray.map((comment : any) => {
+        arr.map((c : any) => {
           return (
             <>
               <div 
                 className="comment"
-                key={comment._id}
+                key={c._id}
               >
                 <FaUserCircle
                   size={44}
                 />
                 <section>
-                  <h4>{comment.name}<span> {`${comment.time ? timeAgo(comment.time) : "2days ago"}`}</span></h4>
-                  <p>{comment.body}</p>
+                  <h4>{c.name}<span> {`${c.time ? timeAgo(c.time) : "2days ago"}`}</span></h4>
+                  <p>{c.body}</p>
                   <h5>REPLY</h5>
                 </section>
               </div>

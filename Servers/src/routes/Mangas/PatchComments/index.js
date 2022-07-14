@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.patch('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const updates = req.body;
     const { id } = req.params;
     try {

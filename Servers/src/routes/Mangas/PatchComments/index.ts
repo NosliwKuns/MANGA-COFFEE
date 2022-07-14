@@ -4,7 +4,7 @@ import Manga from '../../../models/Mangas/Manga.js';
 const router = Router();
 
 
-router.patch('/:id', async(req, res, next)=>{
+router.put('/:id', async(req, res, next)=>{
     const updates = req.body
     const {id} = req.params;
     try {          
