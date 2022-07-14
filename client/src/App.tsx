@@ -14,6 +14,7 @@ import UserDetail from './components/UseDetail';
 import UserButtons from './components/UserButtons';
 import Chat from './components/Chat/Chat';
 import Favorites from './components/User/Favorites';
+import Verificate from './components/Verificate';
 
 function App() {
 
@@ -97,6 +98,7 @@ function App() {
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
+        <Route path='/verificateUser' element={<Verificate/>}/>
       </Routes>
       <div className="six">
         <div><User/></div>
