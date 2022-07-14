@@ -29,12 +29,12 @@ export type favoritesMangas = {
 };
 
 export type InitialState = {
-  id: string | null;
-  email: string | null;
-  password: string | null;
+  id: string ;
+  email: string ;
+  password: string ;
   loged: boolean;
-  user: string | null;
-  token: string | null;
+  user: string;
+  token: string ;
   favorites: Array<favoritesMangas>;
 };
 
