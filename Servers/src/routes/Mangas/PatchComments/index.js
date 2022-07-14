@@ -15,13 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.patch('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const updates = req.body;
     const { id } = req.params;
     try {
-        let patchmanga = yield Manga_js_1.default.findByIdAndUpdate((id), { $push: { comments: [updates] } });
-        console.log(id);
-        res.status(200).json(patchmanga);
+        yield Manga_js_1.default.findByIdAndUpdate((id), { $push: { comments: [updates] } });
+        let otro = yield Manga_js_1.default.find({ _id: id });
+        res.status(200).json(otro[0].comments);
     }
     catch (error) {
         next(error);
