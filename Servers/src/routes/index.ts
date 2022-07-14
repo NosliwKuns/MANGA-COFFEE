@@ -25,6 +25,8 @@ import PostCommentsProducts from './Products/PostCommentsProducts/index';
 import PutManga from './Mangas/PutManga/index';
 import GetByFavorites from './Mangas/GetByFavorites/index';
 
+import GetWishList from './Products/GetWishList/index';
+
 const router = Router();
 
 router.use('/manga', FilterByGenre);
@@ -55,5 +57,6 @@ router.use('/products', FilterByCategory);
 router.use('/products', PutProducts);
 router.use('/products', PutProducts);
 router.use('/products', PostCommentsProducts);
+router.use('/products', GetWishList);
 
 export default router;

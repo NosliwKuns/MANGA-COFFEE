@@ -60,6 +60,10 @@ const UserSchema = new Schema({
     favorites:{
         type:[Object],
         default: []
+    }, 
+    whishlist:{
+        type:[Object],
+        default: []
     }
 });
 
