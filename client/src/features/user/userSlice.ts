@@ -9,6 +9,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../../firebase";
+import { async } from "@firebase/util";
 
 export type Verificated = {
   email : any ;
@@ -242,7 +243,7 @@ export const loginWithGoogle = (): AppThunk => {
   return async (dispatch) => {
     const googleProvider = new GoogleAuthProvider();
     const {
-      user: { displayName, email, phoneNumber, photoURL },
+      user: { displayName, email, phoneNumber, photoURL , emailVerified},
     } = await signInWithPopup(auth, googleProvider);
     const {data} = await axios.post(
       "http://localhost:5000/api/user/register",
@@ -252,6 +253,7 @@ export const loginWithGoogle = (): AppThunk => {
         password: email,
         telephone: phoneNumber,
         user_image: photoURL,
+        verificated : emailVerified
       }
     );
     console.log(data)
@@ -263,6 +265,31 @@ export const loginWithGoogle = (): AppThunk => {
   };
 };
 
+export const verificatedUser = (id : string | undefined ) :AppThunk =>{
+  return async () =>{
+   const {data} =  await axios.get(`http://localhost:5000/api/user/verificated/${id}`)
+   const copyInitialState = {
+    id: data.usuario._id,
+    email: data.usuario.email,
+    password: data.usuario.password,
+    verificated: data.usuario.verificated,
+    user: data.usuario.users,
+    token: data.token,
+    favorites: data.usuario.favorites,
+    user_image : data.usuario.user_image,
+    user_banner : data.usuario.user_banner,
+    user_description : data.usuario.user_description,
+    telephone : data.usuario.telephone,
+    address : data.usuario.address,
+    name:data.usuario.name ,
+    lastname : data.usuario.lastname ,
+  };
+   window.localStorage.setItem(
+    "copySliceUser",
+    JSON.stringify(copyInitialState)
+  );
+  }
+}
 
 // http://localhost:5000/api/user/fav/:id
 

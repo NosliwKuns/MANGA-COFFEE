@@ -98,7 +98,7 @@ function App() {
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
-        <Route path='/verificateUser' element={<Verificate/>}/>
+        <Route path='/verificateUser/:id' element={<Verificate/>}/>
       </Routes>
       <div className="six">
         <div><User/></div>
