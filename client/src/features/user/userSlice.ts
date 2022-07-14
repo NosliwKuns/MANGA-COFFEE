@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import headers from "../../app/headers";
 import { AppThunk } from "../../app/store";
 import {
   GoogleAuthProvider,
@@ -25,27 +24,43 @@ export type CreateUser = {
 export type favoritesMangas = {
   _id: string;
   title: string;
-  cover_image : string,
+  cover_image : string
 };
-
+// ? ------------------------------------------------------------------------------------>
 export type InitialState = {
   id: string ;
   email: string ;
   password: string ;
-  loged: boolean;
+  verificated: boolean;
   user: string;
   token: string ;
   favorites: Array<favoritesMangas>;
+  user_image : string ;
+  user_banner : string ; 
+  telephone : string ;
+  address : string ;
+  name: string ;
+  lastname : string ;
+  user_description : string
 };
+
+// user_description:
 
 const initialState: InitialState = {
   id: "",
   email: "",
   password: "",
-  loged: false,
+  verificated: false,
   user: "",
   token: "",
   favorites: [],
+  user_image : "",
+  user_banner : "" ,
+  telephone : "" ,
+  address : "" ,
+  name: "" ,
+  lastname :"" ,
+  user_description :""
 };
 
 console.log(initialState);
@@ -65,27 +80,43 @@ const userSlice = createSlice({
       return state;
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
-      const { id, email, password, loged, user, token }: InitialState =
+      console.log(action.payload , 'googleeee')
+      const { id, email, password, verificated, user, token ,favorites , user_image , user_banner , user_description , telephone , address , name , lastname}: InitialState =
         action.payload;
-
+// ! pendiente --------------------------------------------------------------->
       state.id = id;
       state.email = email;
       state.password = password;
       state.user = user;
-      state.loged = loged;
+      state.verificated = verificated;
       state.token = token;
-
+      state.favorites = favorites;
+      state.user_image = user_image; 
+      state.user_banner = user_banner;
+      state.user_description = user_description;
+      state.telephone = telephone;
+      state.address = address ;
+      state.name = name ;
+      state.lastname = lastname 
       console.log(state.email, state.token, "hola");
     },
     logOutUser: (state) => {
+      // ? ------------------------------------------------------------------------------------>
       state = {
         id: "",
         email: "",
         password: "",
-        loged: false,
+        verificated: false,
         user: "",
         token: "",
         favorites: [],
+        user_image : "",
+        user_banner : "",
+        telephone : "" ,
+        address : "" ,
+        name:"" ,
+        lastname : "" ,
+        user_description :""
       };
 
       window.localStorage.setItem("copySliceUser", JSON.stringify(""));
@@ -108,15 +139,22 @@ export const userLog = (user: Verificated): AppThunk => {
       password: user.password,
     });
     console.log(data);
-
+// ? ------------------------------------------------------------------------------------>
     const copyInitialState = {
       id: data.usuario._id,
       email: data.usuario.email,
       password: data.usuario.password,
-      loged: false,
+      verificated: data.usuario.verificated,
       user: data.usuario.users,
       token: data.token,
       favorites: data.usuario.favorites,
+      user_image : data.usuario.user_image,
+      user_banner : data.usuario.user_banner,
+      user_description : data.usuario.user_description,
+      telephone : data.usuario.telephone,
+      address : data.usuario.address,
+      name:data.usuario.name ,
+      lastname : data.usuario.lastname ,
     };
     dispatch(loginUser(copyInitialState));
 
