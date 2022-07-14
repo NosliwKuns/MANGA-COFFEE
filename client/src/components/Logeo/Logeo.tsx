@@ -1,26 +1,20 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { logIn, loginUser, loginWithGoogle, userLog } from "../../features/user/userSlice";
+import { logIn, loginUser, loginWithGoogle, userLog, Verificated } from "../../features/user/userSlice";
 import { InitialState } from "../../features/user/userSlice";
 import { validate } from "./func/validate";
 import "../../scss/User/Registration.scss";
 
 const Logeo = () => {
-  const [input, setInput] = useState<InitialState>({
-    id: "",
+  const [input, setInput] = useState<Verificated>({
     email: "", // segio@
     password: "", // sds2
-    loged: false,
-    user: "",
-    token: "",
-    favorites: [],
   });
 
-  const [errors, setErrors] = useState<any>({
+  const [errors, setErrors] = useState<Verificated>({
     email: "",
     password: "",
-    loged: false,
   });
 
   const [error, setError] = useState <string>('')
@@ -56,18 +50,12 @@ const Logeo = () => {
       alert("acces");
       navigate("/", { replace: true });
       setInput({
-        id: "",
         email: "", // segio@
         password: "", // sds2
-        loged: false,
-        user: "",
-        token: "",
-        favorites: [],
       });
       setErrors({
         email: "",
         password: "",
-        loged: false,
       });
     } catch (e :any) {
       if(e.code === 'auth/user-not-found') {
