@@ -5,12 +5,12 @@ type Props = {
   appear: boolean;
   setAppear: React.Dispatch<React.SetStateAction<boolean>>;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  setGender: React.Dispatch<React.SetStateAction<string>>;
+  setGenres: React.Dispatch<React.SetStateAction<string>>;
   setAlph: React.Dispatch<React.SetStateAction<string>>;
   setRate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchAndFilter = ({ appear , setAppear, setSearch, setGender, setAlph, setRate }: Props) => {
+const SearchAndFilter = ({ appear , setAppear, setSearch, setGenres, setAlph, setRate }: Props) => {
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -26,13 +26,13 @@ const SearchAndFilter = ({ appear , setAppear, setSearch, setGender, setAlph, se
           <button onClick={HandleClick}>F</button>
           <div className={appear ? "appear" : "desappear"}>
             <FilterMangas 
-              setGender={setGender}
+              setGenres={setGenres}
               setSearch={setSearch}
             />
           </div>
           <button onClick={() => {
             setSearch('')
-            setGender('')
+            setGenres('')
             setAlph('')
             setRate('')
           }}>Clear</button>

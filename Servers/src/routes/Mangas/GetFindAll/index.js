@@ -15,45 +15,52 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let { name, rating, genre, search } = req.query;
-        let page = req.query.page || 1;
+        const page = parseInt(req.query.page) - 1 || 0;
+        const limit = parseInt(req.query.limit) || 12;
+        const search = req.query.search || '';
+        let sort = req.query.sort || 'title';
+        let genres = req.query.genres || 'All';
+        const filters = yield Manga_js_1.default.find();
+        const data = filters.flatMap(e => e.genres);
+        const dataArr = new Set(data);
+        const genresOptions = [...dataArr];
+        genres === 'All'
+            ? (genres = [...genresOptions])
+            : (genres = req.query.genres.split(','));
+        req.query.sort ? (sort = req.query.sort.split(',')) : (sort = [sort]);
         let sortBy = {};
-        let value = Number(name);
-        if (name) {
-            sortBy = { title: value };
+        if (sort[1]) {
+            sortBy[sort[0]] = sort[1];
         }
-        if (rating) {
-            value = Number(rating);
-            sortBy = { rating: value };
+        else {
+            sortBy[sort[0]] = 'asc';
         }
-        if (!value) {
-            sortBy = { title: 1 };
-        }
-        var mutate;
-        if (!genre && !search) {
-            mutate = {};
-        }
-        else if (genre && search) {
-            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
-        }
-        else if (!search) {
-            mutate = { genres: genre };
-        }
-        else if (!genre) {
-            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } };
-        }
-        const mangas = yield Manga_js_1.default.paginate(mutate, {
-            page: Number(page),
-            limit: 12,
-            select: ["title", "genres", "rating", "cover_image"],
-            sort: sortBy
+        const mangas = yield Manga_js_1.default.find({ title: { $regex: '.*' + search + '.*', $options: 'i' } })
+            .where('genres')
+            .in([...genres])
+            .sort(sortBy)
+            .skip(page * limit)
+            .limit(limit);
+        console.log(mangas, 'hola');
+        const total = yield Manga_js_1.default.countDocuments({
+            genres: { $in: [...genres] },
+            title: { $regex: search, $options: 'i' },
         });
-        res.status(200).json(mangas);
+        const response = {
+            error: false,
+            total,
+            page: page + 1,
+            totalPages: Math.ceil(total / limit),
+            limit,
+            genres: genresOptions,
+            mangas,
+        };
+        res.status(200).json(response);
     }
     catch (error) {
-        next(error);
+        res.status(500).json(error);
     }
 }));
 exports.default = router;

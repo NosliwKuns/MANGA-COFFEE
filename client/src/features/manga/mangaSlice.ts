@@ -26,10 +26,10 @@ interface Detail {
 }
 
 interface allMangas {
-  docs: Detail[]
-  hasNextPage: boolean
-  hasPrevPage: boolean
-  totalPages: number
+  error : boolean
+  totalPages : number
+  category : Array<string>
+  mangas : Detail[]
 }
 
 type InitialState = {
@@ -41,10 +41,10 @@ type InitialState = {
 
 const initialState: InitialState = {
     mangas: {
-      docs: [],
-      hasNextPage: true,
-      hasPrevPage: true,
+      error: false,
       totalPages: 0,
+      category: [''],
+      mangas: [],
     },
     manga : {
       _id : '',
@@ -111,20 +111,24 @@ const initialState: InitialState = {
     }
   })
 
-  export const fetchAllManga = ():AppThunk =>{
+  export const fetchAllManga = (pageNumber : number, search : string, genres: string):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/manga")
-      console.log(data)
-      dispatch(getAddMangas(data))
+      try {
+        const {data} = await axios.get(`http://localhost:5000/api/manga/?page=${pageNumber}&search=${search}&genres=${genres}`)
+        console.log(data, 'yeahhh')
+        dispatch(getAddMangas(data)) 
+      } catch (error) {
+        console.error(error)
+      }
     }
-  }
+  };
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
       const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/${id}`)
       dispatch(getDetailManga(data))
     }
-  }
+  };
   
   export const fetchMangaByName = (name: string | number): AppThunk => {
     return async (dispatch) => {

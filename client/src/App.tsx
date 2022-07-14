@@ -1,6 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react'
-import './App.scss'
+import { useAppDispatch } from './app/hooks';
+import { loginUser } from './features/user/userSlice';
 import Home from './components/Home';
 import SearchAndFilter from './components/SearchAndFilter';
 import SideBar from './components/SideBar';
@@ -8,11 +9,15 @@ import Detail from './components/Detail/Detail';
 import Logeo from './components/Logeo/Logeo';
 import Registration from './components/Registration/Registration';
 import User from './components/User/User';
-import { useAppDispatch } from './app/hooks';
-import { loginUser } from './features/user/userSlice';
 import UserDetail from './components/UseDetail';
 import UserButtons from './components/UserButtons';
-import Chat from './components/Chat/Chat'
+import Chat from './components/Chat/Chat';
+import Shop from './components/Shop';
+import ProductDetail from './components/ProductDetail';
+import { fetchAllManga } from './features/manga/mangaSlice';
+import SearchManga from './components/SearchManga';
+import './App.scss'
+import useLocalStorage from './app/useLocalStorage';
 
 function App() {
 
@@ -21,30 +26,44 @@ function App() {
   const localUser:any  = localStorage.getItem('copySliceUser')
   const rerender = useState<string>(localUser)
   const user = JSON.parse(localUser);
+  const [dataa, setDataa] = useLocalStorage('helpo', '')
 
   const [fetchedData, setFetchedData] = useState<any>([]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [search, setSearch] = useState('');
-  const [gender, setGender] = useState('');
+  const [search, setSearch] = useState<string>('');
+  const [genres, setGenres] = useState('');
   const [alph, setAlph] = useState('');
   const [rate, setRate] = useState('');
-  const { docs, totalPages } = fetchedData;
-
-  const API_KEY = `https://manga-coffee.herokuapp.com/api/manga/?page=${pageNumber}&search=${search}&genre=${gender}&name=${alph}&rating=${rate}`
+  const [fetchProducts, setFetchProducts] = useState<any>([]);
+  const { mangas, totalPages } = fetchedData;
+  
+  const API_KEY_M = `http://localhost:5000/api/manga/?page=${pageNumber}&search=${search}&genres=${genres}`
+  const API_KEY_P = `http://localhost:5000/api/products?page=${pageNumber}&search=${search}&genre=${genres}&name=${alph}&rating=${rate}`
 
   useEffect(()=>{
     if(user){
      dispatch(loginUser(user))
     }
-    
-    (async () => {
-      let data = await fetch(API_KEY).then(res => res.json())
-      setFetchedData(data);
-    })()
-    
-  },[API_KEY])
 
-  console.log(docs, 'el fetch')
+    dispatch(fetchAllManga(pageNumber, search, genres))
+    // let data : any;
+    // (async () => {
+    //   data = await fetch(API_KEY_M).then(res => res.json());
+    //   let b;
+    //   if(!data) {
+    //     b = (<h1>Loading</h1>)
+    //   } else {
+    //     b = data
+    //   }
+    //   setFetchedData(b);
+    //   setDataa(data)
+    //   /* let dataP = await fetch(API_KEY_P).then(res => res.json())
+    //   setFetchProducts(dataP) */
+    // })()
+    
+  },[pageNumber, search, genres])
+  
+  console.log(pageNumber, search, genres, 'aqui')
 
   return (
     <div className="App">
@@ -56,7 +75,7 @@ function App() {
         appear={appear}
         setAppear={setAppear}
         setSearch={setSearch}
-        setGender={setGender}
+        setGenres={setGenres}
         setAlph={setAlph}
         setRate={setRate}
       />
@@ -74,7 +93,7 @@ function App() {
       <Routes>
         <Route path="/" element={
           <Home 
-            docs={docs} 
+            mangas={mangas} 
             totalPages={totalPages}
             setPageNumber={setPageNumber}
             setAlph={setAlph}
@@ -82,7 +101,12 @@ function App() {
 
           />} 
         />
-        <Route path="/store" element={<h1>I'm the Store component</h1>} />
+        <Route path="/store" element={
+          <Shop 
+          fetchProducts={fetchProducts}
+          />} 
+        />
+        <Route path="/search" element={<SearchManga/>} />
         <Route path="/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
@@ -96,6 +120,9 @@ function App() {
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
+        <Route path="/product/:id" element={<ProductDetail/>} />
+        
+
       </Routes>
       <div className="six">
         <div><User/></div>

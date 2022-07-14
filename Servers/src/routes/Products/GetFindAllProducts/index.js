@@ -17,11 +17,51 @@ const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let products = yield index_1.default.find({});
-        res.status(200).json(products);
+        const page = parseInt(req.query.page) - 1 || 0;
+        const limit = parseInt(req.query.limit) || 12;
+        const search = req.query.search || '';
+        let sort = req.query.sort || 'rating';
+        let category = req.query.category || 'All';
+        const filters = yield index_1.default.find();
+        const data = filters.flatMap(e => e.category);
+        const dataArr = new Set(data);
+        const categoriesOptions = [...dataArr];
+        category === 'All'
+            ? (category = [...categoriesOptions])
+            : (category = req.query.category.split(','));
+        req.query.sort ? (sort = req.query.sort.split(',')) : (sort = [sort]);
+        let sortBy = {};
+        if (sort[1]) {
+            sortBy[sort[0]] = sort[1];
+        }
+        else {
+            sortBy[sort[0]] = 'asc';
+        }
+        const products = yield index_1.default.find({ name: { $regex: '.*' + search + '.*', $options: 'i' } })
+            .where('category')
+            .in([...category])
+            .sort(sortBy)
+            .skip(page * limit)
+            .limit(limit);
+        console.log(products, 'hola');
+        const total = yield index_1.default.countDocuments({
+            category: { $in: [...category] },
+            name: { $regex: search, $options: 'i' },
+        });
+        const response = {
+            error: false,
+            total,
+            page: page + 1,
+            totalPages: Math.ceil(total / limit),
+            limit,
+            category: categoriesOptions,
+            products,
+        };
+        res.status(200).json(response);
     }
     catch (error) {
         res.status(500).json(error);
     }
 }));
 exports.default = router;
+// Product
