@@ -12,14 +12,13 @@ const User = () => {
 
   return (
     <div>
-      {
-        user.user_image ?
-        <img src={user.user_image} alt="123123123"/>
-        : <FaUserCircle size={44} color={"white"} />
-      }
       {user.token ? (
         <div>
-         
+          {
+            user.user_image ?
+            <img src={user.user_image} alt="123123123"/>
+            : <FaUserCircle size={44} color={"white"} />
+          }
           <p>{user.user}</p>
           {pathname === "/userDetail" ? (
             <span />
