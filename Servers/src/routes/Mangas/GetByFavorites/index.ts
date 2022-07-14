@@ -8,12 +8,16 @@ router.get('/favoritesbyid/fav', async(req, res, next) => {
     let manga={}
     
     try {              
-            manga = await Manga.find({_id:ids.favorites})
-                                .select (["title", "genres", "rating" ,"cover_image"])
+            manga = await Manga.paginate({_id:ids.favorites},
+                                {
+                                limit:  12,
+                                select: ["title", "genres", "rating" ,"cover_image"],
+                                sort:{title:1}
+                            })
             res.status(200).json(manga)
             } catch (error) {
                 next(error)
             }
         })
 
-export default router;
+        export default router;
