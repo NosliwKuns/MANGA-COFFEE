@@ -68,7 +68,7 @@ const Detail = () => {
             })
           }
         </div>
-      <Comments comments={manga.comments}/>
+      <Comments/>
     </div>
   );
 };

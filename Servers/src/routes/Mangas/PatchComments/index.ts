@@ -8,9 +8,9 @@ router.put('/:id', async(req, res, next)=>{
     const updates = req.body
     const {id} = req.params;
     try {          
-        let patchmanga = await Manga.findByIdAndUpdate((id), {$push:{comments:[updates]}})
-        console.log(id)
-        res.status(200).json(patchmanga)
+        await Manga.findByIdAndUpdate((id), {$push:{comments:[updates]}})
+        let otro: any = await Manga.find({_id:id})
+        res.status(200).json(otro[0].comments)
     } catch (error) {
         next(error)
     }

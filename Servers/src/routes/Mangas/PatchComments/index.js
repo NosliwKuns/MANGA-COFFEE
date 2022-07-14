@@ -19,9 +19,9 @@ router.put('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, functio
     const updates = req.body;
     const { id } = req.params;
     try {
-        let patchmanga = yield Manga_js_1.default.findByIdAndUpdate((id), { $push: { comments: [updates] } });
-        console.log(id);
-        res.status(200).json(patchmanga);
+        yield Manga_js_1.default.findByIdAndUpdate((id), { $push: { comments: [updates] } });
+        let otro = yield Manga_js_1.default.find({ _id: id });
+        res.status(200).json(otro[0].comments);
     }
     catch (error) {
         next(error);
