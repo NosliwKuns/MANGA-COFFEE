@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { logOutUser } from "../../features/user/userSlice";
 const User = () => {
   const user: InitialState = useAppSelector((state) => state.user);
+  console.log(user.user_image)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
@@ -14,7 +15,11 @@ const User = () => {
     <div>
       {user.token ? (
         <div>
-          <FaUserCircle size={44} color={"white"} />
+          {
+            user.user_image ?
+            <img src={user.user_image} alt="image_user_"/>
+            :<FaUserCircle size={44} color={"white"} />
+          }
           <p>{user.user}</p>
           {pathname === "/userDetail" ? (
             <span />

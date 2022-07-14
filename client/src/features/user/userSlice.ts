@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import headers from "../../app/headers";
 import { AppThunk } from "../../app/store";
 import {
   GoogleAuthProvider,
@@ -24,6 +23,13 @@ export type InitialState = {
   user: string;
   token: string;
   favorites: Array<favoritesMangas>;
+  user_name: string;
+  user_lastname: string;
+  user_image: string;
+  user_banner: string;
+  user_description: string;
+  user_phonenumber: number;
+  user_address: string;
 };
 
 const initialState: InitialState = {
@@ -34,6 +40,13 @@ const initialState: InitialState = {
   user: "",
   token: "",
   favorites: [],
+  user_name: "",
+  user_lastname: "",
+  user_image: "",
+  user_banner: "",
+  user_description: "",
+  user_phonenumber: 0,
+  user_address: "",
 };
 
 console.log(initialState);
@@ -55,7 +68,7 @@ const userSlice = createSlice({
       return state;
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
-      const { id, email, password, loged, user, token }: InitialState =
+      const { id, email, password, loged, user, token , user_name , user_lastname ,user_image ,user_banner , user_description , user_phonenumber ,user_address , favorites }: InitialState =
         action.payload;
 
       state.id = id;
@@ -64,6 +77,14 @@ const userSlice = createSlice({
       state.user = user;
       state.loged = loged;
       state.token = token;
+      state.user_name = user_name,
+      state.user_lastname = user_lastname,
+      state.user_image = user_image,
+      state.user_banner = user_banner,
+      state.user_description = user_description,
+      state.user_phonenumber = user_phonenumber,
+      state.user_address = user_address;
+      state.favorites = favorites,
 
       console.log(state.email, state.token, "hola");
     },
@@ -76,6 +97,13 @@ const userSlice = createSlice({
         user: "",
         token: "",
         favorites: [],
+        user_name: "",
+        user_lastname: "",
+        user_image: "",
+        user_banner: "",
+        user_description: "",
+        user_phonenumber: 0,
+        user_address: "",
       };
 
       window.localStorage.setItem("copySliceUser", JSON.stringify(""));
@@ -88,7 +116,7 @@ const userSlice = createSlice({
   },
 });
 
-export const userLog = (user: InitialState): AppThunk => {
+export const userLog = (user: any): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.post("http://localhost:5000/api/user/login", {
       email: user.email,
@@ -104,6 +132,13 @@ export const userLog = (user: InitialState): AppThunk => {
       user: data.usuario.users,
       token: data.token,
       favorites: data.usuario.favorites,
+      user_name: data.usuario.user_name,
+      user_lastname: data.usuario.user_lastname,
+      user_image: data.usuario.user_image,
+      user_banner: data.usuario.user_banner,
+      user_description: data.usuario.user_description,
+      user_phonenumber: data.usuario.user_phonenumber,
+      user_address: data.usuario.user_address,
     };
     dispatch(loginUser(copyInitialState));
 
@@ -150,12 +185,12 @@ export const FetchFavoriteMangas = (
   id: string,
   mangaId: string,
   headers: object
-  ): AppThunk => {
-    return async (dispatch) => {
-      const { data } = await axios.put(
-        `http://localhost:5000/api/user/fav/${id}`,
-        {
-          favorites: [mangaId],
+): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.put(
+      `http://localhost:5000/api/user/fav/${id}`,
+      {
+        favorites: [mangaId],
       },
       headers
     );
@@ -165,7 +200,7 @@ export const FetchFavoriteMangas = (
 
 export const signUp = (email: string, password: string): AppThunk => {
   return async () =>
-  await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const logIn = (email: string, password: string): AppThunk => {
@@ -174,20 +209,36 @@ export const logIn = (email: string, password: string): AppThunk => {
   };
 };
 
-export const logOut = (): AppThunk =>{
+export const logOut = (): AppThunk => {
   return async () => {
     await signOut(auth);
   };
-}
+};
 export const loginWithGoogle = (): AppThunk => {
-  return async () => {
+  return async ( dispatch ) => {
     const googleProvider = new GoogleAuthProvider();
-    const userGoogle = await signInWithPopup(auth, googleProvider);
-    console.log(userGoogle)
-    return userGoogle;
+
+    const { user: {displayName , email , phoneNumber ,  photoURL}} = await signInWithPopup(auth, googleProvider);
+    
+    const { data } = await axios.post(
+      "http://localhost:5000/api/user/register",
+      {
+        users: displayName,
+        email: email,
+        password: email,
+        telephone : phoneNumber ,
+        user_image : photoURL
+      }
+    );
+    console.log(data);
+    const obj:any= {
+      email : email ,
+      password : email
+    }
+    dispatch(userLog( obj ));
   };
 };
-// http://localhost:5000/api/user/fav/:id
+// users, name, lastname, email, favorites, telephone, address, password, user_image
 
 //get ('/' , headers)
 //post ('/' , {} , headers)

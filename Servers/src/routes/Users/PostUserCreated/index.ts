@@ -6,7 +6,7 @@ import sendEmail from '../../../controles/Email/SendEmail/index';
 const router = Router();
 
 router.post('/register', async (req, res, next) => { 
-    const {users, name, lastname, email, favorites, telephone, address, password} = req.body;
+    const {users, name, lastname, email, favorites, telephone, address, password, user_image} = req.body;
     try{ 
         if (!email || !password){
             return res.status(200).json("Por favor, llenar todos los campos");
@@ -15,7 +15,7 @@ router.post('/register', async (req, res, next) => {
         if (user.length){
             return res.status(200).json("Usuario existente");
         };
-        let newuser = new User({users, name, lastname, email, favorites, telephone, address, password});
+        let newuser = new User({users, name, lastname, email, favorites, telephone, address, password ,user_image});
         const token = createToken(newuser);
         newuser = await newuser.save();
         const template = getTemplate(users, newuser.id);
