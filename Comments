@@ -1,0 +1,1687 @@
+[1mdiff --git a/Servers/package-lock.json b/Servers/package-lock.json[m
+[1mindex 6781a67..fe90630 100644[m
+[1m--- a/Servers/package-lock.json[m
+[1m+++ b/Servers/package-lock.json[m
+[36m@@ -15,6 +15,7 @@[m
+         "cors": "^2.8.5",[m
+         "dotenv": "16.0.1",[m
+         "express": "^4.18.1",[m
+[32m+[m[32m        "googleapis": "^105.0.0",[m
+         "jsonwebtoken": "^8.5.1",[m
+         "mongoose": "6.4.3",[m
+         "mongoose-paginate-v2": "^1.7.0",[m
+[36m@@ -257,6 +258,17 @@[m
+       "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",[m
+       "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="[m
+     },[m
+[32m+[m[32m    "node_modules/abort-controller": {[m
+[32m+[m[32m      "version": "3.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "event-target-shim": "^5.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=6.5"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/accepts": {[m
+       "version": "1.3.8",[m
+       "resolved": "https://registry.npmjs.org/accepts/-/accepts-1.3.8.tgz",[m
+[36m@@ -343,6 +355,14 @@[m
+       "resolved": "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz",[m
+       "integrity": "sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg=="[m
+     },[m
+[32m+[m[32m    "node_modules/arrify": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/arrify/-/arrify-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/balanced-match": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",[m
+[36m@@ -396,6 +416,14 @@[m
+         "node": ">= 10.0.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/bignumber.js": {[m
+[32m+[m[32m      "version": "9.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": "*"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/binary-extensions": {[m
+       "version": "2.2.0",[m
+       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz",[m
+[36m@@ -715,6 +743,14 @@[m
+         "node": ">= 0.6"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/event-target-shim": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=6"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/express": {[m
+       "version": "4.18.1",[m
+       "resolved": "https://registry.npmjs.org/express/-/express-4.18.1.tgz",[m
+[36m@@ -756,6 +792,16 @@[m
+         "node": ">= 0.10.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/extend": {[m
+[32m+[m[32m      "version": "3.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/fast-text-encoding": {[m
+[32m+[m[32m      "version": "1.0.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/fast-text-encoding/-/fast-text-encoding-1.0.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-x6lDDm/tBAzX9kmsPcZsNbvDs3Zey3+scsxaZElS8xWLgUMAg/oFLeewfUz0mu1CblHhhsu15jGkraldkFh8KQ=="[m
+[32m+[m[32m    },[m
+     "node_modules/fill-range": {[m
+       "version": "7.0.1",[m
+       "resolved": "https://registry.npmjs.org/fill-range/-/fill-range-7.0.1.tgz",[m
+[36m@@ -853,6 +899,32 @@[m
+         "node": ">=10"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/gaxios": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gaxios/-/gaxios-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-keK47BGKHyyOVQxgcUaSaFvr3ehZYAlvhvpHXy0YB2itzZef+GqZR8TBsfVRWghdwlKrYsn+8L8i3eblF7Oviw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "extend": "^3.0.2",[m
+[32m+[m[32m        "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m        "is-stream": "^2.0.0",[m
+[32m+[m[32m        "node-fetch": "^2.6.7"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/gcp-metadata": {[m
+[32m+[m[32m      "version": "5.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gcp-metadata/-/gcp-metadata-5.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-gfwuX3yA3nNsHSWUL4KG90UulNiq922Ukj3wLTrcnX33BB7PwB1o0ubR8KVvXu9nJH+P5w1j2SQSNNqto+H0DA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "gaxios": "^5.0.0",[m
+[32m+[m[32m        "json-bigint": "^1.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/get-intrinsic": {[m
+       "version": "1.1.2",[m
+       "resolved": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.1.2.tgz",[m
+[36m@@ -896,6 +968,148 @@[m
+         "node": ">= 6"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/google-auth-library": {[m
+[32m+[m[32m      "version": "8.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/google-auth-library/-/google-auth-library-8.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-J/fNXEnqLgbr3kmeUshZCtHQia6ZiNbbrebVzpt/+LTeY6Ka9CtbQvloTjVGVO7nyYbs0KYeuIwgUC/t2Gp1Jw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "arrify": "^2.0.0",[m
+[32m+[m[32m        "base64-js": "^1.3.0",[m
+[32m+[m[32m        "ecdsa-sig-formatter": "^1.0.11",[m
+[32m+[m[32m        "fast-text-encoding": "^1.0.0",[m
+[32m+[m[32m        "gaxios": "^5.0.0",[m
+[32m+[m[32m        "gcp-metadata": "^5.0.0",[m
+[32m+[m[32m        "gtoken": "^6.0.0",[m
+[32m+[m[32m        "jws": "^4.0.0",[m
+[32m+[m[32m        "lru-cache": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/google-auth-library/node_modules/jwa": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jwa/-/jwa-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-jrZ2Qx916EA+fq9cEAeCROWPTfCwi1IVHqT2tapuqLEVVDKFDENFw1oL+MwrTvH6msKxsd1YTDVw6uKEcsrLEA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "buffer-equal-constant-time": "1.0.1",[m
+[32m+[m[32m        "ecdsa-sig-formatter": "1.0.11",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/google-auth-library/node_modules/jws": {[m
+[32m+[m[32m      "version": "4.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jws/-/jws-4.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "jwa": "^2.0.0",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/google-p12-pem": {[m
+[32m+[m[32m      "version": "4.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/google-p12-pem/-/google-p12-pem-4.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-lRTMn5ElBdDixv4a86bixejPSRk1boRtUowNepeKEVvYiFlkLuAJUVpEz6PfObDHYEKnZWq/9a2zC98xu62A9w==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "node-forge": "^1.3.1"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "gp12-pem": "build/src/bin/gp12-pem.js"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/googleapis": {[m
+[32m+[m[32m      "version": "105.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/googleapis/-/googleapis-105.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wH/jU/6QpqwsjTKj4vfKZz97ne7xT7BBbKwzQEwnbsG8iH9Seyw19P+AuLJcxNNrmgblwLqfr3LORg4Okat1BQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "google-auth-library": "^8.0.2",[m
+[32m+[m[32m        "googleapis-common": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/googleapis-common": {[m
+[32m+[m[32m      "version": "6.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/googleapis-common/-/googleapis-common-6.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ieZouiuoyTHCckOgu7NU+n5UvA8kAzGTRRMQD+3bobCX9npnRvYDmTHZjM5lQLzf0cGz1xQ1ABCxGQ+xSsMkCw==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "extend": "^3.0.2",[m
+[32m+[m[32m        "gaxios": "^4.0.0",[m
+[32m+[m[32m        "google-auth-library": "^8.0.2",[m
+[32m+[m[32m        "qs": "^6.7.0",[m
+[32m+[m[32m        "url-template": "^2.0.8",[m
+[32m+[m[32m        "uuid": "^8.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/googleapis-common/node_modules/gaxios": {[m
+[32m+[m[32m      "version": "4.3.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gaxios/-/gaxios-4.3.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-gSaYYIO1Y3wUtdfHmjDUZ8LWaxJQpiavzbF5Kq53akSzvmVg0RfyOcFDbO1KJ/KCGRFz2qG+lS81F0nkr7cRJA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "abort-controller": "^3.0.0",[m
+[32m+[m[32m        "extend": "^3.0.2",[m
+[32m+[m[32m        "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m        "is-stream": "^2.0.0",[m
+[32m+[m[32m        "node-fetch": "^2.6.7"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/gtoken": {[m
+[32m+[m[32m      "version": "6.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gtoken/-/gtoken-6.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-WPZcFw34wh2LUvbCUWI70GDhOlO7qHpSvFHFqq7d3Wvsf8dIJedE0lnUdOmsKuC0NgflKmF0LxIF38vsGeHHiQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "gaxios": "^4.0.0",[m
+[32m+[m[32m        "google-p12-pem": "^4.0.0",[m
+[32m+[m[32m        "jws": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=12.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/gtoken/node_modules/gaxios": {[m
+[32m+[m[32m      "version": "4.3.3",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gaxios/-/gaxios-4.3.3.tgz",[m
+[32m+[m[32m      "integrity": "sha512-gSaYYIO1Y3wUtdfHmjDUZ8LWaxJQpiavzbF5Kq53akSzvmVg0RfyOcFDbO1KJ/KCGRFz2qG+lS81F0nkr7cRJA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "abort-controller": "^3.0.0",[m
+[32m+[m[32m        "extend": "^3.0.2",[m
+[32m+[m[32m        "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m        "is-stream": "^2.0.0",[m
+[32m+[m[32m        "node-fetch": "^2.6.7"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=10"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/gtoken/node_modules/jwa": {[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jwa/-/jwa-2.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-jrZ2Qx916EA+fq9cEAeCROWPTfCwi1IVHqT2tapuqLEVVDKFDENFw1oL+MwrTvH6msKxsd1YTDVw6uKEcsrLEA==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "buffer-equal-constant-time": "1.0.1",[m
+[32m+[m[32m        "ecdsa-sig-formatter": "1.0.11",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/gtoken/node_modules/jws": {[m
+[32m+[m[32m      "version": "4.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/jws/-/jws-4.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "jwa": "^2.0.0",[m
+[32m+[m[32m        "safe-buffer": "^5.0.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/has": {[m
+       "version": "1.0.3",[m
+       "resolved": "https://registry.npmjs.org/has/-/has-1.0.3.tgz",[m
+[36m@@ -1087,6 +1301,25 @@[m
+         "node": ">=0.12.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/is-stream": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">=8"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "funding": {[m
+[32m+[m[32m        "url": "https://github.com/sponsors/sindresorhus"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "node_modules/json-bigint": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/json-bigint/-/json-bigint-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-SiPv/8VpZuWbvLSMtTDU8hEfrZWg/mH/nV/b4o0CYbSxu1UIQPLdwKOCIyLQX+VIPO5vrLX3i8qtqFyhdPSUSQ==",[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "bignumber.js": "^9.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/jsonwebtoken": {[m
+       "version": "8.5.1",[m
+       "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",[m
+[36m@@ -1489,6 +1722,14 @@[m
+         "webidl-conversions": "^3.0.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/node-forge": {[m
+[32m+[m[32m      "version": "1.3.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-forge/-/node-forge-1.3.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==",[m
+[32m+[m[32m      "engines": {[m
+[32m+[m[32m        "node": ">= 6.13.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/nodemailer": {[m
+       "version": "6.7.7",[m
+       "resolved": "https://registry.npmjs.org/nodemailer/-/nodemailer-6.7.7.tgz",[m
+[36m@@ -2099,6 +2340,11 @@[m
+         "node": ">= 0.8"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/url-template": {[m
+[32m+[m[32m      "version": "2.0.8",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/url-template/-/url-template-2.0.8.tgz",[m
+[32m+[m[32m      "integrity": "sha512-XdVKMF4SJ0nP/O7XIPB0JwAEuT9lDIYnNsK8yGVe43y0AWoKeJNdv3ZNWh7ksJ6KqQFjOO6ox/VEitLnaVNufw=="[m
+[32m+[m[32m    },[m
+     "node_modules/util-deprecate": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",[m
+[36m@@ -2112,6 +2358,14 @@[m
+         "node": ">= 0.4.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "node_modules/uuid": {[m
+[32m+[m[32m      "version": "8.3.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==",[m
+[32m+[m[32m      "bin": {[m
+[32m+[m[32m        "uuid": "dist/bin/uuid"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "node_modules/vary": {[m
+       "version": "1.1.2",[m
+       "resolved": "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz",[m
+[36m@@ -2369,6 +2623,14 @@[m
+       "resolved": "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz",[m
+       "integrity": "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="[m
+     },[m
+[32m+[m[32m    "abort-controller": {[m
+[32m+[m[32m      "version": "3.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/abort-controller/-/abort-controller-3.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "event-target-shim": "^5.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "accepts": {[m
+       "version": "1.3.8",[m
+       "resolved": "https://registry.npmjs.org/accepts/-/accepts-1.3.8.tgz",[m
+[36m@@ -2434,6 +2696,11 @@[m
+       "resolved": "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz",[m
+       "integrity": "sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg=="[m
+     },[m
+[32m+[m[32m    "arrify": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/arrify/-/arrify-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-3duEwti880xqi4eAMN8AyR4a0ByT90zoYdLlevfrvU43vb0YZwZVfxOgxWrLXXXpyugL0hNZc9G6BiB5B3nUug=="[m
+[32m+[m[32m    },[m
+     "balanced-match": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.2.tgz",[m
+[36m@@ -2468,6 +2735,11 @@[m
+         "node-addon-api": "^3.1.0"[m
+       }[m
+     },[m
+[32m+[m[32m    "bignumber.js": {[m
+[32m+[m[32m      "version": "9.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/bignumber.js/-/bignumber.js-9.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw=="[m
+[32m+[m[32m    },[m
+     "binary-extensions": {[m
+       "version": "2.2.0",[m
+       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-2.2.0.tgz",[m
+[36m@@ -2699,6 +2971,11 @@[m
+       "resolved": "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz",[m
+       "integrity": "sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg=="[m
+     },[m
+[32m+[m[32m    "event-target-shim": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/event-target-shim/-/event-target-shim-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ=="[m
+[32m+[m[32m    },[m
+     "express": {[m
+       "version": "4.18.1",[m
+       "resolved": "https://registry.npmjs.org/express/-/express-4.18.1.tgz",[m
+[36m@@ -2737,6 +3014,16 @@[m
+         "vary": "~1.1.2"[m
+       }[m
+     },[m
+[32m+[m[32m    "extend": {[m
+[32m+[m[32m      "version": "3.0.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/extend/-/extend-3.0.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-fjquC59cD7CyW6urNXK0FBufkZcoiGG80wTuPujX590cB5Ttln20E2UB4S/WARVqhXffZl2LNgS+gQdPIIim/g=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "fast-text-encoding": {[m
+[32m+[m[32m      "version": "1.0.4",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/fast-text-encoding/-/fast-text-encoding-1.0.4.tgz",[m
+[32m+[m[32m      "integrity": "sha512-x6lDDm/tBAzX9kmsPcZsNbvDs3Zey3+scsxaZElS8xWLgUMAg/oFLeewfUz0mu1CblHhhsu15jGkraldkFh8KQ=="[m
+[32m+[m[32m    },[m
+     "fill-range": {[m
+       "version": "7.0.1",[m
+       "resolved": "https://registry.npmjs.org/fill-range/-/fill-range-7.0.1.tgz",[m
+[36m@@ -2809,6 +3096,26 @@[m
+         "wide-align": "^1.1.2"[m
+       }[m
+     },[m
+[32m+[m[32m    "gaxios": {[m
+[32m+[m[32m      "version": "5.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gaxios/-/gaxios-5.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-keK47BGKHyyOVQxgcUaSaFvr3ehZYAlvhvpHXy0YB2itzZef+GqZR8TBsfVRWghdwlKrYsn+8L8i3eblF7Oviw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "extend": "^3.0.2",[m
+[32m+[m[32m        "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m        "is-stream": "^2.0.0",[m
+[32m+[m[32m        "node-fetch": "^2.6.7"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "gcp-metadata": {[m
+[32m+[m[32m      "version": "5.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gcp-metadata/-/gcp-metadata-5.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-gfwuX3yA3nNsHSWUL4KG90UulNiq922Ukj3wLTrcnX33BB7PwB1o0ubR8KVvXu9nJH+P5w1j2SQSNNqto+H0DA==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "gaxios": "^5.0.0",[m
+[32m+[m[32m        "json-bigint": "^1.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "get-intrinsic": {[m
+       "version": "1.1.2",[m
+       "resolved": "https://registry.npmjs.org/get-intrinsic/-/get-intrinsic-1.1.2.tgz",[m
+[36m@@ -2840,6 +3147,130 @@[m
+         "is-glob": "^4.0.1"[m
+       }[m
+     },[m
+[32m+[m[32m    "google-auth-library": {[m
+[32m+[m[32m      "version": "8.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/google-auth-library/-/google-auth-library-8.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-J/fNXEnqLgbr3kmeUshZCtHQia6ZiNbbrebVzpt/+LTeY6Ka9CtbQvloTjVGVO7nyYbs0KYeuIwgUC/t2Gp1Jw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "arrify": "^2.0.0",[m
+[32m+[m[32m        "base64-js": "^1.3.0",[m
+[32m+[m[32m        "ecdsa-sig-formatter": "^1.0.11",[m
+[32m+[m[32m        "fast-text-encoding": "^1.0.0",[m
+[32m+[m[32m        "gaxios": "^5.0.0",[m
+[32m+[m[32m        "gcp-metadata": "^5.0.0",[m
+[32m+[m[32m        "gtoken": "^6.0.0",[m
+[32m+[m[32m        "jws": "^4.0.0",[m
+[32m+[m[32m        "lru-cache": "^6.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "jwa": {[m
+[32m+[m[32m          "version": "2.0.0",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/jwa/-/jwa-2.0.0.tgz",[m
+[32m+[m[32m          "integrity": "sha512-jrZ2Qx916EA+fq9cEAeCROWPTfCwi1IVHqT2tapuqLEVVDKFDENFw1oL+MwrTvH6msKxsd1YTDVw6uKEcsrLEA==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "buffer-equal-constant-time": "1.0.1",[m
+[32m+[m[32m            "ecdsa-sig-formatter": "1.0.11",[m
+[32m+[m[32m            "safe-buffer": "^5.0.1"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "jws": {[m
+[32m+[m[32m          "version": "4.0.0",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/jws/-/jws-4.0.0.tgz",[m
+[32m+[m[32m          "integrity": "sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "jwa": "^2.0.0",[m
+[32m+[m[32m            "safe-buffer": "^5.0.1"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "google-p12-pem": {[m
+[32m+[m[32m      "version": "4.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/google-p12-pem/-/google-p12-pem-4.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-lRTMn5ElBdDixv4a86bixejPSRk1boRtUowNepeKEVvYiFlkLuAJUVpEz6PfObDHYEKnZWq/9a2zC98xu62A9w==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "node-forge": "^1.3.1"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "googleapis": {[m
+[32m+[m[32m      "version": "105.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/googleapis/-/googleapis-105.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-wH/jU/6QpqwsjTKj4vfKZz97ne7xT7BBbKwzQEwnbsG8iH9Seyw19P+AuLJcxNNrmgblwLqfr3LORg4Okat1BQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "google-auth-library": "^8.0.2",[m
+[32m+[m[32m        "googleapis-common": "^6.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "googleapis-common": {[m
+[32m+[m[32m      "version": "6.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/googleapis-common/-/googleapis-common-6.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-ieZouiuoyTHCckOgu7NU+n5UvA8kAzGTRRMQD+3bobCX9npnRvYDmTHZjM5lQLzf0cGz1xQ1ABCxGQ+xSsMkCw==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "extend": "^3.0.2",[m
+[32m+[m[32m        "gaxios": "^4.0.0",[m
+[32m+[m[32m        "google-auth-library": "^8.0.2",[m
+[32m+[m[32m        "qs": "^6.7.0",[m
+[32m+[m[32m        "url-template": "^2.0.8",[m
+[32m+[m[32m        "uuid": "^8.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "gaxios": {[m
+[32m+[m[32m          "version": "4.3.3",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/gaxios/-/gaxios-4.3.3.tgz",[m
+[32m+[m[32m          "integrity": "sha512-gSaYYIO1Y3wUtdfHmjDUZ8LWaxJQpiavzbF5Kq53akSzvmVg0RfyOcFDbO1KJ/KCGRFz2qG+lS81F0nkr7cRJA==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "abort-controller": "^3.0.0",[m
+[32m+[m[32m            "extend": "^3.0.2",[m
+[32m+[m[32m            "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m            "is-stream": "^2.0.0",[m
+[32m+[m[32m            "node-fetch": "^2.6.7"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "gtoken": {[m
+[32m+[m[32m      "version": "6.1.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/gtoken/-/gtoken-6.1.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-WPZcFw34wh2LUvbCUWI70GDhOlO7qHpSvFHFqq7d3Wvsf8dIJedE0lnUdOmsKuC0NgflKmF0LxIF38vsGeHHiQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "gaxios": "^4.0.0",[m
+[32m+[m[32m        "google-p12-pem": "^4.0.0",[m
+[32m+[m[32m        "jws": "^4.0.0"[m
+[32m+[m[32m      },[m
+[32m+[m[32m      "dependencies": {[m
+[32m+[m[32m        "gaxios": {[m
+[32m+[m[32m          "version": "4.3.3",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/gaxios/-/gaxios-4.3.3.tgz",[m
+[32m+[m[32m          "integrity": "sha512-gSaYYIO1Y3wUtdfHmjDUZ8LWaxJQpiavzbF5Kq53akSzvmVg0RfyOcFDbO1KJ/KCGRFz2qG+lS81F0nkr7cRJA==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "abort-controller": "^3.0.0",[m
+[32m+[m[32m            "extend": "^3.0.2",[m
+[32m+[m[32m            "https-proxy-agent": "^5.0.0",[m
+[32m+[m[32m            "is-stream": "^2.0.0",[m
+[32m+[m[32m            "node-fetch": "^2.6.7"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "jwa": {[m
+[32m+[m[32m          "version": "2.0.0",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/jwa/-/jwa-2.0.0.tgz",[m
+[32m+[m[32m          "integrity": "sha512-jrZ2Qx916EA+fq9cEAeCROWPTfCwi1IVHqT2tapuqLEVVDKFDENFw1oL+MwrTvH6msKxsd1YTDVw6uKEcsrLEA==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "buffer-equal-constant-time": "1.0.1",[m
+[32m+[m[32m            "ecdsa-sig-formatter": "1.0.11",[m
+[32m+[m[32m            "safe-buffer": "^5.0.1"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        },[m
+[32m+[m[32m        "jws": {[m
+[32m+[m[32m          "version": "4.0.0",[m
+[32m+[m[32m          "resolved": "https://registry.npmjs.org/jws/-/jws-4.0.0.tgz",[m
+[32m+[m[32m          "integrity": "sha512-KDncfTmOZoOMTFG4mBlG0qUIOlc03fmzH+ru6RgYVZhPkyiy/92Owlt/8UEN+a4TXR1FQetfIpJE8ApdvdVxTg==",[m
+[32m+[m[32m          "requires": {[m
+[32m+[m[32m            "jwa": "^2.0.0",[m
+[32m+[m[32m            "safe-buffer": "^5.0.1"[m
+[32m+[m[32m          }[m
+[32m+[m[32m        }[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "has": {[m
+       "version": "1.0.3",[m
+       "resolved": "https://registry.npmjs.org/has/-/has-1.0.3.tgz",[m
+[36m@@ -2972,6 +3403,19 @@[m
+       "resolved": "https://registry.npmjs.org/is-number/-/is-number-7.0.0.tgz",[m
+       "integrity": "sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng=="[m
+     },[m
+[32m+[m[32m    "is-stream": {[m
+[32m+[m[32m      "version": "2.0.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/is-stream/-/is-stream-2.0.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-hFoiJiTl63nn+kstHGBtewWSKnQLpyb155KHheA1l39uvtO9nWIop1p3udqPcUd/xbF1VLMO4n7OI6p7RbngDg=="[m
+[32m+[m[32m    },[m
+[32m+[m[32m    "json-bigint": {[m
+[32m+[m[32m      "version": "1.0.0",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/json-bigint/-/json-bigint-1.0.0.tgz",[m
+[32m+[m[32m      "integrity": "sha512-SiPv/8VpZuWbvLSMtTDU8hEfrZWg/mH/nV/b4o0CYbSxu1UIQPLdwKOCIyLQX+VIPO5vrLX3i8qtqFyhdPSUSQ==",[m
+[32m+[m[32m      "requires": {[m
+[32m+[m[32m        "bignumber.js": "^9.0.0"[m
+[32m+[m[32m      }[m
+[32m+[m[32m    },[m
+     "jsonwebtoken": {[m
+       "version": "8.5.1",[m
+       "resolved": "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz",[m
+[36m@@ -3288,6 +3732,11 @@[m
+         }[m
+       }[m
+     },[m
+[32m+[m[32m    "node-forge": {[m
+[32m+[m[32m      "version": "1.3.1",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/node-forge/-/node-forge-1.3.1.tgz",[m
+[32m+[m[32m      "integrity": "sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA=="[m
+[32m+[m[32m    },[m
+     "nodemailer": {[m
+       "version": "6.7.7",[m
+       "resolved": "https://registry.npmjs.org/nodemailer/-/nodemailer-6.7.7.tgz",[m
+[36m@@ -3734,6 +4183,11 @@[m
+       "resolved": "https://registry.npmjs.org/unpipe/-/unpipe-1.0.0.tgz",[m
+       "integrity": "sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ=="[m
+     },[m
+[32m+[m[32m    "url-template": {[m
+[32m+[m[32m      "version": "2.0.8",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/url-template/-/url-template-2.0.8.tgz",[m
+[32m+[m[32m      "integrity": "sha512-XdVKMF4SJ0nP/O7XIPB0JwAEuT9lDIYnNsK8yGVe43y0AWoKeJNdv3ZNWh7ksJ6KqQFjOO6ox/VEitLnaVNufw=="[m
+[32m+[m[32m    },[m
+     "util-deprecate": {[m
+       "version": "1.0.2",[m
+       "resolved": "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz",[m
+[36m@@ -3744,6 +4198,11 @@[m
+       "resolved": "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz",[m
+       "integrity": "sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA=="[m
+     },[m
+[32m+[m[32m    "uuid": {[m
+[32m+[m[32m      "version": "8.3.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/uuid/-/uuid-8.3.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="[m
+[32m+[m[32m    },[m
+     "vary": {[m
+       "version": "1.1.2",[m
+       "resolved": "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz",[m
+[1mdiff --git a/Servers/package.json b/Servers/package.json[m
+[1mindex 88b02ce..6ffa03c 100644[m
+[1m--- a/Servers/package.json[m
+[1m+++ b/Servers/package.json[m
+[36m@@ -18,6 +18,7 @@[m
+     "cors": "^2.8.5",[m
+     "dotenv": "16.0.1",[m
+     "express": "^4.18.1",[m
+[32m+[m[32m    "googleapis": "^105.0.0",[m
+     "jsonwebtoken": "^8.5.1",[m
+     "mongoose": "6.4.3",[m
+     "mongoose-paginate-v2": "^1.7.0",[m
+[1mdiff --git a/Servers/src/config/ConfigEntorno/config.js b/Servers/src/config/ConfigEntorno/config.js[m
+[1mindex f7bb84a..161069a 100644[m
+[1m--- a/Servers/src/config/ConfigEntorno/config.js[m
+[1m+++ b/Servers/src/config/ConfigEntorno/config.js[m
+[36m@@ -8,6 +8,10 @@[m [mdotenv_1.default.config();[m
+ exports.default = {[m
+     jwtsecret: process.env.JWT_SECRET || "mysecretmangacoffetoken",[m
+     Db: process.env.URI || "mongodb+srv://Default2310:dUWDSYBmgpwjgu5x@cluster0.iqdewrr.mongodb.net/Manga-Coffe",[m
+[31m-    mail: 'mangacoffe2310@gmail.com',[m
+[31m-    pass: 'manga23coffe10'[m
+[32m+[m[32m    MAIL: 'mangacoffe2310@gmail.com',[m
+[32m+[m[32m    PASS: 'manga23coffe10',[m
+[32m+[m[32m    CLIENTD_ID: '185422760918-fauj1280lc128l69nc4s5lnr47031ms7.apps.googleusercontent.com',[m
+[32m+[m[32m    CLIENTD_SECRET: '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',[m
+[32m+[m[32m    CLIENTD_REFRESHTOKEN: '1//044LzUHx5_wG2CgYIARAAGAQSNwF-L9IrRKhTFskNZ9IVOQfMqeQV_7J28B6Bv5eRqx0-w2Mf61OxhUELOvjm-w2bonEKplNXrns',[m
+[32m+[m[32m    URI_REDIRECT: 'https://developers.google.com/oauthplayground'[m
+ };[m
+[1mdiff --git a/Servers/src/config/ConfigEntorno/config.ts b/Servers/src/config/ConfigEntorno/config.ts[m
+[1mindex e259d3c..e85bece 100644[m
+[1m--- a/Servers/src/config/ConfigEntorno/config.ts[m
+[1m+++ b/Servers/src/config/ConfigEntorno/config.ts[m
+[36m@@ -4,6 +4,10 @@[m [mdotenv.config();[m
+ export default {[m
+     jwtsecret: process.env.JWT_SECRET || "mysecretmangacoffetoken",[m
+     Db: process.env.URI || "mongodb+srv://Default2310:dUWDSYBmgpwjgu5x@cluster0.iqdewrr.mongodb.net/Manga-Coffe",[m
+[31m-    mail: 'mangacoffe2310@gmail.com',[m
+[31m-    pass: 'manga23coffe10'[m
+[32m+[m[32m    MAIL: 'mangacoffe2310@gmail.com',[m
+[32m+[m[32m    PASS: 'manga23coffe10',[m
+[32m+[m[32m    CLIENTD_ID: '185422760918-fauj1280lc128l69nc4s5lnr47031ms7.apps.googleusercontent.com',[m
+[32m+[m[32m    CLIENTD_SECRET: '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',[m
+[32m+[m[32m    CLIENTD_REFRESHTOKEN: '1//044LzUHx5_wG2CgYIARAAGAQSNwF-L9IrRKhTFskNZ9IVOQfMqeQV_7J28B6Bv5eRqx0-w2Mf61OxhUELOvjm-w2bonEKplNXrns',[m
+[32m+[m[32m    URI_REDIRECT: 'https://developers.google.com/oauthplayground'[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/Servers/src/config/Nodemailer/index.js b/Servers/src/config/Nodemailer/index.js[m
+[1mindex 60bb80c..c905d6f 100644[m
+[1m--- a/Servers/src/config/Nodemailer/index.js[m
+[1m+++ b/Servers/src/config/Nodemailer/index.js[m
+[36m@@ -1,20 +1,23 @@[m
+ "use strict";[m
+[32m+[m[32mvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {[m
+[32m+[m[32m    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }[m
+[32m+[m[32m    return new (P || (P = Promise))(function (resolve, reject) {[m
+[32m+[m[32m        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }[m
+[32m+[m[32m        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }[m
+[32m+[m[32m        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }[m
+[32m+[m[32m        step((generator = generator.apply(thisArg, _arguments || [])).next());[m
+[32m+[m[32m    });[m
+[32m+[m[32m};[m
+ var __importDefault = (this && this.__importDefault) || function (mod) {[m
+     return (mod && mod.__esModule) ? mod : { "default": mod };[m
+ };[m
+ Object.defineProperty(exports, "__esModule", { value: true });[m
+[31m-const nodemailer_1 = __importDefault(require("nodemailer"));[m
+[32m+[m[32mconst googleapis_1 = require("googleapis");[m
+ const config_1 = __importDefault(require("../ConfigEntorno/config"));[m
+[31m-let transporter = nodemailer_1.default.createTransport({[m
+[31m-    host: "smtp.gmail.com",[m
+[31m-    port: 25 || 465,[m
+[31m-    tls: {[m
+[31m-        rejectUnauthorized: false[m
+[31m-    },[m
+[31m-    secure: false,[m
+[31m-    auth: {[m
+[31m-        user: config_1.default.mail,[m
+[31m-        pass: config_1.default.pass,[m
+[31m-    },[m
+[32m+[m[32mconst mail_rover = () => __awaiter(void 0, void 0, void 0, function* () {[m
+[32m+[m[32m    const oAuth2Client = new googleapis_1.google.auth.OAuth2(config_1.default.CLIENTD_ID, config_1.default.CLIENTD_SECRET, config_1.default.URI_REDIRECT);[m
+[32m+[m[32m    oAuth2Client.setCredentials({ refresh_token: config_1.default.CLIENTD_REFRESHTOKEN });[m
+[32m+[m[32m    const accessToken = yield oAuth2Client.getAccessToken();[m
+[32m+[m[32m    return accessToken;[m
+ });[m
+[31m-exports.default = transporter;[m
+[32m+[m[32mexports.default = mail_rover;[m
+[1mdiff --git a/Servers/src/config/Nodemailer/index.ts b/Servers/src/config/Nodemailer/index.ts[m
+[1mindex 14975b8..6f88a9a 100644[m
+[1m--- a/Servers/src/config/Nodemailer/index.ts[m
+[1m+++ b/Servers/src/config/Nodemailer/index.ts[m
+[36m@@ -1,17 +1,15 @@[m
+[31m-import nodemailer from 'nodemailer';[m
+[31m-import config from '../ConfigEntorno/config'[m
+[32m+[m[32mimport { google } from 'googleapis';[m
+[32m+[m[32mimport config from '../ConfigEntorno/config';[m
+ [m
+[31m-let transporter = nodemailer.createTransport({[m
+[31m-    host: "smtp.gmail.com",[m
+[31m-    port: 25 || 465,[m
+[31m-    tls: {[m
+[31m-        rejectUnauthorized: false[m
+[31m-    },[m
+[31m-    secure: false, [m
+[31m-    auth: {[m
+[31m-      user: config.mail, [m
+[31m-      pass: config.pass, [m
+[31m-    },[m
+[31m-  });[m
+[32m+[m[32mconst mail_rover = async () =>{[m
+[32m+[m[32m  const oAuth2Client = new google.auth.OAuth2([m
+[32m+[m[32m    config.CLIENTD_ID,[m
+[32m+[m[32m    config.CLIENTD_SECRET,[m
+[32m+[m[32m    config.URI_REDIRECT[m
+[32m+[m[32m  );[m
+[32m+[m[32m  oAuth2Client.setCredentials({ refresh_token: config.CLIENTD_REFRESHTOKEN});[m
+[32m+[m[32m  const accessToken = await oAuth2Client.getAccessToken();[m
+[32m+[m[32m  return accessToken;[m
+[32m+[m[32m}[m
+ [m
+[31m-  export default transporter;[m
+\ No newline at end of file[m
+[32m+[m[32m  export default mail_rover;[m
+[1mdiff --git a/Servers/src/controles/Email/SendEmail/index.js b/Servers/src/controles/Email/SendEmail/index.js[m
+[1mindex 6c9b90f..35c1447 100644[m
+[1m--- a/Servers/src/controles/Email/SendEmail/index.js[m
+[1m+++ b/Servers/src/controles/Email/SendEmail/index.js[m
+[36m@@ -14,15 +14,29 @@[m [mvar __importDefault = (this && this.__importDefault) || function (mod) {[m
+ Object.defineProperty(exports, "__esModule", { value: true });[m
+ const config_1 = __importDefault(require("../../../config/ConfigEntorno/config"));[m
+ const Nodemailer_1 = __importDefault(require("../../../config/Nodemailer"));[m
+[32m+[m[32mconst nodemailer_1 = __importDefault(require("nodemailer"));[m
+ const sendEmail = (email, subject, html) => __awaiter(void 0, void 0, void 0, function* () {[m
+     try {[m
+[31m-        yield Nodemailer_1.default.sendMail({[m
+[31m-            from: `MHCode <${config_1.default.mail}>`,[m
+[31m-            to: email,[m
+[31m-            subject,[m
+[31m-            text: "Manga coffe; plataforma para verdaderos apasionados",[m
+[31m-            html,[m
+[32m+[m[32m        const accessToken = (0, Nodemailer_1.default)();[m
+[32m+[m[32m        const transporter = nodemailer_1.default.createTransport({[m
+[32m+[m[32m            service: 'gmail',[m
+[32m+[m[32m            auth: {[m
+[32m+[m[32m                type: 'oauth2',[m
+[32m+[m[32m                user: config_1.default.MAIL,[m
+[32m+[m[32m                clientId: config_1.default.CLIENTD_ID,[m
+[32m+[m[32m                clientSecret: config_1.default.CLIENTD_SECRET,[m
+[32m+[m[32m                refreshToken: config_1.default.CLIENTD_REFRESHTOKEN,[m
+[32m+[m[32m                accessToken: accessToken[m
+[32m+[m[32m            }[m
+         });[m
+[32m+[m[32m        const mailoptions = {[m
+[32m+[m[32m            from: `Manga-Coffe ${config_1.default.MAIL}`,[m
+[32m+[m[32m            to: email,[m
+[32m+[m[32m            subject: subject,[m
+[32m+[m[32m            html: html[m
+[32m+[m[32m        };[m
+[32m+[m[32m        const respons = yield transporter.sendMail(mailoptions);[m
+[32m+[m[32m        return respons;[m
+     }[m
+     catch (error) {[m
+         console.log('Algo no va bien con el email', error);[m
+[1mdiff --git a/Servers/src/controles/Email/SendEmail/index.ts b/Servers/src/controles/Email/SendEmail/index.ts[m
+[1mindex 857e3d6..178ec12 100644[m
+[1m--- a/Servers/src/controles/Email/SendEmail/index.ts[m
+[1m+++ b/Servers/src/controles/Email/SendEmail/index.ts[m
+[36m@@ -1,20 +1,32 @@[m
+ import config from "../../../config/ConfigEntorno/config";[m
+[31m-import transporter from "../../../config/Nodemailer";[m
+[32m+[m[32mimport mail_rover from "../../../config/Nodemailer";[m
+[32m+[m[32mimport nodemailer from 'nodemailer';[m
+ [m
+ const sendEmail = async (email: string, subject: string, html:string) => {[m
+[31m-    try {[m
+[31m-        [m
+[31m-        await transporter.sendMail({[m
+[31m-            from: `MHCode <${ config.mail}>`,[m
+[31m-            to: email, [m
+[31m-            subject, [m
+[31m-            text: "Manga coffe; plataforma para verdaderos apasionados", [m
+[31m-            html, [m
+[32m+[m[32m    try {[m[41m       [m
+[32m+[m[32m        const accessToken = mail_rover()[m[41m [m
+[32m+[m[32m        const transporter = nodemailer.createTransport({[m
+[32m+[m[32m            service: 'gmail',[m
+[32m+[m[32m            auth:{[m
+[32m+[m[32m                type: 'oauth2',[m
+[32m+[m[32m                user: config.MAIL,[m
+[32m+[m[32m                clientId: config.CLIENTD_ID,[m
+[32m+[m[32m                clientSecret: config.CLIENTD_SECRET,[m
+[32m+[m[32m                refreshToken: config.CLIENTD_REFRESHTOKEN,[m
+[32m+[m[32m                accessToken: accessToken[m
+[32m+[m[32m            }[m[41m [m
+         });[m
+[31m-[m
+[32m+[m[32m        const mailoptions = {[m
+[32m+[m[32m           from: `Manga-Coffe ${config.MAIL}`,[m
+[32m+[m[32m           to: email,[m
+[32m+[m[32m           subject: subject,[m
+[32m+[m[32m           html: html[m[41m [m
+[32m+[m[32m        };[m
+[32m+[m[32m        const respons = await transporter.sendMail(mailoptions);[m
+[32m+[m[32m        return respons;[m
+     } catch (error) {[m
+         console.log('Algo no va bien con el email', error);[m
+[31m-    }[m
+[32m+[m[32m    }[m[41m    [m
+   }[m
+ [m
+[31m-  export default sendEmail;[m
+\ No newline at end of file[m
+[32m+[m[32m  export default sendEmail;[m
+[1mdiff --git a/Servers/src/controles/Email/Template/index.js b/Servers/src/controles/Email/Template/index.js[m
+[1mindex f24cdc7..b9f70b1 100644[m
+[1m--- a/Servers/src/controles/Email/Template/index.js[m
+[1m+++ b/Servers/src/controles/Email/Template/index.js[m
+[36m@@ -7,7 +7,7 @@[m [mconst getTemplate = (name, token) => {[m
+       </head>[m
+       [m
+       <div id="email___content">[m
+[31m-          <img src="https://i.imgur.com/eboNR82.png" alt="">[m
+[32m+[m[32m      <img src="https://p4.wallpaperbetter.com/wallpaper/1011/181/309/anime-art-artistic-children-wallpaper-preview.jpg" alt="">[m
+           <h2>Hola ${name}</h2>[m
+           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>[m
+           <a[m
+[1mdiff --git a/Servers/src/controles/Email/Template/index.ts b/Servers/src/controles/Email/Template/index.ts[m
+[1mindex a9bfe76..4139d3e 100644[m
+[1m--- a/Servers/src/controles/Email/Template/index.ts[m
+[1m+++ b/Servers/src/controles/Email/Template/index.ts[m
+[36m@@ -7,7 +7,7 @@[m [mconst getTemplate = (name: string, token: string) => {[m
+       </head>[m
+       [m
+       <div id="email___content">[m
+[31m-          <img src="https://i.imgur.com/eboNR82.png" alt="">[m
+[32m+[m[32m      <img src="https://p4.wallpaperbetter.com/wallpaper/1011/181/309/anime-art-artistic-children-wallpaper-preview.jpg" alt="">[m
+           <h2>Hola ${ name }</h2>[m
+           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>[m
+           <a[m
+[1mdiff --git a/Servers/src/routes/Mangas/GetByFavorites/index.js b/Servers/src/routes/Mangas/GetByFavorites/index.js[m
+[1mnew file mode 100644[m
+[1mindex 0000000..4c7cbf8[m
+[1m--- /dev/null[m
+[1m+++ b/Servers/src/routes/Mangas/GetByFavorites/index.js[m
+[36m@@ -0,0 +1,31 @@[m
+[32m+[m[32m"use strict";[m
+[32m+[m[32mvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {[m
+[32m+[m[32m    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }[m
+[32m+[m[32m    return new (P || (P = Promise))(function (resolve, reject) {[m
+[32m+[m[32m        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }[m
+[32m+[m[32m        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }[m
+[32m+[m[32m        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }[m
+[32m+[m[32m        step((generator = generator.apply(thisArg, _arguments || [])).next());[m
+[32m+[m[32m    });[m
+[32m+[m[32m};[m
+[32m+[m[32mvar __importDefault = (this && this.__importDefault) || function (mod) {[m
+[32m+[m[32m    return (mod && mod.__esModule) ? mod : { "default": mod };[m
+[32m+[m[32m};[m
+[32m+[m[32mObject.defineProperty(exports, "__esModule", { value: true });[m
+[32m+[m[32mconst express_1 = require("express");[m
+[32m+[m[32mconst Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));[m
+[32m+[m[32mconst router = (0, express_1.Router)();[m
+[32m+[m[32mrouter.get('/favoritesbyid/fav', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {[m
+[32m+[m[32m    console.log('ruta');[m
+[32m+[m[32m    const ids = req.body;[m
+[32m+[m[32m    let manga = {};[m
+[32m+[m[32m    try {[m
+[32m+[m[32m        manga = yield Manga_js_1.default.find({ _id: ids.favorites })[m
+[32m+[m[32m            .select(["title", "genres", "rating", "cover_image"]);[m
+[32m+[m[32m        res.status(200).json(manga);[m
+[32m+[m[32m    }[m
+[32m+[m[32m    catch (error) {[m
+[32m+[m[32m        next(error);[m
+[32m+[m[32m    }[m
+[32m+[m[32m}));[m
+[32m+[m[32mexports.default = router;[m
+[1mdiff --git a/Servers/src/routes/Mangas/GetByFavorites/index.ts b/Servers/src/routes/Mangas/GetByFavorites/index.ts[m
+[1mnew file mode 100644[m
+[1mindex 0000000..13cc1b2[m
+[1m--- /dev/null[m
+[1m+++ b/Servers/src/routes/Mangas/GetByFavorites/index.ts[m
+[36m@@ -0,0 +1,19 @@[m
+[32m+[m[32mimport { Router } from 'express';[m
+[32m+[m[32mimport Manga from '../../../models/Mangas/Manga.js';[m
+[32m+[m[32mconst router = Router();[m
+[32m+[m
+[32m+[m[32mrouter.get('/favoritesbyid/fav', async(req, res, next) => {[m
+[32m+[m[32m    console.log('ruta')[m
+[32m+[m[32m    const ids = req.body;[m
+[32m+[m[32m    let manga={}[m
+[32m+[m[41m    [m
+[32m+[m[32m    try {[m[41m              [m
+[32m+[m[32m            manga = await Manga.find({_id:ids.favorites})[m
+[32m+[m[32m                                .select (["title", "genres", "rating" ,"cover_image"])[m
+[32m+[m[32m            res.status(200).json(manga)[m
+[32m+[m[32m            } catch (error) {[m
+[32m+[m[32m                next(error)[m
+[32m+[m[32m            }[m
+[32m+[m[32m        })[m
+[32m+[m
+[32m+[m[32mexport default router;[m
+\ No newline at end of file[m
+[1mdiff --git a/Servers/src/routes/Users/PostUserCreated/index.js b/Servers/src/routes/Users/PostUserCreated/index.js[m
+[1mindex fa01ca7..5295f45 100644[m
+[1m--- a/Servers/src/routes/Users/PostUserCreated/index.js[m
+[1m+++ b/Servers/src/routes/Users/PostUserCreated/index.js[m
+[36m@@ -34,7 +34,7 @@[m [mrouter.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f[m
+         const token = (0, index_1.default)(newuser);[m
+         newuser = yield newuser.save();[m
+         const template = (0, index_2.default)(users, newuser.id);[m
+[31m-        yield (0, index_3.default)(email, 'Confirmacion de cuenta', template);[m
+[32m+[m[32m        (0, index_3.default)(email, 'Confirmacion de cuenta', template);[m
+         res.status(201).json({ token, usuario: newuser });[m
+     }[m
+     catch (error) {[m
+[1mdiff --git a/Servers/src/routes/Users/PostUserCreated/index.ts b/Servers/src/routes/Users/PostUserCreated/index.ts[m
+[1mindex 3a13997..2024a48 100644[m
+[1m--- a/Servers/src/routes/Users/PostUserCreated/index.ts[m
+[1m+++ b/Servers/src/routes/Users/PostUserCreated/index.ts[m
+[36m@@ -19,7 +19,7 @@[m [mrouter.post('/register', async (req, res, next) => {[m
+         const token = createToken(newuser);[m
+         newuser = await newuser.save();[m
+         const template = getTemplate(users, newuser.id);[m
+[31m-        await sendEmail(email, 'Confirmacion de cuenta', template);[m
+[32m+[m[32m        sendEmail(email, 'Confirmacion de cuenta', template);[m
+         res.status(201).json({token, usuario: newuser});[m
+     } catch (error) {[m
+         next(error);[m
+[1mdiff --git a/Servers/src/routes/index.js b/Servers/src/routes/index.js[m
+[1mindex ddf000d..e180465 100644[m
+[1m--- a/Servers/src/routes/index.js[m
+[1m+++ b/Servers/src/routes/index.js[m
+[36m@@ -1,57 +1,61 @@[m
+[31m-"use strict"; [m
+[31m-var _importDefault = (this && this._importDefault) || function (mod) { [m
+[31m-    return (mod && mod.__esModule) ? mod : { "default": mod }; [m
+[31m-}; [m
+[31m-Object.defineProperty(exports, "__esModule", { value: true }); [m
+[31m-const express_1 = require("express"); [m
+[31m-const index_1 = __importDefault(require("./Mangas/GetByName/index")); [m
+[31m-const index_2 = __importDefault(require("./Mangas/PostManga/index")); [m
+[31m-const index_3 = __importDefault(require("./Mangas/GetFindAll/index")); [m
+[31m-const index_4 = __importDefault(require("./Mangas/GetById/index")); [m
+[31m-const index_5 = __importDefault(require("./Mangas/DeleteById/index")); [m
+[31m-const index_6 = __importDefault(require("./Mangas/FilterByGenre/index")); [m
+[31m-const index_7 = __importDefault(require("./Mangas/PatchComments/index")); [m
+[31m-const index_8 = __importDefault(require("./Users/PostUserCreated/index")); [m
+[31m-const index_9 = __importDefault(require("./Users/PostUserinit/index")); [m
+[31m-const index_10 = __importDefault(require("./Users/GetByIdUser/index")); [m
+[31m-const index_11 = __importDefault(require("./Users/PutByIdUser/index")); [m
+[31m-const index_12 = __importDefault(require("./Users/PutByIdUserFav/index")); [m
+[31m-const index_13 = __importDefault(require("./Users/GetMangaFavoUser/index")); [m
+[31m-const index_14 = __importDefault(require("./Users/DeleteUsers/index")); [m
+[31m-const index_15 = __importDefault(require("./Users/GetConfirmarCuenta/index")); [m
+[31m-const index_16 = __importDefault(require("./Products/DeleteByIdProducts/index")); [m
+[31m-const index_17 = __importDefault(require("./Products/FilterByIdProducts/index")); [m
+[31m-const index_18 = __importDefault(require("./Products/FilterByNameProducts/index")); [m
+[31m-const index_19 = __importDefault(require("./Products/GetFindAllProducts/index")); [m
+[31m-const index_20 = __importDefault(require("./Products/PostProducts/index")); [m
+[31m-const index_21 = __importDefault(require("./Products/FilterByCategory/index")); [m
+[31m-const index_22 = __importDefault(require("./Products/PutProducts/index")); [m
+[31m-const index_23 = __importDefault(require("./Products/PostCommentsProducts/index")); [m
+[31m-const index_24 = __importDefault(require("./Mangas/PutManga/index")); [m
+[31m-const router = (0, express_1.Router)(); [m
+[31m-router.use('/manga', index_6.default); [m
+[31m-router.use('/manga', index_3.default); [m
+[31m-router.use('/manga', index_1.default); [m
+[31m-router.use('/manga', index_4.default); [m
+[31m-router.use('/manga', index_2.default); [m
+[31m-router.use('/manga', index_5.default); [m
+[31m-router.use('/manga', index_7.default); [m
+[31m-router.use('/manga', index_24.default); [m
+[31m-router.use('/user', index_14.default); [m
+[31m-router.use('/user', index_8.default); [m
+[31m-router.use('/user', index_9.default); [m
+[31m-router.use('/user', index_10.default); [m
+[31m-router.use('/user', index_11.default); [m
+[31m-router.use('/user', index_12.default); [m
+[31m-router.use('/user', index_13.default); [m
+[31m-router.use('/user', index_15.default); [m
+[31m-router.use('/products', index_16.default); [m
+[31m-router.use('/products', index_17.default); [m
+[31m-router.use('/products', index_18.default); [m
+[31m-router.use('/products', index_19.default); [m
+[31m-router.use('/products', index_20.default); [m
+[31m-router.use('/products', index_21.default); [m
+[31m-router.use('/products', index_22.default); [m
+[31m-router.use('/products', index_22.default); [m
+[31m-router.use('/products', index_23.default); [m
+[31m-exports.default = router;[m
+\ No newline at end of file[m
+[32m+[m
+[32m+[m[32m"use strict";[m
+[32m+[m[32mvar __importDefault = (this && this.__importDefault) || function (mod) {[m
+[32m+[m[32m    return (mod && mod.__esModule) ? mod : { "default": mod };[m
+[32m+[m[32m};[m
+[32m+[m[32mObject.defineProperty(exports, "__esModule", { value: true });[m
+[32m+[m[32mconst express_1 = require("express");[m
+[32m+[m[32mconst index_1 = __importDefault(require("./Mangas/GetByName/index"));[m
+[32m+[m[32mconst index_2 = __importDefault(require("./Mangas/PostManga/index"));[m
+[32m+[m[32mconst index_3 = __importDefault(require("./Mangas/GetFindAll/index"));[m
+[32m+[m[32mconst index_4 = __importDefault(require("./Mangas/GetById/index"));[m
+[32m+[m[32mconst index_5 = __importDefault(require("./Mangas/DeleteById/index"));[m
+[32m+[m[32mconst index_6 = __importDefault(require("./Mangas/FilterByGenre/index"));[m
+[32m+[m[32mconst index_7 = __importDefault(require("./Mangas/PatchComments/index"));[m
+[32m+[m[32mconst index_8 = __importDefault(require("./Users/PostUserCreated/index"));[m
+[32m+[m[32mconst index_9 = __importDefault(require("./Users/PostUserinit/index"));[m
+[32m+[m[32mconst index_10 = __importDefault(require("./Users/GetByIdUser/index"));[m
+[32m+[m[32mconst index_11 = __importDefault(require("./Users/PutByIdUser/index"));[m
+[32m+[m[32mconst index_12 = __importDefault(require("./Users/PutByIdUserFav/index"));[m
+[32m+[m[32mconst index_13 = __importDefault(require("./Users/GetMangaFavoUser/index"));[m
+[32m+[m[32mconst index_14 = __importDefault(require("./Users/DeleteUsers/index"));[m
+[32m+[m[32mconst index_15 = __importDefault(require("./Users/GetConfirmarCuenta/index"));[m
+[32m+[m[32mconst index_16 = __importDefault(require("./Products/DeleteByIdProducts/index"));[m
+[32m+[m[32mconst index_17 = __importDefault(require("./Products/FilterByIdProducts/index"));[m
+[32m+[m[32mconst index_18 = __importDefault(require("./Products/FilterByNameProducts/index"));[m
+[32m+[m[32mconst index_19 = __importDefault(require("./Products/GetFindAllProducts/index"));[m
+[32m+[m[32mconst index_20 = __importDefault(require("./Products/PostProducts/index"));[m
+[32m+[m[32mconst index_21 = __importDefault(require("./Products/FilterByCategory/index"));[m
+[32m+[m[32mconst index_22 = __importDefault(require("./Products/PutProducts/index"));[m
+[32m+[m[32mconst index_23 = __importDefault(require("./Products/PostCommentsProducts/index"));[m
+[32m+[m[32mconst index_24 = __importDefault(require("./Mangas/PutManga/index"));[m
+[32m+[m[32mconst index_25 = __importDefault(require("./Mangas/GetByFavorites/index"));[m
+[32m+[m[32mconst router = (0, express_1.Router)();[m
+[32m+[m[32mrouter.use('/manga', index_6.default);[m
+[32m+[m[32mrouter.use('/manga', index_3.default);[m
+[32m+[m[32mrouter.use('/manga', index_1.default);[m
+[32m+[m[32mrouter.use('/manga', index_4.default);[m
+[32m+[m[32mrouter.use('/manga', index_2.default);[m
+[32m+[m[32mrouter.use('/manga', index_5.default);[m
+[32m+[m[32mrouter.use('/manga', index_7.default);[m
+[32m+[m[32mrouter.use('/manga', index_24.default);[m
+[32m+[m[32mrouter.use('/manga', index_25.default);[m
+[32m+[m[32mrouter.use('/user', index_14.default);[m
+[32m+[m[32mrouter.use('/user', index_8.default);[m
+[32m+[m[32mrouter.use('/user', index_9.default);[m
+[32m+[m[32mrouter.use('/user', index_10.default);[m
+[32m+[m[32mrouter.use('/user', index_11.default);[m
+[32m+[m[32mrouter.use('/user', index_12.default);[m
+[32m+[m[32mrouter.use('/user', index_13.default);[m
+[32m+[m[32mrouter.use('/user', index_15.default);[m
+[32m+[m[32mrouter.use('/products', index_16.default);[m
+[32m+[m[32mrouter.use('/products', index_17.default);[m
+[32m+[m[32mrouter.use('/products', index_18.default);[m
+[32m+[m[32mrouter.use('/products', index_19.default);[m
+[32m+[m[32mrouter.use('/products', index_20.default);[m
+[32m+[m[32mrouter.use('/products', index_21.default);[m
+[32m+[m[32mrouter.use('/products', index_22.default);[m
+[32m+[m[32mrouter.use('/products', index_22.default);[m
+[32m+[m[32mrouter.use('/products', index_23.default);[m
+[32m+[m
+[32m+[m[32mexports.default = router;[m
+[1mdiff --git a/Servers/src/routes/index.ts b/Servers/src/routes/index.ts[m
+[1mindex ffc650b..8b4d70d 100644[m
+[1m--- a/Servers/src/routes/index.ts[m
+[1m+++ b/Servers/src/routes/index.ts[m
+[36m@@ -23,6 +23,7 @@[m [mimport FilterByCategory from './Products/FilterByCategory/index';[m
+ import PutProducts from './Products/PutProducts/index';[m
+ import PostCommentsProducts from './Products/PostCommentsProducts/index';[m
+ import PutManga from './Mangas/PutManga/index';[m
+[32m+[m[32mimport GetByFavorites from './Mangas/GetByFavorites/index';[m
+ [m
+ const router = Router();[m
+ [m
+[36m@@ -34,6 +35,7 @@[m [mrouter.use('/manga', PostManga);[m
+ router.use('/manga', DeleteById);[m
+ router.use('/manga', PatchComments);[m
+ router.use('/manga', PutManga);[m
+[32m+[m[32mrouter.use('/manga', GetByFavorites);[m
+ [m
+ router.use('/user', DeleteUsers);[m
+ router.use('/user', PostUserCreated);[m
+[1mdiff --git a/client/src/components/Detail/Comments/index.tsx b/client/src/components/Detail/Comments/index.tsx[m
+[1mindex ea729ae..0a7078b 100644[m
+[1m--- a/client/src/components/Detail/Comments/index.tsx[m
+[1m+++ b/client/src/components/Detail/Comments/index.tsx[m
+[36m@@ -13,7 +13,6 @@[m [mconst Comments = ({ comments }: Props) => {[m
+   const id = useId();[m
+   const dispatch = useAppDispatch();[m
+   const comm = useAppSelector(state => state.mangas)[m
+[31m-  const {user} = useAppSelector(state => state.user)[m
+   const [input, setInput] = useState<any>({[m
+     name : 'Tartaglia',[m
+     body : '',[m
+[36m@@ -41,7 +40,7 @@[m [mconst Comments = ({ comments }: Props) => {[m
+     if(!input.body) {[m
+       return alert('Invalid action')[m
+     }[m
+[31m-    dispatch(fetchMangaComments(input, comm.manga._id ,user))[m
+[32m+[m[32m    dispatch(fetchMangaComments(input))[m
+     setInput({[m
+       name : 'Tartaglia',[m
+       body : '',[m
+[1mdiff --git a/client/src/components/Logeo/Logeo.tsx b/client/src/components/Logeo/Logeo.tsx[m
+[1mindex b44e374..55c2c2c 100644[m
+[1m--- a/client/src/components/Logeo/Logeo.tsx[m
+[1m+++ b/client/src/components/Logeo/Logeo.tsx[m
+[36m@@ -1,7 +1,7 @@[m
+ import { useState } from "react";[m
+ import { useNavigate, useParams } from "react-router-dom";[m
+ import { useAppDispatch, useAppSelector } from "../../app/hooks";[m
+[31m-import { userLog } from "../../features/user/userSlice";[m
+[32m+[m[32mimport { logIn, loginUser, loginWithGoogle, userLog } from "../../features/user/userSlice";[m
+ import { InitialState } from "../../features/user/userSlice";[m
+ import { validate } from "./func/validate";[m
+ import "../../scss/User/Registration.scss";[m
+[36m@@ -23,6 +23,7 @@[m [mconst Logeo = () => {[m
+     loged: false,[m
+   });[m
+ [m
+[32m+[m[32m  const [error, setError] = useState <string>('')[m
+   const user = useAppSelector((state) => state.user);[m
+   const [switchButton , setSwitchB] = useState<boolean>(false)[m
+   const dispatch = useAppDispatch();[m
+[36m@@ -42,34 +43,54 @@[m [mconst Logeo = () => {[m
+     );[m
+   };[m
+ [m
+[31m-  const handleSubmit = (e: any) => {[m
+[32m+[m[32m  const handleSubmit =async (e: any) => {[m
+     e.preventDefault();[m
+     if (errors.email || errors.password || !input.email || !input.password)[m
+       return;[m
+[32m+[m[32m      setError('')[m
+     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion[m
+     // ? no te olvides enviar el user name modificado en el reducer[m
+[31m-    dispatch(userLog(input)); //[m
+[31m-    alert("acces");[m
+[31m-    setInput({[m
+[31m-      id: "",[m
+[31m-      email: "", // segio@[m
+[31m-      password: "", // sds2[m
+[31m-      loged: false,[m
+[31m-      user: "",[m
+[31m-      token: "",[m
+[31m-      favorites: [],[m
+[31m-    });[m
+[31m-    setErrors({[m
+[31m-      email: "",[m
+[31m-      password: "",[m
+[31m-      loged: false,[m
+[31m-    });[m
+[31m-    navigate("/", { replace: true });[m
+[32m+[m[32m    try {[m
+[32m+[m[32m      await dispatch(logIn(input.email,input.password))[m
+[32m+[m[32m      dispatch(userLog(input)); //[m
+[32m+[m[32m      alert("acces");[m
+[32m+[m[32m      navigate("/", { replace: true });[m
+[32m+[m[32m      setInput({[m
+[32m+[m[32m        id: "",[m
+[32m+[m[32m        email: "", // segio@[m
+[32m+[m[32m        password: "", // sds2[m
+[32m+[m[32m        loged: false,[m
+[32m+[m[32m        user: "",[m
+[32m+[m[32m        token: "",[m
+[32m+[m[32m        favorites: [],[m
+[32m+[m[32m      });[m
+[32m+[m[32m      setErrors({[m
+[32m+[m[32m        email: "",[m
+[32m+[m[32m        password: "",[m
+[32m+[m[32m        loged: false,[m
+[32m+[m[32m      });[m
+[32m+[m[32m    } catch (e :any) {[m
+[32m+[m[32m      if(e.code === 'auth/user-not-found') {[m
+[32m+[m[32m        setError('Correo invalido')[m
+[32m+[m[32m      }[m
+[32m+[m[32m      setError('Correo invalido')[m
+[32m+[m[32m    }[m
+   };[m
+ [m
+[32m+[m[32m  const handleGoogleSignin = async () =>{[m
+[32m+[m[32m    try{[m
+[32m+[m[32m      await dispatch (loginWithGoogle())[m
+[32m+[m[32m      navigate("/", { replace: true });[m
+[32m+[m[32m    } catch(e :any){[m
+[32m+[m[32m      setError(e.message)[m
+[32m+[m[32m    }[m
+[32m+[m[41m  [m
+[32m+[m[32m  }[m
+[32m+[m
+   return ([m
+     <div className={"form_Registration_container"}>[m
+       <form onSubmit={handleSubmit}>[m
+[32m+[m[32m       {error && <div className="form_Registration_span"> <span>{error}</span></div>}[m
+         <div className="form_Registration_title">[m
+           <h1>Welcome Back !</h1>[m
+         </div>[m
+[36m@@ -79,7 +100,7 @@[m [mconst Logeo = () => {[m
+           <input[m
+             name="email"[m
+             type="text"[m
+[31m-            placeholder="email"[m
+[32m+[m[32m            placeholder="youremail@company.ldt"[m
+             onChange={handleChange}[m
+             value={input.email}[m
+           />[m
+[36m@@ -88,15 +109,18 @@[m [mconst Logeo = () => {[m
+         </div>[m
+ [m
+         <div className="form_Registration_input">[m
+[32m+[m[32m        <div className="form_Registration_view_password">[m
+[32m+[m
+           <label htmlFor="password">Password :</label>[m
+           <input[m
+             name="password"[m
+             type={switchButton ? "text" : "password"}[m
+[31m-            placeholder="password"[m
+[32m+[m[32m            placeholder="**********"[m
+             onChange={handleChange}[m
+             value={input.password}[m
+           />[m
+[31m-          <button onClick={()=>setSwitchB(!switchButton)}>👀</button>[m
+[32m+[m[32m          <div onClick={()=>setSwitchB(!switchButton)}>👀</div>[m
+[32m+[m[32m        </div>[m
+           {errors.password.length > 1 && <p>{errors.password}</p>}[m
+         </div>[m
+         <div>[m
+[36m@@ -104,8 +128,8 @@[m [mconst Logeo = () => {[m
+ [m
+         </div>[m
+         <span>------------------------------------------</span>[m
+[31m-        <div>[m
+[31m-          <h5>Logeo con Google</h5>[m
+[32m+[m[32m        <div onClick={handleGoogleSignin}>[m
+[32m+[m[32m          <h5>Google Login</h5>[m
+         </div>[m
+       </form>[m
+     </div>[m
+[1mdiff --git a/client/src/components/Registration/Registration.tsx b/client/src/components/Registration/Registration.tsx[m
+[1mindex 4387f7e..eb79cfd 100644[m
+[1m--- a/client/src/components/Registration/Registration.tsx[m
+[1m+++ b/client/src/components/Registration/Registration.tsx[m
+[36m@@ -21,9 +21,11 @@[m [mconst Registration = () => {[m
+     user: "",[m
+   });[m
+ [m
+[32m+[m[32m  const [error, setError] = useState <string>('')[m
+[32m+[m
+   const dispatch = useAppDispatch();[m
+   const navigate = useNavigate();[m
+[31m-  const [switchButton , setSwitchB] = useState<boolean>(false)[m
+[32m+[m[32m  const [switchButton, setSwitchB] = useState<boolean>(false);[m
+ [m
+   const handleChange = (event: any) => {[m
+     setInput({[m
+[36m@@ -37,17 +39,18 @@[m [mconst Registration = () => {[m
+       })[m
+     );[m
+   };[m
+[31m-  [m
+[32m+[m
+   const handleSubmit = async (e: any) => {[m
+     e.preventDefault();[m
+     if (errors.email || errors.password || !input.email || !input.password)[m
+     return;[m
+[32m+[m[32m    setError('')[m
+     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion[m
+     // ? no te olvides enviar el user name modificado en el reducer[m
+[31m-    const firebase = await dispatch(signUp(input.email ,input.password))[m
+[31m-    console.log(firebase)[m
+[32m+[m[32m    try {[m
+[32m+[m[32m   dispatch(signUp(input.email ,input.password))[m
+     const verificate: any = await dispatch(singUpUser(input));[m
+[31m-    console.log(verificate);[m
+[32m+[m[32m    navigate("/", { replace: true });[m
+     if (typeof verificate === "string") {[m
+       alert("existe");[m
+     } else {[m
+[36m@@ -68,16 +71,23 @@[m [mconst Registration = () => {[m
+       loged: false,[m
+       user: "",[m
+     });[m
+[31m-    navigate("/", { replace: true });[m
+[32m+[m[32m    } catch(e:any){[m
+[32m+[m[32m      if(e.code === 'auth/inter-error') {[m
+[32m+[m[32m        setError('Correo invalido')[m
+[32m+[m[32m      }[m
+[32m+[m[32m      setError(e.message)[m
+[32m+[m[32m    }[m
+[32m+[m[41m    [m
+   };[m
+[31m-  [m
+[32m+[m
+   const passwordText = () => {[m
+[31m-    setSwitchB (!switchButton)[m
+[31m-  }[m
+[31m-  [m
+[32m+[m[32m    setSwitchB(!switchButton);[m
+[32m+[m[32m  };[m
+[32m+[m
+   return ([m
+     <div className={"form_Registration_container"}>[m
+[31m-      <form onSubmit={handleSubmit} >[m
+[32m+[m[32m      {error && <div> <span>{error}</span></div>}[m
+[32m+[m[32m      <form onSubmit={handleSubmit}>[m
+         <div className="form_Registration_title">[m
+           <h1>Welcome</h1>[m
+         </div>[m
+[36m@@ -86,7 +96,7 @@[m [mconst Registration = () => {[m
+           <input[m
+             name="email"[m
+             type="text"[m
+[31m-            placeholder="email"[m
+[32m+[m[32m            placeholder="youremail@company.ldt"[m
+             onChange={handleChange}[m
+             value={input.email}[m
+           />[m
+[36m@@ -96,15 +106,17 @@[m [mconst Registration = () => {[m
+ [m
+         <div className="form_Registration_input">[m
+           <div className="form_Registration_view_password">[m
+[31m-          <label htmlFor="password">Password :</label>[m
+[31m-          <input[m
+[31m-            name="password"[m
+[31m-            type={switchButton ? "text" : "password"}[m
+[31m-            placeholder="password"[m
+[31m-            onChange={handleChange}[m
+[31m-            value={input.password}[m
+[31m-          />[m
+[31m-          <div onClick={passwordText} className='form_Registration_view'>👀</div>[m
+[32m+[m[32m            <label htmlFor="password">Password :</label>[m
+[32m+[m[32m            <input[m
+[32m+[m[32m              name="password"[m
+[32m+[m[32m              type={switchButton ? "text" : "password"}[m
+[32m+[m[32m              placeholder="**********"[m
+[32m+[m[32m              onChange={handleChange}[m
+[32m+[m[32m              value={input.password}[m
+[32m+[m[32m            />[m
+[32m+[m[32m            <div onClick={passwordText} className="form_Registration_view">[m
+[32m+[m[32m              👀[m
+[32m+[m[32m            </div>[m
+           </div>[m
+           {errors.password.length > 1 && <div>{errors.password}</div>}[m
+         </div>[m
+[36m@@ -122,8 +134,8 @@[m [mconst Registration = () => {[m
+           {errors.user.length > 1 && <div>{errors.user}</div>}[m
+         </div>[m
+         <div>[m
+[31m-        <input type="submit" value={"Logn In"}/>[m
+[31m-        </div> [m
+[32m+[m[32m          <input type="submit" value={"Sign In"} />[m
+[32m+[m[32m        </div>[m
+         <span>------------------------------------------</span>[m
+         <div>[m
+           <h5>Logeo con Google</h5>[m
+[1mdiff --git a/client/src/components/User/User.tsx b/client/src/components/User/User.tsx[m
+[1mindex 1b9ed8a..a66cd93 100644[m
+[1m--- a/client/src/components/User/User.tsx[m
+[1m+++ b/client/src/components/User/User.tsx[m
+[36m@@ -1,48 +1,70 @@[m
+[31m-import {useAppDispatch, useAppSelector} from '../../app/hooks'[m
+[31m-import { InitialState } from '../../features/user/userSlice'[m
+[31m-import {FaUserCircle} from 'react-icons/fa'[m
+[31m-import { useLocation, useNavigate } from 'react-router-dom'[m
+[31m-import {logOutUser} from '../../features/user/userSlice'[m
+[32m+[m[32mimport { useAppDispatch, useAppSelector } from "../../app/hooks";[m
+[32m+[m[32mimport { InitialState, logOut } from "../../features/user/userSlice";[m
+[32m+[m[32mimport { FaUserCircle } from "react-icons/fa";[m
+[32m+[m[32mimport { useLocation, useNavigate } from "react-router-dom";[m
+[32m+[m[32mimport { logOutUser } from "../../features/user/userSlice";[m
+ const User = () => {[m
+[31m-  const user :InitialState = useAppSelector((state)=>state.user)[m
+[31m-  const navigate = useNavigate()[m
+[31m-  const dispatch = useAppDispatch()[m
+[31m-  const {pathname} = useLocation()[m
+[31m-  console.log(user)[m
+[31m-  [m
+[32m+[m[32m  const user: InitialState = useAppSelector((state) => state.user);[m
+[32m+[m[32m  const navigate = useNavigate();[m
+[32m+[m[32m  const dispatch = useAppDispatch();[m
+[32m+[m[32m  const { pathname } = useLocation();[m
+[32m+[m[32m  console.log(user);[m
+[32m+[m
+   return ([m
+     <div>[m
+[31m-      {[m
+[31m-        user.token ? [m
+[31m-      <div>[m
+[31m-[m
+[31m-      <FaUserCircle size={44} color={'white'}/>[m
+[31m-      <p>{user.user}</p>[m
+[31m-      {[m
+[31m-        pathname === '/userDetail'  ? [m
+[31m-        <span/>[m
+[31m-        : <button[m
+[31m-        onClick={()=>{ navigate("/userDetail", { replace: true })}}[m
+[31m-        >Detail</button>[m
+[31m-      }[m
+[32m+[m[32m      {user.token ? ([m
+[32m+[m[32m        <div>[m
+[32m+[m[32m          <FaUserCircle size={44} color={"white"} />[m
+[32m+[m[32m          <p>{user.user}</p>[m
+[32m+[m[32m          {pathname === "/userDetail" ? ([m
+[32m+[m[32m            <span />[m
+[32m+[m[32m          ) : ([m
+[32m+[m[32m            <button[m
+[32m+[m[32m              onClick={() => {[m
+[32m+[m[32m                navigate("/userDetail", { replace: true });[m
+[32m+[m[32m              }}[m
+[32m+[m[32m            >[m
+[32m+[m[32m              Detail[m
+[32m+[m[32m            </button>[m
+[32m+[m[32m          )}[m
+ [m
+[31m-      <button onClick={()=> {[m
+[31m-        navigate("/", { replace: true })[m
+[31m-        dispatch(logOutUser())[m
+[31m-        }}>Log Out</button>[m
+[31m-      </div>[m
+[31m-      : <div>[m
+[31m-        <button  onClick={()=>{ navigate("/logeo", { replace: true })}}>Sign In</button>[m
+[31m-        <button[m
+[31m-         onClick={()=>{ navigate("/registration", { replace: true })}}>Log In</button>[m
+[32m+[m[32m          <button[m
+[32m+[m[32m            onClick={async () => {[m
+[32m+[m[32m              navigate("/", { replace: true });[m
+[32m+[m[32m              try {[m
+[32m+[m[32m                await dispatch(logOutUser());[m
+[32m+[m[32m                await dispatch(logOut());[m
+[32m+[m[32m              } catch (error) {[m
+[32m+[m[32m                console.log(error);[m
+[32m+[m[32m              }[m
+[32m+[m[32m            }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            Log Out[m
+[32m+[m[32m          </button>[m
+         </div>[m
+[31m-      }[m
+[31m-[m
+[32m+[m[32m      ) : ([m
+[32m+[m[32m        <div>[m
+[32m+[m[32m          <button[m
+[32m+[m[32m            onClick={() => {[m
+[32m+[m[32m              navigate("/logeo", { replace: true });[m
+[32m+[m[32m            }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            Sign In[m
+[32m+[m[32m          </button>[m
+[32m+[m[32m          <button[m
+[32m+[m[32m            onClick={() => {[m
+[32m+[m[32m              navigate("/registration", { replace: true });[m
+[32m+[m[32m            }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            Log In[m
+[32m+[m[32m          </button>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m      )}[m
+     </div>[m
+[31m-  )[m
+[31m-}[m
+[32m+[m[32m  );[m
+[32m+[m[32m};[m
+ [m
+[31m-export default User[m
+[32m+[m[32mexport default User;[m
+ [m
+ // id: "",[m
+ //   email: "",[m
+[36m@@ -50,4 +72,4 @@[m [mexport default User[m
+ //   loged: false,[m
+ //   user: "",[m
+ //   token: "",[m
+[31m-//   favorites :[][m
+\ No newline at end of file[m
+[32m+[m[32m//   favorites :[][m
+[1mdiff --git a/client/src/context/authContext.tsx b/client/src/context/authContext.tsx[m
+[1mdeleted file mode 100644[m
+[1mindex b7de442..0000000[m
+[1m--- a/client/src/context/authContext.tsx[m
+[1m+++ /dev/null[m
+[36m@@ -1,12 +0,0 @@[m
+[31m-import { createContext, useContext, useEffect, useState } from "react";[m
+[31m-import {[m
+[31m-  createUserWithEmailAndPassword,[m
+[31m-  signInWithEmailAndPassword,[m
+[31m-  sendPasswordResetEmail,[m
+[31m-  onAuthStateChanged,[m
+[31m-  GoogleAuthProvider,[m
+[31m-  signInWithPopup,[m
+[31m-  signOut,[m
+[31m-} from "firebase/auth";[m
+[31m-import { auth } from "../firebase";[m
+[31m-[m
+[1mdiff --git a/client/src/features/manga/mangaSlice.ts b/client/src/features/manga/mangaSlice.ts[m
+[1mindex 325c2bb..d4df94b 100644[m
+[1m--- a/client/src/features/manga/mangaSlice.ts[m
+[1m+++ b/client/src/features/manga/mangaSlice.ts[m
+[36m@@ -84,7 +84,6 @@[m [mconst initialState: InitialState = {[m
+         state.mangas = action.payload[m
+       },[m
+       mangaComments: (state, action : PayloadAction<Comments[]>) => {[m
+[31m-        console.log(action.payload)[m
+         state.comments = [[m
+           Object.assign(action.payload),[m
+           ...state.comments[m
+[36m@@ -156,12 +155,8 @@[m [mconst initialState: InitialState = {[m
+     }[m
+   };[m
+ [m
+[31m-  export const fetchMangaComments = (comment : any, id: string, name: string): AppThunk => {[m
+[32m+[m[32m  export const fetchMangaComments = (comment : any): AppThunk => {[m
+     return async (dispatch) => {[m
+[31m-      const {data} = await axios.patch(`http://localhost:5000/api/manga/${id}`, {[m
+[31m-        name,[m
+[31m-        body: comment[m
+[31m-      })[m
+       dispatch(mangaComments(comment))[m
+     }[m
+   };[m
+[1mdiff --git a/client/src/features/user/userSlice.ts b/client/src/features/user/userSlice.ts[m
+[1mindex a2b92c1..c592e6e 100644[m
+[1m--- a/client/src/features/user/userSlice.ts[m
+[1m+++ b/client/src/features/user/userSlice.ts[m
+[36m@@ -2,7 +2,13 @@[m [mimport { createSlice, PayloadAction } from "@reduxjs/toolkit";[m
+ import axios from "axios";[m
+ import headers from "../../app/headers";[m
+ import { AppThunk } from "../../app/store";[m
+[31m-import { GoogleAuthProvider ,signInWithPopup , createUserWithEmailAndPassword} from "firebase/auth";[m
+[32m+[m[32mimport {[m
+[32m+[m[32m  GoogleAuthProvider,[m
+[32m+[m[32m  signInWithPopup,[m
+[32m+[m[32m  createUserWithEmailAndPassword,[m
+[32m+[m[32m  signInWithEmailAndPassword,[m
+[32m+[m[32m  signOut,[m
+[32m+[m[32m} from "firebase/auth";[m
+ import { auth } from "../../firebase";[m
+ [m
+ export type favoritesMangas = {[m
+[36m@@ -60,7 +66,6 @@[m [mconst userSlice = createSlice({[m
+       state.token = token;[m
+ [m
+       console.log(state.email, state.token, "hola");[m
+[31m-[m
+     },[m
+     logOutUser: (state) => {[m
+       state = {[m
+[36m@@ -73,13 +78,13 @@[m [mconst userSlice = createSlice({[m
+         favorites: [],[m
+       };[m
+ [m
+[31m-      window.localStorage.setItem("copySliceUser",JSON.stringify(""))[m
+[31m-      window.location.reload()[m
+[32m+[m[32m      window.localStorage.setItem("copySliceUser", JSON.stringify(""));[m
+[32m+[m[32m      window.location.reload();[m
+     },[m
+     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {[m
+[31m-      console.log('FAVORITEEEES', action.payload)[m
+[31m-      state.favorites = action.payload[m
+[31m-    }[m
+[32m+[m[32m      console.log("FAVORITEEEES", action.payload);[m
+[32m+[m[32m      state.favorites = action.payload;[m
+[32m+[m[32m    },[m
+   },[m
+ });[m
+ [m
+[36m@@ -141,34 +146,53 @@[m [mexport const setDetailUser = (headers: object): AppThunk => {[m
+   };[m
+ };[m
+ [m
+[31m-export const loginWithGoogle = ( user : InitialState): AppThunk => {[m
+[31m-  return async () => {[m
+[31m-  const googleProvider = new GoogleAuthProvider()[m
+[31m-  const userGoogle = await signInWithPopup (auth, googleProvider)[m
+[31m-  return userGoogle[m
+[31m-  }[m
+[32m+[m[32mexport const FetchFavoriteMangas = ([m
+[32m+[m[32m  id: string,[m
+[32m+[m[32m  mangaId: string,[m
+[32m+[m[32m  headers: object[m
+[32m+[m[32m  ): AppThunk => {[m
+[32m+[m[32m    return async (dispatch) => {[m
+[32m+[m[32m      const { data } = await axios.put([m
+[32m+[m[32m        `http://localhost:5000/api/user/fav/${id}`,[m
+[32m+[m[32m        {[m
+[32m+[m[32m          favorites: [mangaId],[m
+[32m+[m[32m      },[m
+[32m+[m[32m      headers[m
+[32m+[m[32m    );[m
+[32m+[m[32m    dispatch(favoriteMangas(data));[m
+[32m+[m[32m  };[m
+ };[m
+ [m
+[31m-export const signUp = (email :string , password :string): AppThunk =>{[m
+[31m-  return async () => [m
+[31m-  await createUserWithEmailAndPassword(auth , email , password)[m
+[31m-}[m
+[32m+[m[32mexport const signUp = (email: string, password: string): AppThunk => {[m
+[32m+[m[32m  return async () =>[m
+[32m+[m[32m  await createUserWithEmailAndPassword(auth, email, password);[m
+[32m+[m[32m};[m
+ [m
+[31m-export const FetchFavoriteMangas = (id: string, mangaId: string, headers: object):AppThunk => {[m
+[31m-  return async (dispatch) => {[m
+[31m-    const {data} = await axios.put(`http://localhost:5000/api/user/fav/${id}`, {[m
+[31m-      favorites: [mangaId][m
+[31m-    }, headers )[m
+[31m-    console.log('OTROOOOOOO', data)[m
+[31m-    dispatch(favoriteMangas(data))[m
+[31m-  }[m
+[31m-}[m
+[32m+[m[32mexport const logIn = (email: string, password: string): AppThunk => {[m
+[32m+[m[32m  return async () => {[m
+[32m+[m[32m    await signInWithEmailAndPassword(auth, email, password);[m
+[32m+[m[32m  };[m
+[32m+[m[32m};[m
+ [m
+[31m-// http://localhost:5000/api/user/fav/:id [m
+[32m+[m[32mexport const logOut = (): AppThunk =>{[m
+[32m+[m[32m  return async () => {[m
+[32m+[m[32m    await signOut(auth);[m
+[32m+[m[32m  };[m
+[32m+[m[32m}[m
+[32m+[m[32mexport const loginWithGoogle = (): AppThunk => {[m
+[32m+[m[32m  return async () => {[m
+[32m+[m[32m    const googleProvider = new GoogleAuthProvider();[m
+[32m+[m[32m    const userGoogle = await signInWithPopup(auth, googleProvider);[m
+[32m+[m[32m    console.log(userGoogle)[m
+[32m+[m[32m    return userGoogle;[m
+[32m+[m[32m  };[m
+[32m+[m[32m};[m
+[32m+[m[32m// http://localhost:5000/api/user/fav/:id[m
+ [m
+ //get ('/' , headers)[m
+ //post ('/' , {} , headers)[m
+ [m
+ export default userSlice.reducer;[m
+ [m
+[31m-export const { loginUser, createUser ,logOutUser, favoriteMangas } = userSlice.actions;[m
+[32m+[m[32mexport const { loginUser, createUser, logOutUser, favoriteMangas } =[m
+[32m+[m[32m  userSlice.actions;[m
+[1mdiff --git a/client/src/scss/User/Registration.scss b/client/src/scss/User/Registration.scss[m
+[1mindex b452d61..2558b07 100644[m
+[1m--- a/client/src/scss/User/Registration.scss[m
+[1m+++ b/client/src/scss/User/Registration.scss[m
+[36m@@ -8,7 +8,7 @@[m
+   align-items: center;[m
+ [m
+     .form_Registration_title {[m
+[31m-        height: 50px;[m
+[32m+[m[32m        height: 60px;[m
+         margin-bottom: 20px;[m
+     }[m
+ [m
+[36m@@ -21,4 +21,7 @@[m
+     .form_Registration_view {[m
+         width: 10px;[m
+     }[m
+[32m+[m[32m    .form_Registration_span{[m
+[32m+[m[32m        padding-bottom: 34px;[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/client/src/scss/base/_base.scss b/client/src/scss/base/_base.scss[m
+[1mindex 8c4eb85..76bb4d2 100644[m
+[1m--- a/client/src/scss/base/_base.scss[m
+[1m+++ b/client/src/scss/base/_base.scss[m
+[36m@@ -1,5 +1,5 @@[m
+ :root {[m
+[31m-  background: rebeccapurple;[m
+[32m+[m[32m  background: black;[m
+ }[m
+ [m
+ * {[m

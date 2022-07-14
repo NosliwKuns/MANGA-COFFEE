@@ -15,15 +15,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 // import passport from "passport";
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
 // passport.authenticate("jwt", { session: false })
 router.get('/favorites/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('GetByIdUser');
     const { id } = req.params;
+    let manga = {};
     try {
         console.log(id);
         const user = yield User_js_1.default.findById(id, ['favorites']);
-        res.status(200).json(user);
+        manga = yield Manga_js_1.default.paginate({ _id: user === null || user === void 0 ? void 0 : user.favorites }, {
+            limit: 12,
+            select: ["title", "genres", "rating", "cover_image"],
+            sort: { title: 1 }
+        });
+        res.status(200).json(manga);
     }
     catch (error) {
         next(error);

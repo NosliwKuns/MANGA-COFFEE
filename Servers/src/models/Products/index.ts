@@ -2,6 +2,10 @@ import mongoose from'mongoose';
 const {Schema} = mongoose
 
 const ProductSchema = new Schema({
+    id_User: {
+        type: String,
+        required: true
+    },
     name:{
         type: String,
         required: true
@@ -27,7 +31,8 @@ const ProductSchema = new Schema({
         enum: [ 1 , 2 , 3 , 4 , 5 ]
     },
     comments: {
-        type:[{ name: String, body: String }]
+        type:[{ name: String, body: String }],
+        created_at:{ type: Date, required: true, default: Date.now }
     },
     stock:{
         type: Number,

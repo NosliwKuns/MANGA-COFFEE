@@ -36,6 +36,7 @@ type InitialState = {
     mangas: allMangas, // Array<any>
     manga : Detail,
     comments : Comments[],
+    commentsCopy : Comments[],
     genres: Array<string>
   }
 
@@ -57,6 +58,7 @@ const initialState: InitialState = {
       comments : []
     },
     comments : [],
+    commentsCopy : [],
     genres : []
   }
   
@@ -84,10 +86,8 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       mangaComments: (state, action : PayloadAction<Comments[]>) => {
-        state.comments = [
-          Object.assign(action.payload),
-          ...state.comments
-        ]
+        // console.log("QUE ME LLEGAAAAA", action.payload)
+        state.comments = action.payload
       },
       cleanDetails: (state) => {
         state.manga = {
@@ -159,9 +159,16 @@ const initialState: InitialState = {
     }
   };
 
-  export const fetchMangaComments = (comment : any): AppThunk => {
+  export const fetchMangaComments = (comment : any | null, id: string, name: string | null): AppThunk => {
     return async (dispatch) => {
-      dispatch(mangaComments(comment))
+      console.log(comment, "MY COMMENTTTTT")
+      const {data} = await axios.put(`http://localhost:5000/api/manga/${id}`, {
+        name,
+        body: comment.body,
+        time: comment.time
+      })
+      console.log('QUE DEVUELVEEEEEE', data)
+      dispatch(mangaComments(data))
     }
   };
 
@@ -185,6 +192,8 @@ const initialState: InitialState = {
       dispatch(getGenres(data))
     }
   };
+
+  
   
   export default mangaSlice.reducer
   export const { 

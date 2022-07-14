@@ -1,6 +1,6 @@
 import  { Router } from'express';
 import User from '../../../models/Users/User';
-import createToken from '../../../controles/CreatedToken/index';
+import createToken from '../../../controles/Token/CreatedToken/index';
 const router = Router();
 
 router.post('/login', async(req, res, next) => { 

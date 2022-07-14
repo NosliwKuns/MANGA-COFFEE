@@ -1,5 +1,5 @@
 
-const useHeaders = (token :string) => {
+const useHeaders = (token : string | undefined) => {
 let headers = {
     headers : {
         Authorization : `Bearer ${token}`

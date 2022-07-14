@@ -10,7 +10,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const morgan_1 = __importDefault(require("morgan"));
 const Passport_1 = __importDefault(require("./middlewares/Passport/Passport"));
-require("./db.js");
+require("./config/Mongodb/db.js");
 const server = (0, express_1.default)();
 server.use(express_1.default.json());
 //-------------------cors config--------------------//

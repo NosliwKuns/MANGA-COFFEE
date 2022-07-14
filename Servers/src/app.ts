@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import passportmiddleware from './middlewares/Passport/Passport';
-import './db.js';
+import './config/Mongodb/db.js';
 
 const server = express();
 
