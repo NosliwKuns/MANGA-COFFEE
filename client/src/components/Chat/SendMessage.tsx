@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { app, auth } from "../../firebase";
-
+import { app, auth, db } from "../../firebase";
+import firebase from 'firebase/firestore'
 const SendMessage = (/* {scroll: React.MutableRefObbject<undefined>} */) => {
     const [msg, setMsg] = useState<string>('')
 
     const sendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         // const {uid, photoURL} = auth.currentUser
-        // await app.colection('messages').add({
+        // await db.collection('messages').add({
         //     text: msg,
         //     photoURL,
         //     uid,
-        //     createdAt: firebase.firestore.fieldValue.serverTimestamp()
+        //     createdAt: db.fieldValue.serverTimestamp()
         // })
         setMsg('')
         // scroll.current.scrollIntoView({behavior: 'smooth'})

@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from '../../app/store'
+import { db } from "../../firebase";
+import {  } from 'firebase/firestore'
 
 interface Chat {
   name: string,
@@ -34,6 +36,18 @@ type InitialState = {
       dispatch(GlobalChat(msg))
     }
   };
+
+//   export const logIn = (email: string, password: string): AppThunk => {
+//     return async () => {
+//       await signInWithEmailAndPassword(auth, email, password);
+//     };
+//   };
+  
+//   useEffect(() => {
+//     db.collection('messages').orderBy('createdAt').limit(50).onSnapshot(snapshot: any => {
+//         setMessages(snapshot.docs.map(doc => doc.data()))
+//     })
+// }, [])
   
   export default ChatSlice.reducer
   export const { GlobalChat } = ChatSlice.actions

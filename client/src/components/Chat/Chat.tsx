@@ -1,16 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { /* db, */ auth } from "../../firebase";
+import { db, auth } from "../../firebase";
 import SendMessage from "./SendMessage";
 
 const Chat = () => {
   const scroll = useRef() 
   const [messages, setMessages] = useState<Array<any>>([])
-  useEffect(()=> {
-    // db.colection('messages').orderBy('createdAt').limit(50).onSnapshot({
-      // setMessages(snapshot.docs.map(doc = doc.data()))
-    // }) // esto es con la configuracion de firestore en la cuenta de google, hay que anclarlo 
-    // en la web de firebase
-  }, [])
+    
+//   useEffect(() => {
+//     db.collection('messages').orderBy('createdAt').limit(50).onSnapshot(snapshot: any => {
+//         setMessages(snapshot.docs.map(doc => doc.data()))
+//     })
+// }, [])
 
   return (
     <div className="comments-container">
