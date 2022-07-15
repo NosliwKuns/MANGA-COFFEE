@@ -24,7 +24,7 @@ router.post('/register', async (req, res, next) => {
             template = Welcome(users);
             sendEmail(email, 'Mensaje de Bienvenida', template);
         } else {
-            template = verificCorreo(users, token);
+            template = verificCorreo(users, newuser._id);
             sendEmail(email, 'Confirmacion de cuenta', template);
         }        
         res.status(201).json({token, usuario: newuser});
