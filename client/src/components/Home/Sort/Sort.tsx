@@ -20,8 +20,8 @@ const Sort = () => {
             dispatch(fetchMangaSortByRating(e.target.value));
         } */
         const { value } = e.target
-        value === "alph +" ? setAlph("1") : value === "alph -" ? setAlph("-1") : '';
-        value === "rate +" ? setRate("-1") : value === "rate -" ? setRate("+1") : '';
+        // value === "alph +" ? setAlph("1") : value === "alph -" ? setAlph("-1") : '';
+        // value === "rate +" ? setRate("-1") : value === "rate -" ? setRate("+1") : '';
         console.log(e.target);
     };
 
