@@ -40,7 +40,7 @@ function App() {
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
-  const res = useFetch(
+  const res: any = useFetch(
     query || page || genre ? `?search=${query}&page=${page}&genres=${genre}` : ""
   );
   console.log(res, 'yepi')
@@ -55,8 +55,8 @@ function App() {
   return (
     <div className="App">
       <div className="one">
-        <h2>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
-        <h3>MC</h3>
+        <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
+        <h3 onClick={() => window.location.replace('/')}>MC</h3>
       </div>
       <SearchAndFilter 
         appear={appear}
