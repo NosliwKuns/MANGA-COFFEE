@@ -13,18 +13,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
+// import passport from "passport";
+const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
-router.put('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const updates = req.body;
-    const { id } = req.params;
+router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = req.params.id;
+    const { _id } = req.body;
     try {
-        yield Manga_js_1.default.findByIdAndUpdate((id), { $push: { comments: [updates] } });
-        let otro = yield Manga_js_1.default.find({ _id: id });
-        res.status(200).json(otro[0].comments);
+        yield User_js_1.default.findByIdAndDelete(id, {
+            favorites: [_id]
+        });
+        res.send('Item Deleted!');
     }
     catch (error) {
-        next(error);
+        res.status(500).json({ message: 'Error' });
     }
 }));
 exports.default = router;
