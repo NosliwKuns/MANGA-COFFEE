@@ -5,10 +5,10 @@ import '../../../scss/Home/Cards.scss';
 import { Link } from 'react-router-dom';
 
 type Props = {
-  docs: Array<any>;
+  /* mangas: Array<any>; */
 }
 
-const Cards = ({ docs }: Props) => {
+const Cards = ({ /* mangas  */}: Props) => {
     /* console.log(docs, 'sera cierto');
     const {mangas} = useAppSelector(state => state.mangas)
     const dispatch = useAppDispatch() */
@@ -16,11 +16,13 @@ const Cards = ({ docs }: Props) => {
     useEffect (()=>{
       dispatch(fetchAllManga())
     },[dispatch]) */
+    const { mangas } = useAppSelector(state => state.mangas.mangas)
+    console.log(mangas, 'seraaaa')
 
     return (
       <div className="cards-container">
         {
-         docs?.map(e=> {
+         mangas.map(e=> {
             return (
               <Link to={`/detail/${e._id}`}>
                 <div key={e._id}>

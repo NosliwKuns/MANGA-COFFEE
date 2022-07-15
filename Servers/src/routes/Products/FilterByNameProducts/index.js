@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/name', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.query;
     try {
         if (name) {

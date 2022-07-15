@@ -2,46 +2,59 @@ import { Router } from 'express';
 import Manga from '../../../models/Mangas/Manga.js';
 const router = Router();
 
-router.get('/', async(req, res, next) => {   
-    try { 
-        let {name , rating, genre, search } = req.query 
-        let page = req.query.page || 1
-        let sortBy = {}
-        let value = Number(name)
+router.get('/', async(req : any, res) => {   
+    try{
+        const page : number = parseInt(req.query.page) - 1 || 0;
+        const limit = parseInt(req.query.limit) || 12;
+        const search = req.query.search || '';
+        let sort = req.query.sort || 'title';
+        let genres = req.query.genres || 'All';
 
-        if(name) {
-            sortBy = {title:value}
-        }
-        if(rating){
-            value = Number(rating)
-            sortBy = {rating:value}
-        }
-        if(!value) {
-            sortBy = {title:1}
+        const filters= await Manga.find();
+        const data : Array<string> = filters.flatMap(e => e.genres); 
+        const dataArr = new Set(data);
+        const genresOptions : Array<string> = [...dataArr];
 
-        }
+        genres === 'All'
+            ? (genres = [...genresOptions])
+            : (genres = req.query.genres.split(','));
+        req.query.sort ? (sort = req.query.sort.split(',')) : (sort = [sort])
 
-        var mutate;
-
-        if(!genre && !search) {
-            mutate = {};
-        } else if (genre && search) {
-            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } }
-        } else if (!search) {
-            mutate = { genres: genre }
-        } else if (!genre) {
-            mutate = { title: { $regex: '.*' + search + '.*', $options: 'i' } }
+        let sortBy : any = {};
+        if (sort[1]) {
+            sortBy[sort[0]] = sort[1];
+        } else {
+            sortBy[sort[0]] = 'asc';
         }
 
-        const mangas = await Manga.paginate(mutate,{
-            page:Number(page),
-            limit:12,
-            select: ["title", "genres", "rating" ,"cover_image"],
-            sort:sortBy
-            } )
-        res.status(200).json(mangas)
-        } catch (error) {
-        next(error)
+        const mangas = await Manga.find({ title: { $regex: '.*' + search + '.*', $options: 'i' }})
+            .where('genres')
+            .in([...genres])
+            .sort(sortBy)
+            .skip(page*limit)
+            .limit(limit);
+
+        console.log(mangas, 'hola');
+
+        const total = await Manga.countDocuments({
+            genres: {$in: [...genres]},
+            title: {$regex: search, $options: 'i'},
+        });
+
+        const response = {
+            error: false,
+            total,
+            page: page + 1,
+            totalPages: Math.ceil(total / limit),
+            limit,
+            genres: genresOptions,
+            mangas,
+        };
+
+        res.status(200).json(response);
+
+    } catch(error){
+        res.status(500).json(error)
     }
 })
 

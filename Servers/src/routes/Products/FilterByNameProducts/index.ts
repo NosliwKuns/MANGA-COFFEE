@@ -2,7 +2,7 @@ import {Router} from 'express';
 import Products from '../../../models/Products/index';
 const router = Router();
 
-    router.get('/', async(req, res) => {
+    router.get('/name', async(req, res) => {
         const {name} = req.query;
         try
         {

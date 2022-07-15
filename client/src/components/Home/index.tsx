@@ -5,15 +5,15 @@ import '../../scss/Home/Home.scss';
 import Pagination from './Pagination';
 
 type Props = {
-  docs: Array<any>;
+  mangas: Array<any>;
   totalPages: number;
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
   setAlph: React.Dispatch<React.SetStateAction<string>>;
   setRate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Home = ({ docs, totalPages, setPageNumber, setAlph, setRate }: Props) => {
-  console.log(docs, "llegue?");
+const Home = ({ mangas, totalPages, setPageNumber, setAlph, setRate }: Props) => {
+  console.log(mangas, "llegue?");
   return (
     <div className="five manga-content">
       <BannerMangas />
@@ -21,9 +21,9 @@ const Home = ({ docs, totalPages, setPageNumber, setAlph, setRate }: Props) => {
         setAlph={setAlph}
         setRate={setRate}
       />
-      <Cards docs={docs}/>
+      <Cards /* mangas={mangas} *//>
       <Pagination 
-        totalPages={totalPages}
+        /* totalPages={totalPages} */
         setPageNumber={setPageNumber}
       />
     </div>
