@@ -26,6 +26,7 @@ import PutManga from './Mangas/PutManga/index';
 import GetByFavorites from './Mangas/GetByFavorites/index';
 
 import GetWishList from './Products/GetWishList/index';
+import GetAllUsers from './Users/GetAllUsers/index';
 
 const router = Router();
 
@@ -47,6 +48,7 @@ router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
 router.use('/user', GetMangaFavoUser);
 router.use('/user', GetConfirmarCuenta);
+router.use('/user', GetAllUsers);
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);

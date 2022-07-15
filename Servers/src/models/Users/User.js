@@ -67,7 +67,7 @@ const UserSchema = new Schema({
         type: [Object],
         default: []
     },
-    whishlist: {
+    wishlist: {
         type: [Object],
         default: []
     }

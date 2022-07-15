@@ -13,25 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const index_1 = __importDefault(require("../../../models/Products/index"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
+const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post('/wishlist', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.body;
-    const { id } = req.body;
+router.post("/addToWishlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const productsId = req.body;
     try {
-        let user = yield User_1.default.findById(userId);
+        const user = yield User_1.default.findOne({ email: email });
         if (!user) {
-            res.status(404).json({ message: 'User not found' });
+            res.status(404).json({ message: "User not found" });
         }
         else {
-            let Product = yield index_1.default.findById(id);
-            if (!Product) {
-                res.status(404).json({ message: 'Product not found' });
+            console.log(user);
+            const product = yield index_1.default.findOne({ id: productsId, });
+            if (!product) {
+                res.status(404).json({ message: "Product not found" });
             }
             else {
-                let product = yield index_1.default.findByIdAndUpdate(id, { $push: { wishlist: userId } });
-                res.status(200).json(product);
+                user.wishlist.push(productsId);
+                yield user.save();
+                res.status(200).json({ message: "Product added to wishlist" });
             }
         }
     }
