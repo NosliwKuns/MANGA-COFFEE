@@ -22,7 +22,7 @@ import Cards from './components/Home/Cards';
 import './App.scss';
 import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
-import RightSide from './components/RightSide';
+import LeftSide from './components/RightSide';
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
 
@@ -68,7 +68,7 @@ function App() {
       <div className="three">
         <UserButtons/>
       </div>
-      <RightSide />
+      <LeftSide />
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={
