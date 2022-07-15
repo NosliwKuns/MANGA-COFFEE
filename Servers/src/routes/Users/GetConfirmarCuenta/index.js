@@ -13,21 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import passport from "passport";
+const index_js_1 = __importDefault(require("../../../controles/Token/CreatedToken/index.js"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
-// import ReadTokenData from '../../../controles/Token/ReadTokenData/index';
 const router = (0, express_1.Router)();
-// passport.authenticate("jwt", { session: false }),
 router.get('/verificated/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // const {authorization} = req.headers; 
     const { id } = req.params;
     try {
-        // const data= ReadTokenData(authorization);
         let user = yield User_js_1.default.findById(id);
         if (user) {
             user.verificated = true;
-            let newuser = user.save();
-            res.status(200).json(newuser);
+            let newuser = yield user.save();
+            const token = (0, index_js_1.default)(newuser);
+            res.status(201).json({ token, usuario: newuser });
         }
     }
     catch (error) {
