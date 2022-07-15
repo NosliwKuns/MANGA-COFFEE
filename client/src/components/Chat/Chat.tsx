@@ -1,104 +1,30 @@
-import { useId, useState } from 'react';
-import { FaUserCircle } from 'react-icons/fa';
-import moment from 'moment';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fetchGlobalChat } from '../../features/ChatSlice/ChatSlice';
-// import '../../../scss/Details/Comments.scss'
+import { useState, useEffect, useRef } from "react";
+import { /* db, */ auth } from "../../firebase";
+import SendMessage from "./SendMessage";
 
 const Chat = () => {
-  const id = useId();
-  const dispatch = useAppDispatch();
-  const sms = useAppSelector(state => state.chat)
-  const [input, setInput] = useState<any>({
-    name: 'Me',
-    id: id,
-    message: '',
-    time : ''
-  });
- 
-  let currentTime = moment().format();
+  const scroll = useRef() 
+  const [messages, setMessages] = useState<Array<any>>([])
+  useEffect(()=> {
+    // db.colection('messages').orderBy('createdAt').limit(50).onSnapshot({
+      // setMessages(snapshot.docs.map(doc = doc.data()))
+    // }) // esto es con la configuracion de firestore en la cuenta de google, hay que anclarlo 
+    // en la web de firebase
+  }, [])
 
-  const timeAgo = (value : string) => {
-    return moment.utc(value).local().startOf('seconds').fromNow();
-  };
-  
-  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget
-    setInput({
-      ...input,
-      [name] : value,
-      time: currentTime
-    })
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if(!input.message) {
-      return alert('Invalid action')
-    }
-    dispatch(fetchGlobalChat(input))
-    setInput({
-      name : 'Me',
-      id : id,
-      message : '',
-      time : ''
-    })
-  };
-
-  const arr = [...sms.chat]
-  const myArray = arr.flatMap(e => e)
-  console.log(myArray, 'flatmap');
-  
   return (
     <div className="comments-container">
-      {
-        myArray.map((comment : any) => {
-          return (
-            <>
-              <div 
-                className="comment"
-                key={comment._id}
-              >
-                <FaUserCircle
-                  size={44}
-                />
-                <section>
-                  <h4>{comment.name}<span> {`${comment.time ? timeAgo(comment.time) : "2days ago"}`}</span></h4>
-                  <p>{comment.message}</p>
-                  <h5>REPLY</h5>
-                </section>
-              </div>
-              <span className="separator"></span>
-            </>
-          )
-        })
-      }
-      <section className="title-text">
-        <h2>Chat</h2>
-        <h2>{myArray.length}</h2>
-      </section>
-      <div className="comment">
-        <FaUserCircle
-          size={44}
-        />
-        <div className="input-text">
-          <form 
-            onSubmit={handleSubmit}
-          >
-            <input 
-              type="text" 
-              id="message" 
-              name="message" 
-              value={input.message}
-              onChange={handleChange}
-              placeholder="Chat with others..."/>
-            <section>
-              <button>Cancel</button>
-              <button type="submit">Comment</button>
-            </section>
-          </form>
-        </div>
-      </div>
+      {messages.map(({id, text, photoURL, uid}) => {
+        return (
+          <div className="msgs">
+            <div key={id} className={`${uid === auth.currentUser?.uid ? 'sent' : 'recieved'}`}>
+              <img src={photoURL} alt="user-img"/>
+              <p>{text}</p>
+            </div>
+          </div>
+        )})}
+        <SendMessage /* scroll={scroll} *//>
+        {/* <div ref={scroll}></div> */}
     </div>
   )
 };
