@@ -1,41 +1,39 @@
-import { useEffect, useState } from "react"
-/* import { useAppDispatch } from "../../../app/hooks" */
+import { useState } from "react"
+import { FaSearch } from "react-icons/fa";
 import { GoSearch } from "react-icons/go"
-import { useSearchParams } from "react-router-dom";
-import History from "../../History";
-/* import { fetchMangaByName } from "../../../features/manga/mangaSlice" */
+import { createSearchParams, useNavigate } from "react-router-dom";
+import '../../../scss/SearchAndFilter/SearchBar.scss';
 
 type Props = {
-    setSearch: React.Dispatch<React.SetStateAction<string>>;
+    setQuery: React.Dispatch<React.SetStateAction<string>>;
+    setPage: React.Dispatch<React.SetStateAction<string | number>>;
 }
-const SearchBar = ({ setSearch } : Props) => {
-    /* const dispatch = useAppDispatch() */
+const SearchBar = ({ setQuery, setPage } : Props) => {
     const [input, setInput] = useState("");
-    const [params, setParams] = useSearchParams();
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        console.log(params, 'params');
-        const q = params.get('q');
-    },[]);
+    const navigate = useNavigate();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         setInput(e.target.value);
     }
     const handleInputSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        console.log(e);
         e.preventDefault();
-        /* dispatch(fetchMangaByName(input)); */
-        setSearch(input);
-        setParams({
-            q: input
-        })
-        History.push('/search')
+        setQuery(input);
+        setPage((prev : any) : any => {
+            console.log((prev = 1), "aqui");
+            const params : any = { page: prev, search: input };
+            navigate({
+              pathname: "/",
+              search: `?${createSearchParams(params)}`
+            });
+            // window.location.replace(`?${createSearchParams(params)}`)
+          });
         setInput('');
     }
 
     return (
-        <div>
+        <div className="search-container">
             <form onSubmit={(e) => handleInputSubmit(e)}>
                 <input
                     name="search"
@@ -45,7 +43,10 @@ const SearchBar = ({ setSearch } : Props) => {
                     placeholder="Search..."
                 />
                 <button type="submit">
-                    <GoSearch />
+                    <FaSearch 
+                        size={18}
+                        color={'#EA374B'}
+                    />
                 </button>
             </form>
         </div>

@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
 import { fetchGetProducts } from '../../../features/products/productsSlice';
-import useLocalStorage from '../../../app/useLocalStorage';
+import useLocalStorage from '../../../app/customHooks/useLocalStorage';
 
 type Props = {
-  products: Array<any>;
+
 }
 
-const CardsProduct = ({ products }: Props) => {
+const CardsProduct = ({}: Props) => {
   const [page, setPage] = useState(1);
   const [product, setProduct] = useLocalStorage('nose', '');
   /* const [p, setP] = useLocalStorage('page', '') */

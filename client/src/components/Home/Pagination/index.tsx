@@ -1,21 +1,36 @@
-import { fetchPagination } from '../../../features/manga/mangaSlice'
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import '../../../scss/Home/Pagination.scss'
 
 type Props = {
-    /* totalPages: number; */
-    setPageNumber: React.Dispatch<React.SetStateAction<number>>
-  }
+    setPage: React.Dispatch<React.SetStateAction<number | string>>;
+    setSearchParams: (nextInit: any, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
+    res: any;
+    query: string;
+    genre: string;
+}
 
-const Pagination = ({/*  totalPages, */ setPageNumber }: Props) =>{
-    /* const dispatch = useAppDispatch(); */
-    const { totalPages } = useAppSelector(state=> state.mangas.mangas)
-    const pages = Array(totalPages).fill(0)
+const Pagination = ({ res, setPage, setSearchParams, query, genre }: Props) =>{
+    const info = res.data;
+    const pages = Array(info?.totalPages).fill(0)
 
-    const handleClick=(e: number) =>{
-        /* dispatch(fetchPagination(e)); */
-        setPageNumber(e)
-    }
+    const handleClick = (e: number) =>{
+        setPage(e);
+        if (query) {
+          setSearchParams({
+            search: query,
+            page: e
+          });
+        }
+        if (genre) {
+          setSearchParams({
+            page: e,
+            genre: genre
+          });
+        } else {
+          setSearchParams({
+            page: e
+          });
+        }
+      };
     return(
         <div className='btn'>
             {pages?.map((_, index) =>(
@@ -26,6 +41,6 @@ const Pagination = ({/*  totalPages, */ setPageNumber }: Props) =>{
             ))}
         </div>
     )
-}
+};
 
 export default Pagination;

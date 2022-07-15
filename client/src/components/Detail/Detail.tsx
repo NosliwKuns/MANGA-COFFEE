@@ -9,6 +9,9 @@ import '../../scss/Details/Detail.scss';
 import Comments from "./Comments";
 import { IoIosHeart } from "react-icons/io";
 import useHeaders from "../../app/headers";
+import { carAnimation, h3Animation } from "../../Animation";
+import { motion } from "framer-motion"; 
+
 
 const Detail = () => {
   const dispatch = useAppDispatch();
@@ -28,14 +31,14 @@ const Detail = () => {
   
 
   return (
-    <div className="five detail-container">
+    <motion.div variants={carAnimation} animate='show' exit='hide' className="five detail-container">
       <title>
         <h2>{manga.title}</h2>
       </title>
       <header>
-        <div className="image-container">
+        <motion.div variants={h3Animation} animate='show' exit='hide' className="image-container">
           <img src={`${manga.cover_image}`} alt={`cover_page_${manga._id}`} />
-        </div>
+        </motion.div>
         <div className="info-container">
           <Rating rating={manga.rating}/>
             <span>
@@ -69,7 +72,7 @@ const Detail = () => {
           }
         </div>
       <Comments/>
-    </div>
+    </motion.div>
   );
 };
 

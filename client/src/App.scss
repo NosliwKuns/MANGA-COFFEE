@@ -3,7 +3,7 @@
   text-align: center;
   background: #212429;
   display: grid;
-  grid-template-columns: 1fr 2.6fr 1fr;
+  grid-template-columns: max(18em) auto max(18em);
   grid-template-rows: 2.5em 1fr;
   grid-gap: 1em;
   height: 100vh;
@@ -38,17 +38,30 @@
 
       .appear {
         position: absolute;
-        color: aliceblue;
-        background: tomato;
-        height: 20em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: .7em;
+        color: var(--light);
+        /* background: tomato; */
+        // height: 100%;
         width: 100%;
-        bottom: -20em;
+        /* bottom: -3em; */
         left: 0;
         z-index: 2;
+        overflow: hidden;
+
+        div {
+          background: var(--primary);
+          padding: .2em;
+          border-radius: 6px;
+        }
       }
 
       .desappear {
         display: none;
+        overflow: hidden;
       }
     }
 
@@ -75,6 +88,7 @@
   .four {
     margin: 0 0 0.8em 0.8em;
     display: grid;
+    max-width: 20em;
     grid-template-rows: 8fr 1fr;
     grid-gap: 1em;
 
@@ -93,6 +107,7 @@
     display: grid;
     grid-template-rows: 1fr 1.7fr;
     grid-gap: 1em;
+    /* width: 100%; */
     margin: 0 0.8em 0.8em 0;
 
     & > div {
@@ -184,6 +199,10 @@
     }
 
   }
+}
+
+.loading {
+  background: #ffffff;
 }
 
 

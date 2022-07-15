@@ -5,26 +5,28 @@ import '../../scss/Home/Home.scss';
 import Pagination from './Pagination';
 
 type Props = {
-  mangas: Array<any>;
-  totalPages: number;
-  setPageNumber: React.Dispatch<React.SetStateAction<number>>;
-  setAlph: React.Dispatch<React.SetStateAction<string>>;
-  setRate: React.Dispatch<React.SetStateAction<string>>;
+  res: object;
+  query: string;
+  genre: string;
+  setPage: React.Dispatch<React.SetStateAction<number | string>>;
+  setSearchParams: (nextInit: any, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
 }
 
-const Home = ({ mangas, totalPages, setPageNumber, setAlph, setRate }: Props) => {
-  console.log(mangas, "llegue?");
+const Home = ({ res, query, genre, setPage, setSearchParams }: Props) => {
+  console.log(res, "llegue?");
   return (
     <div className="five manga-content">
-      <BannerMangas />
-      <Sort 
-        setAlph={setAlph}
-        setRate={setRate}
+      {/* <BannerMangas />
+      <Sort /> */}
+      <Cards 
+        res={res}
       />
-      <Cards /* mangas={mangas} *//>
       <Pagination 
-        /* totalPages={totalPages} */
-        setPageNumber={setPageNumber}
+        setPage={setPage}
+        query={query}
+        genre={genre}
+        setSearchParams={setSearchParams}
+        res={res}
       />
     </div>
   )

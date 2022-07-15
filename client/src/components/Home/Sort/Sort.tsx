@@ -7,7 +7,7 @@ type Props = {
     setRate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Sort = ({ setAlph, setRate }: Props) => {
+const Sort = () => {
     /* const dispatch = useAppDispatch(); */
     // const useSelector = (state => state.mangas);
 
