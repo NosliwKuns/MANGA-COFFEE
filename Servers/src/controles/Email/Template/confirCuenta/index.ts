@@ -12,7 +12,7 @@ const verificCorreo = (name: string, token: string) => {
         <fieldset style="margin: 1%; margin-right:20%; margin-left:20%; background-image:url(https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-national-tide-wind-dunhuang-cultural-background-picture-image_784394.jpg); background-size: cover; border:solid; border-radius:10px ">
              <h2 style="margin-left:30%; font-size:italic; font-weight:bold">Hola ${ name }</h2>
             <p style="margin-left:6%; font-weight:bold;">Para confirmar tu cuenta, ingresa al siguiente enlace:</p>
-            <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="http://localhost:5000/api/user/verificated/${ token }"target="_blank" > Confirmar Cuenta</a>
+            <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="http://localhost:3000/verificateUser/${token}"target="_blank" > Confirmar Cuenta</a>
         </fieldset>
            
     </div>
