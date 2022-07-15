@@ -40,7 +40,7 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             (0, index_3.default)(email, 'Mensaje de Bienvenida', template);
         }
         else {
-            template = (0, index_2.default)(users, token);
+            template = (0, index_2.default)(users, newuser._id);
             (0, index_3.default)(email, 'Confirmacion de cuenta', template);
         }
         res.status(201).json({ token, usuario: newuser });
