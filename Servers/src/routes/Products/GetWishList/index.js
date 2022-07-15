@@ -31,6 +31,9 @@ router.post("/addToWishlist", (req, res) => __awaiter(void 0, void 0, void 0, fu
                 res.status(404).json({ message: "Product not found" });
             }
             else {
+                if (user.wishlist.includes(product.id)) {
+                    res.status(400).json({ message: "Product already in wishlist" });
+                }
                 user.wishlist.push(productsId);
                 yield user.save();
                 res.status(200).json({ message: "Product added to wishlist" });
