@@ -37,29 +37,31 @@ type InitialState = {
     manga : Detail,
     comments : Comments[],
     commentsCopy : Comments[],
-    genres: Array<string>
+    genres: Array<string>,
+    category: Array<object>
   }
 
 const initialState: InitialState = {
-    mangas: {
-      error: false,
-      totalPages: 0,
-      category: [''],
-      mangas: [],
-    },
-    manga : {
-      _id : '',
-      title : '',
-      genres : [''],
-      description : '',
-      cover_image : '', 
-      mangas : [],
-      rating : 0,
-      comments : []
-    },
-    comments : [],
-    commentsCopy : [],
-    genres : []
+  mangas: {
+    error: false,
+    totalPages: 0,
+    category: [''],
+    mangas: [],
+  },
+  manga : {
+    _id : '',
+    title : '',
+    genres : [''],
+    description : '',
+    cover_image : '', 
+    mangas : [],
+    rating : 0,
+    comments : []
+  },
+  comments : [],
+  commentsCopy : [],
+  genres : [],
+  category: [],
   }
   
   const mangaSlice = createSlice({
@@ -67,7 +69,7 @@ const initialState: InitialState = {
     initialState,
     reducers: {
       getAddMangas : (state , action : PayloadAction<allMangas> ) =>{
-        console.log(action.payload, 'whatttt');
+        // console.log(action.payload, 'whatttt');
         state.mangas = action.payload
       },
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
@@ -76,8 +78,9 @@ const initialState: InitialState = {
       searchMangaByName: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
       },
-      filterMangaByGenres: (state, action : PayloadAction<allMangas>) => {
-        state.mangas = action.payload
+      filterMangaByGenres: (state, action : PayloadAction<Array<object>>) => {
+        // console.log("QUEJESTOOOOO", action.payload);
+        state.category = action.payload
       },
       SortByName: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
@@ -102,15 +105,18 @@ const initialState: InitialState = {
         }
       },
       paginate: (state, action : PayloadAction<allMangas>) => {
-        console.log('REDUCEEEEERRR!!!!!', action.payload)
+        // console.log('REDUCEEEEERRR!!!!!', action.payload)
         state.mangas = action.payload
       },
       getGenres: (state, action : PayloadAction<string[]>) => {
         state.genres = action.payload
-      }
+      },
+      cleanCategories: (state) => {
+        state.category = []
+      },
     }
   })
-
+  
   export const fetchAllManga = (pageNumber : number, search : string, genres: string):AppThunk =>{
     return async (dispatch) => {
       try {
@@ -141,7 +147,7 @@ const initialState: InitialState = {
     console.log(genre)
     return async (dispatch) => {
       const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?genre=${genre}`)
-      dispatch(filterMangaByGenres(data))
+      dispatch(filterMangaByGenres(data.docs))
     }
   }
   
@@ -177,7 +183,7 @@ const initialState: InitialState = {
       dispatch(cleanDetails())
     }
   };
-
+  
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
       const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?page=${page}`)
@@ -192,12 +198,17 @@ const initialState: InitialState = {
       dispatch(getGenres(data))
     }
   };
-
+  
+  export const fetchCleanCategories = () => {
+    return (dispatch : any)  => {
+      dispatch(cleanCategories())
+    }
+  };
   
   
   export default mangaSlice.reducer
   export const { 
-      getAddMangas, 
+    getAddMangas, 
       getDetailManga, 
       searchMangaByName, 
       filterMangaByGenres,
@@ -207,6 +218,7 @@ const initialState: InitialState = {
       cleanDetails,
       paginate,
       getGenres,
+      cleanCategories
   } = mangaSlice.actions
 
   
