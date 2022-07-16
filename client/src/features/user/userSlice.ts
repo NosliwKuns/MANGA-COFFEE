@@ -12,38 +12,64 @@ import { auth } from "../../firebase";
 import { async } from "@firebase/util";
 
 export type Verificated = {
-  email : any ;
-  password :any
-}
+  email: any;
+  password: any;
+};
 
 export type CreateUser = {
-  email : any ;
-  password :any ;
-  user : any
-}
+  email: any;
+  password: any;
+  user: any;
+};
 
 export type favoritesMangas = {
   _id: string;
   title: string;
-  cover_image : string
+  cover_image: string;
 };
-// ? ------------------------------------------------------------------------------------>
+
+type Product = {
+  postalCode: string;
+  country: string;
+  direction: string;
+  reference: string;
+};
+
+type Address = {
+  postalCode: string;
+  country: string;
+  direction: string;
+  reference: string;
+};
+
+type Purchese = {
+  idCompra: string;
+  produtcs: Array<Product>;
+  total: number;
+  adrress: Address;
+  name: string;
+  lastName: string;
+  telephone: string;
+  method: string;
+  email: string;
+};
+
 export type InitialState = {
-  id: string ;
-  email: string ;
-  password: string ;
+  id: string;
+  email: string;
+  password: string;
   verificated: boolean;
   user: string;
-  token: string ;
+  token: string;
   favorites: Array<favoritesMangas>;
-  user_image : string ;
-  user_banner : string ; 
-  telephone : string ;
-  address : object ;
-  name: string ;
-  lastname : string ;
-  user_description : string;
-  historyBuy : Array<object>
+  user_image: string;
+  user_banner: string;
+  telephone: string;
+  address: object;
+  name: string;
+  lastname: string;
+  user_description: string;
+  historyBuy: Array<Purchese>;
 };
 
 // user_description:
@@ -56,14 +82,14 @@ const initialState: InitialState = {
   user: "",
   token: "",
   favorites: [],
-  user_image : "",
-  user_banner : "" ,
-  telephone : "" ,
-  address : {} ,
-  name: "" ,
-  lastname :"" ,
-  user_description :"",
-  historyBuy : []
+  user_image: "",
+  user_banner: "",
+  telephone: "",
+  address: {},
+  name: "",
+  lastname: "",
+  user_description: "",
+  historyBuy: [],
 };
 
 console.log(initialState);
@@ -73,8 +99,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     createUser: (state, action: PayloadAction<CreateUser>) => {
-      const { email, password, user } =
-        action.payload;
+      const { email, password, user } = action.payload;
 
       state.email = email;
       state.password = password;
@@ -83,10 +108,25 @@ const userSlice = createSlice({
       return state;
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
-      console.log(action.payload , 'googleeee')
-      const { id, email, password, verificated, user, token ,favorites , user_image , user_banner , user_description , telephone , address , name , lastname , historyBuy}: InitialState =
-        action.payload;
-// ! pendiente --------------------------------------------------------------->
+      console.log(action.payload, "googleeee");
+      const {
+        id,
+        email,
+        password,
+        verificated,
+        user,
+        token,
+        favorites,
+        user_image,
+        user_banner,
+        user_description,
+        telephone,
+        address,
+        name,
+        lastname,
+        historyBuy,
+      }: InitialState = action.payload;
+      // ! pendiente --------------------------------------------------------------->
       state.id = id;
       state.email = email;
       state.password = password;
@@ -94,14 +134,14 @@ const userSlice = createSlice({
       state.verificated = verificated;
       state.token = token;
       state.favorites = favorites;
-      state.user_image = user_image; 
+      state.user_image = user_image;
       state.user_banner = user_banner;
       state.user_description = user_description;
       state.telephone = telephone;
-      state.address = address ;
-      state.name = name ;
-      state.lastname = lastname ;
-      state.historyBuy = historyBuy
+      state.address = address;
+      state.name = name;
+      state.lastname = lastname;
+      state.historyBuy = historyBuy;
       console.log(state.email, state.token, "hola");
     },
     logOutUser: (state) => {
@@ -114,14 +154,14 @@ const userSlice = createSlice({
         user: "",
         token: "",
         favorites: [],
-        user_image : "",
-        user_banner : "",
-        telephone : "" ,
-        address : {} ,
-        name:"" ,
-        lastname : "" ,
-        user_description :"",
-        historyBuy :[]
+        user_image: "",
+        user_banner: "",
+        telephone: "",
+        address: {},
+        name: "",
+        lastname: "",
+        user_description: "",
+        historyBuy: [],
       };
 
       window.localStorage.setItem("copySliceUser", JSON.stringify(""));
@@ -131,8 +171,11 @@ const userSlice = createSlice({
       console.log("FAVORITEEEES", action.payload);
       state.favorites = action.payload;
     },
-    getFavoriteManga : (state , action : PayloadAction<Array<favoritesMangas>> ) =>{
-      state.favorites = action.payload 
+    getFavoriteManga: (
+      state,
+      action: PayloadAction<Array<favoritesMangas>>
+    ) => {
+      state.favorites = action.payload;
     },
   },
 });
@@ -144,7 +187,7 @@ export const userLog = (user: Verificated): AppThunk => {
       password: user.password,
     });
     console.log(data);
-// ? ------------------------------------------------------------------------------------>
+    // ? ------------------------------------------------------------------------------------>
     const copyInitialState = {
       id: data.usuario._id,
       email: data.usuario.email,
@@ -153,15 +196,14 @@ export const userLog = (user: Verificated): AppThunk => {
       user: data.usuario.users,
       token: data.token,
       favorites: data.usuario.favorites,
-      user_image : data.usuario.user_image,
-      user_banner : data.usuario.user_banner,
-      user_description : data.usuario.user_description,
-      telephone : data.usuario.telephone,
-      address : data.usuario.address,
-      name:data.usuario.name ,
-      lastname : data.usuario.lastname ,
-      historyBuy : data.usuario.historyBuy
-      
+      user_image: data.usuario.user_image,
+      user_banner: data.usuario.user_banner,
+      user_description: data.usuario.user_description,
+      telephone: data.usuario.telephone,
+      address: data.usuario.address,
+      name: data.usuario.name,
+      lastname: data.usuario.lastname,
+      historyBuy: data.usuario.historyBuy,
     };
     dispatch(loginUser(copyInitialState));
 
@@ -208,30 +250,33 @@ export const FetchFavoriteMangas = (
   id: string,
   mangaId: string,
   headers: object
-  ): AppThunk => {
-    return async (dispatch) => {
-      const { data } = await axios.put(
-        `http://localhost:5000/api/user/fav/${id}`,
-        {
-          favorites: [mangaId],
+): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.put(
+      `http://localhost:5000/api/user/fav/${id}`,
+      {
+        favorites: [mangaId],
       },
       headers
-      );
-      dispatch(favoriteMangas(data));
-    };
+    );
+    dispatch(favoriteMangas(data));
   };
-  
-  export const getFavManga = ( id : string, headers: object ):AppThunk =>{
-    return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/user/favorites/${id}`, headers)
-      console.log('MY FAVORITEEEEE', data.docs);
-      
-      dispatch(getFavoriteManga(data.docs))
-    }
-  }
+};
+
+export const getFavManga = (id: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.get(
+      `http://localhost:5000/api/user/favorites/${id}`,
+      headers
+    );
+    console.log("MY FAVORITEEEEE", data.docs);
+
+    dispatch(getFavoriteManga(data.docs));
+  };
+};
 export const signUp = (email: string, password: string): AppThunk => {
   return async () =>
-  await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
 };
 
 export const logIn = (email: string, password: string): AppThunk => {
@@ -240,19 +285,19 @@ export const logIn = (email: string, password: string): AppThunk => {
   };
 };
 
-export const logOut = (): AppThunk =>{
+export const logOut = (): AppThunk => {
   return async () => {
     await signOut(auth);
   };
-}
+};
 export const loginWithGoogle = (): AppThunk => {
   return async (dispatch) => {
     const googleProvider = new GoogleAuthProvider();
-    console.log(googleProvider)
+    console.log(googleProvider);
     const {
-      user: { displayName, email, phoneNumber, photoURL , emailVerified},
+      user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
-    const {data} = await axios.post(
+    const { data } = await axios.post(
       "http://localhost:5000/api/user/register",
       {
         users: displayName,
@@ -260,11 +305,11 @@ export const loginWithGoogle = (): AppThunk => {
         password: email,
         telephone: phoneNumber,
         user_image: photoURL,
-        verificated : emailVerified
+        verificated: emailVerified,
       }
     );
-    console.log(data)
-    const obj : Verificated = {
+    console.log(data);
+    const obj: Verificated = {
       email: email,
       password: email,
     };
@@ -272,31 +317,33 @@ export const loginWithGoogle = (): AppThunk => {
   };
 };
 
-export const verificatedUser = (id : string | undefined ) :AppThunk =>{
-  return async () =>{
-   const {data} =  await axios.get(`http://localhost:5000/api/user/verificated/${id}`)
-   const copyInitialState = {
-    id: data.usuario._id,
-    email: data.usuario.email,
-    password: data.usuario.password,
-    verificated: data.usuario.verificated,
-    user: data.usuario.users,
-    token: data.token,
-    favorites: data.usuario.favorites,
-    user_image : data.usuario.user_image,
-    user_banner : data.usuario.user_banner,
-    user_description : data.usuario.user_description,
-    telephone : data.usuario.telephone,
-    address : data.usuario.address,
-    name:data.usuario.name ,
-    lastname : data.usuario.lastname ,
+export const verificatedUser = (id: string | undefined): AppThunk => {
+  return async () => {
+    const { data } = await axios.get(
+      `http://localhost:5000/api/user/verificated/${id}`
+    );
+    const copyInitialState = {
+      id: data.usuario._id,
+      email: data.usuario.email,
+      password: data.usuario.password,
+      verificated: data.usuario.verificated,
+      user: data.usuario.users,
+      token: data.token,
+      favorites: data.usuario.favorites,
+      user_image: data.usuario.user_image,
+      user_banner: data.usuario.user_banner,
+      user_description: data.usuario.user_description,
+      telephone: data.usuario.telephone,
+      address: data.usuario.address,
+      name: data.usuario.name,
+      lastname: data.usuario.lastname,
+    };
+    window.localStorage.setItem(
+      "copySliceUser",
+      JSON.stringify(copyInitialState)
+    );
   };
-   window.localStorage.setItem(
-    "copySliceUser",
-    JSON.stringify(copyInitialState)
-  );
-  }
-}
+};
 
 // http://localhost:5000/api/user/fav/:id
 
@@ -305,5 +352,10 @@ export const verificatedUser = (id : string | undefined ) :AppThunk =>{
 
 export default userSlice.reducer;
 
-export const { loginUser, createUser, logOutUser, favoriteMangas, getFavoriteManga } =
-  userSlice.actions;
+export const {
+  loginUser,
+  createUser,
+  logOutUser,
+  favoriteMangas,
+  getFavoriteManga,
+} = userSlice.actions;
