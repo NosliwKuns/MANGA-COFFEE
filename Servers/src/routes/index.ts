@@ -27,6 +27,7 @@ import GetByFavorites from './Mangas/GetByFavorites/index';
 
 import GetWishList from './Products/GetWishList/index';
 import GetAllUsers from './Users/GetAllUsers/index';
+import DeleteWishListProducts from './Products/DeleteWishListProducts/index';
 
 const router = Router();
 
@@ -60,5 +61,7 @@ router.use('/products', PutProducts);
 router.use('/products', PutProducts);
 router.use('/products', PostCommentsProducts);
 router.use('/products', GetWishList);
+router.use('/products', DeleteWishListProducts);
+
 
 export default router;

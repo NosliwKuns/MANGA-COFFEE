@@ -16,9 +16,9 @@ const express_1 = require("express");
 const User_1 = __importDefault(require("../../../models/Users/User"));
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post("/addToWishlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.delete("/addToWishlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email } = req.body;
-    const { productsId } = req.body;
+    const productsId = req.body;
     try {
         const user = yield User_1.default.findOne({ email: email });
         if (!user) {
@@ -26,18 +26,18 @@ router.post("/addToWishlist", (req, res) => __awaiter(void 0, void 0, void 0, fu
         }
         else {
             console.log(user);
-            const product = yield index_1.default.findOne({ id: productsId });
+            const product = yield index_1.default.findOne({ id: productsId, });
             if (!product) {
                 res.status(404).json({ message: "Product not found" });
             }
             else {
                 if (!user.wishlist.includes(product.id)) {
-                    user.wishlist.push(product.id);
-                    yield user.save();
-                    res.status(200).json({ message: "Product added to wishlist" });
+                    res.status(200).json({ message: "Product not in wishlist" });
                 }
                 else {
-                    res.status(200).json({ message: "Product already in wishlist" });
+                    user.wishlist.splice(user.wishlist.indexOf(product.id), 1);
+                    yield user.save();
+                    res.status(200).json({ message: "Product deleted from wishlist" });
                 }
             }
         }
