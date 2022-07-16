@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from './../../app/hooks';
 import { fetchDetailManga } from '../../features/products/productsSlice';
 
@@ -41,6 +41,11 @@ const ProductDetail = () => {
         })
       }
       <h2>{stock}</h2>
+      <Link to={`/buyProduct/${id}`}>
+      <button>
+        Buy
+      </button>
+      </Link>
     </div>
   )
 };

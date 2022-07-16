@@ -34,7 +34,6 @@ router.get('/', async(req : any, res) => {
             .skip(page*limit)
             .limit(limit);
 
-        console.log(mangas, 'hola');
 
         const total = await Manga.countDocuments({
             genres: {$in: [...genres]},

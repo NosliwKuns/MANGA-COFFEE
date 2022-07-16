@@ -43,7 +43,6 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .sort(sortBy)
             .skip(page * limit)
             .limit(limit);
-        console.log(mangas, 'hola');
         const total = yield Manga_js_1.default.countDocuments({
             genres: { $in: [...genres] },
             title: { $regex: search, $options: 'i' },

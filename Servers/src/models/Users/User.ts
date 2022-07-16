@@ -50,12 +50,47 @@ const UserSchema = new Schema({
         default: ""
     },
     telephone:{
-        type: Number,
-        default: 0
-    },
-    address:{
         type: String,
         default: ""
+    },
+    address:{
+        type: {
+            postalCode: String,
+            country:  String,
+            direction:  String,
+            reference:  String
+        },
+        default: {
+            postalCode : "",
+            country : "",
+            direction : "" ,
+            reference : ""
+        }
+    },
+    historyBuy: {
+        type: [{
+            date: Date,
+            idCompra: String,
+            produtcs: [{
+                idProduct: String,
+                name: String,
+                price: Number,
+                quantity: Number 
+            }],
+            total : Number,
+            adrress:{
+                postalCode : String,
+                country : String,
+                direction : String,
+                reference : String
+            },
+            name: String,
+            lastName: String,
+            telephone: String,
+            method: String,
+            email: String
+        }],
+        default: []
     },
     favorites:{
         type:[Object],
