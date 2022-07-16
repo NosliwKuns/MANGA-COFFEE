@@ -18,55 +18,57 @@ const passport_1 = __importDefault(require("passport"));
 const ReadTokenData_1 = __importDefault(require("../../../controles/Token/ReadTokenData"));
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
+//import sendEmail from '../../../controles/Email/SendEmail';
+//import NotificationBuy from '../../../controles/Email/Template/NotificacionCompra';
 const router = (0, express_1.Router)();
 const stripe = new stripe_1.default("sk_test_51LLrJiAaJyGKFRYYchn8r6wj05opINEVucofBXXorZQWhuq1zFJ1FW3Ys134xp4FuqnQynqh7CaQ6Rhks29Fck4t00fvKC5c6E", { apiVersion: "2020-08-27" });
 router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { session: false }), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { quantity, idProduct } = req.body;
+        const { adrress, product, InfoComprador } = req.body;
         const { idCompra } = req.params;
         const { authorization } = req.headers;
+        let amount = 0;
+        let ArrrayProducts = [{}];
+        product.forEach((element) => __awaiter(void 0, void 0, void 0, function* () {
+            const producto = yield index_1.default.findById(element.idProduct);
+            if (producto) {
+                let stock = producto.stock - element.quantity;
+                yield index_1.default.findByIdAndUpdate((element.idProduct), { stock: stock });
+                let totProduct = producto.price * element.quantity * 100;
+                amount += totProduct;
+                let DetailProduct = {
+                    idProduct: element.idProduct,
+                    name: producto.name,
+                    price: producto.price,
+                    quantity: element.quantity,
+                    totProduct: totProduct,
+                };
+                Object.keys(ArrrayProducts[0]).length ? ArrrayProducts.push(DetailProduct) : ArrrayProducts = [DetailProduct];
+            }
+        }));
+        const payment = yield stripe.paymentIntents.create({
+            amount: amount,
+            currency: "USD",
+            payment_method: idCompra,
+            confirm: true,
+        });
+        const compra = {
+            idCompra: idCompra,
+            produtcs: ArrrayProducts,
+            total: amount,
+            adrress: adrress,
+            InfoComprador: InfoComprador,
+        };
+        console.log(payment);
         const data = (0, ReadTokenData_1.default)(authorization);
-        const product = yield index_1.default.findById(idProduct);
-        if (product) {
-            let stock = product.stock - quantity;
-            yield index_1.default.findByIdAndUpdate((idProduct), { stock: stock });
-            let amount = product.price * quantity;
-            const payment = yield stripe.paymentIntents.create({
-                amount: amount,
-                currency: "USD",
-                description: product.description,
-                payment_method: idCompra,
-                confirm: true,
-            });
-            console.log(payment);
-            const compra = {
-                idCompra: idCompra,
-                produtcs: [{
-                        idProduct: idProduct,
-                        name: product.name,
-                        price: product.price,
-                        quantity: quantity
-                    }],
-                total: amount,
-                // adrress:{
-                //   postalCode : ,
-                //   country : String,
-                //   direction : String,
-                //   reference : String
-                // },
-                // name: String,
-                // lastName: ,
-                // telephone: ,
-                // method: ,
-                // email: 
-            };
-            yield User_1.default.findByIdAndUpdate((data.id), { historyBuy: [compra] });
-            res.send({ message: "Successull payment" });
-        }
+        yield User_1.default.findByIdAndUpdate((data.id), { $push: { historyBuy: [compra] } });
+        //let template = NotificationBuy()
+        //sendEmail(data.email, 'Notificacion de compra', template)
+        res.send({ message: "Successull payment" });
     }
     catch (error) {
         console.log(error);
-        res.json({ mirar: 'este es el lio', message: error.raw.message });
+        res.json({ leer: 'error de stripe', message: error.raw.message });
     }
 }));
 exports.default = router;
