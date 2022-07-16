@@ -4,16 +4,16 @@ import Manga from '../../../models/Mangas/Manga.js';
 const router = Router();
 
 
-router.delete('/:id', async(req, res, next)=>{
-    const updates = req.body
+router.delete('/deletecomment/:id', async(req, res, next)=>{
+    const _id = req.body
     const {id} = req.params;
     try {          
-        await Manga.findByIdAndDelete((id), {$push:{comments:[updates]}})
-        let otro: any = await Manga.find({_id:id})
-        res.status(200).json(otro[0].comments)
+        await Manga.findByIdAndUpdate((id),{$pull:_id})
+        res.send('Item Deleted!');
     } catch (error) {
         next(error)
     }
 })
+
 
 export default  router;
