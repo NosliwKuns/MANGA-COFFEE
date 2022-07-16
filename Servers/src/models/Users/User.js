@@ -101,6 +101,10 @@ const UserSchema = new Schema({
     favorites: {
         type: [Object],
         default: []
+    },
+    wishlist: {
+        type: [Object],
+        default: []
     }
 });
 UserSchema.pre('save', function (next) {
