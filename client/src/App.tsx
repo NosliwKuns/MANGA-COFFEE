@@ -26,6 +26,8 @@ import RightSide from './components/RightSide';
 import BuyProduct from './components/ProductDetail/BuyProduct';
 
 import LeftSide from './components/RightSide';
+import Categories from './components/Categories/Categories';
+import SelectedCategories from './components/Categories/SelectedCategories';
 
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
@@ -100,15 +102,13 @@ function App() {
         <Route path='/user/fav' element={<Favorites/>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
-        <Route path='/categories' element={<h1>I'm the Categories component</h1>} />
+        <Route path='/categories' element={<Categories/>} />
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
-
         <Route path="/product/:id" element={<ProductDetail/>} />
+        <Route path="/categories/:genre" element={<SelectedCategories/>} />
         <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
-       
-
         <Route path='/verificateUser/:id' element={<Verificate/>}/>
       </Routes>
       </AnimatePresence>
