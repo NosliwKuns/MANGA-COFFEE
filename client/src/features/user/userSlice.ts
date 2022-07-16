@@ -29,10 +29,10 @@ export type favoritesMangas = {
 };
 
 type Product = {
-  postalCode: string;
-  country: string;
-  direction: string;
-  reference: string;
+  idProduct : string ;
+  name:string ;
+  price :string ;
+  quantity : number
 };
 
 type Address = {
@@ -43,6 +43,7 @@ type Address = {
 };
 
 type Purchese = {
+  date : Date;
   idCompra: string;
   produtcs: Array<Product>;
   total: number;
