@@ -42,7 +42,8 @@ export type InitialState = {
   address : object ;
   name: string ;
   lastname : string ;
-  user_description : string
+  user_description : string;
+  historyBuy : Array<object>
 };
 
 // user_description:
@@ -61,7 +62,8 @@ const initialState: InitialState = {
   address : {} ,
   name: "" ,
   lastname :"" ,
-  user_description :""
+  user_description :"",
+  historyBuy : []
 };
 
 console.log(initialState);
@@ -82,7 +84,7 @@ const userSlice = createSlice({
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
       console.log(action.payload , 'googleeee')
-      const { id, email, password, verificated, user, token ,favorites , user_image , user_banner , user_description , telephone , address , name , lastname}: InitialState =
+      const { id, email, password, verificated, user, token ,favorites , user_image , user_banner , user_description , telephone , address , name , lastname , historyBuy}: InitialState =
         action.payload;
 // ! pendiente --------------------------------------------------------------->
       state.id = id;
@@ -98,7 +100,8 @@ const userSlice = createSlice({
       state.telephone = telephone;
       state.address = address ;
       state.name = name ;
-      state.lastname = lastname 
+      state.lastname = lastname ;
+      state.historyBuy = historyBuy
       console.log(state.email, state.token, "hola");
     },
     logOutUser: (state) => {
@@ -117,7 +120,8 @@ const userSlice = createSlice({
         address : {} ,
         name:"" ,
         lastname : "" ,
-        user_description :""
+        user_description :"",
+        historyBuy :[]
       };
 
       window.localStorage.setItem("copySliceUser", JSON.stringify(""));
@@ -156,6 +160,8 @@ export const userLog = (user: Verificated): AppThunk => {
       address : data.usuario.address,
       name:data.usuario.name ,
       lastname : data.usuario.lastname ,
+      historyBuy : data.usuario.historyBuy
+      
     };
     dispatch(loginUser(copyInitialState));
 
