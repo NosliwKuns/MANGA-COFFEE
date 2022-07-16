@@ -43,7 +43,6 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .sort(sortBy)
             .skip(page * limit)
             .limit(limit);
-        console.log(products, 'hola');
         const total = yield index_1.default.countDocuments({
             category: { $in: [...category] },
             name: { $regex: search, $options: 'i' },
