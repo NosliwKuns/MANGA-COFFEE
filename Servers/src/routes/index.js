@@ -32,6 +32,7 @@ const index_25 = __importDefault(require("./Products/PostCommentsProducts/index"
 const index_26 = __importDefault(require("./Products/PostBuyStripe/index"));
 const index_27 = __importDefault(require("./Mangas/PutManga/index"));
 const index_28 = __importDefault(require("./Mangas/GetByFavorites/index"));
+const index_29 = __importDefault(require("./Mangas/DeleteComments/index"));
 const router = (0, express_1.Router)();
 router.use('/manga', index_6.default);
 router.use('/manga', index_3.default);
@@ -39,6 +40,7 @@ router.use('/manga', index_1.default);
 router.use('/manga', index_4.default);
 router.use('/manga', index_2.default);
 router.use('/manga', index_5.default);
+router.use('/manga', index_29.default);
 router.use('/manga', index_7.default);
 router.use('/manga', index_27.default);
 router.use('/manga', index_28.default);

@@ -69,6 +69,7 @@ const UserSchema = new Schema({
     },
     historyBuy: {
         type: [{
+            date: Date,
             idCompra: String,
             produtcs: [{
                 idProduct: String,
