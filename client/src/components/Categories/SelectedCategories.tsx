@@ -13,12 +13,14 @@ const SelectedCategories = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(fetchMangaByGenres(genre))
-        return dispatch(fetchCleanCategories())
+        return () => {
+            dispatch(fetchCleanCategories())
+        }
     },[dispatch])
     
     return (
         <div>
-            {/* {Object.values(mangas)?.map(m => {
+            {mangas?.map(m => {
                 return(
                     <Link to={`/detail/${m._id}`}>
                         <div key={m._id}>
@@ -29,7 +31,7 @@ const SelectedCategories = () => {
                         </div>
                     </Link>
                 )
-            })} */}
+            })}
         </div>
     )
 }

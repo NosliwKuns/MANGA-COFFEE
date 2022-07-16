@@ -38,7 +38,7 @@ type InitialState = {
     comments : Comments[],
     commentsCopy : Comments[],
     genres: Array<string>,
-    category: Array<object>
+    category: Array<any>
   }
 
 const initialState: InitialState = {
