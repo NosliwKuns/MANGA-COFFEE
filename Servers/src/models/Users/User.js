@@ -60,8 +60,12 @@ const UserSchema = new Schema({
         default: 0
     },
     address: {
-        type: String,
-        default: ""
+        type: Object,
+        default: {}
+    },
+    historyBuy: {
+        type: [Object],
+        default: []
     },
     favorites: {
         type: [Object],
