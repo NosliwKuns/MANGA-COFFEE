@@ -10,18 +10,19 @@ const stripe = new Stripe(
     {apiVersion : "2020-08-27"}
 );
 
-router.post("/checkout:idCompra", passport.authenticate("jwt", { session: false }), async (req, res) => {
+router.post("/checkout/:idCompra", passport.authenticate("jwt", { session: false }), async (req, res) => {
   try {
+    console.log('holaaaaa')
     const { quantity, idProduct } = req.body;
     const {idCompra} = req.params;
     const {authorization} = req.headers; 
 
     const data= ReadTokenData(authorization);
     const product = await Product.findById(idProduct);
-    let amount = product.price * quantity
+    let amount = product.price * quantity * 100
     console.log(product.price)
     const payment = await stripe.paymentIntents.create({
-      amount: 100,
+      amount: amount,
       currency: "USD",
       description: product?.description,
       payment_method: idCompra,

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { fetchDetailManga } from "../../../features/products/productsSlice";
 import useHeaders from "../../../app/headers";
+import "../BuyProduct/buyProduct.scss"
 
 const BuyProduct = () => {
     const {idProduct} = useParams()
@@ -28,7 +29,7 @@ const BuyProduct = () => {
     if (!error) {
       const { id } = paymentMethod;
       try {
-        const { data } = await axios.post(`http://localhost:3001/api/${id}`, {
+        const { data } = await axios.post(`http://localhost:5000/api/products/checkout/${id}`, {
             idProduct,
           quantity : numberOfGuests
         },  headers );
@@ -53,11 +54,11 @@ const BuyProduct = () => {
   },[])
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="colorrr">
       <h2>{name}</h2>
       <img src={product_image} alt={`product image ${name}`} />
       <h3>{`$/. ${price}`}</h3>
-      <div>
+      <div >
         <CardElement />
       </div>
       <button className="btn btn-success" disabled={!stripe}>

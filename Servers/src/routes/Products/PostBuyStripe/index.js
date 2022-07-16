@@ -19,17 +19,18 @@ const ReadTokenData_1 = __importDefault(require("../../../controles/Token/ReadTo
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 const stripe = new stripe_1.default("sk_test_51LLrJiAaJyGKFRYYchn8r6wj05opINEVucofBXXorZQWhuq1zFJ1FW3Ys134xp4FuqnQynqh7CaQ6Rhks29Fck4t00fvKC5c6E", { apiVersion: "2020-08-27" });
-router.post("/checkout:idCompra", passport_1.default.authenticate("jwt", { session: false }), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { session: false }), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log('holaaaaa');
         const { quantity, idProduct } = req.body;
         const { idCompra } = req.params;
         const { authorization } = req.headers;
         const data = (0, ReadTokenData_1.default)(authorization);
         const product = yield index_1.default.findById(idProduct);
-        let amount = product.price * quantity;
+        let amount = product.price * quantity * 100;
         console.log(product.price);
         const payment = yield stripe.paymentIntents.create({
-            amount: 100,
+            amount: amount,
             currency: "USD",
             description: product === null || product === void 0 ? void 0 : product.description,
             payment_method: idCompra,
