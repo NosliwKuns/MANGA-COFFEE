@@ -242,6 +242,7 @@ export const logOut = (): AppThunk =>{
 export const loginWithGoogle = (): AppThunk => {
   return async (dispatch) => {
     const googleProvider = new GoogleAuthProvider();
+    console.log(googleProvider)
     const {
       user: { displayName, email, phoneNumber, photoURL , emailVerified},
     } = await signInWithPopup(auth, googleProvider);

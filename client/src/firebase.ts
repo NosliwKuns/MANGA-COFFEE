@@ -45,13 +45,13 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBc1tfQu7OLkYfmu6EcAsfwHnAJ0rPCAuM",
-  authDomain: "manga-coffe.firebaseapp.com",
-  projectId: "manga-coffe",
-  storageBucket: "manga-coffe.appspot.com",
-  messagingSenderId: "428166822122",
-  appId: "1:428166822122:web:5e56617d8bf7d05b1aff93",
-  measurementId: "G-CL8LW0FZMJ"
+  apiKey: "AIzaSyCqAColpcnKTaJTVV82WMe__fZCSrYMqKw",
+  authDomain: "mangacoffee-c62b5.firebaseapp.com",
+  projectId: "mangacoffee-c62b5",
+  storageBucket: "mangacoffee-c62b5.appspot.com",
+  messagingSenderId: "613470489461",
+  appId: "1:613470489461:web:448add98bfe109008e213c",
+  measurementId: "G-HZGXDBNHBQ"
 };
 
 // Initialize Firebase

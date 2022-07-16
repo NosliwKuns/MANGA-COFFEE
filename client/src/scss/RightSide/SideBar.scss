@@ -1,0 +1,18 @@
+.side-bar-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.7em;
+  padding: 2em;
+
+  a {
+    color: var(--light--200);
+    display: flex;
+    gap: 1.2em;
+    align-items: center;
+
+    h2 {
+      font-weight: 500;
+      font-size: 1.3em;
+    }
+  }
+}

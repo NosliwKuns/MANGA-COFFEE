@@ -1,0 +1,23 @@
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  
+
+  input {
+    height: 100%;
+    border: none;
+    background: var(--dark--600);
+    border-radius: 100vh;
+    width: 26em;
+    padding-left: 2.8em;
+  }
+
+  button { 
+    position: absolute;
+    left: 5px;
+    top: 1.7px;
+    background: transparent;
+    border: none;
+  }
+}

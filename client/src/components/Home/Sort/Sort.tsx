@@ -7,7 +7,7 @@ type Props = {
     setRate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Sort = ({ setAlph, setRate }: Props) => {
+const Sort = () => {
     /* const dispatch = useAppDispatch(); */
     // const useSelector = (state => state.mangas);
 
@@ -20,8 +20,8 @@ const Sort = ({ setAlph, setRate }: Props) => {
             dispatch(fetchMangaSortByRating(e.target.value));
         } */
         const { value } = e.target
-        value === "alph +" ? setAlph("1") : value === "alph -" ? setAlph("-1") : '';
-        value === "rate +" ? setRate("-1") : value === "rate -" ? setRate("+1") : '';
+        // value === "alph +" ? setAlph("1") : value === "alph -" ? setAlph("-1") : '';
+        // value === "rate +" ? setRate("-1") : value === "rate -" ? setRate("+1") : '';
         console.log(e.target);
     };
 

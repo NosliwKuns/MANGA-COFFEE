@@ -1,40 +1,59 @@
 import SearchBar from "./SearchBar/SearchBar";
 import FilterMangas from "./FilterMangas";
+import { motion } from "framer-motion";
 
 type Props = {
   appear: boolean;
   setAppear: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
-  setGenres: React.Dispatch<React.SetStateAction<string>>;
-  setAlph: React.Dispatch<React.SetStateAction<string>>;
-  setRate: React.Dispatch<React.SetStateAction<string>>;
+  setGenre: React.Dispatch<React.SetStateAction<string>>;
+  setPage: React.Dispatch<React.SetStateAction<string | number>>;
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchAndFilter = ({ appear , setAppear, setSearch, setGenres, setAlph, setRate }: Props) => {
+const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Props) => {
 
   const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setAppear(!appear); 
-  }
+  };
+
+  const nose = (e : any) => {
+    console.log(e)
+    setAppear(!appear); 
+  };
+
+  const handleMouseLeave = () => {
+    setAppear(!appear);
+  };
+
 
   return (
     <div className="two">
         <section className="search-and-filter">
           <SearchBar
-            setSearch={setSearch}
+            setQuery={setQuery}
+            setPage={setPage}
           />
-          <button onClick={HandleClick}>F</button>
-          <div className={appear ? "appear" : "desappear"}>
+          <button onMouseEnter={nose}  onClick={HandleClick}>F</button>
+          <motion.div animate={{
+            height: appear ? "200%" : 0,
+            backgroundColor: '#212429',  
+          }} 
+          initial={{height: 0}}
+          transition={ {duration : .5}}
+          className={"appear"}
+          onMouseLeave={handleMouseLeave}
+          >
             <FilterMangas 
-              setGenres={setGenres}
-              setSearch={setSearch}
+              setGenre={setGenre}
+              setPage={setPage}
+              appear={appear}
+              setAppear={setAppear} 
             />
-          </div>
+          </motion.div>
           <button onClick={() => {
-            setSearch('')
-            setGenres('')
-            setAlph('')
-            setRate('')
+            /* setSearch('') */
+            setGenre('')
           }}>Clear</button>
         </section>
         <section className="display">

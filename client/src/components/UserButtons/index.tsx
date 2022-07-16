@@ -8,13 +8,13 @@ const UserButtons = () =>{
     return(
         <div>
             <span>
-                <Link to='/user/fav'><span><IoIosHeart /></span></Link>
+                <Link to='/user/fav'><span><IoIosHeart size={28} color={'#9394A9'} /></span></Link>
             </span>
             <span>
-                <Link to='/user/wishlist'><span><BsBagCheckFill /></span></Link>
+                <Link to='/user/wishlist'><span><BsBagCheckFill size={25} color={'#9394A9'} /></span></Link>
             </span>
             <span>
-                <Link to='/user/cart'><span><FaShoppingCart /></span></Link>
+                <Link to='/user/cart'><span><FaShoppingCart size={26} color={'#9394A9'} /></span></Link>
             </span>
         </div>
     )

@@ -1,25 +1,30 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react'
-import { useAppDispatch } from './app/hooks';
+import { Routes, Route, useLocation, useSearchParams } from 'react-router-dom';
 import { loginUser } from './features/user/userSlice';
-import Home from './components/Home';
-import SearchAndFilter from './components/SearchAndFilter';
-import SideBar from './components/SideBar';
-import Detail from './components/Detail/Detail';
-import Logeo from './components/Logeo/Logeo';
+import { useAppDispatch } from './app/hooks';
+import { useEffect, useState } from 'react'
 import Registration from './components/Registration/Registration';
-import User from './components/User/User';
-import UserDetail from './components/UseDetail';
-import UserButtons from './components/UserButtons';
-import Chat from './components/Chat/Chat';
-import Shop from './components/Shop';
+import SearchAndFilter from './components/SearchAndFilter';
 import ProductDetail from './components/ProductDetail';
-import { fetchAllManga } from './features/manga/mangaSlice';
-import SearchManga from './components/SearchManga';
-import './App.scss'
-import useLocalStorage from './app/useLocalStorage';
 import Favorites from './components/User/Favorites';
+import UserButtons from './components/UserButtons';
+import SearchManga from './components/SearchManga';
 import Verificate from './components/Verificate';
+import Detail from './components/Detail/Detail';
+import UserDetail from './components/UseDetail';
+import Logeo from './components/Logeo/Logeo';
+import SideBar from './components/RightSide/SideBar';
+import User from './components/User/User';
+import Chat from './components/Chat/Chat';
+import Home from './components/Home';
+import Shop from './components/Shop';
+import axios from "axios";
+import Cards from './components/Home/Cards';
+import './App.scss';
+import useFetch from './app/customHooks/useFetch';
+import { AnimatePresence } from 'framer-motion';
+import LeftSide from './components/RightSide';
+
+axios.defaults.baseURL = "http://localhost:5000/api/manga";
 
 function App() {
 
@@ -28,87 +33,60 @@ function App() {
   const localUser:any  = localStorage.getItem('copySliceUser')
   const rerender = useState<string>(localUser)
   const user = JSON.parse(localUser);
-  const [dataa, setDataa] = useLocalStorage('helpo', '')
+  const location = useLocation();
 
-  const [fetchedData, setFetchedData] = useState<any>([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [search, setSearch] = useState<string>('');
-  const [genres, setGenres] = useState('');
-  const [alph, setAlph] = useState('');
-  const [rate, setRate] = useState('');
-  const [fetchProducts, setFetchProducts] = useState<any>([]);
-  const { mangas, totalPages } = fetchedData;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("search") || "");
+  const [page, setPage] = useState<any>(searchParams.get("page") || 1);
+  const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
-  const API_KEY_M = `http://localhost:5000/api/manga/?page=${pageNumber}&search=${search}&genres=${genres}`
-  const API_KEY_P = `http://localhost:5000/api/products?page=${pageNumber}&search=${search}&genre=${genres}&name=${alph}&rating=${rate}`
+  const res: any = useFetch(
+    query || page || genre ? `?search=${query}&page=${page}&genres=${genre}` : ""
+  );
+  console.log(res, 'yepi')
 
   useEffect(()=>{
     if(user){
      dispatch(loginUser(user))
     }
 
-    dispatch(fetchAllManga(pageNumber, search, genres))
-    // let data : any;
-    // (async () => {
-    //   data = await fetch(API_KEY_M).then(res => res.json());
-    //   let b;
-    //   if(!data) {
-    //     b = (<h1>Loading</h1>)
-    //   } else {
-    //     b = data
-    //   }
-    //   setFetchedData(b);
-    //   setDataa(data)
-    //   /* let dataP = await fetch(API_KEY_P).then(res => res.json())
-    //   setFetchProducts(dataP) */
-    // })()
-    
-  },[pageNumber, search, genres])
-  
-  console.log(pageNumber, search, genres, 'aqui')
+  },[])
 
   return (
     <div className="App">
       <div className="one">
-        <h2>MANGA COFFEE</h2>
-        <h3>MC</h3>
+        <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
+        <h3 onClick={() => window.location.replace('/')}>MC</h3>
       </div>
       <SearchAndFilter 
         appear={appear}
         setAppear={setAppear}
-        setSearch={setSearch}
-        setGenres={setGenres}
-        setAlph={setAlph}
-        setRate={setRate}
+        setGenre={setGenre}
+        setPage={setPage}
+        setQuery={setQuery}
       />
       <div className="three">
-        {/* <LinkZone /> */}
         <UserButtons/>
       </div>
-      <div className="four">
-        <div className="side-bar">
-        <SideBar/>
-        </div>
-        <div className="greeting"></div>
-      </div>
-        
-      <Routes>
+      <LeftSide />
+      <AnimatePresence exitBeforeEnter>
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={
           <Home 
-            mangas={mangas} 
-            totalPages={totalPages}
-            setPageNumber={setPageNumber}
-            setAlph={setAlph}
-            setRate={setRate}
-
+            res={res}
+            query={query}
+            genre={genre}
+            setPage={setPage} 
+            setSearchParams={setSearchParams}
           />} 
         />
-        <Route path="/store" element={
+        <Route path="/shop" element={
           <Shop 
-          fetchProducts={fetchProducts}
+ 
           />} 
         />
-        <Route path="/search" element={<SearchManga/>} />
+        <Route path="/search" element={<Cards res={res}/>} />
+        <Route path="/search" element={ <h1>dimee</h1>  } />
         <Route path="/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
@@ -128,6 +106,7 @@ function App() {
 
         <Route path='/verificateUser/:id' element={<Verificate/>}/>
       </Routes>
+      </AnimatePresence>
       <div className="six">
         <div><User/></div>
         <div><Chat/></div>
