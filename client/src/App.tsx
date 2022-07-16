@@ -22,7 +22,11 @@ import Cards from './components/Home/Cards';
 import './App.scss';
 import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
+import RightSide from './components/RightSide';
+import BuyProduct from './components/ProductDetail/BuyProduct';
+
 import LeftSide from './components/RightSide';
+
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
 
@@ -102,6 +106,7 @@ function App() {
         <Route path='/history' element={<h1>I'm the History component</h1>} />
 
         <Route path="/product/:id" element={<ProductDetail/>} />
+        <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
        
 
         <Route path='/verificateUser/:id' element={<Verificate/>}/>

@@ -39,7 +39,7 @@ export type InitialState = {
   user_image : string ;
   user_banner : string ; 
   telephone : string ;
-  address : string ;
+  address : object ;
   name: string ;
   lastname : string ;
   user_description : string
@@ -58,7 +58,7 @@ const initialState: InitialState = {
   user_image : "",
   user_banner : "" ,
   telephone : "" ,
-  address : "" ,
+  address : {} ,
   name: "" ,
   lastname :"" ,
   user_description :""
@@ -114,7 +114,7 @@ const userSlice = createSlice({
         user_image : "",
         user_banner : "",
         telephone : "" ,
-        address : "" ,
+        address : {} ,
         name:"" ,
         lastname : "" ,
         user_description :""
