@@ -24,6 +24,12 @@ import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
 import RightSide from './components/RightSide';
 import DiscoverHome from './components/DiscoverHome/index';
+import BuyProduct from './components/BuyProduct';
+
+import LeftSide from './components/RightSide';
+import Categories from './components/Categories/Categories';
+import SelectedCategories from './components/Categories/SelectedCategories';
+
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
 
@@ -56,8 +62,8 @@ function App() {
   return (
     <div className="App">
       <div className="one">
-        <h2>MANGA <span style={{color: '#EA374B'}}>COFFEE</span></h2>
-        <h3>MC</h3>
+        <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
+        <h3 onClick={() => window.location.replace('/')}>MC</h3>
       </div>
       <SearchAndFilter 
         appear={appear}
@@ -69,7 +75,7 @@ function App() {
       <div className="three">
         <UserButtons/>
       </div>
-      <RightSide />
+      <LeftSide />
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<DiscoverHome/>} />
@@ -89,11 +95,13 @@ function App() {
         <Route path='/user/fav' element={<Favorites/>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
-        <Route path='/categories' element={<h1>I'm the Categories component</h1>} />
+        <Route path='/categories' element={<Categories/>} />
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
         <Route path="/product/:id" element={<ProductDetail/>} />
+        <Route path="/categories/:genre" element={<SelectedCategories/>} />
+        <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
         <Route path='/verificateUser/:id' element={<Verificate/>}/>
       </Routes>
       </AnimatePresence>

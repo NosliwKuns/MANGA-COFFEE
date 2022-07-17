@@ -34,7 +34,6 @@ router.get('/', async(req : any, res) => {
             .skip(page*limit)
             .limit(limit);
 
-        console.log(products, 'hola');
 
         const total = await Products.countDocuments({
             category: {$in: [...category]},
