@@ -19,6 +19,13 @@ const SideBar = () =>{
                 /> 
                 <h2>Home</h2>
             </Link>
+            <Link to='/shop'>
+                <IoStorefront
+					size={28}
+					color={'#9394A9'}
+				/>
+                <h2>Shop</h2>
+            </Link>
             <Link to='/categories'>
                 <AiTwotoneAppstore 
                     size={30}
@@ -39,13 +46,6 @@ const SideBar = () =>{
 					color={'#9394A9'}
 				/>
                 <h2>Popular</h2>
-            </Link>
-            <Link to='/shop'>
-                <IoStorefront
-					size={28}
-					color={'#9394A9'}
-				/>
-                <h2>Shop</h2>
             </Link>
             <Link to='/history'>
                 <RiHistoryLine

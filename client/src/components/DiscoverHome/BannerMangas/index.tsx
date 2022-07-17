@@ -4,7 +4,7 @@ import '../../../scss/Home/BannerMangas.scss';
 
 const BannerMangas = () => {
   return (
-    <section className="banner">
+    <section className="banner-manga">
       <ul>
         <li>
           <img src={OnePiceBanner} alt={OnePiceBanner} />

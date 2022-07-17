@@ -7,7 +7,7 @@ import SearchAndFilter from './components/SearchAndFilter';
 import ProductDetail from './components/ProductDetail';
 import Favorites from './components/User/Favorites';
 import UserButtons from './components/UserButtons';
-import SearchManga from './components/SearchManga';
+import CatalogMangas from './components/CatalogMangas';
 import Verificate from './components/Verificate';
 import Detail from './components/Detail/Detail';
 import UserDetail from './components/UseDetail';
@@ -18,11 +18,12 @@ import Chat from './components/Chat/Chat';
 import Home from './components/Home';
 import Shop from './components/Shop';
 import axios from "axios";
-import Cards from './components/Home/Cards';
+import Cards from './components/CatalogMangas/Cards';
 import './App.scss';
 import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
 import RightSide from './components/RightSide';
+import DiscoverHome from './components/DiscoverHome/index';
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
 
@@ -36,12 +37,12 @@ function App() {
   const location = useLocation();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get("search") || "");
+  const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
   const res = useFetch(
-    query || page || genre ? `?search=${query}&page=${page}&genres=${genre}` : ""
+    query || page || genre ? `?limit=36&search=${query}&page=${page}&genres=${genre}` : ""
   );
   console.log(res, 'yepi')
 
@@ -55,7 +56,7 @@ function App() {
   return (
     <div className="App">
       <div className="one">
-        <h2>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
+        <h2>MANGA <span style={{color: '#EA374B'}}>COFFEE</span></h2>
         <h3>MC</h3>
       </div>
       <SearchAndFilter 
@@ -71,23 +72,15 @@ function App() {
       <RightSide />
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={
-          <Home 
-            res={res}
-            query={query}
-            genre={genre}
-            setPage={setPage} 
-            setSearchParams={setSearchParams}
-          />} 
+        <Route path="/" element={<DiscoverHome/>} />
+        <Route path="/shop" element={<Shop/>} />
+        <Route path="/mangas" element={
+          <CatalogMangas
+           res={res}
+           />} 
         />
-        <Route path="/shop" element={
-          <Shop 
- 
-          />} 
-        />
-        <Route path="/search" element={<Cards res={res}/>} />
-        <Route path="/search" element={ <h1>dimee</h1>  } />
-        <Route path="/detail/:id" element={<Detail/>} />
+        <Route path="/mangas/search" element={<CatalogMangas res={res}/>} />
+        <Route path="/mangas/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
@@ -100,15 +93,12 @@ function App() {
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
-
         <Route path="/product/:id" element={<ProductDetail/>} />
-       
-
         <Route path='/verificateUser/:id' element={<Verificate/>}/>
       </Routes>
       </AnimatePresence>
       <div className="six">
-        <div><User/></div>
+        <User/>
         <div><Chat/></div>
       </div>
     </div>

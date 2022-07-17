@@ -1,6 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { GoSearch } from "react-icons/go"
 import { createSearchParams, useNavigate } from "react-router-dom";
 import '../../../scss/SearchAndFilter/SearchBar.scss';
 
@@ -22,12 +21,12 @@ const SearchBar = ({ setQuery, setPage } : Props) => {
         setQuery(input);
         setPage((prev : any) : any => {
             console.log((prev = 1), "aqui");
-            const params : any = { page: prev, search: input };
-            navigate({
-              pathname: "/",
-              search: `?${createSearchParams(params)}`
-            });
-            // window.location.replace(`?${createSearchParams(params)}`)
+            const params : any = { q: input, page: prev };
+            // navigate({
+            //   pathname: "/",
+            //   search: `?${createSearchParams(params)}`
+            // });
+            window.location.replace(`/mangas?${createSearchParams(params)}`)
           });
         setInput('');
     }

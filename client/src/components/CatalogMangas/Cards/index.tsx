@@ -1,7 +1,7 @@
 import '../../../scss/Home/Cards.scss';
 import { Link } from 'react-router-dom';
 import { motion, AnimateSharedLayout } from 'framer-motion'
-import { gridAnimation, cardAnimation, h3Animation } from './../../../Animation.js';
+import { gridAnimation, cardAnimation, h3Animation } from '../../../Animation.js';
 
 /* interface Manga {
   data: any;
