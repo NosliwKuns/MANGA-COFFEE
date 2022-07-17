@@ -169,13 +169,16 @@ const userSlice = createSlice({
       window.location.reload();
     },
     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
-      console.log("FAVORITEEEES", action.payload);
       state.favorites = action.payload;
     },
     getFavoriteManga: (
       state,
       action: PayloadAction<Array<favoritesMangas>>
     ) => {
+    console.log('ACTIOOOOOON', action.payload);
+      state.favorites = action.payload;
+    },
+    deleteFromFavorites: (state, action: PayloadAction<Array<favoritesMangas>>) => {
       state.favorites = action.payload;
     },
   },
@@ -240,7 +243,6 @@ export const setDetailUser = (headers: object): AppThunk => {
         `http://localhost:5000/api/user/detail`,
         headers
       );
-      console.log(data);
     } catch (e) {
       console.log("hola");
     }
@@ -260,6 +262,7 @@ export const FetchFavoriteMangas = (
       },
       headers
     );
+    console.log('QUE DEVUELVEEEE', data);
     dispatch(favoriteMangas(data));
   };
 };
@@ -270,8 +273,6 @@ export const getFavManga = (id: string, headers: object): AppThunk => {
       `http://localhost:5000/api/user/favorites/${id}`,
       headers
     );
-    console.log("MY FAVORITEEEEE", data.docs);
-
     dispatch(getFavoriteManga(data.docs));
   };
 };
@@ -346,6 +347,16 @@ export const verificatedUser = (id: string | undefined): AppThunk => {
   };
 };
 
+
+// export const fetchDeleteFavorites = (id: string, mangaId: string, headers: object): AppThunk => {
+//   return async (dispatch) => {
+//     const { data } = await axios.delete(
+//       `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`, headers);
+//     console.log("DELETEEEEED", data.docs);
+
+//     dispatch(deleteFromFavorites(data.docs));
+//   };
+// };
 // http://localhost:5000/api/user/fav/:id
 
 //get ('/' , headers)
@@ -359,4 +370,5 @@ export const {
   logOutUser,
   favoriteMangas,
   getFavoriteManga,
+  deleteFromFavorites
 } = userSlice.actions;
