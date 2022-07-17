@@ -14,11 +14,10 @@ const Favorites = () =>{
     console.log('FAVORITOOOOOOOOSSSSSSS',favorites);
     console.log('OTROOOOOOO', typeof favorites);
     
-    
-
     useEffect(()=>{
         dispatch(getFavManga(id, headers))
-    },[dispatch])
+    },[dispatch, id])
+
     return(
         <div>{Object.values(favorites)?.map(f=>{
             return(
