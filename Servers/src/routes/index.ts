@@ -14,6 +14,7 @@ import PutByIdUserFav from './Users/PutByIdUserFav/index';
 import GetMangaFavoUser from './Users/GetMangaFavoUser/index';
 import DeleteFavorites from './Users/DeleteFavorites/index';
 import getEmail from './Users/getEmail/index';
+import DisaledUsers from './Users/DisabledUsers/index';
 import DeleteUsers from './Users/DeleteUsers/index';
 import GetConfirmarCuenta from './Users/GetConfirmarCuenta/index';
 import DeleteByIdProducts from './Products/DeleteByIdProducts/index';
@@ -43,6 +44,7 @@ router.use('/manga', PatchComments);
 router.use('/manga', PutManga);
 router.use('/manga', GetByFavorites);
 
+router.use('/user', DisaledUsers);
 router.use('/user', getEmail );
 router.use('/user', DeleteFavorites);
 router.use('/user', DeleteUsers);
