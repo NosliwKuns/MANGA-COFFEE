@@ -45,8 +45,9 @@ router.post("/checkout/:idCompra", passport.authenticate("jwt", { session: false
       payment_method: idCompra,
       confirm: true,
     }); 
+    let dat = new Date();
     const compra = {
-      date: InfoComprador.Date,
+      date: dat.toLocaleDateString(),
       idCompra: idCompra,
       produtcs: ArrrayProducts,
       total : amount,
