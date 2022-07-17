@@ -138,7 +138,7 @@ const BuyProduct = () => {
           onChange={handleInputChange}
           className="space"
         />
-        <button className="space btn" disabled={!stripe}>
+        <button className="space btn_buy" disabled={!stripe}>
           {loading ? "Loading" : "Buy"}
         </button>
       </div>
