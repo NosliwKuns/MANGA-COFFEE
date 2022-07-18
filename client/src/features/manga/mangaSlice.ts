@@ -89,7 +89,7 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       mangaComments: (state, action : PayloadAction<Comments[]>) => {
-        // console.log("QUE ME LLEGAAAAA", action.payload)
+        console.log("QUE ME LLEGAAAAA REDUCER", action.payload)
         state.comments = action.payload
       },
       cleanDetails: (state) => {
@@ -113,6 +113,9 @@ const initialState: InitialState = {
       },
       cleanCategories: (state) => {
         state.category = []
+      },
+      commentDelete: (state, action : PayloadAction<Comments[]>) => {
+        state.comments = action.payload
       },
     }
   })
@@ -165,15 +168,16 @@ const initialState: InitialState = {
     }
   };
 
-  export const fetchMangaComments = (comment : any | null, id: string, name: string | null): AppThunk => {
+  export const fetchMangaComments = (comment : any | null, id: string, name: string | null, userId: string): AppThunk => {
     return async (dispatch) => {
       console.log(comment, "MY COMMENTTTTT")
       const {data} = await axios.put(`http://localhost:5000/api/manga/${id}`, {
         name,
         body: comment.body,
-        time: comment.time
+        time: comment.time,
+        userId,
       })
-      console.log('QUE DEVUELVEEEEEE', data)
+      console.log('QUE DEVUELVEEEEEE ACTION', data)
       dispatch(mangaComments(data))
     }
   };
@@ -205,6 +209,15 @@ const initialState: InitialState = {
     }
   };
   
+  export const deleteComment = (id : string, mangaId : any) : AppThunk => {
+    return async (dispatch: any) => {
+      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      console.log('SOY EL NO DISPATCH', data.comments);
+      dispatch(commentDelete(data.comments))
+      
+    }
+  };
+
   
   export default mangaSlice.reducer
   export const { 
@@ -218,7 +231,8 @@ const initialState: InitialState = {
       cleanDetails,
       paginate,
       getGenres,
-      cleanCategories
+      cleanCategories,
+      commentDelete,
   } = mangaSlice.actions
 
   

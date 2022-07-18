@@ -13,25 +13,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
+const User_1 = __importDefault(require("../../../models/Users/User"));
 const router = (0, express_1.Router)();
-router.delete('/deletecomments/comments/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('INGRESA?');
-    const { id, mangaId } = req.query;
+router.delete("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const { productsId } = req.body;
     try {
-        const manga = yield Manga_js_1.default.findById(mangaId);
-        console.log('MANGAAA', manga);
-        console.log('MANGA.COMMENTS', manga.comments);
-        const deleted = yield manga.comments.filter((c) => c._id.toString() !== id);
-        console.log('DELETEEEEED', deleted);
-        const newComments = yield Manga_js_1.default.findByIdAndUpdate({ _id: mangaId }, { comments: deleted });
-        console.log('NEW COMMENTSSSS', newComments);
-        // const comments = await Manga.findById(id, ['comments'])
-        console.log('COMMENTSSSS', newComments);
-        res.status(200).json(newComments);
+        const user = yield User_1.default.findOne({ email });
+        if (user) {
+            user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
+            yield user.save();
+            res.status(200).json({ message: "Producto eliminado de la lista de deseos" });
+            console.log(user.wishlist);
+        }
     }
     catch (error) {
-        next(error);
+        res.status(500).json("error");
     }
 }));
 exports.default = router;
