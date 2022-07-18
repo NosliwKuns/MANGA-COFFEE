@@ -12,6 +12,7 @@ router.delete("/", async(req, res) => {
         user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
         await user.save();
         res.status(200).json({message: "Producto eliminado de la lista de deseos"});
+        console.log(user.wishlist);
 
       }
 
