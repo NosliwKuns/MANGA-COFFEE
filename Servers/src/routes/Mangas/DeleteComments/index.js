@@ -15,12 +15,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-router.put('/deletecomment/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const _id = req.body;
-    const { id } = req.params;
+router.delete('/deletecomments/comments/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('INGRESA?');
+    const { id, mangaId } = req.query;
     try {
-        yield Manga_js_1.default.findByIdAndUpdate((id), { $pull: _id });
-        res.send('Item Deleted!');
+        const manga = yield Manga_js_1.default.findById(mangaId);
+        console.log('MANGAAA', manga);
+        console.log('MANGA.COMMENTS', manga.comments);
+        const deleted = yield manga.comments.filter((c) => c._id.toString() !== id);
+        console.log('DELETEEEEED', deleted);
+        const newComments = yield Manga_js_1.default.findByIdAndUpdate({ _id: mangaId }, { comments: deleted });
+        console.log('NEW COMMENTSSSS', newComments);
+        // const comments = await Manga.findById(id, ['comments'])
+        console.log('COMMENTSSSS', newComments);
+        res.status(200).json(newComments);
     }
     catch (error) {
         next(error);
