@@ -3,6 +3,7 @@ import FilterMangas from "./FilterMangas";
 import { motion } from "framer-motion";
 import '../../scss/SearchAndFilter/SearchAndLinks.scss';
 import { Link } from "react-router-dom";
+import UserButtons from './../UserButtons/index';
 
 type Props = {
   appear: boolean;
@@ -44,11 +45,14 @@ const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Pr
           <span>Mangas</span>
           </Link>
         </section>
-        <section className="display">
+        {/* <section className="display">
           <h2>WishList</h2>
           <h2>Card</h2>
           <button className="bubble-chat">C</button>
           <button>A</button>
+        </section> */}
+        <section className="display">
+           <UserButtons />
         </section>
     </div>
   )

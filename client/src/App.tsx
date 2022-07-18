@@ -30,6 +30,7 @@ import LeftSide from './components/RightSide';
 import Categories from './components/Categories/Categories';
 import SelectedCategories from './components/Categories/SelectedCategories';
 import ReadManga from './components/ReadManga/index';
+import useLocalStorage from './app/customHooks/useLocalStorage';
 
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
@@ -39,7 +40,7 @@ function App() {
   const [ appear, setAppear ] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const localUser:any  = localStorage.getItem('copySliceUser')
-  const rerender = useState<string>(localUser)
+  const [product, setProduct] = useLocalStorage('test', []);
   const user = JSON.parse(localUser);
   const location = useLocation();
 
@@ -74,19 +75,23 @@ function App() {
         setQuery={setQuery}
       />
       <div className="three">
-        <UserButtons/>
+        <UserButtons product={product} setProduct={setProduct}/>
       </div>
       <LeftSide />
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<DiscoverHome/>} />
-        <Route path="/shop" element={<Shop/>} />
+        <Route path="/shop" element={<Shop product={product} setProduct={setProduct}/>} />
         <Route path="/mangas" element={
           <CatalogMangas
-           res={res}
+            setPage={setPage}
+            query={query}
+            genre={genre}
+            setSearchParams={setSearchParams}
+            res={res}
            />} 
         />
-        <Route path="/mangas/search" element={<CatalogMangas res={res}/>} />
+        {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
         <Route path="/mangas/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>

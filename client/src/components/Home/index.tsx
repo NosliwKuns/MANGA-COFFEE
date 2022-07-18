@@ -2,7 +2,7 @@ import Cards from '../CatalogMangas/Cards';
 import BannerMangas from '../DiscoverHome/BannerMangas';
 import Sort from '../Home/Sort/Sort'
 import '../../scss/Home/Home.scss';
-import Pagination from './Pagination';
+import Pagination from '../CatalogMangas/Pagination';
 
 type Props = {
   res: object;
