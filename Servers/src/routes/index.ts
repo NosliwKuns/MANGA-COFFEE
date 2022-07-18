@@ -45,7 +45,6 @@ router.use('/manga', PatchComments);
 router.use('/manga', PutManga);
 router.use('/manga', GetByFavorites);
 router.use('/manga', PostRating);
-
 router.use('/user', DisabledUser);
 router.use('/user', getEmail );
 router.use('/user', DeleteFavorites);
