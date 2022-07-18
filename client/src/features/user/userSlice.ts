@@ -178,6 +178,9 @@ const userSlice = createSlice({
     ) => {
       state.favorites = action.payload;
     },
+    deleteFromFavorites: (state, action: PayloadAction<Array<favoritesMangas>>) => {
+      state.favorites = action.payload;
+    },
   },
 });
 
@@ -260,7 +263,7 @@ export const FetchFavoriteMangas = (
       },
       headers
     );
-    dispatch(favoriteMangas(data));
+    dispatch(favoriteMangas(data.favorites));
   };
 };
 
@@ -346,6 +349,16 @@ export const verificatedUser = (id: string | undefined): AppThunk => {
   };
 };
 
+export const fetchDeleteFavorites = (id: string, mangaId: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`, headers);
+    console.log("DELETEEEEED", data.docs);
+
+    dispatch(deleteFromFavorites(data.docs));
+  };
+};
+
 // http://localhost:5000/api/user/fav/:id
 
 //get ('/' , headers)
@@ -359,4 +372,5 @@ export const {
   logOutUser,
   favoriteMangas,
   getFavoriteManga,
+  deleteFromFavorites,
 } = userSlice.actions;

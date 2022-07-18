@@ -4,15 +4,14 @@ import User from '../../../models/Users/User.js';
 const router = Router();
 
 
-router.delete('/:id', async (req, res) => {
-    const id = req.params.id;
-    const {_id} = req.body;
+router.delete('/', async (req, res) => {
+    const {id, mangaId} = req.query;
     try {
-        await User.findByIdAndDelete(id, {
-            favorites:[_id]
-        });
-        res.send('Item Deleted!');
-
+        const user: any = await User.findById(id);
+        const deleted = await user.favorites.filter((m: string) => m !== mangaId)
+        await User.findByIdAndUpdate({_id: id}, {favorites: deleted});
+        const userUpdated = await User.findById(id);
+        res.status(200).json(userUpdated);
     }
     catch(error){
         res.status(500).json({message: 'Error'});
