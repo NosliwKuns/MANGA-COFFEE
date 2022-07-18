@@ -18,12 +18,16 @@ const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
 router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id, mangaId } = req.query;
-    //const {_id} = req.body;
+
     try {
-        yield User_js_1.default.findByIdAndDelete(id, {
-            favorites: [mangaId]
-        });
-        res.send('Item Deleted!');
+        const user = yield User_js_1.default.findById(id);
+        const deleted = yield user.favorites.filter((m) => m !== mangaId);
+        yield User_js_1.default.findByIdAndUpdate({ _id: id }, { favorites: deleted });
+        const userUpdated = yield User_js_1.default.findById(id);
+        res.status(200).json(userUpdated);
+        // await findUser;
+        // res.send(userUpdated);
+
     }
     catch (error) {
         res.status(500).json({ message: 'Error' });
