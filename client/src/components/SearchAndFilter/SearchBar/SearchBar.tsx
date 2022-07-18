@@ -39,11 +39,11 @@ const SearchBar = ({ setQuery, setPage } : Props) => {
                     type="text"
                     value={input}
                     onChange ={(e) => handleInputChange(e)}
-                    placeholder="Search..."
+                    placeholder="Search mangas"
                 />
                 <button type="submit">
                     <FaSearch 
-                        size={18}
+                        size={15}
                         color={'#EA374B'}
                     />
                 </button>

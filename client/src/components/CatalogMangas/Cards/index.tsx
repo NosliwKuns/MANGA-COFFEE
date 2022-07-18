@@ -30,7 +30,7 @@ const Cards = ({ res }: Props) => {
       display = info?.mangas.map((e : any)=> {
         return (
             
-          <Link to={`/detail/${e._id}`}>
+          <Link to={`/mangas/detail/${e._id}`}>
               <motion.div
                 variants={cardAnimation}
                 /* animate='show' */

@@ -1,6 +1,6 @@
 export const gridAnimation = {
   show: { y: [0, 0], opacity: [0, 0, 1], transition: {staggerChildren: 0.15 } },
-  hide: { y: [0, 100], transition: {staggerChildren: 0.01 }, staggerDirection: -1 },
+  hide: { y: [0, 0], transition: {staggerChildren: 0.01 }, staggerDirection: -1 },
 };
 
 export const cardAnimation = {

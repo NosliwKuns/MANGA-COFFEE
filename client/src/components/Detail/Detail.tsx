@@ -21,6 +21,8 @@ const Detail = () => {
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
 
+  console.log(manga)
+
   
   useEffect(() => {
     dispatch(fetchDetailManga ( id ));
@@ -31,12 +33,20 @@ const Detail = () => {
   
 
   return (
-    <motion.div variants={carAnimation} animate='show' exit='hide' className="five detail-container">
+    <motion.div 
+      variants={carAnimation} 
+      animate='show' 
+      exit='hide' 
+      className="five detail-container">
       <title>
         <h2>{manga.title}</h2>
       </title>
       <header>
-        <motion.div variants={h3Animation} animate='show' exit='hide' className="image-container">
+        <motion.div 
+          variants={h3Animation} 
+          animate='show' 
+          exit='hide' 
+          className="image-container">
           <img src={`${manga.cover_image}`} alt={`cover_page_${manga._id}`} />
         </motion.div>
         <div className="info-container">
@@ -53,24 +63,21 @@ const Detail = () => {
       </header>
       <h2 className="sub-title">Description :</h2>
       <p>{manga.description}</p>
-      <p>{manga.description}</p>
-      <p>{manga.description}</p>
-      <p>{manga.description}</p>
-      <p>{manga.description}</p>
-      <p>{manga.description}</p>
+      <h2 className="sub-title">Lista de capitulos</h2>
         <div>
           {
             manga.mangas.map((e : any)=> {
               return (
-               
+                <Link to={`/mangas/${manga.title}/chapter_${e.chapter}/${id}`}>
                   <div>{e.chapter}
-                  {e.link.map((e : any)=> <img src={e}/>)}
+                  {/* {e.link.map((e : any)=> <img src={e}/>)} */}
                   </div>
-                
+                </Link>
               )
             })
           }
         </div>
+      
       <Comments/>
     </motion.div>
   );

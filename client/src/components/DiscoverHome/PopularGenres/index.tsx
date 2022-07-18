@@ -4,8 +4,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Img from '../../../Images/one-peace.png'
 
 // Import Swiper styles
-// import "swiper/css/pagination";
-// import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 
 // import required modules
@@ -58,13 +58,10 @@ const PopularGenres = () => {
 		}
     console.log(l)
 	}
-	/* span[1].onclick = ()=>{right_mover();}
-	span[0].onclick = ()=>{left_mover();}
- */
+
   return (
     <div className="popular-genres">
-      <h2 className="a" onClick={() => {alert("Popular Genres!")}}>Popular Genres</h2>
-      <button onClick={aspect}>P</button>
+      <h2 className="a">Popular Genres</h2>
       <section className="hidden">
         <div className="shadow l"></div>
         <div className="shadow r"></div>
@@ -128,7 +125,7 @@ const PopularGenres = () => {
       </Swiper>
       </section>
 
-      <main>
+      {/* <main>
 		<div className="text">
 			<h1>Simple Single carousel</h1>
 			<p>
@@ -411,7 +408,7 @@ const PopularGenres = () => {
 		</section>
     </div>
 	</main>
-
+ */}
 
 
 

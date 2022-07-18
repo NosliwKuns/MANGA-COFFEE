@@ -1,16 +1,20 @@
 .popular-genres {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 1em;
+
   div {
     color: var(--primary);
+  }
+
+  h2 {
+    color: var(--light--200);
+    text-align: start;
   }
 
   .hidden {
     /* background: #6773ff; */
     position: relative;
-    padding-top: 2em;
     height: 100%;
     overflow: auto;
     padding-bottom: 2em;

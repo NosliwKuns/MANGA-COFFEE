@@ -1,0 +1,44 @@
+.search-and-links {
+  display: flex;
+  gap: 1em;
+  color: var(--light--200);
+  align-items: center;
+
+  a {
+    color: var(--light--200);
+  }
+  
+  h3 {
+    display: flex;
+    width: min(60vw, 250px);
+    background: #2f3034;
+  }
+
+  .appear {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: .7em;
+    color: var(--light);
+    /* background: tomato; */
+    // height: 100%;
+    width: 100%;
+    /* bottom: -3em; */
+    left: 0;
+    z-index: 2;
+    overflow: hidden;
+
+    div {
+      background: var(--primary);
+      padding: .2em;
+      border-radius: 6px;
+    }
+  }
+
+  .desappear {
+    display: none;
+    overflow: hidden;
+  }
+}

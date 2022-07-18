@@ -29,6 +29,7 @@ import BuyProduct from './components/BuyProduct';
 import LeftSide from './components/RightSide';
 import Categories from './components/Categories/Categories';
 import SelectedCategories from './components/Categories/SelectedCategories';
+import ReadManga from './components/ReadManga/index';
 
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
@@ -48,7 +49,7 @@ function App() {
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
   const res = useFetch(
-    query || page || genre ? `?limit=36&search=${query}&page=${page}&genres=${genre}` : ""
+    query || page || genre ? `?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
   );
   console.log(res, 'yepi')
 
@@ -91,7 +92,7 @@ function App() {
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
         <Route path='/userDetail' element={<UserDetail/>}/>
-        {/* <Route path='/chapter/:id' element={<Leer/>}/> */}
+        <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
         <Route path='/user/fav' element={<Favorites/>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
