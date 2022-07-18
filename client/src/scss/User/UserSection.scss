@@ -1,0 +1,43 @@
+.user-container {
+  display: grid;
+  grid-template-rows: 40% 1fr 1fr;
+  color: var(--light--200);
+  overflow: hidden;
+
+  .banner {
+    position: relative;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/005/893/690/non_2x/abstract-dark-horizontal-background-black-iron-textured-pattern-with-hexagons-steel-honeycomb-texture-wallpaper-abstract-modern-design-illustration-vector.jpg");
+    // background-size: cover;
+    /* height: 40%; */
+    .photo {
+      position: absolute;
+      bottom: -35px;
+      left: 37%;
+    }
+  }
+
+
+  .user-info {
+    padding-top: 8%;
+    box-sizing: border-box;
+    align-self: center;
+  }
+
+  .btn-section {
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    gap: 1em;
+  }
+
+
+
+  button {
+    background: var(--primary);
+    border: none;
+    padding: .3em .6em .3em .6em;
+    color: var(--light);
+    font-size: 1.2em;
+    border-radius: 100vw;
+  }
+}
