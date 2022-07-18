@@ -23,7 +23,7 @@ import './App.scss';
 import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
 import RightSide from './components/RightSide';
-import BuyProduct from './components/ProductDetail/BuyProduct';
+import BuyProduct from './components/BuyProduct';
 
 import LeftSide from './components/RightSide';
 import Categories from './components/Categories/Categories';

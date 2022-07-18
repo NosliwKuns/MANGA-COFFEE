@@ -18,8 +18,8 @@ const passport_1 = __importDefault(require("passport"));
 const ReadTokenData_1 = __importDefault(require("../../../controles/Token/ReadTokenData"));
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
-//import sendEmail from '../../../controles/Email/SendEmail';
-//import NotificationBuy from '../../../controles/Email/Template/NotificacionCompra';
+const SendEmail_1 = __importDefault(require("../../../controles/Email/SendEmail"));
+const NotificacionCompra_1 = __importDefault(require("../../../controles/Email/Template/NotificacionCompra"));
 const router = (0, express_1.Router)();
 const stripe = new stripe_1.default("sk_test_51LLrJiAaJyGKFRYYchn8r6wj05opINEVucofBXXorZQWhuq1zFJ1FW3Ys134xp4FuqnQynqh7CaQ6Rhks29Fck4t00fvKC5c6E", { apiVersion: "2020-08-27" });
 router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { session: false }), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,41 +29,56 @@ router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { sess
         const { authorization } = req.headers;
         let amount = 0;
         let ArrrayProducts = [{}];
-        product.forEach((element) => __awaiter(void 0, void 0, void 0, function* () {
-            const producto = yield index_1.default.findById(element.idProduct);
+        for (let i = 0; i < product.length; i++) {
+            const producto = yield index_1.default.findById(product[i].idProduct);
             if (producto) {
-                let stock = producto.stock - element.quantity;
-                yield index_1.default.findByIdAndUpdate((element.idProduct), { stock: stock });
-                let totProduct = producto.price * element.quantity * 100;
+                let stock = producto.stock - product[i].quantity;
+                yield index_1.default.findByIdAndUpdate((product[i].idProduct), { stock: stock });
+                let totProduct = producto.price * product[i].quantity * 100;
                 amount += totProduct;
                 let DetailProduct = {
-                    idProduct: element.idProduct,
+                    idProduct: product[i].idProduct,
                     name: producto.name,
                     price: producto.price,
-                    quantity: element.quantity,
+                    quantity: product[i].quantity,
                     totProduct: totProduct,
                 };
                 Object.keys(ArrrayProducts[0]).length ? ArrrayProducts.push(DetailProduct) : ArrrayProducts = [DetailProduct];
             }
-        }));
+            ;
+        }
+        ;
         const payment = yield stripe.paymentIntents.create({
             amount: amount,
             currency: "USD",
             payment_method: idCompra,
             confirm: true,
         });
+        let dat = new Date();
         const compra = {
+            date: dat.toLocaleDateString(),
             idCompra: idCompra,
             produtcs: ArrrayProducts,
             total: amount,
             adrress: adrress,
-            InfoComprador: InfoComprador,
+            name: InfoComprador.name,
+            lastName: InfoComprador.lastName,
+            telephone: InfoComprador.telephone,
+            method: InfoComprador.method,
+            email: InfoComprador.email,
         };
-        console.log(payment);
+        // console.log(payment)
         const data = (0, ReadTokenData_1.default)(authorization);
         yield User_1.default.findByIdAndUpdate((data.id), { $push: { historyBuy: [compra] } });
-        //let template = NotificationBuy()
-        //sendEmail(data.email, 'Notificacion de compra', template)
+        let template = (0, NotificacionCompra_1.default)(ArrrayProducts, amount);
+        if (data.email === InfoComprador.email) {
+            (0, SendEmail_1.default)(data.email, 'Notificacion de compra', template);
+        }
+        else {
+            (0, SendEmail_1.default)(data.email, 'Notificacion de compra', template);
+            (0, SendEmail_1.default)(InfoComprador.email, 'Notificacion de compra', template);
+        }
+        ;
         res.send({ message: "Successull payment" });
     }
     catch (error) {

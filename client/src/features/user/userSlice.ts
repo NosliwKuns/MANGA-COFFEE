@@ -43,7 +43,7 @@ type Address = {
 };
 
 type Purchese = {
-  date : Date;
+  date : string;
   idCompra: string;
   produtcs: Array<Product>;
   total: number;

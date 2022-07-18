@@ -4,8 +4,8 @@ import passport from "passport";
 import ReadTokenData from '../../../controles/Token/ReadTokenData';
 import Product from '../../../models/Products/index';
 import User from '../../../models/Users/User';
-//import sendEmail from '../../../controles/Email/SendEmail';
-//import NotificationBuy from '../../../controles/Email/Template/NotificacionCompra';
+import sendEmail from '../../../controles/Email/SendEmail';
+import NotificationBuy from '../../../controles/Email/Template/NotificacionCompra';
 const router = Router();
 
 const stripe = new Stripe(
@@ -21,41 +21,54 @@ router.post("/checkout/:idCompra", passport.authenticate("jwt", { session: false
 
     let amount: number = 0;
     let ArrrayProducts: [Object] = [{}];
-    product.forEach( async (element: any) =>{
-      const producto = await Product.findById(element.idProduct);        
+    for (let i = 0; i < product.length; i++) {    
+      const producto = await Product.findById(product[i].idProduct);    
       if (producto){
-        let stock = producto.stock - element.quantity;
-        await Product.findByIdAndUpdate((element.idProduct), {stock: stock});
-        let totProduct = producto.price * element.quantity * 100;
+        let stock = producto.stock - product[i].quantity;
+        await Product.findByIdAndUpdate((product[i].idProduct), {stock: stock});
+        let totProduct = producto.price * product[i].quantity * 100;
         amount += totProduct;
         let DetailProduct = {
-          idProduct: element.idProduct,
+          idProduct: product[i].idProduct,
           name: producto.name,
           price: producto.price,
-          quantity: element.quantity,
+          quantity: product[i].quantity,
           totProduct: totProduct, 
-        }
-        Object.keys(ArrrayProducts[0]).length?ArrrayProducts.push(DetailProduct): ArrrayProducts = [DetailProduct]   
-      }
-    });
+        };
+        Object.keys(ArrrayProducts[0]).length?ArrrayProducts.push(DetailProduct): ArrrayProducts = [DetailProduct];
+         
+      };
+    }; 
     const payment = await stripe.paymentIntents.create({
       amount: amount,
       currency: "USD",
       payment_method: idCompra,
       confirm: true,
-    });  
+    }); 
+    let dat = new Date();
     const compra = {
+      date: dat.toLocaleDateString(),
       idCompra: idCompra,
       produtcs: ArrrayProducts,
       total : amount,
-      adrress: adrress, 
-      InfoComprador: InfoComprador,
-    }
-    console.log(payment)
+      adrress: adrress,
+      name: InfoComprador.name,
+      lastName: InfoComprador.lastName,
+      telephone: InfoComprador.telephone,
+      method: InfoComprador.method,
+      email: InfoComprador.email,
+    };
+    // console.log(payment)
     const data= ReadTokenData(authorization);
-    await User.findByIdAndUpdate((data.id), {$push:{historyBuy: [compra]}})
-    //let template = NotificationBuy()
-    //sendEmail(data.email, 'Notificacion de compra', template)
+    await User.findByIdAndUpdate((data.id), {$push:{historyBuy: [compra]}});
+    let template = NotificationBuy(ArrrayProducts, amount);
+    if (data.email === InfoComprador.email){
+      sendEmail(data.email, 'Notificacion de compra', template);
+    }else{
+      sendEmail(data.email, 'Notificacion de compra', template);
+      sendEmail(InfoComprador.email, 'Notificacion de compra', template)
+    };
+    
     res.send({ message: "Successull payment" });
   
   } catch (error) {

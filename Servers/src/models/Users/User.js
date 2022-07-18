@@ -75,7 +75,7 @@ const UserSchema = new Schema({
     },
     historyBuy: {
         type: [{
-                date: Date,
+                date: String,
                 idCompra: String,
                 produtcs: [{
                         idProduct: String,
