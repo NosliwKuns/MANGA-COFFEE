@@ -182,7 +182,7 @@ const userSlice = createSlice({
 
 export const userLog = (user: Verificated): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post("http://localhost:5000/api/user/login", {
+    const { data } = await axios.post("https://manga-coffee.herokuapp.com/api/user/login", {
       email: user.email,
       password: user.password,
     });
@@ -219,7 +219,7 @@ export const singUpUser = (user: CreateUser): AppThunk => {
     dispatch(createUser(user));
     console.log(user);
     const { data } = await axios.post(
-      "http://localhost:5000/api/user/register",
+      "https://manga-coffee.herokuapp.com/api/user/register",
       {
         users: user.user,
         email: user.email,
@@ -236,7 +236,7 @@ export const setDetailUser = (headers: object): AppThunk => {
   return async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user/detail`,
+        `https://manga-coffee.herokuapp.com/api/user/detail`,
         headers
       );
       console.log(data);
@@ -253,7 +253,7 @@ export const FetchFavoriteMangas = (
 ): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `http://localhost:5000/api/user/fav/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/fav/${id}`,
       {
         favorites: [mangaId],
       },
@@ -266,7 +266,7 @@ export const FetchFavoriteMangas = (
 export const getFavManga = (id: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/favorites/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/favorites/${id}`,
       headers
     );
 
@@ -297,7 +297,7 @@ export const loginWithGoogle = (): AppThunk => {
       user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
     const { data } = await axios.post(
-      "http://localhost:5000/api/user/register",
+      "https://manga-coffee.herokuapp.com/api/user/register",
       {
         users: displayName,
         email: email,
@@ -319,7 +319,7 @@ export const loginWithGoogle = (): AppThunk => {
 export const verificatedUser = (id: string | undefined): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/verificated/${id}`
+      `https://manga-coffee.herokuapp.com/api/user/verificated/${id}`
     );
     const copyInitialState = {
       id: data.usuario._id,
@@ -347,7 +347,7 @@ export const verificatedUser = (id: string | undefined): AppThunk => {
 export const fetchDeleteFavorites = (id: string, mangaId: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.delete(
-      `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`, headers);
+      `https://manga-coffee.herokuapp.com/api/user/?id=${id}&mangaId=${mangaId}`, headers);
     dispatch(getFavoriteManga(data.docs));
   };
 };

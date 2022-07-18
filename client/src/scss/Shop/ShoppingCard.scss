@@ -1,0 +1,56 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(21, 21, 21, 0.864);
+  z-index: 888;
+  transition: opacity 1s;
+  opacity: 1;
+  /* visibility: hidden; */
+}
+
+.hidden-overlay {
+  /* visibility: hidden; */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.shopping-card-container {
+
+  .shopping-card-outer {
+    background: rgba(26, 26, 26, 0.841);
+    width: 100%;
+  }
+
+  .shopping-card {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 38em;
+    background: var(--primary);
+    height: 100vh;
+    z-index: 999;
+    transition: 1s;
+    overflow: auto;
+
+    img {
+      height: 10em;
+    }
+  }
+
+  .active {
+    transform: translate(100%);
+    transition: 1s;
+  }
+}
+
+@media only screen and (max-width: 600px)  {
+  .shopping-card-container {
+    .shopping-card {
+      width: 100vw;
+    }
+  }
+
+}
