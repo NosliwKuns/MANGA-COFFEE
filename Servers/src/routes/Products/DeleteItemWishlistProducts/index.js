@@ -13,20 +13,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import passport from "passport";
-const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const User_1 = __importDefault(require("../../../models/Users/User"));
 const router = (0, express_1.Router)();
-router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id, mangaId } = req.query;
+router.delete("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const { productsId } = req.body;
     try {
-        const user = yield User_js_1.default.findById(id);
-        const deleted = yield user.favorites.filter((m) => m !== mangaId);
-        yield User_js_1.default.findByIdAndUpdate({ _id: id }, { favorites: deleted });
-        const userUpdated = yield User_js_1.default.findById(id);
-        res.status(200).json(userUpdated);
+        const user = yield User_1.default.findOne({ email });
+        if (user) {
+            user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
+            yield user.save();
+            res.status(200).json({ message: "Producto eliminado de la lista de deseos" });
+        }
     }
     catch (error) {
-        res.status(500).json({ message: 'Error' });
+        res.status(500).json("error");
     }
 }));
 exports.default = router;

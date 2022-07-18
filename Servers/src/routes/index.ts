@@ -26,6 +26,7 @@ import PutProducts from './Products/PutProducts/index';
 import PostCommentsProducts from './Products/PostCommentsProducts/index';
 import PostBuyStripe from './Products/PostBuyStripe/index';
 import AddWishListProducts from './Products/AddWishListProducts/index';
+import DeleteItemWishlistProducts from './Products/DeleteItemWishlistProducts/index';
 import PutManga from './Mangas/PutManga/index';
 import GetByFavorites from './Mangas/GetByFavorites/index';
 import DeleteComments from './Mangas/DeleteComments/index'
@@ -66,5 +67,5 @@ router.use('/products', PutProducts);
 router.use('/products', PostCommentsProducts);
 router.use('/products', PostBuyStripe);
 router.use('/products', AddWishListProducts);
-
+router.use('/products', DeleteItemWishlistProducts);
 export default router;
