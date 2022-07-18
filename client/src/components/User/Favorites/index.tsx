@@ -9,17 +9,14 @@ import { Link } from 'react-router-dom'
 const Favorites = () =>{
     const dispatch= useAppDispatch();
     const { id, favorites} = useAppSelector(state=> state.user)
-    console.log('FAVORITOOOOOOOOSSSSSSS',favorites);
     const { token } = useAppSelector((state) => state.user);
-    const usuario = useAppSelector((state) => state.user);
-    console.log('MEEEEEEEEEEEEE',usuario);
     const headers = useHeaders(token)
-    console.log('OTROOOOOOO', typeof favorites);
 
     const handleClick = (mangaid: any) => {
         dispatch(fetchDeleteFavorites(id, mangaid, headers))
-        window.location.reload()
+        dispatch(getFavManga(id, headers))
     }
+
     
     useEffect(()=>{
         dispatch(getFavManga(id, headers))
