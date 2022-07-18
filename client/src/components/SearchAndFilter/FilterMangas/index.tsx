@@ -27,10 +27,11 @@ const FilterMangas = ({ setGenre, setPage, appear, setAppear } : Props) => {
     setPage((prev) : any => {
       console.log((prev = 1), "aqui");
       const params : any = { page: prev, genre: genre };
-      navigate({
+      /* navigate({
         pathname: "/",
         search: `?${createSearchParams(params)}`
-      });
+      }); */
+      window.location.replace(`/?${createSearchParams(params)}`)
     });
   };
 

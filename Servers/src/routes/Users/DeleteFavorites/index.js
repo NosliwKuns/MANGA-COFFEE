@@ -16,12 +16,12 @@ const express_1 = require("express");
 // import passport from "passport";
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
-router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = req.params.id;
-    const { _id } = req.body;
+router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, mangaId } = req.query;
+    //const {_id} = req.body;
     try {
         yield User_js_1.default.findByIdAndDelete(id, {
-            favorites: [_id]
+            favorites: [mangaId]
         });
         res.send('Item Deleted!');
     }

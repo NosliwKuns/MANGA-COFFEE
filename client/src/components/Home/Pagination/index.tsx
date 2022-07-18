@@ -16,7 +16,7 @@ const Pagination = ({ res, setPage, setSearchParams, query, genre }: Props) =>{
         setPage(e);
         if (query) {
           setSearchParams({
-            search: query,
+            q: query,
             page: e
           });
         }
