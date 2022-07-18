@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import App from "./App";
+import "swiper/css/bundle";
 import "./index.scss";
 import store from "./app/store";
 import { Provider } from "react-redux";

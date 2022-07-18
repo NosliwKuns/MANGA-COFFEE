@@ -4,7 +4,7 @@ import Manga from '../../../models/Mangas/Manga.js';
 const router = Router();
 
 
-router.delete('/deletecomment/:id', async(req, res, next)=>{
+router.put('/deletecomment/:id', async(req, res, next)=>{
     const _id = req.body
     const {id} = req.params;
     try {          

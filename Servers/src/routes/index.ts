@@ -29,7 +29,7 @@ import AddWishListProducts from './Products/AddWishListProducts/index';
 import PutManga from './Mangas/PutManga/index';
 import GetByFavorites from './Mangas/GetByFavorites/index';
 import DeleteComments from './Mangas/DeleteComments/index'
-
+import PostRating from './Mangas/postRating/index'
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -42,6 +42,7 @@ router.use('/manga', DeleteComments);
 router.use('/manga', PatchComments);
 router.use('/manga', PutManga);
 router.use('/manga', GetByFavorites);
+router.use('/manga', PostRating);
 
 router.use('/user', getEmail );
 router.use('/user', DeleteFavorites);
