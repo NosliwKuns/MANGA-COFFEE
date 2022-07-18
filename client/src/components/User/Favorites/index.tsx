@@ -27,7 +27,7 @@ const Favorites = () =>{
             return(
                 <div>
                     <button onClick={() => handleClick(f._id)}>X</button>
-                    <Link to={`/detail/${f._id}`}>
+                    <Link to={`/mangas/detail/${f._id}`}>
                         <div key={f._id}>
                         <section>
                             <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} height={'200px'} />
