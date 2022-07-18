@@ -171,7 +171,7 @@ const initialState: InitialState = {
   export const fetchMangaComments = (comment : any | null, id: string, name: string | null, userId: string): AppThunk => {
     return async (dispatch) => {
       console.log(comment, "MY COMMENTTTTT")
-      const {data} = await axios.put(`http://localhost:5000/api/manga/${id}`, {
+      const {data} = await axios.put(`https://manga-coffee.herokuapp.com/api/manga/${id}`, {
         name,
         body: comment.body,
         time: comment.time,
@@ -211,7 +211,7 @@ const initialState: InitialState = {
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
-      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       console.log('SOY EL NO DISPATCH', data.comments);
       dispatch(commentDelete(data.comments))
       

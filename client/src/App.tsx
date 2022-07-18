@@ -33,7 +33,7 @@ import ReadManga from './components/ReadManga/index';
 import useLocalStorage from './app/customHooks/useLocalStorage';
 
 
-axios.defaults.baseURL = "http://localhost:5000/api/manga";
+axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api/manga";
 
 function App() {
 
