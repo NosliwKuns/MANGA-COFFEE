@@ -79,7 +79,6 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       filterMangaByGenres: (state, action : PayloadAction<Array<object>>) => {
-        // console.log("QUEJESTOOOOO", action.payload);
         state.category = action.payload
       },
       SortByName: (state, action : PayloadAction<allMangas>) => {
@@ -89,7 +88,6 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       mangaComments: (state, action : PayloadAction<Comments[]>) => {
-        console.log("QUE ME LLEGAAAAA REDUCER", action.payload)
         state.comments = action.payload
       },
       cleanDetails: (state) => {
@@ -105,7 +103,6 @@ const initialState: InitialState = {
         }
       },
       paginate: (state, action : PayloadAction<allMangas>) => {
-        // console.log('REDUCEEEEERRR!!!!!', action.payload)
         state.mangas = action.payload
       },
       getGenres: (state, action : PayloadAction<string[]>) => {
@@ -115,7 +112,7 @@ const initialState: InitialState = {
         state.category = []
       },
       commentDelete: (state, action : PayloadAction<Comments[]>) => {
-        state.comments = action.payload
+        state.manga.comments = action.payload
       },
     }
   })
@@ -124,7 +121,6 @@ const initialState: InitialState = {
     return async (dispatch) => {
       try {
         const {data} = await axios.get(`http://localhost:5000/api/manga/?page=${pageNumber}&search=${search}&genres=${genres}`)
-        console.log(data, 'yeahhh')
         dispatch(getAddMangas(data)) 
       } catch (error) {
         console.error(error)
@@ -170,14 +166,12 @@ const initialState: InitialState = {
 
   export const fetchMangaComments = (comment : any | null, id: string, name: string | null, userId: string): AppThunk => {
     return async (dispatch) => {
-      console.log(comment, "MY COMMENTTTTT")
       const {data} = await axios.put(`http://localhost:5000/api/manga/${id}`, {
         name,
         body: comment.body,
         time: comment.time,
         userId,
       })
-      console.log('QUE DEVUELVEEEEEE ACTION', data)
       dispatch(mangaComments(data))
     }
   };
@@ -191,7 +185,6 @@ const initialState: InitialState = {
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
       const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?page=${page}`)
-      console.log('PAGINADOOOOO',data)
       dispatch(paginate(data))
     }
   };
@@ -212,7 +205,6 @@ const initialState: InitialState = {
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
       const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
-      console.log('SOY EL NO DISPATCH', data.comments);
       dispatch(commentDelete(data.comments))
       
     }
