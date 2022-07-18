@@ -8,7 +8,6 @@ type Props = {
 const Shop = ({ setProduct, product }: Props) => {
   return (
     <div className="five">
-      I'm the Store component :D
       <CardsProduct 
         setProduct={setProduct}
         product={product}

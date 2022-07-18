@@ -62,7 +62,7 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
         transition={ {duration : .5}}
       >
         {/* <button onClick={() => setOpen(!open)}>fff</button> */}
-        {/* <h2>Total Amount: {totalAmount}</h2> */}
+        <h2>Total Amount: {totalAmount}</h2>
         {
           product?.map((e : any) => {
             return (
