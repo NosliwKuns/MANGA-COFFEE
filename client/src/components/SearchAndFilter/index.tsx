@@ -52,7 +52,7 @@ const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Pr
           <button>A</button>
         </section> */}
         <section className="display">
-           <UserButtons />
+           {/* <UserButtons /> */}
         </section>
     </div>
   )
