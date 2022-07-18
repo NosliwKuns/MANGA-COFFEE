@@ -260,7 +260,9 @@ export const FetchFavoriteMangas = (
       },
       headers
     );
-    dispatch(favoriteMangas(data));
+    console.log('USER SLICEEE', data);
+    
+    dispatch(favoriteMangas(data.favorites));
   };
 };
 

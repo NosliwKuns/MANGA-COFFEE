@@ -19,7 +19,7 @@ const Favorites = () =>{
     },[dispatch, id])
 
     return(
-        <div>{Object.values(favorites)?.map(f=>{
+        <div>{favorites?.map(f=>{
             return(
                 <Link to={`/detail/${f._id}`}>
                     <div key={f._id}>
