@@ -11,9 +11,7 @@ const Comments = () => {
   const { comments } = useAppSelector(state => state.mangas.manga)
   const mangaId = useAppSelector(state => state.mangas.manga._id)
   const newComment = useAppSelector(state => state.mangas.comments)
-  console.log('COMENTARIOOO', newComment);
   const { user, id } = useAppSelector(state => state.user)
-  console.log('ME LLEGA EL ID?', id);
   
   const [input, setInput] = useState<any>({
     name : '',
@@ -51,6 +49,10 @@ const Comments = () => {
       userId: id
     })
   }
+
+  useEffect(()=>{
+
+  },[comments])
 
   const currentComments = !newComment.length? comments : newComment
 
