@@ -45,7 +45,7 @@ const Logeo = () => {
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
     try {
-      await dispatch(logIn(input.email,input.password))
+      //await dispatch(logIn(input.email,input.password))
       dispatch(userLog(input)); //
       alert("acces");
       navigate("/", { replace: true });

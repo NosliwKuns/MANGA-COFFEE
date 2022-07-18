@@ -34,6 +34,8 @@ const index_27 = __importDefault(require("./Products/AddWishListProducts/index")
 const index_28 = __importDefault(require("./Mangas/PutManga/index"));
 const index_29 = __importDefault(require("./Mangas/GetByFavorites/index"));
 const index_30 = __importDefault(require("./Mangas/DeleteComments/index"));
+const index_31 = __importDefault(require("./Users/PostResetPass/index"));
+const index_32 = __importDefault(require("./Users/PutResetPass/index"));
 const router = (0, express_1.Router)();
 router.use('/manga', index_6.default);
 router.use('/manga', index_3.default);
@@ -55,6 +57,8 @@ router.use('/user', index_11.default);
 router.use('/user', index_12.default);
 router.use('/user', index_13.default);
 router.use('/user', index_17.default);
+router.use('/user', index_31.default);
+router.use('/user', index_32.default);
 router.use('/products', index_18.default);
 router.use('/products', index_19.default);
 router.use('/products', index_20.default);
