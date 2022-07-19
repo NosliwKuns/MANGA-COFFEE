@@ -43,14 +43,13 @@ const Registration = () => {
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
     try {
-   dispatch(signUp(input.email ,input.password))
+  //  dispatch(signUp(input.email ,input.password))
     const verificate: any = await dispatch(singUpUser(input));
+
+    if (typeof verificate === "string") return alert("existe");
+
+    alert("Your count was created");
     navigate("/", { replace: true });
-    if (typeof verificate === "string") {
-      alert("existe");
-    } else {
-      alert("Your count was created");
-    }
     setInput({
       email: "", // segio@
       password: "", // sds2
@@ -125,10 +124,6 @@ const Registration = () => {
         </div>
         <div>
           <input type="submit" value={"Sign In"} />
-        </div>
-        <span>------------------------------------------</span>
-        <div>
-          <h5>Logeo con Google</h5>
         </div>
       </form>
     </div>
