@@ -1,4 +1,4 @@
-import { getFavManga } from '../../../features/user/userSlice'
+import { getFavManga, fetchDeleteFavorites } from '../../../features/user/userSlice'
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector} from '../../../app/hooks';
 import useHeaders from "../../../app/headers";
@@ -11,26 +11,31 @@ const Favorites = () =>{
     const { id, favorites} = useAppSelector(state=> state.user)
     const { token } = useAppSelector((state) => state.user);
     const headers = useHeaders(token)
-    console.log('FAVORITOOOOOOOOSSSSSSS',favorites);
-    console.log('OTROOOOOOO', typeof favorites);
-    
-    
 
+    const handleClick = (mangaid: any) => {
+        dispatch(fetchDeleteFavorites(id, mangaid, headers))
+        dispatch(getFavManga(id, headers))
+    }
+
+    
     useEffect(()=>{
         dispatch(getFavManga(id, headers))
-    },[dispatch])
+    },[dispatch, id])
+
     return(
-        <div>{Object.values(favorites)?.map(f=>{
+        <div>{favorites?.map(f=>{
             return(
-                <Link to={`/detail/${f._id}`}>
-                    <div key={f._id}>
-                    <section>
-                        <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} height={'200px'} />
-                    </section>
-                    <header>{f.title}</header>
-                    </div>
-                </Link>
-            
+                <div>
+                    <button onClick={() => handleClick(f._id)}>X</button>
+                    <Link to={`/mangas/detail/${f._id}`}>
+                        <div key={f._id}>
+                        <section>
+                            <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} height={'200px'} />
+                        </section>
+                        <header>{f.title}</header>
+                        </div>
+                    </Link>
+                </div>
             )
             
         })}</div>

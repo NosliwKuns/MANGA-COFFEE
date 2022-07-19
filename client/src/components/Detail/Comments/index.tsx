@@ -2,20 +2,23 @@ import { useState, useEffect } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import moment from 'moment';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
-import { fetchMangaComments } from './../../../features/manga/mangaSlice';
+import { fetchMangaComments, deleteComment } from './../../../features/manga/mangaSlice';
 import '../../../scss/Details/Comments.scss'
 
 
 const Comments = () => {
   const dispatch = useAppDispatch();
-  const { _id, comments } = useAppSelector(state => state.mangas.manga)
+  const { comments } = useAppSelector(state => state.mangas.manga)
+  const mangaId = useAppSelector(state => state.mangas.manga._id)
   const newComment = useAppSelector(state => state.mangas.comments)
-  const { user } = useAppSelector(state => state.user)
+  const { user, id } = useAppSelector(state => state.user)
+  
   const [input, setInput] = useState<any>({
     name : '',
     body : '',
-    _id : '',
-    time : ''
+    mangaId : '',
+    time : '',
+    userId: ''
   });
   
   let currentTime = moment().format();
@@ -29,21 +32,27 @@ const Comments = () => {
     setInput({
         name: user,
         body: e.target.value,
-        _id: _id,
-        time: currentTime
+        mangaId: mangaId,
+        time: currentTime,
+        userId: id
       })
     }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    dispatch(fetchMangaComments(input, _id, user))
+    dispatch(fetchMangaComments(input, mangaId, user, id))
     setInput({
       name : '',
       body : '',
-      _id : _id,
-      time : ''
+      mangaId : mangaId,
+      time : '',
+      userId: id
     })
   }
+
+  useEffect(()=>{
+
+  },[comments])
 
   const currentComments = !newComment.length? comments : newComment
 
@@ -89,6 +98,7 @@ const Comments = () => {
                   <h4>{c.name}<span> {`${c.time ? timeAgo(c.time) : "2days ago"}`}</span></h4>
                   <p>{c.body}</p>
                   <h5>REPLY</h5>
+                  <button onClick={()=> dispatch(deleteComment(c._id, mangaId))}>Delete</button>
                 </section>
               </div>
               <span className="separator"></span>

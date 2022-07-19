@@ -7,7 +7,7 @@ import SearchAndFilter from './components/SearchAndFilter';
 import ProductDetail from './components/ProductDetail';
 import Favorites from './components/User/Favorites';
 import UserButtons from './components/UserButtons';
-import SearchManga from './components/SearchManga';
+import CatalogMangas from './components/CatalogMangas';
 import Verificate from './components/Verificate';
 import Detail from './components/Detail/Detail';
 import UserDetail from './components/UseDetail';
@@ -18,36 +18,39 @@ import Chat from './components/Chat/Chat';
 import Home from './components/Home';
 import Shop from './components/Shop';
 import axios from "axios";
-import Cards from './components/Home/Cards';
+import Cards from './components/CatalogMangas/Cards';
 import './App.scss';
 import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
 import RightSide from './components/RightSide';
+import DiscoverHome from './components/DiscoverHome/index';
 import BuyProduct from './components/BuyProduct';
 
 import LeftSide from './components/RightSide';
 import Categories from './components/Categories/Categories';
 import SelectedCategories from './components/Categories/SelectedCategories';
+import ReadManga from './components/ReadManga/index';
+import useLocalStorage from './app/customHooks/useLocalStorage';
 
 
-axios.defaults.baseURL = "http://localhost:5000/api/manga";
+axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api/manga";
 
 function App() {
 
   const [ appear, setAppear ] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const localUser:any  = localStorage.getItem('copySliceUser')
-  const rerender = useState<string>(localUser)
+  const [product, setProduct] = useLocalStorage('test', []);
   const user = JSON.parse(localUser);
   const location = useLocation();
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get("search") || "");
+  const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
-  const res: any = useFetch(
-    query || page || genre ? `?search=${query}&page=${page}&genres=${genre}` : ""
+  const res = useFetch(
+    query || page || genre ? `?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
   );
   console.log(res, 'yepi')
 
@@ -72,33 +75,29 @@ function App() {
         setQuery={setQuery}
       />
       <div className="three">
-        <UserButtons/>
+        <UserButtons product={product} setProduct={setProduct}/>
       </div>
       <LeftSide />
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={
-          <Home 
-            res={res}
+        <Route path="/" element={<DiscoverHome/>} />
+        <Route path="/shop" element={<Shop product={product} setProduct={setProduct}/>} />
+        <Route path="/mangas" element={
+          <CatalogMangas
+            setPage={setPage}
             query={query}
             genre={genre}
-            setPage={setPage} 
             setSearchParams={setSearchParams}
-          />} 
+            res={res}
+           />} 
         />
-        <Route path="/shop" element={
-          <Shop 
- 
-          />} 
-        />
-        <Route path="/search" element={<Cards res={res}/>} />
-        <Route path="/search" element={ <h1>dimee</h1>  } />
-        <Route path="/detail/:id" element={<Detail/>} />
+        {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
+        <Route path="/mangas/detail/:id" element={<Detail/>} />
         <Route path='/logeo' element={<Logeo/>}/>
         <Route path='/registration' element={<Registration/>}/>
         <Route path='/user' element={<User/>}/>
         <Route path='/userDetail' element={<UserDetail/>}/>
-        {/* <Route path='/chapter/:id' element={<Leer/>}/> */}
+        <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
         <Route path='/user/fav' element={<Favorites/>} />
         <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
@@ -113,7 +112,7 @@ function App() {
       </Routes>
       </AnimatePresence>
       <div className="six">
-        <div><User/></div>
+        <User/>
         <div><Chat/></div>
       </div>
     </div>

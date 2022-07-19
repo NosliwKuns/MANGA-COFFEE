@@ -30,6 +30,11 @@ const UserSchema = new Schema({
         required: true,
         default: false
     },
+    status:{
+        type: Boolean,
+        required: true,
+        default: true,
+    },
     name:{
         type:String,
         default: ""

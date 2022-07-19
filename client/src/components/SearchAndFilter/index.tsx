@@ -1,6 +1,9 @@
 import SearchBar from "./SearchBar/SearchBar";
 import FilterMangas from "./FilterMangas";
 import { motion } from "framer-motion";
+import '../../scss/SearchAndFilter/SearchAndLinks.scss';
+import { Link } from "react-router-dom";
+import UserButtons from './../UserButtons/index';
 
 type Props = {
   appear: boolean;
@@ -12,30 +15,14 @@ type Props = {
 
 const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Props) => {
 
-  const HandleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setAppear(!appear); 
-  };
-
-  const nose = (e : any) => {
-    console.log(e)
-    setAppear(!appear); 
-  };
-
-  const handleMouseLeave = () => {
-    setAppear(!appear);
-  };
-
-
   return (
     <div className="two">
-        <section className="search-and-filter">
+        <section className="search-and-links">
           <SearchBar
             setQuery={setQuery}
             setPage={setPage}
           />
-          <button onMouseEnter={nose}  onClick={HandleClick}>F</button>
-          <motion.div animate={{
+          {/* <motion.div animate={{
             height: appear ? "200%" : 0,
             backgroundColor: '#212429',  
           }} 
@@ -50,17 +37,22 @@ const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Pr
               appear={appear}
               setAppear={setAppear} 
             />
-          </motion.div>
-          <button onClick={() => {
-            /* setSearch('') */
-            setGenre('')
-          }}>Clear</button>
+          </motion.div> */}
+          <Link to='/' >
+           <span>Discover</span>
+          </Link>
+          <Link to='/mangas' >
+          <span>Mangas</span>
+          </Link>
         </section>
-        <section className="display">
+        {/* <section className="display">
           <h2>WishList</h2>
           <h2>Card</h2>
           <button className="bubble-chat">C</button>
           <button>A</button>
+        </section> */}
+        <section className="display">
+           {/* <UserButtons /> */}
         </section>
     </div>
   )

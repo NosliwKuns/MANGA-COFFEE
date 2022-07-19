@@ -29,11 +29,11 @@ const MangaSchema = new Schema({
         required: true
     },
     rating: {
-        type: String,
+        type: [Number],
         enum: [1, 2, 3, 4, 5]
     },
     comments: {
-        type: [{ name: String, body: String, time: String }]
+        type: [{ name: String, body: String, time: String, userId: String }]
     }
 });
 MangaSchema.plugin(mongoose_paginate_v2_1.default);

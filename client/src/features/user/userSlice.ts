@@ -43,7 +43,7 @@ type Address = {
 };
 
 type Purchese = {
-  date : Date;
+  date : string;
   idCompra: string;
   produtcs: Array<Product>;
   total: number;
@@ -169,7 +169,6 @@ const userSlice = createSlice({
       window.location.reload();
     },
     favoriteMangas: (state, action: PayloadAction<Array<favoritesMangas>>) => {
-      console.log("FAVORITEEEES", action.payload);
       state.favorites = action.payload;
     },
     getFavoriteManga: (
@@ -217,19 +216,20 @@ export const userLog = (user: Verificated): AppThunk => {
 
 export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
-    dispatch(createUser(user));
     console.log(user);
     const { data } = await axios.post(
-      "http://localhost:5000/api/user/register",
+      "https://manga-coffee.herokuapp.com/api/user/register",
       {
         users: user.user,
         email: user.email,
         password: user.password,
       }
     );
-    console.log(data);
+    if(typeof data === 'string'){
+      return data;
+    }
+    dispatch(createUser(user));
     dispatch(userLog(user));
-    return data;
   };
 };
 
@@ -237,7 +237,7 @@ export const setDetailUser = (headers: object): AppThunk => {
   return async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user/detail`,
+        `https://manga-coffee.herokuapp.com/api/user/detail`,
         headers
       );
       console.log(data);
@@ -254,23 +254,22 @@ export const FetchFavoriteMangas = (
 ): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `http://localhost:5000/api/user/fav/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/fav/${id}`,
       {
         favorites: [mangaId],
       },
       headers
     );
-    dispatch(favoriteMangas(data));
+    dispatch(favoriteMangas(data.favorites));
   };
 };
 
 export const getFavManga = (id: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/favorites/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/favorites/${id}`,
       headers
     );
-    console.log("MY FAVORITEEEEE", data.docs);
 
     dispatch(getFavoriteManga(data.docs));
   };
@@ -299,7 +298,7 @@ export const loginWithGoogle = (): AppThunk => {
       user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
     const { data } = await axios.post(
-      "http://localhost:5000/api/user/register",
+      "https://manga-coffee.herokuapp.com/api/user/register",
       {
         users: displayName,
         email: email,
@@ -314,14 +313,14 @@ export const loginWithGoogle = (): AppThunk => {
       email: email,
       password: email,
     };
-    dispatch(userLog(obj));
+   await dispatch(userLog(obj));
   };
 };
 
 export const verificatedUser = (id: string | undefined): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/verificated/${id}`
+      `https://manga-coffee.herokuapp.com/api/user/verificated/${id}`
     );
     const copyInitialState = {
       id: data.usuario._id,
@@ -343,6 +342,14 @@ export const verificatedUser = (id: string | undefined): AppThunk => {
       "copySliceUser",
       JSON.stringify(copyInitialState)
     );
+  };
+};
+
+export const fetchDeleteFavorites = (id: string, mangaId: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.delete(
+      `https://manga-coffee.herokuapp.com/api/user/?id=${id}&mangaId=${mangaId}`, headers);
+    dispatch(getFavoriteManga(data.docs));
   };
 };
 

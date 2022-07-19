@@ -1,8 +1,7 @@
 import '../../../scss/Home/Cards.scss';
 import { Link } from 'react-router-dom';
 import { motion, AnimateSharedLayout } from 'framer-motion'
-import { gridAnimation, cardAnimation, h3Animation } from './../../../Animation.js';
-
+import { gridAnimation, cardAnimation, h3Animation } from '../../../Animation.js';
 /* interface Manga {
   data: any;
 } */
@@ -30,7 +29,7 @@ const Cards = ({ res }: Props) => {
       display = info?.mangas.map((e : any)=> {
         return (
             
-          <Link to={`/detail/${e._id}`}>
+          <Link to={`/mangas/detail/${e._id}`}>
               <motion.div
                 variants={cardAnimation}
                 /* animate='show' */
