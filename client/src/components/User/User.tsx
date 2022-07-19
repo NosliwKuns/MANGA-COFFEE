@@ -39,7 +39,7 @@ const User = () => {
         </div>
       </div>
       {
-        user ?
+        user?
         <div className="user-info">
           <span>{user.user}</span>
         </div> : ''

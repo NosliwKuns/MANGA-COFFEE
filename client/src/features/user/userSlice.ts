@@ -182,7 +182,7 @@ const userSlice = createSlice({
 
 export const userLog = (user: Verificated): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post("https://manga-coffee.herokuapp.com/api/user/login", {
+    const { data } = await axios.post("http://localhost:5000/api/user/login", {
       email: user.email,
       password: user.password,
     });
@@ -216,7 +216,6 @@ export const userLog = (user: Verificated): AppThunk => {
 
 export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
-    dispatch(createUser(user));
     console.log(user);
     const { data } = await axios.post(
       "https://manga-coffee.herokuapp.com/api/user/register",
@@ -226,9 +225,11 @@ export const singUpUser = (user: CreateUser): AppThunk => {
         password: user.password,
       }
     );
-    console.log(data);
+    if(typeof data === 'string'){
+      return data;
+    }
+    dispatch(createUser(user));
     dispatch(userLog(user));
-    return data;
   };
 };
 
@@ -312,7 +313,7 @@ export const loginWithGoogle = (): AppThunk => {
       email: email,
       password: email,
     };
-    dispatch(userLog(obj));
+   await dispatch(userLog(obj));
   };
 };
 
