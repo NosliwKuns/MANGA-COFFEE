@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { CreateUser, signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
@@ -125,6 +125,10 @@ const Registration = () => {
         <div>
           <input type="submit" value={"Sign In"} />
         </div>
+        <span>Already have an Account?</span>
+        <Link to={"/logeo"}>
+        Login
+        </Link>
       </form>
     </div>
   );
