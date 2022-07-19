@@ -29,10 +29,10 @@ export type favoritesMangas = {
 };
 
 type Product = {
-  idProduct : string ;
-  name:string ;
-  price :string ;
-  quantity : number
+  idProduct: string;
+  name: string;
+  price: string;
+  quantity: number;
 };
 
 type Address = {
@@ -43,7 +43,7 @@ type Address = {
 };
 
 type Purchese = {
-  date : string;
+  date: string;
   idCompra: string;
   produtcs: Array<Product>;
   total: number;
@@ -225,7 +225,7 @@ export const singUpUser = (user: CreateUser): AppThunk => {
         password: user.password,
       }
     );
-    if(typeof data === 'string'){
+    if (typeof data === "string") {
       return data;
     }
     dispatch(createUser(user));
@@ -313,7 +313,7 @@ export const loginWithGoogle = (): AppThunk => {
       email: email,
       password: email,
     };
-   await dispatch(userLog(obj));
+    await dispatch(userLog(obj));
   };
 };
 
@@ -345,18 +345,47 @@ export const verificatedUser = (id: string | undefined): AppThunk => {
   };
 };
 
-export const fetchDeleteFavorites = (id: string, mangaId: string, headers: object): AppThunk => {
+export const fetchDeleteFavorites = (
+  id: string,
+  mangaId: string,
+  headers: object
+): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.delete(
-      `https://manga-coffee.herokuapp.com/api/user/?id=${id}&mangaId=${mangaId}`, headers);
+      `https://manga-coffee.herokuapp.com/api/user/?id=${id}&mangaId=${mangaId}`,
+      headers
+    );
     dispatch(getFavoriteManga(data.docs));
   };
 };
 
-// http://localhost:5000/api/user/fav/:id
+export const renameEmail = (email: string): AppThunk => {
+  return async () => {
+    try {
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user/resetpass",
+        { email }
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
-//get ('/' , headers)
-//post ('/' , {} , headers)
+export const renamePassword = (password: string , id:string | undefined) => {
+  return async () => {
+    try {
+      const { data } = await axios.put(
+        `http://localhost:5000/api/user/resetpass/${id}`,
+        { password }
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
 export default userSlice.reducer;
 

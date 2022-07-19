@@ -31,6 +31,8 @@ import Categories from './components/Categories/Categories';
 import SelectedCategories from './components/Categories/SelectedCategories';
 import ReadManga from './components/ReadManga/index';
 import useLocalStorage from './app/customHooks/useLocalStorage';
+import RenamePassword from './components/Registration/RenamePassword/email';
+import RenamePass from './components/Registration/RenamePassword/password';
 
 
 axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api/manga";
@@ -109,6 +111,8 @@ function App() {
         <Route path="/categories/:genre" element={<SelectedCategories/>} />
         <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
         <Route path='/verificateUser/:id' element={<Verificate/>}/>
+        <Route path='/rename' element={<RenamePassword/>}/>
+        <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
       </Routes>
       </AnimatePresence>
       <div className="six">
