@@ -14,18 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const router = (0, express_1.Router)();
 router.put('/resetpass/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { password } = req.body;
     try {
         let user = yield User_js_1.default.findById(id);
-        let { users, email } = user;
         if (user) {
-            let newUser = new User_js_1.default({ users, email, password });
-            yield User_js_1.default.findByIdAndUpdate((id), { password: newUser.password });
+            const salt = yield bcrypt_1.default.genSalt(10);
+            const hash = yield bcrypt_1.default.hash(password, salt);
+            yield User_js_1.default.findByIdAndUpdate((id), { password: hash });
             res.status(201).json('contraseña modificada con exito');
         }
+        ;
     }
     catch (error) {
         next(error);
