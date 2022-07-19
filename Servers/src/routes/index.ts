@@ -30,8 +30,10 @@ import AddWishListProducts from './Products/AddWishListProducts/index';
 import PutManga from './Mangas/PutManga/index';
 import GetByFavorites from './Mangas/GetByFavorites/index';
 import DeleteComments from './Mangas/DeleteComments/index'
-import PostRating from './Mangas/postRating/index'
-import DeleteItemsWishlistProducts from './Products/DeleteItemsWishlistProducts/index'
+import PostRating from './Mangas/postRating/index';
+import DeleteItemsWishlistProducts from './Products/DeleteItemsWishlistProducts/index';
+import PostResetPass from './Users/PostResetPass/index';
+import PutResetPass from './Users/PutResetPass/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -45,6 +47,7 @@ router.use('/manga', PatchComments);
 router.use('/manga', PutManga);
 router.use('/manga', GetByFavorites);
 router.use('/manga', PostRating);
+
 router.use('/user', DisabledUser);
 router.use('/user', getEmail );
 router.use('/user', DeleteFavorites);
@@ -56,6 +59,8 @@ router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
 router.use('/user', GetMangaFavoUser);
 router.use('/user', GetConfirmarCuenta);
+router.use('/user', PostResetPass);
+router.use('/user', PutResetPass);
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
