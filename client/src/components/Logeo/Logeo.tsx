@@ -167,7 +167,15 @@ await dispatch(loginWithGoogle());
               </div>
               <div>
                 <button>Log in</button>
-                <Link to="/registration">Holi</Link>
+              </div>
+              <div>
+                <Link to={"/rename"}>
+                forgot your account ?
+                </Link>
+              </div>
+              <div>
+                <span>Don't have an account ? </span>
+                <Link to="/registration">Register</Link>
               </div>
               <span>------------------------------------------</span>
               <div onClick={handleGoogleSignin}>
