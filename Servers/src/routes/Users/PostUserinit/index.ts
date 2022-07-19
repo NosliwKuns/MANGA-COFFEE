@@ -7,17 +7,20 @@ router.post('/login', async(req, res, next) => {
     const {email, password} = req.body;
     try{ 
         if (!email || !password){
-            return res.status(200).json("Por favor, llenar todos los campos");
+            return res.status(400).json("Por favor, llenar todos los campos");
         };       
         const user = await User.findOne({email});
         if (!user){
-            return res.status(200).json("Usuario inexistente");
+            return res.status(400).json("Usuario inexistente");
         };
         const istmach = await user.comparePassword(password);
         if (istmach){
             return res.status(200).json({token:createToken(user), usuario: user});
-        };
-        return res.status(200).json("Informacion no coincide");
+        } 
+        if(email === password) {
+            return res.status(400).json("Inicie secion con su correo y contraseña")
+        }
+        return res.status(400).json("Informacion no coincide");
     } catch (error) {
         next(error);
     }
