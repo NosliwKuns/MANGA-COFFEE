@@ -20,7 +20,14 @@ const io = new Server(IoServer,{
 });
 
 io.on('connection',(socket)=> {
-  console.log(`User Connected: ${socket.id}`)
+  console.log(`User Connected: ${socket.id}`);
+  
+  socket.on('join_room', (data) => {
+    socket.join(data);
+  })
+  socket.on('send_message',(data) => {
+    socket.broadcast.emit('receive_message', data)
+  })
 })
 
 server.use(express.json());
