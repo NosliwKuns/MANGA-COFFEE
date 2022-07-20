@@ -9,10 +9,13 @@ router.post('/login', async(req, res, next) => {
         if (!email || !password){
             return res.status(400).json("Por favor, llenar todos los campos");
         };       
-        const user = await User.findOne({email});
+        const user: any = await User.findOne({email});
         if (!user){
             return res.status(400).json("Usuario inexistente");
         };
+        if (!user.status){
+            return res.status(400).json("Cuenta eliminada; por favor registrese de nuevo")
+        }
         const istmach = await user.comparePassword(password);
         if (istmach){
             return res.status(200).json({token:createToken(user), usuario: user});

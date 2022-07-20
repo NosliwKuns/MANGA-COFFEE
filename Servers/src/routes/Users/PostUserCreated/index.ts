@@ -7,16 +7,19 @@ import Welcome from '../../../controles/Email/Template/bienvenida';
 const router = Router();
 
 router.post('/register', async (req, res, next) => { 
-    const {users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address} = req.body;
+    const {users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist} = req.body;
     try{ 
         if (!email || !password){
             return res.status(200).json("Por favor, llenar todos los campos");
         };       
-        const user = await User.find({email});
-        if (user.length){
+        const user = await User.findOne({email});
+        if (user && user.status){
             return res.status(200).json("Usuario existente");
         };
-        let newuser = new User({users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address});
+        if (user && !user.status){
+            return res.status(400).json("Este correo tiene una cuenta vinculada, desea recuperarla");
+        };
+        let newuser = new User({users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist});
         const token = createToken(newuser);
         newuser = await newuser.save();
         let template;

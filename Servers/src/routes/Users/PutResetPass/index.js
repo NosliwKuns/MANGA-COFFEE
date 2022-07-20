@@ -24,7 +24,7 @@ router.put('/resetpass/:id', (req, res, next) => __awaiter(void 0, void 0, void 
         if (user) {
             const salt = yield bcrypt_1.default.genSalt(10);
             const hash = yield bcrypt_1.default.hash(password, salt);
-            yield User_js_1.default.findByIdAndUpdate((id), { password: hash });
+            yield User_js_1.default.findByIdAndUpdate((id), { password: hash, status: true });
             res.status(201).json('contraseña modificada con exito');
         }
         ;
