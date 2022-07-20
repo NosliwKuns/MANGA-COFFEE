@@ -65,10 +65,10 @@ function App() {
 
   return (
     <div className="App">
-      <div className="one">
+      {/* <div className="one">
         <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
         <h3 onClick={() => window.location.replace('/')}>MC</h3>
-      </div>
+      </div> */}
       <SearchAndFilter 
         appear={appear}
         setAppear={setAppear}
@@ -79,7 +79,7 @@ function App() {
       <div className="three">
         <UserButtons product={product} setProduct={setProduct}/>
       </div>
-      <LeftSide />
+      <SideBar />
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<DiscoverHome/>} />

@@ -117,11 +117,11 @@ const initialState: InitialState = {
     }
   })
   
-  export const fetchAllManga = (pageNumber : number, search : string, genres: string):AppThunk =>{
+  export const fetchAllManga = (limit : number):AppThunk =>{
     return async (dispatch) => {
       try {
-        const {data} = await axios.get(`http://localhost:5000/api/manga/?page=${pageNumber}&search=${search}&genres=${genres}`)
-        dispatch(getAddMangas(data)) 
+        const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?limit=${limit}`)
+        dispatch(getAddMangas(data))
       } catch (error) {
         console.error(error)
       }

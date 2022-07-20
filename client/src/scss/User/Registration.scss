@@ -19,46 +19,21 @@
             display: grid;
             grid-template-columns: auto 1fr;
             background-color: var(--dark--600);
-            min-width: 30%;
+            min-width: 45vw;
             border-radius: 8px;
-            height: 65%;
+            min-height: 60vh;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
 
             section {
-                width: 22em;
+                width: 22vw;
                 background-image: url("https://71bait.com/wp-content/uploads/2022/04/59485-16462404746687-1920.jpg");
                 background-size: cover;
                 background-position: center;
                 height: 100%;
                 border-radius: 8px 0 0 8px;
             }
-
-            /* form {
-                padding: 3em;
-
-                .form_Registration_title {
-                    height: 60px;
-                    margin-bottom: 20px;
-                    h1 {
-                        color: var(--primary);
-                        margin-top: 2em;
-                    }
-                }
-        
-                .form_Registration_input {
-                    height: 50px;
-                }
-                .form_Registration_view_password {
-                    display: flex;
-                }
-                .form_Registration_view {
-                    width: 10px;
-                }
-                .form_Registration_span{
-                    padding-bottom: 34px;
-                }
-            } */
 
             .form-content {
                 display: flex;
@@ -152,5 +127,17 @@
     }
 
 
+}
+
+@media only screen and (max-width: 1300px) {
+  .modal-exterior {
+    .modal-container {
+      .form_Registration_container {
+        section {
+          width: 21em;
+        }
+      }
+    }
+  }
 }
 

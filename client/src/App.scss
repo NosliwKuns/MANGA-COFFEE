@@ -3,8 +3,11 @@
   text-align: center;
   background: #212429;
   display: grid;
-  grid-template-columns: max(18em) auto max(18em);
-  grid-template-rows: 2.5em 1fr;
+  grid-template-columns: min-content auto max(18em);
+  grid-template-rows: 2.7em 1fr;
+  grid-template-areas: 
+    "one two three"
+    "one five three";
   grid-gap: 1em;
   height: 100vh;
 
@@ -48,20 +51,22 @@
   }
 
   .four {
-    margin: 0 0 0.8em 0.8em;
-    display: grid;
-    max-width: 20em;
-    grid-template-rows: 8fr 1fr;
-    grid-gap: 1em;
-
-    & > div {
-      background: #2f3034;
-      border-radius: 1.4em;
-    }
+    grid-area: one;
+    background: var(--dark--600);
+    margin-left: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 1.2em;
+    /* overflow: auto; */
+    width: 17em;
+  
   }
 
   .five {
+    grid-area: five;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
     padding: 0 .4em 0 .7em;
   }
   
@@ -73,11 +78,23 @@
     margin: 0 0.8em 0.8em 0;
 
     & > div {
-      background: #2f3034;
+      background: var(--dark--600);
       border-radius: 1.4em;
     }
   }
 
+}
+
+//-------------desktop low --------------//
+
+@media only screen and (max-width: 1300px) {
+  .App {
+    grid-template-columns: auto auto max(15em);
+
+    .one {
+      font-size: 1em;
+    }
+  }
 }
 
 /* -----------mobile----------- */
