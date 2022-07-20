@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../app/hooks";
 import { CreateUser, signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 import "../../scss/User/Registration.scss";
+import SiOrNot from "./SiOrNot";
 const Registration = () => {
   const [input, setInput] = useState<CreateUser>({
     email: "", 
@@ -16,7 +17,7 @@ const Registration = () => {
     user: "",
   });
 
-  const [error, setError] = useState <string>('')
+  const [error, setError] = useState <any>()
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -46,7 +47,9 @@ const Registration = () => {
   //  dispatch(signUp(input.email ,input.password))
     const verificate: any = await dispatch(singUpUser(input));
 
-    if (typeof verificate === "string") return alert("existe");
+    if ( verificate === "Usuario existente") return setError(verificate);
+    if ( verificate === "Este correo tiene una cuenta vinculada, desea recuperarla") return setError(<SiOrNot input={input}/>);
+
 
     alert("Your count was created");
     navigate("/", { replace: true });
@@ -75,7 +78,7 @@ const Registration = () => {
 
   return (
     <div className={"form_Registration_container"}>
-      {error && <div> <span>{error}</span></div>}
+      {error && <div>{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className="form_Registration_title">
           <h1>Welcome</h1>

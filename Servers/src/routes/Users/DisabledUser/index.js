@@ -17,20 +17,13 @@ const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
 const router = (0, express_1.Router)();
-router.put('/state', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.put("/state", passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { authorization } = req.headers;
-    const { password } = req.body;
+    console.log(authorization);
     try {
         const data = (0, index_1.default)(authorization);
-        const user = yield User_js_1.default.findById(data.id);
-        const istmach = yield (user === null || user === void 0 ? void 0 : user.comparePassword(password));
-        if (istmach) {
-            yield User_js_1.default.findByIdAndUpdate(data.id, { status: false, });
-            res.status(200).send("Cuenta eliminada con exito");
-        }
-        else {
-            res.status(400).json("Informacion no coincide");
-        }
+        yield User_js_1.default.findByIdAndUpdate(data.id, { status: false });
+        res.status(200).send("Cuenta eliminada con exito");
     }
     catch (err) {
         next(err);

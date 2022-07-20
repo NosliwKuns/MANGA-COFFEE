@@ -17,11 +17,12 @@ const index_js_1 = __importDefault(require("../../../controles/Email/SendEmail/i
 const index_js_2 = __importDefault(require("../../../controles/Email/Template/bienvenida/index.js"));
 const index_js_3 = __importDefault(require("../../../controles/Email/Template/confirCuenta/index.js"));
 const index_js_4 = __importDefault(require("../../../controles/Email/Template/RecuperarCuenta/index.js"));
-const index_js_5 = __importDefault(require("../../../controles/Token/CreatedToken/index.js"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const uuid_1 = require("uuid");
 const router = (0, express_1.Router)();
 router.put('/resetuser/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist, continuar } = req.body;
+    console.log(req.body);
     try {
         if (continuar) {
             const user = yield User_js_1.default.findOne({ email });
@@ -31,10 +32,9 @@ router.put('/resetuser/', (req, res, next) => __awaiter(void 0, void 0, void 0, 
         }
         else {
             const user = yield User_js_1.default.findOne({ email });
-            let mail = user.email + '_deprecated';
+            let mail = user.email + `_deprecated_${(0, uuid_1.v4)()}`;
             yield User_js_1.default.findByIdAndUpdate({ _id: user.id }, { email: mail });
             let newuser = new User_js_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist });
-            const token = (0, index_js_5.default)(newuser);
             newuser = yield newuser.save();
             let template;
             if (newuser.verificated) {
@@ -45,7 +45,7 @@ router.put('/resetuser/', (req, res, next) => __awaiter(void 0, void 0, void 0, 
                 template = (0, index_js_3.default)(users, newuser._id);
                 (0, index_js_1.default)(email, 'Confirmacion de cuenta', template);
             }
-            res.status(201).json({ token, usuario: newuser });
+            res.status(201).json({ email, password });
         }
     }
     catch (error) {
