@@ -34,6 +34,7 @@ import PostRating from './Mangas/postRating/index';
 import DeleteItemsWishlistProducts from './Products/DeleteItemsWishlistProducts/index';
 import PostResetPass from './Users/PostResetPass/index';
 import PutResetPass from './Users/PutResetPass/index';
+import PutResetUser from './Users/PutResetUser/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -61,6 +62,7 @@ router.use('/user', GetMangaFavoUser);
 router.use('/user', GetConfirmarCuenta);
 router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
+router.use('/user', PutResetUser);
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
