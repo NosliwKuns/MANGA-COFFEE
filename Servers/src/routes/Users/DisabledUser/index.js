@@ -19,7 +19,6 @@ const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/
 const router = (0, express_1.Router)();
 router.put("/state", passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { authorization } = req.headers;
-    console.log(authorization);
     try {
         const data = (0, index_1.default)(authorization);
         yield User_js_1.default.findByIdAndUpdate(data.id, { status: false });

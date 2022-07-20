@@ -56,6 +56,10 @@ type Purchese = {
 };
 
 export type InitialState = {
+  admin : boolean ;
+  block : boolean ;
+  wishlist : Array<object> ;
+  status : boolean ;
   id: string;
   email: string;
   password: string;
@@ -73,27 +77,28 @@ export type InitialState = {
   historyBuy: Array<Purchese>;
 };
 
-// user_description:
 
 const initialState: InitialState = {
-  id: "",
-  email: "",
-  password: "",
-  verificated: false,
-  user: "",
-  token: "",
-  favorites: [],
-  user_image: "",
-  user_banner: "",
-  telephone: "",
-  address: {},
-  name: "",
-  lastname: "",
-  user_description: "",
-  historyBuy: [],
+  status : true, //
+  block : false, //
+  admin : false , //
+  wishlist : [] , //
+  id: "", // 
+  email: "", //
+  password: "", //
+  verificated: false, //
+  user: "", //
+  token: "", //
+  favorites: [], //
+  user_image: "", //
+  user_banner: "", //
+  telephone: "", //
+  address: {}, //
+  name: "", //
+  lastname: "", //
+  user_description: "", //
+  historyBuy: [], //
 };
-
-console.log(initialState);
 
 const userSlice = createSlice({
   name: "user",
@@ -109,8 +114,11 @@ const userSlice = createSlice({
       return state;
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
-      console.log(action.payload, "googleeee");
       const {
+        wishlist ,
+        status ,
+        block ,
+        admin,
         id,
         email,
         password,
@@ -128,6 +136,10 @@ const userSlice = createSlice({
         historyBuy,
       }: InitialState = action.payload;
       // ! pendiente --------------------------------------------------------------->
+      state.wishlist = wishlist ;
+      state.status= status ;
+      state.block = block ;
+      state.admin = admin ;
       state.id = id;
       state.email = email;
       state.password = password;
@@ -148,6 +160,10 @@ const userSlice = createSlice({
     logOutUser: (state) => {
       // ? ------------------------------------------------------------------------------------>
       state = {
+        wishlist : [] ,
+        status : true ,
+        block : false ,
+        admin : false ,
         id: "",
         email: "",
         password: "",
@@ -186,9 +202,12 @@ export const userLog = (user: Verificated): AppThunk => {
       email: user.email,
       password: user.password,
     });
-    console.log(data);
     // ? ------------------------------------------------------------------------------------>
     const copyInitialState = {
+      wishlist : data.usuario.wishlist ,
+      status : data.usuario.status ,
+      admin : data.usuario.admin ,
+      block : data.usuario.block ,
       id: data.usuario._id,
       email: data.usuario.email,
       password: data.usuario.password,
@@ -216,7 +235,6 @@ export const userLog = (user: Verificated): AppThunk => {
 
 export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
-    console.log(user);
     const { data } = await axios.post(
       "http://localhost:5000/api/user/register",
       {
@@ -240,7 +258,6 @@ export const setDetailUser = (headers: object): AppThunk => {
         `https://manga-coffee.herokuapp.com/api/user/detail`,
         headers
       );
-      console.log(data);
     } catch (e) {
       console.log("hola");
     }
@@ -293,7 +310,6 @@ export const logOut = (): AppThunk => {
 export const loginWithGoogle = (): AppThunk => {
   return async (dispatch) => {
     const googleProvider = new GoogleAuthProvider();
-    console.log(googleProvider);
     const {
       user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
@@ -308,7 +324,6 @@ export const loginWithGoogle = (): AppThunk => {
         verificated: emailVerified,
       }
     );
-    console.log(data);
     const obj: Verificated = {
       email: email,
       password: email,
@@ -388,13 +403,11 @@ export const renamePassword = (password: string, id: string | undefined) => {
 };
 
 export const deleteAcount = (headers: object) => {
-  console.log(headers ,  'headers ========================')
   return async () => {
     const { data } = await axios.put(
       "http://localhost:5000/api/user/state", {},
       headers
     );
-    console.log(data)
     return data
   };
 };

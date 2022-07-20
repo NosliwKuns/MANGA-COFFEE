@@ -22,7 +22,6 @@ const uuid_1 = require("uuid");
 const router = (0, express_1.Router)();
 router.put('/resetuser/', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist, continuar } = req.body;
-    console.log(req.body);
     try {
         if (continuar) {
             const user = yield User_js_1.default.findOne({ email });
