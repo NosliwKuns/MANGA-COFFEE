@@ -66,6 +66,7 @@ const Logeo = () => {
         password: "",
       });
     } catch (e: any) {
+
       setError(e.response.data);
     }
   };

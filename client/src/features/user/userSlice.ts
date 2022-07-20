@@ -373,7 +373,7 @@ export const renameEmail = (email: string): AppThunk => {
   };
 };
 
-export const renamePassword = (password: string , id:string | undefined) => {
+export const renamePassword = (password: string, id: string | undefined) => {
   return async () => {
     try {
       const { data } = await axios.put(
@@ -384,6 +384,17 @@ export const renamePassword = (password: string , id:string | undefined) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const deleteAcount = (headers: object, password: string) => {
+  return async () => {
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/state",{password},
+      headers
+    );
+    console.log(data)
+    return data
   };
 };
 

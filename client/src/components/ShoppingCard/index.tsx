@@ -1,6 +1,7 @@
 import '../../scss/Shop/ShoppingCard.scss';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {
   open: boolean;
@@ -76,7 +77,14 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
             )
           })
         }
-        <button onClick={() => setProduct([])}>Clear Card</button>
+        <button onClick={() => {
+          setProduct([])
+          window.localStorage.setItem("test", JSON.stringify(""));
+        }}>Clear Card</button>
+        <Link to={"/shoppingTime"}>
+        <button>Buy All</button>
+        </Link>
+        
       </motion.div>
     </div>
   )
