@@ -13,11 +13,11 @@ router.post('/register', async (req, res, next) => {
             return res.status(200).json("Por favor, llenar todos los campos");
         };       
         const user = await User.findOne({email});
+        if (user && !user.status){
+            return res.status(200).json("Este correo tiene una cuenta vinculada, desea recuperarla");
+        };
         if (user && user.status){
             return res.status(200).json("Usuario existente");
-        };
-        if (user && !user.status){
-            return res.status(400).json("Este correo tiene una cuenta vinculada, desea recuperarla");
         };
         let newuser = new User({users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist});
         const token = createToken(newuser);

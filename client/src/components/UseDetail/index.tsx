@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useHeaders from "../../app/headers";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { deleteAcount, logOut, setDetailUser } from "../../features/user/userSlice";
+import { deleteAcount,  logOutUser, setDetailUser } from "../../features/user/userSlice";
 
 const UserDetail = () => {
   const { token, user } = useAppSelector((state) => state.user);
+  const emailStorage :any = window.localStorage.getItem("copySliceUser")
+  const {email} = JSON.parse(emailStorage)
   const dispatch = useAppDispatch();
   const [input, setInput] = useState("");
-  console.log(input , "input --------")
+  const navigate = useNavigate()
   const [switchButton, setSwitchB] = useState<boolean>(false);
   const headers = useHeaders(token);
+
   const handleChange = (e: any) => {
     setInput(e.target.value);
   };
@@ -30,9 +34,11 @@ const UserDetail = () => {
 
       <button
         onClick={ async() => {
-         const verificated = await dispatch(deleteAcount(headers, input));
-         alert(verificated)
-         dispatch(logOut())
+          if(input !== email) return alert("el email del usuario no coincide")
+          const verificated = await dispatch(deleteAcount(headers));
+          alert(verificated)
+          navigate("/")
+          await dispatch(logOutUser())
         }}
       >
         delete account

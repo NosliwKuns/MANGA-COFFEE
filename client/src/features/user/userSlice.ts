@@ -218,7 +218,7 @@ export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
     console.log(user);
     const { data } = await axios.post(
-      "https://manga-coffee.herokuapp.com/api/user/register",
+      "http://localhost:5000/api/user/register",
       {
         users: user.user,
         email: user.email,
@@ -387,16 +387,33 @@ export const renamePassword = (password: string, id: string | undefined) => {
   };
 };
 
-export const deleteAcount = (headers: object, password: string) => {
+export const deleteAcount = (headers: object) => {
+  console.log(headers ,  'headers ========================')
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/state",{password},
+      "http://localhost:5000/api/user/state", {},
       headers
     );
     console.log(data)
     return data
   };
 };
+
+export const siOrNot = ( input : any , boolean : boolean) => {
+  const copyInput = {
+    users : input.user,
+    email : input.email ,
+    password  :input.password ,
+    continuar : boolean
+  }
+  return async () => {
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/resetuser",copyInput);
+      return data
+  };
+};
+
+
 
 export default userSlice.reducer;
 
