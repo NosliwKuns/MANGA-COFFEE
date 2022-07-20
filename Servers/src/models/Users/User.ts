@@ -5,10 +5,13 @@ const {Schema, model} = mongoose;
 export interface IUser extends mongoose.Document{    
     email: string,
     password: string,
+    users: string,
     comparePassword: (pasword: string) => Promise<boolean>,
     favorites: [Object],
-    verificated: boolean,
-    users: string,
+    verificated: boolean,    
+    status: boolean,
+    block: boolean,
+    admin: boolean,
 };
 
 const UserSchema = new Schema({
@@ -34,6 +37,16 @@ const UserSchema = new Schema({
         type: Boolean,
         required: true,
         default: true,
+    },
+    block:{
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    admin:{
+        type: Boolean,
+        required: true,
+        default: false,
     },
     name:{
         type:String,
@@ -120,7 +133,8 @@ UserSchema.pre('save', async function(next) {
 });
 
 UserSchema.methods.comparePassword = async function(password: string): Promise<boolean> {
-   return await bCrypt.compare(password, this.password)
-};
-
-export default model<IUser>('User', UserSchema);
+    return await bCrypt.compare(password, this.password)
+ };
+ 
+ export default model<IUser>('User', UserSchema);
+ 

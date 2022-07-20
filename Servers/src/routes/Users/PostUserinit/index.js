@@ -28,6 +28,9 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
             return res.status(400).json("Usuario inexistente");
         }
         ;
+        if (!user.status) {
+            return res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
+        }
         const istmach = yield user.comparePassword(password);
         if (istmach) {
             return res.status(200).json({ token: (0, index_1.default)(user), usuario: user });

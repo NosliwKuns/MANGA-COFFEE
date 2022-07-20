@@ -20,18 +20,22 @@ const index_3 = __importDefault(require("../../../controles/Email/SendEmail/inde
 const bienvenida_1 = __importDefault(require("../../../controles/Email/Template/bienvenida"));
 const router = (0, express_1.Router)();
 router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address } = req.body;
+    const { users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist } = req.body;
     try {
         if (!email || !password) {
             return res.status(200).json("Por favor, llenar todos los campos");
         }
         ;
-        const user = yield User_1.default.find({ email });
-        if (user.length) {
+        const user = yield User_1.default.findOne({ email });
+        if (user && user.status) {
             return res.status(200).json("Usuario existente");
         }
         ;
-        let newuser = new User_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address });
+        if (user && !user.status) {
+            return res.status(400).json("Este correo tiene una cuenta vinculada, desea recuperarla");
+        }
+        ;
+        let newuser = new User_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist });
         const token = (0, index_1.default)(newuser);
         newuser = yield newuser.save();
         let template;

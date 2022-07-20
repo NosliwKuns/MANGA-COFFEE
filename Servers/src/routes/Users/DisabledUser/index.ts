@@ -5,14 +5,19 @@ import ReadTokenData from '../../../controles/Token/ReadTokenData/index';
 const router = Router();
 
 
-router.get('/state', passport.authenticate("jwt", { session: false }), async(req, res, next) => {
+router.put('/state', passport.authenticate("jwt", { session: false }), async(req, res, next) => {
     const {authorization} = req.headers;
+    const {password} = req.body;
     try{
-    const data= ReadTokenData(authorization);
-    await User.findByIdAndUpdate(data.id,{
-        status:false,
-    });    
-    res.status(200).send("usuario eliminado con exito")
+        const data= ReadTokenData(authorization);
+        const user = await User.findById(data.id);
+        const istmach = await user?.comparePassword(password);
+        if (istmach){
+            await User.findByIdAndUpdate(data.id, {status:false,});    
+            res.status(200).send("Cuenta eliminada con exito");
+        } else {
+            res.status(400).json("Informacion no coincide");
+        }    
     }catch(err){
         next(err)
     }
