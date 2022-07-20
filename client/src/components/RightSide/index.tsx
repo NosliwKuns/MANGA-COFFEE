@@ -6,7 +6,7 @@ const LeftSide = () => {
   return (
     <div className="four">
       <SideBar />
-      <div className="greeting">
+      {/* <div className="greeting">
         {
           user 
           ? <div>
@@ -18,7 +18,7 @@ const LeftSide = () => {
             <h2 style={{color: '#EA374B'}} color={'red'}>Manga Coffee!</h2> 
           </div>
         }
-      </div>
+      </div> */}
     </div>
   )
 };

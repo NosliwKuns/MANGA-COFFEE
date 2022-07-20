@@ -40,6 +40,16 @@ const UserSchema = new Schema({
         required: true,
         default: true,
     },
+    block: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    admin: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     name: {
         type: String,
         default: ""

@@ -89,7 +89,7 @@ const PopularGenres = () => {
             spaceBetween: 10,
           },
           1024: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 30,
           },
           1600: {
