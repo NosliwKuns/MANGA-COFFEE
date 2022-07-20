@@ -6,8 +6,22 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import passportmiddleware from './middlewares/Passport/Passport';
 import './config/Mongodb/db.js';
+import cors from 'cors';
+import http from 'http'
+import {Server} from '../node_modules/socket.io';
 
 const server = express();
+const IoServer = http.createServer(server);
+const io = new Server(IoServer,{
+  cors:{
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST']
+  },
+});
+
+io.on('connection',(socket)=> {
+  console.log(`User Connected: ${socket.id}`)
+})
 
 server.use(express.json());
 //-------------------cors config--------------------//
@@ -28,6 +42,7 @@ server.use(passport.initialize());
 passport.use(passportmiddleware);
 
 server.use('/api', routes);
+server.use(cors());
 
 server.use((err:any, _req:any, res:any, _next:any) => {
   const status = err.status || 500;
@@ -36,4 +51,6 @@ server.use((err:any, _req:any, res:any, _next:any) => {
   res.status(status).send({message});
 });
 
-export default server;
+
+
+export {IoServer ,server };
