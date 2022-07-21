@@ -14,19 +14,20 @@ router.post('/login', async(req, res, next) => {
             res.status(400).json("Usuario inexistente");
         };
         if (!user.status){
-            res.status(400).json("Cuenta eliminada; por favor registrese de nuevo")
+            res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
         }
-        const istmach = await user.comparePassword(password);
+        const istmach = await user.comparePassword(password);        
         if (istmach){
             res.status(200).json({token:createToken(user), usuario: user});
-        } 
-        if(email === password) {
-            res.status(400).json("Inicie secion con su correo y contraseña")
-        }
-        res.status(400).json("Informacion no coincide");
+        };
+        if (email === password) {
+            res.status(400).json("Inicie seccion con su correo y contraseña");
+        } else {
+            res.status(400).json("Informacion no coincide");
+        };        
     } catch (error) {
         next(error);
-    }
-})
+    };
+});
 
 export default router;

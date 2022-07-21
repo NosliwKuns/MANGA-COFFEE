@@ -13,12 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import passport from "passport";
+const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
-// passport.authenticate("jwt", { session: false }),
-router.put('/update/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('PutByIdUser');
+router.put('/update/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
         yield User_js_1.default.findByIdAndUpdate({ _id: id }, req.body);
@@ -28,5 +26,6 @@ router.put('/update/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, 
     catch (error) {
         next(error);
     }
+    ;
 }));
 exports.default = router;

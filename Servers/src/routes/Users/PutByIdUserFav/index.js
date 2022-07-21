@@ -13,25 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import passport from "passport";
+const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
-// passport.authenticate("jwt", { session: false }),
-router.put('/fav/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('PutByIdUser');
+router.put('/fav/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const { favorites } = req.body;
     try {
-        const oldUser = yield User_js_1.default.findById(id);
-        let favOld = oldUser === null || oldUser === void 0 ? void 0 : oldUser.favorites;
-        let favNew;
-        if (favOld) {
-            favNew = favOld.concat(favorites);
-        }
-        else {
-            favNew = favorites;
-        }
-        yield User_js_1.default.findByIdAndUpdate({ _id: id }, { favorites: favNew });
+        yield User_js_1.default.findByIdAndUpdate((id), { $push: { favorites: [favorites] } });
         const user = yield User_js_1.default.findById(id);
         res.status(200).json(user);
     }

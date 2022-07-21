@@ -17,7 +17,7 @@ const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
 const router = (0, express_1.Router)();
-router.get("/findall", passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/findall', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { authorization } = req.headers;
     try {
         const data = (0, index_1.default)(authorization);
@@ -27,9 +27,7 @@ router.get("/findall", passport_1.default.authenticate("jwt", { session: false }
             res.status(200).json(userfindall);
         }
         else {
-            res
-                .status(400)
-                .json("No cuenta con autorizacion para obtener esta informacion");
+            res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
         }
     }
     catch (error) {
