@@ -7,8 +7,6 @@ const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
-  console.log('SOY MESSAGE LIIIIIST',);
-  
 
   const sendMessage = () => {
     if (currentMessage !== "") {
@@ -22,7 +20,7 @@ const Chat = () => {
         };
 
         socket.emit("send_message", messageData);
-        setMessageList( [...messageList, messageData]);
+        setMessageList(messageList.concat(messageData));
         
       setCurrentMessage("");
     }
@@ -30,7 +28,7 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("receive_message", (data : any) => {
-      setMessageList([...messageList, data]);
+      setMessageList((list) => [...list, data]);
     });
   }, [socket]);
   
