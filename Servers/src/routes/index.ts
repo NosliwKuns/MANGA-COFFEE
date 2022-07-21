@@ -13,7 +13,7 @@ import PutByIdUser from './Users/PutByIdUser/index';
 import PutByIdUserFav from './Users/PutByIdUserFav/index';
 import GetMangaFavoUser from './Users/GetMangaFavoUser/index';
 import DeleteFavorites from './Users/DeleteFavorites/index';
-import getEmail from './Users/getEmail/index';
+import AdminPostSendMailFindAll from './Users/AdminPostSendMailFindAll/index';
 import GetConfirmarCuenta from './Users/GetConfirmarCuenta/index';
 import DisabledUser from './Users/DisabledUser/index';
 import DeleteByIdProducts from './Products/DeleteByIdProducts/index';
@@ -56,7 +56,7 @@ router.use('/manga', GetByFavorites);
 router.use('/manga', PostRating);
 
 router.use('/user', DisabledUser);
-router.use('/user', getEmail );
+router.use('/user', AdminPostSendMailFindAll);
 router.use('/user', DeleteFavorites);
 router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
