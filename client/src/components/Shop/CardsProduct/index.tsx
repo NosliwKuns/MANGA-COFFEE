@@ -76,6 +76,17 @@ const CardsProduct = ({ setProduct, product }: Props) => {
                   <p className="card__price">${e.price}</p>
                   <p className="card__description">Lorem, ipsum dolor.</p>
                   {/* <button> - </button> */}<button onClick={() => addToCard(e.product_image, e.price, e._id)}>Add to cart</button>{/* <button> + </button> */}
+                  <Link to={`/buyProduct/${e._id}`}>
+                    <button>
+                      Buy
+                    </button>
+                  </Link>
+                  <p>{e.stock <= 10 
+                  ? "Less than 10" 
+                  : e.stock === 0 
+                  ? "Out of stock" 
+                  : "Available"}
+                  </p>
                 </div>
               </div>
             )
