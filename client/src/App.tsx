@@ -34,6 +34,7 @@ import useLocalStorage from './app/customHooks/useLocalStorage';
 import RenamePassword from './components/Registration/RenamePassword/email';
 import RenamePass from './components/Registration/RenamePassword/password';
 import BuyShopping from './components/BuyProduct/BuyShopping';
+import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
@@ -115,6 +116,7 @@ function App() {
         <Route path='/rename' element={<RenamePassword/>}/>
         <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
         <Route path='/shoppingTime' element={<BuyShopping/>}/>
+        <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
       </Routes>
       </AnimatePresence>
       <div className="six">
