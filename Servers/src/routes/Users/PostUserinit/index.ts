@@ -5,26 +5,26 @@ const router = Router();
 
 router.post('/login', async(req, res, next) => { 
     const {email, password} = req.body;
-    try{ 
+    try{        
+        const user: any = await User.findOne({email});
         if (!email || !password){
             res.status(400).json("Por favor, llenar todos los campos");
-        };       
-        const user: any = await User.findOne({email});
-        if (!user){
+        } else if (!user){
             res.status(400).json("Usuario inexistente");
-        };
-        if (!user.status){
+        } else if (!user.status){
             res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
-        }
-        const istmach = await user.comparePassword(password);        
-        if (istmach){
-            res.status(200).json({token:createToken(user), usuario: user});
-        };
-        if (email === password) {
-            res.status(400).json("Inicie seccion con su correo y contraseña");
+        }else if (user.block){
+            res.status(400).json("Cuenta bloqueada; si hubo un error, por favor informenos por medio de nuestro correo oficial ");
         } else {
-            res.status(400).json("Informacion no coincide");
-        };        
+            const istmach = await user.comparePassword(password);        
+            if (istmach){
+                res.status(200).json({token:createToken(user), usuario: user});
+            } else if (!istmach && email === password) {
+                res.status(400).json("Inicie seccion con su correo y contraseña");
+            } else {
+                res.status(400).json("Informacion no coincide");
+            }; 
+        }       
     } catch (error) {
         next(error);
     };

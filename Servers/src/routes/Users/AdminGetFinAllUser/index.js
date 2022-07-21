@@ -23,7 +23,8 @@ router.get('/findall', passport_1.default.authenticate("jwt", { session: false }
         const data = (0, index_1.default)(authorization);
         const user = yield User_js_1.default.findById(data.id);
         if (user && user.admin) {
-            const userfindall = yield User_js_1.default.find();
+            const mail = user.email;
+            const userfindall = yield User_js_1.default.find({ email: { $not: { $regex: '.*' + mail + '.*', $options: 'i' } } });
             res.status(200).json(userfindall);
         }
         else {

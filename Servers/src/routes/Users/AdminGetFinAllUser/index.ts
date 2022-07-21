@@ -10,7 +10,8 @@ router.get('/findall', passport.authenticate("jwt", { session: false }), async(r
         const data= ReadTokenData(authorization);
         const user = await User.findById(data.id);
         if (user && user.admin){
-            const userfindall = await User.find();
+            const mail = user.email;
+            const userfindall = await User.find({email:{$not:{$regex: '.*' + mail + '.*', $options: 'i' }}});
             res.status(200).json(userfindall);
         } else {
             res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
