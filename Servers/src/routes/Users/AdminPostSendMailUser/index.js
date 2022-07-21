@@ -22,15 +22,15 @@ const router = (0, express_1.Router)();
 router.post('/sendadminnoti/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { authorization } = req.headers;
     const { id } = req.params;
-    const { asunto, image } = req.body;
+    const { subject, msg } = req.body;
     try {
         const data = (0, index_1.default)(authorization);
         const userAdmin = yield User_js_1.default.findById(data.id);
         if (userAdmin && userAdmin.admin) {
             const user = yield User_js_1.default.findById(id);
-            const template = (0, index_js_2.default)(image);
+            const template = (0, index_js_2.default)(msg);
             if (user) {
-                (0, index_js_1.default)((user.email), asunto, template);
+                (0, index_js_1.default)((user.email), subject, template);
                 res.status(200).json('Correo enviado correctamente');
             }
             else {

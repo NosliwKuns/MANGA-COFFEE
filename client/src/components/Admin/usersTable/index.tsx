@@ -23,6 +23,7 @@ const UsersTable = () => {
           status={e.status}
           admin={e.admin}
           block={e.block}
+          id={e._id}
         />)
       })}
     </div>
