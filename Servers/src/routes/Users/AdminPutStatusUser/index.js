@@ -13,26 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import passport from "passport";
+const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
-const Manga_1 = __importDefault(require("../../../models/Mangas/Manga"));
+const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
 const router = (0, express_1.Router)();
-router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id, mangaId } = req.query;
+router.put('/swichtstatus/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { authorization } = req.headers;
+    const { id } = req.params;
     try {
-        const user = yield User_js_1.default.findById(id);
-        const deleted = yield user.favorites.filter((m) => m !== mangaId);
-        yield User_js_1.default.findByIdAndUpdate({ _id: id }, { favorites: deleted });
-        const userdos = yield User_js_1.default.findById(id, ['favorites']);
-        const manga = yield Manga_1.default.paginate({ _id: userdos === null || userdos === void 0 ? void 0 : userdos.favorites }, {
-            limit: 12,
-            select: ["title", "genres", "rating", "cover_image"],
-            sort: { title: 1 }
-        });
-        res.status(200).json(manga);
+        const data = (0, index_1.default)(authorization);
+        const user = yield User_js_1.default.findById(data.id);
+        if (user && user.admin) {
+            const user = yield User_js_1.default.findById(id);
+            if (user && user.status) {
+                yield User_js_1.default.findByIdAndUpdate((id), { status: false });
+            }
+            else {
+                yield User_js_1.default.findByIdAndUpdate((id), { status: true });
+            }
+            res.status(200).json();
+        }
+        else {
+            res.status(400).json('No cuenta con autorizacion para realizar esta accion');
+        }
     }
     catch (error) {
-        res.status(500).json({ message: 'Error' });
+        next(error);
     }
 }));
 exports.default = router;

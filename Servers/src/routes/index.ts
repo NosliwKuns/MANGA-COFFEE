@@ -36,6 +36,9 @@ import PostResetPass from './Users/PostResetPass/index';
 import PutResetPass from './Users/PutResetPass/index';
 import PutResetUser from './Users/PutResetUser/index';
 import AdminGetFinAllUser from './Users/AdminGetFinAllUser/index';
+import AdminPutAdminUser from './Users/AdminPutAdminUser/index';
+import AdminPutBlockUser from './Users/AdminPutBlockUser/index';
+import AdminPutStatusUser from './Users/AdminPutStatusUser/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -65,6 +68,9 @@ router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
 router.use('/user', PutResetUser);
 router.use('/user', AdminGetFinAllUser);
+router.use('/user', AdminPutAdminUser);
+router.use('/user', AdminPutBlockUser);
+router.use('/user', AdminPutStatusUser);
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
