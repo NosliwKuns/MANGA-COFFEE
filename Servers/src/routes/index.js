@@ -40,6 +40,7 @@ const index_33 = __importDefault(require("./Products/DeleteItemsWishlistProducts
 const index_34 = __importDefault(require("./Users/PostResetPass/index"));
 const index_35 = __importDefault(require("./Users/PutResetPass/index"));
 const index_36 = __importDefault(require("./Users/PutResetUser/index"));
+const index_37 = __importDefault(require("./Users/AdminGetFinAllUser/index"));
 const router = (0, express_1.Router)();
 router.use('/manga', index_6.default);
 router.use('/manga', index_3.default);
@@ -66,6 +67,7 @@ router.use('/user', index_17.default);
 router.use('/user', index_34.default);
 router.use('/user', index_35.default);
 router.use('/user', index_36.default);
+router.use('/user', index_37.default);
 router.use('/products', index_19.default);
 router.use('/products', index_20.default);
 router.use('/products', index_21.default);
