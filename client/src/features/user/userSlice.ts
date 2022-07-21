@@ -314,7 +314,7 @@ export const loginWithGoogle = (): AppThunk => {
       user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
     const { data } = await axios.post(
-      "https://manga-coffee.herokuapp.com/api/user/register",
+      "http://localhost:5000/api/user/register",
       {
         users: displayName,
         email: email,
