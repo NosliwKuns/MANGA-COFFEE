@@ -48,7 +48,7 @@ router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { sess
             ;
         }
         ;
-        const payment = yield stripe.paymentIntents.create({
+        yield stripe.paymentIntents.create({
             amount: amount,
             currency: "USD",
             payment_method: idCompra,
@@ -82,7 +82,6 @@ router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { sess
         res.send({ message: "Successull payment" });
     }
     catch (error) {
-        console.log(error);
         res.json({ leer: 'error de stripe', message: error.raw.message });
     }
 }));
