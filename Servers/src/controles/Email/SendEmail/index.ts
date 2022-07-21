@@ -2,7 +2,7 @@ import config from "../../../config/ConfigEntorno/config";
 import mail_rover from "../../../config/Nodemailer";
 import nodemailer from 'nodemailer';
 
-const sendEmail = async (email: string, subject: string, html:string) => {
+const sendEmail = async (email: string, subject: string, html:string): Promise<any> => {
     try {       
         const accessToken = mail_rover() 
         const transporter = nodemailer.createTransport({

@@ -13,32 +13,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const User_1 = __importDefault(require("../../../models/Users/User"));
-const index_1 = __importDefault(require("../../../controles/Token/CreatedToken/index"));
+const passport_1 = __importDefault(require("passport"));
+const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
 const router = (0, express_1.Router)();
-router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
+router.put('/swichtblock/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { authorization } = req.headers;
+    const { id } = req.params;
     try {
-        if (!email || !password) {
-            res.status(400).json("Por favor, llenar todos los campos");
+        const data = (0, index_1.default)(authorization);
+        const user = yield User_js_1.default.findById(data.id);
+        if (user && user.admin) {
+            const user = yield User_js_1.default.findById(id);
+            if (user && user.block) {
+                yield User_js_1.default.findByIdAndUpdate((id), { block: false });
+            }
+            else {
+                yield User_js_1.default.findByIdAndUpdate((id), { block: true });
+            }
+            res.status(200).json();
         }
-        ;
-        const user = yield User_1.default.findOne({ email });
-        if (!user) {
-            res.status(400).json("Usuario inexistente");
+        else {
+            res.status(400).json('No cuenta con autorizacion para realizar esta accion');
         }
-        ;
-        if (!user.status) {
-            res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
-        }
-        const istmach = yield user.comparePassword(password);
-        if (istmach) {
-            res.status(200).json({ token: (0, index_1.default)(user), usuario: user });
-        }
-        if (email === password) {
-            res.status(400).json("Inicie secion con su correo y contraseña");
-        }
-        res.status(400).json("Informacion no coincide");
     }
     catch (error) {
         next(error);

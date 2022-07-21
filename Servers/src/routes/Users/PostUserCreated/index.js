@@ -23,16 +23,16 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
     const { users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist } = req.body;
     try {
         if (!email || !password) {
-            return res.status(200).json("Por favor, llenar todos los campos");
+            res.status(200).json("Por favor, llenar todos los campos");
         }
         ;
         const user = yield User_1.default.findOne({ email });
         if (user && !user.status) {
-            return res.status(200).json("Este correo tiene una cuenta vinculada, desea recuperarla");
+            res.status(200).json("Este correo tiene una cuenta vinculada, desea recuperarla");
         }
         ;
         if (user && user.status) {
-            return res.status(200).json("Usuario existente");
+            res.status(200).json("Usuario existente");
         }
         ;
         let newuser = new User_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist });
