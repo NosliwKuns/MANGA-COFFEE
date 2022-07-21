@@ -31,7 +31,7 @@ const ProductSchema = new Schema({
         required: true
     },
     rating: {
-        type: String,
+        type: [Number],
         enum: [1, 2, 3, 4, 5]
     },
     comments: {
