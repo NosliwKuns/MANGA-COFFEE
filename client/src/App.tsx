@@ -109,7 +109,7 @@ function App() {
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
         <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
         <Route path='/history' element={<h1>I'm the History component</h1>} />
-        <Route path="/product/:id" element={<ProductDetail/>} />
+        <Route path="/product/:id" element={<ProductDetail product={product} setProduct={setProduct}/>} />
         <Route path="/categories/:genre" element={<SelectedCategories/>} />
         <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
         <Route path='/verificateUser/:id' element={<Verificate/>}/>
