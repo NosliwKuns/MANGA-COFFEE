@@ -36,7 +36,7 @@ import RenamePass from './components/Registration/RenamePassword/password';
 import BuyShopping from './components/BuyProduct/BuyShopping';
 
 
-axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api/manga";
+axios.defaults.baseURL = "http://localhost:5000/api/manga";
 
 function App() {
 

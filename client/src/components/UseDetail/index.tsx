@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useHeaders from "../../app/headers";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchAllUser } from "../../features/admin/adminSlice";
 import { deleteAcount,  logOutUser, setDetailUser } from "../../features/user/userSlice";
+import UsersTable from "../Admin/usersTable";
 
 const UserDetail = () => {
-  const { token, user } = useAppSelector((state) => state.user);
+  const [input, setInput] = useState("");
+  const [switchButton, setSwitchB] = useState<boolean>(false);
+  const userCopy : any = window.localStorage.getItem("copySliceUser")
+  const { token, user ,admin } = JSON.parse(userCopy)
+  console.log(token, user ,admin)
   const emailStorage :any = window.localStorage.getItem("copySliceUser")
   const {email} = JSON.parse(emailStorage)
   const dispatch = useAppDispatch();
-  const [input, setInput] = useState("");
-  const navigate = useNavigate()
-  const [switchButton, setSwitchB] = useState<boolean>(false);
   const headers = useHeaders(token);
-
+  const navigate = useNavigate()
   const handleChange = (e: any) => {
     setInput(e.target.value);
   };
@@ -23,6 +26,9 @@ const UserDetail = () => {
   return (
     <div>
       <h1>{user}</h1>
+      {
+        admin && <UsersTable/>
+      }
       <input
         type={switchButton ? "text" : "password"}
         value={input}
