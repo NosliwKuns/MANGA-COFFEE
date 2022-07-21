@@ -12,6 +12,7 @@ interface Comments {
   body : string,
   _id : string,
   time: string
+  userId: string
 }
 
 interface Detail {
@@ -113,6 +114,7 @@ const initialState: InitialState = {
       },
       commentDelete: (state, action : PayloadAction<Comments[]>) => {
         state.manga.comments = action.payload
+        state.comments = action.payload
       },
     }
   })
@@ -206,7 +208,6 @@ const initialState: InitialState = {
     return async (dispatch: any) => {
       const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       dispatch(commentDelete(data.comments))
-      
     }
   };
 
