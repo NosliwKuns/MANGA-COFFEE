@@ -12,6 +12,7 @@ interface Comments {
   body : string,
   _id : string,
   time: string
+  userId: string
 }
 
 interface Detail {
@@ -113,6 +114,7 @@ const initialState: InitialState = {
       },
       commentDelete: (state, action : PayloadAction<Comments[]>) => {
         state.manga.comments = action.payload
+        state.comments = action.payload
       },
     }
   })
@@ -204,9 +206,8 @@ const initialState: InitialState = {
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
-      const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       dispatch(commentDelete(data.comments))
-      
     }
   };
 
