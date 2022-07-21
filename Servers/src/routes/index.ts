@@ -35,6 +35,7 @@ import DeleteItemsWishlistProducts from './Products/DeleteItemsWishlistProducts/
 import PostResetPass from './Users/PostResetPass/index';
 import PutResetPass from './Users/PutResetPass/index';
 import PutResetUser from './Users/PutResetUser/index';
+import AdminGetFinAllUser from './Users/AdminGetFinAllUser/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -63,6 +64,7 @@ router.use('/user', GetConfirmarCuenta);
 router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
 router.use('/user', PutResetUser);
+router.use('/user', AdminGetFinAllUser);
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
