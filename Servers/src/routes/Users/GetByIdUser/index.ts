@@ -5,7 +5,6 @@ import ReadTokenData from '../../../controles/Token/ReadTokenData/index';
 const router = Router();
 
 router.get('/detail', passport.authenticate("jwt", { session: false }), async(req, res, next) => {
-    console.log('GetByIdUser')
     const {authorization} = req.headers;    
     try {        
         const data= ReadTokenData(authorization);

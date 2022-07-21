@@ -12,6 +12,7 @@ interface Comments {
   body : string,
   _id : string,
   time: string
+  userId: string
 }
 
 interface Detail {
@@ -113,6 +114,7 @@ const initialState: InitialState = {
       },
       commentDelete: (state, action : PayloadAction<Comments[]>) => {
         state.manga.comments = action.payload
+        state.comments = action.payload
       },
     }
   })
@@ -120,7 +122,7 @@ const initialState: InitialState = {
   export const fetchAllManga = (limit : number):AppThunk =>{
     return async (dispatch) => {
       try {
-        const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?limit=${limit}`)
+        const {data} = await axios.get(`http://localhost:5000/api/manga/?limit=${limit}`)
         dispatch(getAddMangas(data))
       } catch (error) {
         console.error(error)
@@ -130,14 +132,14 @@ const initialState: InitialState = {
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/${id}`)
+      const {data} = await axios.get(`http://localhost:5000/api/manga/${id}`)
       dispatch(getDetailManga(data))
     }
   };
   
   export const fetchMangaByName = (name: string | number): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?search=${name}`)
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?search=${name}`)
       dispatch(searchMangaByName(data))
     }
   }
@@ -145,28 +147,28 @@ const initialState: InitialState = {
   export const fetchMangaByGenres = (genre: string): AppThunk => {
     console.log(genre)
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?genre=${genre}`)
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?genre=${genre}`)
       dispatch(filterMangaByGenres(data.docs))
     }
   }
   
   export const fetchMangaSortByName = (name: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${name}`)
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${name}`)
       dispatch(searchMangaByName(data))
     }
   }
 
   export const fetchMangaSortByRating = (rating: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${rating}`)
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?${rating}`)
       dispatch(searchMangaByName(data))
     }
   };
 
   export const fetchMangaComments = (comment : any | null, id: string, name: string | null, userId: string): AppThunk => {
     return async (dispatch) => {
-      const {data} = await axios.put(`https://manga-coffee.herokuapp.com/api/manga/${id}`, {
+      const {data} = await axios.put(`http://localhost:5000/api/manga/${id}`, {
         name,
         body: comment.body,
         time: comment.time,
@@ -184,14 +186,14 @@ const initialState: InitialState = {
   
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?page=${page}`)
+      const { data } = await axios.get(`http://localhost:5000/api/manga/?page=${page}`)
       dispatch(paginate(data))
     }
   };
 
   export const fetchGetGenres = () : AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/genres`)
+      const { data } = await axios.get(`http://localhost:5000/api/manga/genres`)
       dispatch(getGenres(data))
     }
   };
@@ -204,9 +206,8 @@ const initialState: InitialState = {
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
-      const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       dispatch(commentDelete(data.comments))
-      
     }
   };
 

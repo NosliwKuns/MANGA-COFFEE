@@ -17,13 +17,12 @@ const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = req.params.id;
-    const { name, description, product_image, stock, price, category, rating, comments } = req.body;
+    const { name, description, product_image, price, category, rating, comments } = req.body;
     try {
         yield index_1.default.findByIdAndUpdate(id, {
             name,
             description,
             product_image,
-            stock,
             price,
             category,
             rating,

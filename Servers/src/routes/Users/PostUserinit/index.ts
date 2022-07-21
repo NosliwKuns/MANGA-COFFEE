@@ -5,28 +5,29 @@ const router = Router();
 
 router.post('/login', async(req, res, next) => { 
     const {email, password} = req.body;
-    try{ 
-        if (!email || !password){
-            return res.status(400).json("Por favor, llenar todos los campos");
-        };       
+    try{        
         const user: any = await User.findOne({email});
-        if (!user){
-            return res.status(400).json("Usuario inexistente");
-        };
-        if (!user.status){
-            return res.status(400).json("Cuenta eliminada; por favor registrese de nuevo")
-        }
-        const istmach = await user.comparePassword(password);
-        if (istmach){
-            return res.status(200).json({token:createToken(user), usuario: user});
-        } 
-        if(email === password) {
-            return res.status(400).json("Inicie secion con su correo y contraseña")
-        }
-        return res.status(400).json("Informacion no coincide");
+        if (!email || !password){
+            res.status(400).json("Por favor, llenar todos los campos");
+        } else if (!user){
+            res.status(400).json("Usuario inexistente");
+        } else if (!user.status){
+            res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
+        }else if (user.block){
+            res.status(400).json("Cuenta bloqueada; si hubo un error, por favor informenos por medio de nuestro correo oficial ");
+        } else {
+            const istmach = await user.comparePassword(password);        
+            if (istmach){
+                res.status(200).json({token:createToken(user), usuario: user});
+            } else if (!istmach && email === password) {
+                res.status(400).json("Inicie seccion con su correo y contraseña");
+            } else {
+                res.status(400).json("Informacion no coincide");
+            }; 
+        }       
     } catch (error) {
         next(error);
-    }
-})
+    };
+});
 
 export default router;

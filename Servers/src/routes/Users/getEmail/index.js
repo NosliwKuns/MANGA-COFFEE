@@ -17,9 +17,8 @@ const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const index_1 = __importDefault(require("../../../controles/Email/SendEmail/index"));
 const router = (0, express_1.Router)();
 router.post('/emails', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { template, asunto } = req.body;
     try {
-        const { template, asunto } = req.body;
-        console.log(template);
         const correos = yield User_js_1.default.find({}, ["email"]);
         res.status(200).json(correos);
         correos.forEach(element => {

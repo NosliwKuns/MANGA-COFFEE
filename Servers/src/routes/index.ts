@@ -14,7 +14,6 @@ import PutByIdUserFav from './Users/PutByIdUserFav/index';
 import GetMangaFavoUser from './Users/GetMangaFavoUser/index';
 import DeleteFavorites from './Users/DeleteFavorites/index';
 import getEmail from './Users/getEmail/index';
-import DeleteUsers from './Users/DeleteUsers/index';
 import GetConfirmarCuenta from './Users/GetConfirmarCuenta/index';
 import DisabledUser from './Users/DisabledUser/index';
 import DeleteByIdProducts from './Products/DeleteByIdProducts/index';
@@ -35,6 +34,13 @@ import DeleteItemsWishlistProducts from './Products/DeleteItemsWishlistProducts/
 import PostResetPass from './Users/PostResetPass/index';
 import PutResetPass from './Users/PutResetPass/index';
 import PutResetUser from './Users/PutResetUser/index';
+import AdminGetFinAllUser from './Users/AdminGetFinAllUser/index';
+import AdminPutAdminUser from './Users/AdminPutAdminUser/index';
+import AdminPutBlockUser from './Users/AdminPutBlockUser/index';
+import AdminPutStatusUser from './Users/AdminPutStatusUser/index';
+import PutStock from './Products/PutStock/index';
+import PutRating from './Products/PutRating/index';
+import AdminPostSendMailUser from './Users/AdminPostSendMailUser/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -52,7 +58,6 @@ router.use('/manga', PostRating);
 router.use('/user', DisabledUser);
 router.use('/user', getEmail );
 router.use('/user', DeleteFavorites);
-router.use('/user', DeleteUsers);
 router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
@@ -63,6 +68,12 @@ router.use('/user', GetConfirmarCuenta);
 router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
 router.use('/user', PutResetUser);
+router.use('/user', AdminGetFinAllUser);
+router.use('/user', AdminPutAdminUser);
+router.use('/user', AdminPutBlockUser);
+router.use('/user', AdminPutStatusUser);
+router.use('/user', AdminPostSendMailUser);
+
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
@@ -76,5 +87,7 @@ router.use('/products', PostCommentsProducts);
 router.use('/products', PostBuyStripe);
 router.use('/products', AddWishListProducts);
 router.use('/products', DeleteItemsWishlistProducts);
+router.use('/products', PutStock);
+router.use('/products', PutRating);
 
 export default router;

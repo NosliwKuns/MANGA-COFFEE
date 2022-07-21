@@ -19,29 +19,36 @@ const router = (0, express_1.Router)();
 router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     try {
-        if (!email || !password) {
-            return res.status(400).json("Por favor, llenar todos los campos");
-        }
-        ;
         const user = yield User_1.default.findOne({ email });
-        if (!user) {
-            return res.status(400).json("Usuario inexistente");
+        if (!email || !password) {
+            res.status(400).json("Por favor, llenar todos los campos");
         }
-        ;
-        if (!user.status) {
-            return res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
+        else if (!user) {
+            res.status(400).json("Usuario inexistente");
         }
-        const istmach = yield user.comparePassword(password);
-        if (istmach) {
-            return res.status(200).json({ token: (0, index_1.default)(user), usuario: user });
+        else if (!user.status) {
+            res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
         }
-        if (email === password) {
-            return res.status(400).json("Inicie secion con su correo y contraseña");
+        else if (user.block) {
+            res.status(400).json("Cuenta bloqueada; si hubo un error, por favor informenos por medio de nuestro correo oficial ");
         }
-        return res.status(400).json("Informacion no coincide");
+        else {
+            const istmach = yield user.comparePassword(password);
+            if (istmach) {
+                res.status(200).json({ token: (0, index_1.default)(user), usuario: user });
+            }
+            else if (!istmach && email === password) {
+                res.status(400).json("Inicie seccion con su correo y contraseña");
+            }
+            else {
+                res.status(400).json("Informacion no coincide");
+            }
+            ;
+        }
     }
     catch (error) {
         next(error);
     }
+    ;
 }));
 exports.default = router;

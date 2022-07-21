@@ -10,7 +10,7 @@ router.delete('/', async (req, res) => {
     try {
         const user: any = await User.findById(id);
         const deleted = await user.favorites.filter((m: string) => m !== mangaId)
-        const myUser = await User.findByIdAndUpdate({_id: id}, {favorites: deleted});
+        await User.findByIdAndUpdate({_id: id}, {favorites: deleted});
         const userdos = await User.findById(id, ['favorites'])
         const manga = await Manga.paginate({_id:userdos?.favorites},
             {

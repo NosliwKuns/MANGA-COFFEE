@@ -13,16 +13,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
+const index_1 = __importDefault(require("../../../controles/Token/ReadTokenData/index"));
 const router = (0, express_1.Router)();
-router.delete('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.put('/swichtblock/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { authorization } = req.headers;
+    const { id } = req.params;
     try {
-        const { id } = req.params;
-        yield User_js_1.default.findByIdAndDelete(id);
-        res.status(200).send("usuario Eliminado");
+        const data = (0, index_1.default)(authorization);
+        const user = yield User_js_1.default.findById(data.id);
+        if (user && user.admin) {
+            const user = yield User_js_1.default.findById(id);
+            if (user && user.block) {
+                yield User_js_1.default.findByIdAndUpdate((id), { block: false });
+            }
+            else {
+                yield User_js_1.default.findByIdAndUpdate((id), { block: true });
+            }
+            res.status(200).json('El estado de bloqueo se modifico correctamente');
+        }
+        else {
+            res.status(400).json('No cuenta con autorizacion para realizar esta accion');
+        }
     }
-    catch (err) {
-        next(err);
+    catch (error) {
+        next(error);
     }
 }));
 exports.default = router;
