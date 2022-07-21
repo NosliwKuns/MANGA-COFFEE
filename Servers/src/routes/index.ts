@@ -38,7 +38,8 @@ import AdminGetFinAllUser from './Users/AdminGetFinAllUser/index';
 import AdminPutAdminUser from './Users/AdminPutAdminUser/index';
 import AdminPutBlockUser from './Users/AdminPutBlockUser/index';
 import AdminPutStatusUser from './Users/AdminPutStatusUser/index';
-import PutStock from './Products/PutStock/index'
+import PutStock from './Products/PutStock/index';
+import AdminPostSendMailUser from './Users/AdminPostSendMailUser/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -70,6 +71,8 @@ router.use('/user', AdminGetFinAllUser);
 router.use('/user', AdminPutAdminUser);
 router.use('/user', AdminPutBlockUser);
 router.use('/user', AdminPutStatusUser);
+router.use('/user', AdminPostSendMailUser);
+
 
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
