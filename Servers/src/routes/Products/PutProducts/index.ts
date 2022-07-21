@@ -4,13 +4,12 @@ const router = Router();
 
 router.put('/:id', async (req, res) => {
     const id = req.params.id;
-    const {name, description, product_image, stock, price, category, rating, comments} = req.body;
+    const {name, description, product_image, price, category, rating, comments} = req.body;
     try {
       await Products.findByIdAndUpdate(id, {
         name,
         description,
         product_image,
-        stock,
         price,
         category,
         rating,

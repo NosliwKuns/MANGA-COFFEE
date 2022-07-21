@@ -39,6 +39,7 @@ import AdminPutAdminUser from './Users/AdminPutAdminUser/index';
 import AdminPutBlockUser from './Users/AdminPutBlockUser/index';
 import AdminPutStatusUser from './Users/AdminPutStatusUser/index';
 import PutStock from './Products/PutStock/index'
+import PutRating from './Products/PutRating/index'
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -84,5 +85,6 @@ router.use('/products', PostBuyStripe);
 router.use('/products', AddWishListProducts);
 router.use('/products', DeleteItemsWishlistProducts);
 router.use('/products', PutStock);
+router.use('/products', PutRating);
 
 export default router;
