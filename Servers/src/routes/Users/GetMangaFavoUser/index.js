@@ -13,17 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-// import passport from "passport";
+const passport_1 = __importDefault(require("passport"));
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const Manga_js_1 = __importDefault(require("../../../models/Mangas/Manga.js"));
 const router = (0, express_1.Router)();
-// passport.authenticate("jwt", { session: false })
-router.get('/favorites/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('GetByIdUser');
+router.get('/favorites/:id', passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     let manga = {};
     try {
-        console.log(id);
         const user = yield User_js_1.default.findById(id, ['favorites']);
         manga = yield Manga_js_1.default.paginate({ _id: user === null || user === void 0 ? void 0 : user.favorites }, {
             limit: 12,

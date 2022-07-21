@@ -35,13 +35,18 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
         if (istmach) {
             res.status(200).json({ token: (0, index_1.default)(user), usuario: user });
         }
+        ;
         if (email === password) {
-            res.status(400).json("Inicie secion con su correo y contraseña");
+            res.status(400).json("Inicie seccion con su correo y contraseña");
         }
-        res.status(400).json("Informacion no coincide");
+        else {
+            res.status(400).json("Informacion no coincide");
+        }
+        ;
     }
     catch (error) {
         next(error);
     }
+    ;
 }));
 exports.default = router;
