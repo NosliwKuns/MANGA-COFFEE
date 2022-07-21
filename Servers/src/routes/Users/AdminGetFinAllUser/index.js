@@ -26,7 +26,9 @@ router.get('/findall', passport_1.default.authenticate("jwt", { session: false }
             const userfindall = yield User_js_1.default.find();
             res.status(200).json(userfindall);
         }
-        res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
+        else {
+            res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
+        }
     }
     catch (error) {
         next(error);

@@ -12,8 +12,9 @@ router.get('/findall', passport.authenticate("jwt", { session: false }), async(r
         if (user && user.admin){
             const userfindall = await User.find()
             res.status(200).json(userfindall)
-        }
-        res.status(400).json('No cuenta con autorizacion para obtener esta informacion')        
+        } else {
+            res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
+        }               
     } catch (error) {
         next(error)
     }

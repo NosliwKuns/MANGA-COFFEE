@@ -31,7 +31,7 @@ router.put('/swichtstatus/:id', passport_1.default.authenticate("jwt", { session
             else {
                 yield User_js_1.default.findByIdAndUpdate((id), { status: true });
             }
-            res.status(200).json();
+            res.status(200).json('El estado de la cuenta se modifico correctamente');
         }
         else {
             res.status(400).json('No cuenta con autorizacion para realizar esta accion');
