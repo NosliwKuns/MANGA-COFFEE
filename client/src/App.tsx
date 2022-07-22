@@ -37,7 +37,7 @@ import BuyShopping from './components/BuyProduct/BuyShopping';
 import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 
 
-axios.defaults.baseURL = "http://localhost:5000/api/manga";
+axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api/manga";
 
 function App() {
 
