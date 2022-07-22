@@ -17,11 +17,21 @@ const Detail = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
   const { manga } = useAppSelector((state) => state.mangas);
-  const { token } = useAppSelector((state) => state.user);
+  const { token, user, verificated } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
 
-  console.log(manga)
+  //console.log(manga)
+
+  const handleClick = () => {
+    if(user && !verificated) {
+        alert('Please verify your account!')
+    } else if(user && verificated) {
+      dispatch(FetchFavoriteMangas(userId, manga._id, headers))
+    } else if(!user && !verificated){
+        alert('To add Manga to favorites, you must Sign In!')
+    }
+}
 
   
   useEffect(() => {
@@ -52,7 +62,7 @@ const Detail = () => {
         <div className="info-container">
           <Rating rating={manga.rating}/>
             <span>
-                <button onClick={() =>dispatch(FetchFavoriteMangas(userId, manga._id, headers))}><IoIosHeart /></button>
+                <button onClick={() => handleClick()}><IoIosHeart /></button>
             </span>
           <ul>
             {manga.genres.map((genre: string, i: number) => (
