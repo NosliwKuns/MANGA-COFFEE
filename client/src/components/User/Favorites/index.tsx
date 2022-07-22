@@ -8,13 +8,18 @@ import { Link } from 'react-router-dom'
 
 const Favorites = () =>{
     const dispatch= useAppDispatch();
-    const { id, favorites} = useAppSelector(state=> state.user)
-    const { token } = useAppSelector((state) => state.user);
+    const { id, favorites, token, user, verificated } = useAppSelector(state=> state.user)
     const headers = useHeaders(token)
 
     const handleClick = (mangaid: any) => {
-        dispatch(fetchDeleteFavorites(id, mangaid, headers))
-        dispatch(getFavManga(id, headers))
+        if(user && !verificated) {
+            alert('Please verify your account!')
+        } else if(user && verificated) {
+            dispatch(fetchDeleteFavorites(id, mangaid, headers))
+            dispatch(getFavManga(id, headers))
+        } else if(!user && !verificated){
+            alert('To add Manga to favorites, you must Sign In!')
+        }
     }
 
     
