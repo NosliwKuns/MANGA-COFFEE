@@ -12,7 +12,6 @@ const MessageAdmin = () => {
   });
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
-  console.log(input, "========ipnut")
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const headers = useHeaders (token) ;
