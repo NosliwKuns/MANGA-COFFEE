@@ -117,7 +117,7 @@ const BuyProduct = () => {
     console.log(numberOfGuests);
   };
 
-  const handleBuy = () => {
+  const handleBuy = () => { // falta agregar esto mismo en el otro archivo que es el buy pero del carrito
     console.log(numberOfGuests)
     const stock = `-${numberOfGuests}`
     dispatch(fetchModifyStock(idProduct, stock))
