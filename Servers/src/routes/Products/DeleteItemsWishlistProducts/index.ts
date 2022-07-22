@@ -7,7 +7,7 @@ router.delete("/", async(req, res) => {
     const {productsId}= req.body;
 
     try {
-       const user:any = await User.findOne({email});
+      const user:any = await User.findOne({email});
       if(user){
         user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
         await user.save();
