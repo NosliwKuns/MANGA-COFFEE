@@ -60,13 +60,28 @@ export const switchAdmin = (headers: object, id: string): AppThunk => {
   };
 };
 
-export const sendMessageUser = (headers: object, id: string | undefined , input : object): AppThunk => {
-    console.log(headers)
-    console.log(input)
+export const sendMessageUser = (
+  headers: object,
+  id: string | undefined,
+  input: object
+): AppThunk => {
+  console.log(headers);
+  console.log(input);
   return async (dispatch) => {
     const { data } = await axios.post(
       `http://localhost:5000/api/user/sendadminnoti/${id}`,
-      input ,
+      input,
+      headers
+    );
+    return data;
+  };
+};
+
+export const sendAdvertising = (headers: object, input: object): AppThunk => {
+  return async () => {
+    const { data } = await axios.post(
+      "http://localhost:5000/api/user/adminmails",
+      input,
       headers
     );
     return data
