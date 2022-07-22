@@ -39,12 +39,6 @@ router.post('/', (0, index_js_2.FilesImage)(), (req, res, next) => __awaiter(voi
             let newmanga = yield manga.save();
             res.status(200).json(newmanga);
         }
-        else {
-            console.log(req.files);
-            console.log(req.body);
-            console.log("hola como esta error");
-            res.status(200).json("hola como esta");
-        }
     }
     catch (error) {
         next(error);

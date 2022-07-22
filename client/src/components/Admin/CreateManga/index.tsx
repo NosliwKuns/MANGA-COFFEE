@@ -84,15 +84,7 @@ const CreateManga = () => {
     )
       return;
 
-   const verificated = await dispatch(createMangaAdmin(headers, {
-      title : input.title ,
-      description : input.description ,
-      cover_image : input.cover_image ,
-      rating : input.rating ,
-      chapter : input.chapter ,
-      genres : arrayGenre(checkedState, genreManga) ,
-      books : book
-    }))
+   const verificated = await dispatch(createMangaAdmin(book , input))
 
     console.log(verificated)
   };
