@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import useHeaders from '../../../../app/headers';
-import { useAppDispatch } from '../../../../app/hooks';
-import { sendAdvertising } from '../../../../features/admin/adminSlice';
+import useHeaders from '../../../app/headers';
+import { useAppDispatch } from '../../../app/hooks';
+import { sendAdvertising } from '../../../features/admin/adminSlice';
 
 const Advertising = () => {
     const [input, setInput] = useState({

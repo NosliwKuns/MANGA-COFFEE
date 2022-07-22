@@ -4,7 +4,7 @@ import useHeaders from "../../app/headers";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchAllUser } from "../../features/admin/adminSlice";
 import { deleteAcount,  logOutUser, setDetailUser } from "../../features/user/userSlice";
-import UsersTable from "../Admin/usersTable";
+import UsersTable from "../Admin";
 
 const UserDetail = () => {
   const [input, setInput] = useState("");
