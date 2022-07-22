@@ -11,7 +11,6 @@ router.post('/', FilesImage(), async(req, res, next) => {
         if (req.files?.books){
             const { books}: any = req.files;
              let link: any = [];
-             console.log(books[0]);
             let folderpath = `Mangas/${title}/chapter${chapter}`;
             for (let i = 0; i < books.length; i++) {                
                 let linkClaudinary = await Uploadimage(books[i].tempFilePath, folderpath);
@@ -25,6 +24,11 @@ router.post('/', FilesImage(), async(req, res, next) => {
             const manga = new Manga({title, genres: JSON.parse(genres), cover_image, description, mangas, rating, comments});
             let newmanga = await manga.save()
             res.status(200).json(newmanga)
+        } else {
+            console.log(req.files)
+            console.log(req.body)
+            console.log("hola como esta error")
+            res.status(200).json("hola como esta")
         }
     } catch (error) {
         next(error)
