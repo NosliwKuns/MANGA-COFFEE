@@ -49,6 +49,38 @@
     text-align: start;
   }
 
+  .chapter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    .chapter-image {
+      overflow: hidden;
+      /* height: 26vh;
+      width: 38vh; */
+      display: grid;
+      grid-template-columns: min-content 1fr;
+      border: 1px solid var(--light--200);
+      border-radius: 1em;
+
+      img {
+        object-fit: cover;
+        height: 22vh;
+        width: 32vh;
+      }
+
+      div {
+        padding: 1em;
+        text-align: start;
+        color: #fff;
+
+        span {
+          color: var(--primary)
+        }
+      }
+    }
+  }
+
   p {
     text-align: justify;
   }

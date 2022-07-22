@@ -121,7 +121,7 @@ function App() {
       </AnimatePresence>
       <div className="six">
         <User/>
-        <div><Chat/></div>
+        <Chat/>
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import { useState, useEffect } from 'react';
-import  ScrollToBottom from "react-scroll-to-bottom"
+import  ScrollToBottom from "react-scroll-to-bottom";
+import '../../scss/Chat/Chat.scss';
 const socket = io('http://localhost:5000');
 
 const Chat = () => {
@@ -33,7 +34,7 @@ const Chat = () => {
   }, [socket]);
   
   return (
-    <div>
+    <div className="chat-container">
       <div>
         <p>Live Chat</p>
       </div>

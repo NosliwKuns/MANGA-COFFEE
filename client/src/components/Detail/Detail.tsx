@@ -74,13 +74,16 @@ const Detail = () => {
       <h2 className="sub-title">Description :</h2>
       <p>{manga.description}</p>
       <h2 className="sub-title">Lista de capitulos</h2>
-      <div>
+      <div className="chapter-container">
         {
           manga.mangas.map((e : any)=> {
             return (
               <Link to={`/mangas/${manga.title}/chapter_${e.chapter}/${id}`}>
-                <div>{e.chapter}
-                <img src={e.link[1]} alt={`chapter_${e.chapter}`}></img>
+                <div className="chapter-image">{/* {e.chapter} */}
+                  <img src={e.link[1]} alt={`chapter_${e.chapter}`}></img>
+                  <div>
+                    <h2><span>#</span>00{e.chapter}</h2> 
+                  </div>
                 </div>
               </Link>
             )
