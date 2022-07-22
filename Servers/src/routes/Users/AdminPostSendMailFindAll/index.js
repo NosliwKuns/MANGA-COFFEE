@@ -28,7 +28,8 @@ router.post('/adminmails', passport_1.default.authenticate("jwt", { session: fal
         if (userAdmin && userAdmin.admin) {
             const template = (0, index_js_1.default)(msg, image);
             const mail = userAdmin.email;
-            const correos = yield User_js_1.default.find({ email: { $not: { $regex: '.*' + mail || 'deprecated' + '.*', $options: 'i' } } }, ["email"]);
+            let correos = yield User_js_1.default.find({ email: { $not: { $regex: '.*' + "deprecated" + '.*', $options: 'i' } } }, ["email"]);
+            correos = correos.filter((element) => element.email !== mail);
             console.log(correos);
             correos.forEach(element => {
                 (0, index_2.default)(element.email, subject, template);
