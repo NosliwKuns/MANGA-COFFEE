@@ -15,7 +15,7 @@ router.post('/adminmails', passport.authenticate("jwt", { session: false }), asy
         if (userAdmin && userAdmin.admin){
             const template = AdminNotiPubli(msg, image);
             const mail:string = userAdmin.email;
-            const correos= await User.find({email:{$not:{$regex: '.*'+mail || 'deprecated'+'.*', $options: 'i' }}} ,["email"]);
+            const correos= await User.find({email:{$not:{$regex: '.*' + mail || 'deprecated' + '.*', $options: 'i' }}} ,["email"]);
             console.log(correos)
             correos.forEach(element => {
                 sendEmail(element.email, subject, template);
