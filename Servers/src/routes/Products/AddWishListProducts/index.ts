@@ -1,34 +1,26 @@
 import {Router} from 'express';
-import Users from '../../../models/Users/User'
-import Products from '../../../models/Products/index'
+import User from '../../../models/Users/User'
+import Product from '../../../models/Products/index'
 
 const router = Router();
 
-router.post("/addToWishlist", async (req, res) =>{
-    const {email} = req.body;
+router.post("/addToWishlist/:_id", async (req, res,next) =>{
+    const {_id} = req.params;
     const {productsId} = req.body;
     try{
-        const user = await Users.findOne({email: email});
-        if(!user){
-            res.status(404).json({message: "Usernot found"})
+        const Usuarios:any= await User.findOne({_id:_id});
+        const Productos:any= await Product.findById({_id:productsId});
+    
+        if(!Usuarios.wishlist.includes(Productos._id)){
+            Usuarios.wishlist.push(Productos._id)
+            await Usuarios.save();
+            res.status(200).send("producto agregado a la wishlist");
         }else{
-            console.log(user)
-            const product = await Products.findById({_id: productsId});
-            if(!product){
-                res.status(404).json({message: "Product not found"})
-            }else{
-                if(!user.wishlist.includes(product.id)){
-                    user.wishlist.push(product.id);
-                    await user.save();
-                    res.status(200).json({message: "Product added to wishlist"})
-                }else{
-                    res.status(200).json({message: "Product already in wishlist"})
-                }
-            }
+            res.status(200).send("el producto ya esta en la lista de deseos")
         }
         
     }catch(error){
-        res.status(500).json(error);
+        next(error)
     }
 });
 

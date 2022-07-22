@@ -1,5 +1,14 @@
 import mongoose from'mongoose';
+import paginate from 'mongoose-paginate-v2';
 const {Schema} = mongoose
+export interface IProducts extends mongoose.Document{
+    name: string,
+    category:string,
+    price:string,
+    rating:string
+};
+
+
 
 const ProductSchema = new Schema({
     id_User: {
@@ -40,7 +49,13 @@ const ProductSchema = new Schema({
     }
 })
 
-const Product = mongoose.model('Product', ProductSchema)
+// const Product = mongoose.model('Product', ProductSchema)
+
+ProductSchema.plugin(paginate);
+const Product = mongoose.model<
+IProducts,
+mongoose.PaginateModel<IProducts>
+>('Product', ProductSchema)
 
 export default Product;
 // esto lo borro despues
