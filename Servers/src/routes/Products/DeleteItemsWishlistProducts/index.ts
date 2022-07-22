@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import Users from '../../../models/Users/User';
+import User from '../../../models/Users/User';
 const router = Router();
 
 router.delete("/", async(req, res) => {
@@ -7,7 +7,7 @@ router.delete("/", async(req, res) => {
     const {productsId}= req.body;
 
     try {
-       const user = await Users.findOne({email});
+       const user:any = await User.findOne({email});
       if(user){
         user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
         await user.save();

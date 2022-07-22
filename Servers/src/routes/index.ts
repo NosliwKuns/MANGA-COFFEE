@@ -40,6 +40,7 @@ import AdminPutBlockUser from './Users/AdminPutBlockUser/index';
 import AdminPutStatusUser from './Users/AdminPutStatusUser/index';
 import PutStock from './Products/PutStock/index';
 import PutRating from './Products/PutRating/index';
+import GetWishList from './Products/GetWishList/index';
 import AdminPostSendMailUser from './Users/AdminPostSendMailUser/index';
 const router = Router()
 
@@ -75,6 +76,7 @@ router.use('/user', AdminPutStatusUser);
 router.use('/user', AdminPostSendMailUser);
 
 
+router.use('/products', GetWishList);
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
 router.use('/products', FilterByNameProducts);
