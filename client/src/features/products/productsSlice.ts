@@ -52,7 +52,10 @@ const initialState: InitialState = {
       },
       getProductDetail: (state , action : PayloadAction<Detail> ) =>{
         state.productDetail = action.payload 
-      }
+      },
+      stockProducts: (state, action: PayloadAction<number>) => {
+        state.productDetail.stock = action.payload
+      },
     }
   });
 
@@ -71,10 +74,21 @@ const initialState: InitialState = {
     }
   };
   
+  export const fetchModifyStock = ( id : string | undefined, updates : string | number ):AppThunk =>{
+    return async (dispatch) => {
+      const { data } = await axios.put(`http://localhost:5000/api/products/stock/${id}`, {
+        updates
+      })
+      console.log('DATAAAAAAAAAAAA', data)
+      dispatch(stockProducts(data));
+    }
+  };
+
   export default productsSlice.reducer
   export const {
     getProductDetail,
-    getProducts
+    getProducts,
+    stockProducts
   } = productsSlice.actions
   
 

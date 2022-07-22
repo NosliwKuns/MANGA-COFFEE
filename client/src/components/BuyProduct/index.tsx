@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { fetchDetailManga } from "../../features/products/productsSlice";
+import { fetchDetailManga, fetchModifyStock } from "../../features/products/productsSlice";
 import useHeaders from "../../app/headers";
 import "../BuyProduct/buyProduct.scss";
 import { validate } from "./func/validate";
@@ -117,6 +117,12 @@ const BuyProduct = () => {
     console.log(numberOfGuests);
   };
 
+  const handleBuy = () => {
+    console.log(numberOfGuests)
+    const stock = `-${numberOfGuests}`
+    dispatch(fetchModifyStock(idProduct, stock))
+  }
+
   return (
     <form onSubmit={handleSubmit} className="colorrr">
       
@@ -138,7 +144,7 @@ const BuyProduct = () => {
           onChange={handleInputChange}
           className="space"
         />
-        <button className="space btn_buy" disabled={!stripe}>
+        <button className="space btn_buy" disabled={!stripe} onClick={() => handleBuy() }>
           {loading ? "Loading" : "Buy"}
         </button>
       </div>
