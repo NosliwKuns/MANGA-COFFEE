@@ -25,7 +25,6 @@ router.post('/', (0, index_js_2.FilesImage)(), (req, res, next) => __awaiter(voi
         if ((_a = req.files) === null || _a === void 0 ? void 0 : _a.books) {
             const { books } = req.files;
             let link = [];
-            console.log(books[0]);
             let folderpath = `Mangas/${title}/chapter${chapter}`;
             for (let i = 0; i < books.length; i++) {
                 let linkClaudinary = yield (0, index_js_1.Uploadimage)(books[i].tempFilePath, folderpath);
@@ -39,6 +38,12 @@ router.post('/', (0, index_js_2.FilesImage)(), (req, res, next) => __awaiter(voi
             const manga = new Manga_js_1.default({ title, genres: JSON.parse(genres), cover_image, description, mangas, rating, comments });
             let newmanga = yield manga.save();
             res.status(200).json(newmanga);
+        }
+        else {
+            console.log(req.files);
+            console.log(req.body);
+            console.log("hola como esta error");
+            res.status(200).json("hola como esta");
         }
     }
     catch (error) {
