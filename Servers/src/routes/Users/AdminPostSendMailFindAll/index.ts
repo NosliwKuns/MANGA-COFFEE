@@ -15,11 +15,12 @@ router.post('/adminmails', passport.authenticate("jwt", { session: false }), asy
         if (userAdmin && userAdmin.admin){
             const template = AdminNotiPubli(msg, image);
             const mail:string = userAdmin.email;
-            const correos= await User.find({email:{$not:{$regex: '.*'+mail || 'deprecated'+'.*', $options: 'i' }}} ,["email"]);
+            let correos= await User.find({email:{$not: {$regex: '.*'+ "deprecated" +'.*', $options: 'i' }}}, ["email"]);
+            correos = correos.filter((element)=> element.email !== mail);
             console.log(correos)
             correos.forEach(element => {
-                sendEmail(element.email, subject, template);
-            });        
+                sendEmail(element.email, subject, template);           
+            });             
             res.status(200).json('Se ha enviado el correo a todos los usuarios de forma exitosa');
         } else {
             res.status(400).json('No cuenta con autorizacion para realizar esta accion');
