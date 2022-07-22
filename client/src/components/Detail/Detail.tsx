@@ -21,7 +21,7 @@ const Detail = () => {
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
 
-  console.log(manga)
+  //console.log(manga)
 
   const handleClick = () => {
     if(user && !verificated) {
