@@ -61,14 +61,14 @@ const initialState: InitialState = {
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/products/${id}`)
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/products/${id}`)
       dispatch(getProductDetail(data))
     }
   };
 
   export const fetchGetProducts = ( pageNumber : number | string, search : string ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/products?page=${pageNumber}&search=${search}`)
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/products?page=${pageNumber}&search=${search}`)
       console.log(data, 'hola');
       dispatch(getProducts(data));
     }
@@ -76,7 +76,7 @@ const initialState: InitialState = {
   
   export const fetchModifyStock = ( id : string | undefined, updates : string | number ):AppThunk =>{
     return async (dispatch) => {
-      const { data } = await axios.put(`http://localhost:5000/api/products/stock/${id}`, {
+      const { data } = await axios.put(`https://manga-coffee.herokuapp.com/api/products/stock/${id}`, {
         updates
       })
       console.log('DATAAAAAAAAAAAA', data)
