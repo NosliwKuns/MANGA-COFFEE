@@ -7,7 +7,7 @@ router.put('/fav/:id', passport.authenticate("jwt", { session: false }), async(r
     const {id} = req.params;
     const {favorites} = req.body;
     try { 
-        await User.findByIdAndUpdate((id), {$push:{favorites: [favorites]}});
+        await User.findByIdAndUpdate((id), {$push:{favorites}});
         const user = await User.findById(id);
         res.status(200).json(user);
     } catch (error) {

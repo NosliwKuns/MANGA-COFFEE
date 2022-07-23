@@ -12,9 +12,11 @@ router.post("/addToWishlist/:_id", async (req, res,next) =>{
         const Productos:any= await Product.findById({_id:productsId});
     
         if(!Usuarios.wishlist.includes(Productos._id)){
-            Usuarios.wishlist.push(Productos._id)
-            await Usuarios.save();
-            res.status(200).send("producto agregado a la wishlist");
+            Usuarios.wishlist.push(Productos)
+            const user = await User.findById(_id);
+            res.status(200).json(user);
+            // await Usuarios.save();
+            // res.status(200).send("producto agregado a la wishlist");
         }else{
             res.status(200).send("el producto ya esta en la lista de deseos")
         }
