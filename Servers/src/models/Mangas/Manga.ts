@@ -5,7 +5,8 @@ export interface IMangas extends mongoose.Document{
     title:string,
     genres:string,
     cover_image:string,
-    rating:string
+    rating:string,
+    mangas: [{chapter: Number, link: [String]}]
 };
 
 const MangaSchema = new Schema({
