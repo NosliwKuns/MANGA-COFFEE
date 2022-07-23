@@ -46,6 +46,7 @@ const Chat = () => {
           {messageList.map((messageContent : any) => {
             return (
               <div
+                key={messageContent.time}
                 id={username === messageContent.author ? "you" : "other"}
               >
                 <div>
