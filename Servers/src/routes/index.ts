@@ -42,6 +42,7 @@ import PutStock from './Products/PutStock/index';
 import PutRating from './Products/PutRating/index';
 import GetWishList from './Products/GetWishList/index';
 import AdminPostSendMailUser from './Users/AdminPostSendMailUser/index';
+import AdminAddChapterManga from './Mangas/AdminAddChapterManga/index';
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -55,6 +56,7 @@ router.use('/manga', PatchComments);
 router.use('/manga', PutManga);
 router.use('/manga', GetByFavorites);
 router.use('/manga', PostRating);
+router.use('/manga', AdminAddChapterManga);
 
 router.use('/user', DisabledUser);
 router.use('/user', AdminPostSendMailFindAll);
