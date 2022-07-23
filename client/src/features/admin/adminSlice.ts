@@ -77,31 +77,56 @@ export const sendMessageUser = (
   };
 };
 
-export const sendAdvertising = (headers: object, input: object): AppThunk => {
+export const sendAdvertising = (
+  headers: object,
+  input: any,
+  image: any
+): AppThunk => {
+  const books = new FormData();
+
+  books.append("title", input.subject);
+  books.append("rating", input.msg);
+  books.append("image", image)
   return async () => {
     const { data } = await axios.post(
       "http://localhost:5000/api/user/adminmails",
-      input,
+      books,
       headers
     );
-    return data
+    return data;
   };
 };
 
-export const createMangaAdmin = (headers: object, input: object): AppThunk => {
+export const createMangaAdmin = (
+  headers: object,
+  input: any,
+  files: any,
+  image: any,
+  genres: any
+): AppThunk => {
   return async () => {
+    console.log(image)
+    console.log(files)
+    const books = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      books.append("books", files[i]);
+      console.log(books);
+    }
+    books.append("cover_image", image[0]);
+    books.append("title", input.title);
+    books.append("rating", input.rating);
+    books.append("description", input.description);
+    books.append("chapter", input.chapter);
+    books.append("genres", genres);
+
     const { data } = await axios.post(
       "http://localhost:5000/api/manga",
-      input,
+      books,
       headers
     );
-    return data
+    return data;
   };
 };
-
-
-// export const switchStatus
-// export const switchStatus
 
 export default adminSlice.reducer;
 

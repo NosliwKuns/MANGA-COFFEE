@@ -32,9 +32,9 @@ router.post('/',  passport.authenticate("jwt", { session: false }), FilesImage()
                 let CoverImgClaudinary = await Uploadimage(cover_image.tempFilePath, folderpath);
                 await fs.unlink(cover_image.tempFilePath);
                 cover_image = CoverImgClaudinary.secure_url;
-                const manga = new Manga({title, genres: JSON.parse(genres), cover_image, description, mangas, rating, comments});
-                let newmanga = await manga.save()
-                res.status(200).json(newmanga)
+                const manga = new Manga({title, genres: genres.split(','), cover_image, description, mangas, rating, comments});
+                await manga.save()
+                res.status(200).json('Su manga se Agrego con Exito!')
             }else {
                 res.status(400).json("Informacion incompleta")
             }

@@ -34,24 +34,26 @@ export const validate = (input: any) => {
   const error = {
     title: "",
     description: "",
-    cover_image: "",
     rating: "",
     chapter: "",
   };
+  let regExpCha = /^[0-9]*$/;
+  let chapter = input.chapter.match(regExpCha);
+  if (!input.chapter ) {
+    error.chapter = "enter a chapter";
+  } else if (!chapter?.length) {
+    error.chapter = "enter a valid chapter";
+  }
   if (!input.title) {
     error.title = "insert a title";
   }
   if (!input.description) {
     error.description = "insert a description";
   }
-  if (!input.cover_image) {
-    error.cover_image = "insert a cover_image";
-  }
   if (!input.rating) {
     error.rating = "insert a rating";
-  } else if (!(input.rating > 0 && input.rating < 5)) {
+  } else if (!(input.rating >= 0 && input.rating <= 5)) {
     error.rating = "insert a value from 0 to 5";
   }
-  // if(!input.chapter){ error.chapter = "insert a chapter"}
   return error;
 };

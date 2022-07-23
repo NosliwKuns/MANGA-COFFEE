@@ -8,8 +8,8 @@ const Advertising = () => {
     const [input, setInput] = useState({
         subject: "",
         msg: "",
-        image : ""
       });
+    const [image , setImage] = useState()
     const userCopy: any = window.localStorage.getItem("copySliceUser");
     const { token } = JSON.parse(userCopy);
     const dispatch = useAppDispatch();
@@ -23,10 +23,13 @@ const Advertising = () => {
       };
       const handleSubmit = async (e: any) => {
         e.preventDefault();
-        const verificated = await dispatch(sendAdvertising(headers,input))
+        const verificated = await dispatch(sendAdvertising(headers,input ,image))
         alert(verificated)
         navigate("/userDetail");
       };
+      const handleImage = (e:any) => {
+        setImage(e.target.files)
+      }
   return (
     <div>
  <form onSubmit={handleSubmit}>
@@ -41,12 +44,11 @@ const Advertising = () => {
         </div>
         <div>
         <label htmlFor="image">Image :</label>
-        <img src={input.image} alt="copy at URL"/>
+        {/* <img src={input.image} alt="copy at URL"/> */}
         <input
-            type="text"
-            value={input.image}
-            name="image"
+            type="file"
             onChange={handleOnChange}
+            accept="image/*"
           />
         </div>
         <div>
@@ -54,7 +56,7 @@ const Advertising = () => {
             <label htmlFor="message">Message :</label>
           </div>
           <div>
-            <textarea value={input.msg} name="msg" onChange={handleOnChange} />
+            <textarea value={input.msg} name="msg" onChange={handleImage} />
           </div>
         </div>
 

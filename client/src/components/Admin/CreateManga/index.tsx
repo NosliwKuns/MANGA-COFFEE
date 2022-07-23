@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { createMangaAdmin } from "../../../features/admin/adminSlice";
 import CheckBoxesGenre from "./CheckBoxesGenre";
@@ -21,36 +22,35 @@ const CreateManga = () => {
   ]);
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
+  const headers = useHeaders(token);
 
   const [input, setInput] = useState({
     title: "",
     description: "",
-    cover_image: "",
     rating: "",
     chapter: "",
   });
-  console.log(input)
+  console.log(input);
   const [errors, setErrors] = useState<any>({
     title: "",
     description: "",
-    cover_image: "",
     rating: "",
     chapter: "",
   });
-  const dispatch = useAppDispatch()
-  const [book, setBook] = useState([])
+  const dispatch = useAppDispatch();
+  const [book, setBook] = useState();
+  const [image, setImage] = useState();
+  console.log(image)
 
-  const handleBook = (e :any) => {
-    setBook(e.target.files)
-  }
-  const headers  ={
-    'headers' : {
-        'Content-Type': 'multipart/form-data'
-    }
-}
+  const handleBook = (e: any) => {
+    setBook(e.target.files);
+  };
+  const handleImage = (e: any) => {
+    setImage(e.target.files);
+  };
 
   const handleChange = (event: any) => {
-    console.log(event)
+    console.log(event);
     setInput({
       ...input,
       [event.target.name]: event.target.value,
@@ -77,26 +77,22 @@ const CreateManga = () => {
     if (
       errors.title ||
       errors.description ||
-      errors.cover_image ||
       errors.rating ||
       errors.chapter ||
       !checkedState.filter((e) => e === true).length
     )
       return;
 
-   const verificated = await dispatch(createMangaAdmin(book , input))
-
-    console.log(verificated)
+    let genres = arrayGenre(checkedState, genreManga);
+    const verificated = await dispatch(
+      createMangaAdmin(headers, input, book, image, genres)
+    );
+    alert(verificated);
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input
-          type="file"
-          multiple
-          onChange={handleBook}
-        />
         <div>
           <label>Titlte :</label>
           <input
@@ -116,17 +112,6 @@ const CreateManga = () => {
             onChange={handleChange}
           />
           {errors.description && <span>{errors.description}</span>}
-        </div>
-        <div>
-          <label>Cover Image :</label>
-          <input
-            type="text"
-            name="cover_image"
-            value={input.cover_image}
-            onChange={handleChange}
-          />
-
-          {errors.cover_image && <span>{errors.cover_image}</span>}
         </div>
         <div>
           <label>Rating :</label>
@@ -159,6 +144,10 @@ const CreateManga = () => {
             <span>select at least two genre</span>
           )}
         </div>
+        <label>Select chapters :</label>
+        <input type="file" multiple onChange={handleBook} accept="image/*" />
+        <label>Select cover image :</label>
+        <input type="file" onChange={handleImage} accept="image/*" />
         <button>send</button>
       </form>
     </div>

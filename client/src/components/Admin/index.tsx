@@ -5,10 +5,11 @@ import { fetchAllUser } from "../../features/admin/adminSlice";
 import Celdas from "./usersTable/Celdas";
 import Advertising from "./Advertising/Advertising";
 import CreateManga from "./CreateManga";
+import CreateProduct from "./CreateProduct";
 
 const UsersTable = () => {
   const pagAdmin: any = window.localStorage.getItem("pagAdmin");
-  
+
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
   const headers = useHeaders(token);
@@ -20,7 +21,7 @@ const UsersTable = () => {
     dispatch(fetchAllUser(headers));
   }, []);
   let adminPag;
-  if (pag === '1') {
+  if (pag === "1") {
     adminPag = allUsers.map((e: any) => {
       return (
         <Celdas
@@ -34,28 +35,54 @@ const UsersTable = () => {
       );
     });
   }
-  if ( pag ==='2' ){
-    adminPag = <Advertising/>
+  if (pag === "2") {
+    adminPag = <Advertising />;
   }
-  if ( pag ==='3' ){
-    adminPag = <CreateManga/>
+  if (pag === "3") {
+    adminPag = <CreateManga />;
+  }
+  if (pag === "4") {
+    adminPag = <CreateProduct />;
   }
 
-
-  useEffect(()=> {
-  },[pagAdmin])
-  return( <div>
-    <button onClick={()=>{ 
-      window.localStorage.setItem("pagAdmin","1")
-      setPag("1")}}>All Users</button>
-    <button onClick={()=> {
-      window.localStorage.setItem("pagAdmin","2")
-      setPag("2")}}>Advertising</button>
-      <button onClick={()=> {
-      window.localStorage.setItem("pagAdmin","3")
-      setPag("3")}}>Create Manga</button>
-    {adminPag}
-    </div>);
+  useEffect(() => {}, [pagAdmin]);
+  return (
+    <div>
+      <button
+        onClick={() => {
+          window.localStorage.setItem("pagAdmin", "1");
+          setPag("1");
+        }}
+      >
+        All Users
+      </button>
+      <button
+        onClick={() => {
+          window.localStorage.setItem("pagAdmin", "2");
+          setPag("2");
+        }}
+      >
+        Advertising
+      </button>
+      <button
+        onClick={() => {
+          window.localStorage.setItem("pagAdmin", "3");
+          setPag("3");
+        }}
+      >
+        Create Manga
+      </button>
+      <button
+        onClick={() => {
+          window.localStorage.setItem("pagAdmin", "4");
+          setPag("4");
+        }}
+      >
+        Create Product
+      </button>
+      {adminPag}
+    </div>
+  );
 };
 
 export default UsersTable;
