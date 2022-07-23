@@ -89,7 +89,7 @@ const Detail = () => {
         {
           manga.mangas.map((e : any)=> {
             return (
-              <Link to={`/mangas/${manga.title}/chapter_${e.chapter}/${id}`}>
+              <Link to={`/mangas/${manga.title}/chapter_${e.chapter}/${params.id}`}>
                 <div className="chapter-image">{/* {e.chapter} */}
                   <img src={e.link[1]} alt={`chapter_${e.chapter}`}></img>
                   <div>

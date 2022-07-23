@@ -15,11 +15,11 @@ import { Pagination, Navigation } from "swiper";
 
 const ReadManga = () => {
   const { chapter, id } : any = useParams();
-  /* const idChapter = id.split('&')[0] */
-  /* console.log(idChapter); */
+  console.log(id);
   const dispatch = useAppDispatch();
   const { manga } = useAppSelector(state => state.mangas);
   const images = manga.mangas
+  console.log(manga, "hey")
   const chap = chapter[chapter.length - 1]
   const readable = manga.mangas.find(e => e.chapter == chap)
   console.log(readable, id , 'porfi');
