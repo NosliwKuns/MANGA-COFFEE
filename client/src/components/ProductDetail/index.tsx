@@ -2,6 +2,10 @@ import { useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from './../../app/hooks';
 import { fetchDetailManga } from '../../features/products/productsSlice';
+import { FetchAddToWishlist } from '../../features/user/userSlice';
+import { IoIosHeart } from "react-icons/io";
+import useHeaders from "../../app/headers";
+
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
   product: any
@@ -10,6 +14,10 @@ const ProductDetail = ({ setProduct, product }: Props) => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const { productDetail } = useAppSelector(state => state.products)
+  const { token, user, verificated } = useAppSelector((state) => state.user);
+  const userId = useAppSelector((state) => state.user.id);
+  const headers = useHeaders(token)
+
   console.log(productDetail);
 
   useEffect(() => {
@@ -42,10 +50,23 @@ const ProductDetail = ({ setProduct, product }: Props) => {
     }
   }
 
+  const handleClick = () => {
+    if(user && !verificated) {
+        alert('Please verify your account!')
+    } else if(user && verificated) {
+      dispatch(FetchAddToWishlist(userId, id, headers))
+    } else if(!user && !verificated){
+        alert('To add Manga to favorites, you must Sign In!')
+    }
+}
+
   return (
     <div className="five">
       <h1>{name}</h1>
       <img src={product_image} alt={`P_${product_image}`} />
+      <span>
+          <button onClick={() => handleClick()}><IoIosHeart /></button>
+      </span>
       <p>{description}</p>
       <h2>Price: ${price}</h2>
       <h2>Rating: {rating}</h2>

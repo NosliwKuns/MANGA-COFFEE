@@ -20,7 +20,7 @@ router.put('/fav/:id', passport_1.default.authenticate("jwt", { session: false }
     const { id } = req.params;
     const { favorites } = req.body;
     try {
-        yield User_js_1.default.findByIdAndUpdate((id), { $push: { favorites: [favorites] } });
+        yield User_js_1.default.findByIdAndUpdate((id), { $push: { favorites } });
         const user = yield User_js_1.default.findById(id);
         res.status(200).json(user);
     }

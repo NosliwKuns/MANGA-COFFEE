@@ -8,8 +8,10 @@ import '../../../scss/Details/Comments.scss'
 const Comments = () => {
   const dispatch = useAppDispatch();
   const { comments } = useAppSelector(state => state.mangas.manga)
+  console.log("COMMENTSSSSSSS", comments);
   const mangaId = useAppSelector(state => state.mangas.manga._id)
   const newComment = useAppSelector(state => state.mangas.comments)
+  console.log("NEW COMMENTTTTTT", newComment);
   const { user, id, verificated } = useAppSelector(state => state.user)
   
   const [input, setInput] = useState<any>({
