@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useHeaders from "../../../../app/headers";
 import { useAppDispatch } from "../../../../app/hooks";

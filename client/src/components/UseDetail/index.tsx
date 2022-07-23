@@ -26,10 +26,9 @@ const UserDetail = () => {
   return (
     <div>
       <h1>{user}</h1>
-      {/* {
+      {
         admin && <UsersTable/>
-      } */}
-      <UsersTable/>
+      }
       <input
         type={switchButton ? "text" : "password"}
         value={input}
