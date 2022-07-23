@@ -27,6 +27,8 @@ router.post('/adminmails', passport_1.default.authenticate("jwt", { session: fal
     const { authorization } = req.headers;
     const { subject, msg } = req.body;
     try {
+        console.log(req.body);
+        console.log(req.files);
         const data = (0, index_1.default)(authorization);
         const userAdmin = yield User_js_1.default.findById(data.id);
         if (userAdmin && userAdmin.admin) {

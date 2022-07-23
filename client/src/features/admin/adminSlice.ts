@@ -80,17 +80,18 @@ export const sendMessageUser = (
 export const sendAdvertising = (
   headers: object,
   input: any,
-  image: any
+  imagess: any
 ): AppThunk => {
-  const books = new FormData();
-
-  books.append("title", input.subject);
-  books.append("rating", input.msg);
-  books.append("image", image)
+  const image = new FormData();
+console.log(image , 'img')
+console.log(input , '==========')
+  image.append("subject", input.subject);
+  image.append("msg", input.msg);
+  image.append("image", imagess[0])
   return async () => {
     const { data } = await axios.post(
       "http://localhost:5000/api/user/adminmails",
-      books,
+      image,
       headers
     );
     return data;

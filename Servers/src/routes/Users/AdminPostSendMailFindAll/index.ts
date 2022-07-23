@@ -13,6 +13,8 @@ router.post('/adminmails', passport.authenticate("jwt", { session: false }), Fil
     const {authorization} = req.headers; 
     const {subject, msg}=req.body;
     try{  
+        console.log(req.body)
+        console.log(req.files)
         const data= ReadTokenData(authorization);
         const userAdmin = await User.findById(data.id);
         if (userAdmin && userAdmin.admin){
