@@ -23,7 +23,7 @@ const index_js_3 = __importDefault(require("../../../controles/Token/ReadTokenDa
 const router = (0, express_1.Router)();
 router.put('/admin/addchapter', passport_1.default.authenticate("jwt", { session: false }), (0, index_js_2.FilesImage)(), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const { idManga, chapter } = req.body;
+    const { idManga } = req.body;
     const { authorization } = req.headers;
     let { books } = req.files;
     try {
@@ -34,17 +34,17 @@ router.put('/admin/addchapter', passport_1.default.authenticate("jwt", { session
                 const mangainfo = yield Manga_js_1.default.findById(idManga);
                 if (mangainfo) {
                     let link = [];
-                    let folderpath = `Mangas/${mangainfo.title}/chapter${chapter}`;
+                    let folderpath = `Mangas/${mangainfo.title}/chapter${mangainfo.mangas.length + 2}`;
                     for (let i = 0; i < books.length; i++) {
                         let linkClaudinary = yield (0, index_js_1.Uploadimage)(books[i].tempFilePath, folderpath);
                         yield fs_extra_1.default.unlink(books[i].tempFilePath);
                         link.push(linkClaudinary.secure_url);
                     }
-                    let mangas = {
-                        chapter: chapter,
+                    let newmanga = {
+                        chapter: mangainfo.mangas.length + 2,
                         link: link
                     };
-                    yield Manga_js_1.default.findByIdAndUpdate((idManga), { $push: { mangas: mangas } });
+                    yield Manga_js_1.default.findByIdAndUpdate((idManga), { $push: { mangas: newmanga } });
                     res.status(200).json('El capitulo de su manga se Agrego con Exito!');
                 }
             }

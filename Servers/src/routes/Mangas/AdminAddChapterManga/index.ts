@@ -9,7 +9,7 @@ import ReadTokenData from '../../../controles/Token/ReadTokenData/index.js';
 const router = Router();
 
 router.put('/admin/addchapter',  passport.authenticate("jwt", { session: false }), FilesImage(), async(req, res, next) => { 
-    const { idManga, chapter} = req.body;
+    const { idManga } = req.body;
     const {authorization} = req.headers;
     let { books}: any = req.files;
     try {
@@ -20,18 +20,19 @@ router.put('/admin/addchapter',  passport.authenticate("jwt", { session: false }
                 const mangainfo = await Manga.findById(idManga)
                 if (mangainfo){
                     let link: any = [];
-                    let folderpath = `Mangas/${mangainfo.title}/chapter${chapter}`;
+                    let folderpath = `Mangas/${mangainfo.title}/chapter${mangainfo.mangas.length +2}`;
                     for (let i = 0; i < books.length; i++) {                
                         let linkClaudinary = await Uploadimage(books[i].tempFilePath, folderpath);
                         await fs.unlink(books[i].tempFilePath)
                         link.push(linkClaudinary.secure_url)
                     }
-                    let mangas = {
-                        chapter: chapter,
+                    let newmanga = {
+                        chapter: mangainfo.mangas.length +2,
                         link: link
                     }
-                    await Manga.findByIdAndUpdate((idManga), {$push:{mangas:mangas}})
-                    res.status(200).json('El capitulo de su manga se Agrego con Exito!')
+                    await Manga.findByIdAndUpdate((idManga), {$push:{mangas:newmanga}})
+                    res.status(200).json('El capitulo de su manga se Agrego con Exito!')             
+
                 }                
             }else {
                 res.status(400).json("Informacion incompleta")
