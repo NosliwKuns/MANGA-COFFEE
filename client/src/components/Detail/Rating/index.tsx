@@ -67,7 +67,7 @@ const Rating = ({ rating }: Props) => {
           )
         })
       }
-      <h2>{display ? display : rating}</h2>
+      <h2>{display ? display : rating.toFixed(1)}</h2>
       <div className={ appear ? "loader" : "close"}></div>
     </div>
   )

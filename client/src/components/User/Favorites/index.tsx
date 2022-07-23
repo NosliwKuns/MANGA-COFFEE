@@ -10,7 +10,6 @@ const Favorites = () =>{
     const dispatch= useAppDispatch();
     const { id, favorites, token} = useAppSelector(state=> state.user)
     const headers = useHeaders(token)
-
     const handleClick = (mangaid: any) => {
         dispatch(fetchDeleteFavorites(id, mangaid, headers))
         dispatch(getFavManga(id, headers))

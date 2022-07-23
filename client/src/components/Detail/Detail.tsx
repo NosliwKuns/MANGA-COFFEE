@@ -11,31 +11,36 @@ import { IoIosHeart } from "react-icons/io";
 import useHeaders from "../../app/headers";
 import { carAnimation, h3Animation } from "../../Animation";
 import { motion } from "framer-motion"; 
+import { getFavManga, fetchDeleteFavorites } from './../../features/user/userSlice';
 
 
 const Detail = () => {
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const params : any = useParams();
   const { manga } = useAppSelector((state) => state.mangas);
-  const { token, user, verificated } = useAppSelector((state) => state.user);
+  const { id, token, user, verificated, favorites } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
-
-  //console.log(manga)
+  console.log(favorites, "jue[")
+  let fav = favorites.find(e => e._id === params.id)
+  console.log(fav, 'fav')
 
   const handleClick = () => {
     if(user && !verificated) {
         alert('Please verify your account!')
-    } else if(user && verificated) {
+    } else if(user && verificated && !fav) {
       dispatch(FetchFavoriteMangas(userId, manga._id, headers))
+    } else if (user && verificated && fav) {
+      dispatch(fetchDeleteFavorites(userId, params.id, headers))
     } else if(!user && !verificated){
         alert('To add Manga to favorites, you must Sign In!')
-    }
+    } /* else if(favorites.find(e => e._id === params.id)) */
 }
 
   
   useEffect(() => {
-    dispatch(fetchDetailManga ( id ));
+    dispatch(fetchDetailManga ( params.id ));
+    dispatch(getFavManga(id, headers))
     return dispatch(fetchCleanDetails());
   }, [dispatch, id]);
 
@@ -61,9 +66,15 @@ const Detail = () => {
         </motion.div>
         <div className="info-container">
           <Rating rating={manga.rating}/>
-            <span>
-                <button onClick={() => handleClick()}><IoIosHeart /></button>
-            </span>
+          <div 
+            className="favorites"
+            onClick={() => handleClick()}>
+              <IoIosHeart 
+                size="34"
+                color={fav ? "#EA374B" : "#9394A9" }
+                /> 
+          </div> 
+          <h2>Genres:</h2>
           <ul>
             {manga.genres.map((genre: string, i: number) => (
               <li key={`${manga.title}_detail ${i}`}>{genre}</li>

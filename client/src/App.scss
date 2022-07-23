@@ -90,7 +90,7 @@
 
 @media only screen and (max-width: 1300px) {
   .App {
-    grid-template-columns: auto auto max(15em);
+    grid-template-columns: min-content auto max(15em);
 
     .one {
       font-size: 1em;

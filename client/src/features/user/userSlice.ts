@@ -287,7 +287,7 @@ export const getFavManga = (id: string, headers: object): AppThunk => {
       `http://localhost:5000/api/user/favorites/${id}`,
       headers
     );
-
+    console.log(data, "siuuu");
     dispatch(getFavoriteManga(data.docs));
   };
 };

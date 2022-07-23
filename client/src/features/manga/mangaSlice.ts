@@ -132,7 +132,7 @@ const initialState: InitialState = {
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/${id}`)
+      const {data} = await axios.get(`http://localhost:5000/api/manga/${id}`)
       dispatch(getDetailManga(data))
     }
   };

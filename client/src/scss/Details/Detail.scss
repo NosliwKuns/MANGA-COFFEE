@@ -26,21 +26,30 @@
 
     .image-container {
       overflow: hidden;
-      width: 19em;
+      /* width: 19em; */
       height:  49vh;
       border-radius: 1em;
+      aspect-ratio: 1/1.5;
 
       img {
         height: 100%;
         width: 100%;
+        /* object-fit: cover; */
       }
     }
 
     .info-container {
+      position: relative;
       background: var(--dark--600);
       width: 100%;
       border-radius: 1em;
-      padding: 2em
+      padding: 2em;
+
+      .favorites {
+        position: absolute;
+        top: 2em;
+        right: 2em;
+      }
     }
   }
 
