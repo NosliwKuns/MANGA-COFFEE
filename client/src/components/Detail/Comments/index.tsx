@@ -4,15 +4,20 @@ import moment from 'moment';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
 import { fetchMangaComments, deleteComment } from './../../../features/manga/mangaSlice';
 import '../../../scss/Details/Comments.scss'
+import { motion, AnimatePresence } from 'framer-motion';
+import PopUp from './PopUp/PopUp';
+import useModal from '../../../app/customHooks/useModal';
+
 
 const Comments = () => {
   const dispatch = useAppDispatch();
   const { comments } = useAppSelector(state => state.mangas.manga)
-  console.log("COMMENTSSSSSSS", comments);
+  console.log("COMMENTSSSSSSSSSSSSS", comments);
   const mangaId = useAppSelector(state => state.mangas.manga._id)
   const newComment = useAppSelector(state => state.mangas.comments)
-  console.log("NEW COMMENTTTTTT", newComment);
+  console.log("NEW COMMENTTTTTTT", newComment);
   const { user, id, verificated } = useAppSelector(state => state.user)
+  const { modalOpen, close, open } = useModal();
   
   const [input, setInput] = useState<any>({
     name : '',
@@ -71,6 +76,9 @@ const Comments = () => {
     })
   }
 
+  const textConfirmDelete: string = "Are you sure you want to delete this comment?"
+  const textInvalidAction: string = "Invalid Action"
+
   useEffect(()=>{
 
   },[comments])
@@ -119,7 +127,43 @@ const Comments = () => {
                   <h4>{c.name}<span> {`${c.time ? timeAgo(c.time) : "2days ago"}`}</span></h4>
                   <p>{c.body}</p>
                   <h5>REPLY</h5>
-                  <button onClick={()=> c.userId === id ? dispatch(deleteComment(c._id, mangaId)) : alert('invalid Action!')}>Delete</button>
+                  {
+                    c.userId === id 
+                    ? <div> 
+                        <motion.button 
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => modalOpen ? close() : open()}
+                        className="save-button"
+                        >
+                        Delete
+                        </motion.button>
+                        <AnimatePresence
+                        initial={false}
+                        exitBeforeEnter={true}
+                        onExitComplete={() => null}
+                        >
+                        {modalOpen && <PopUp modalOpen={modalOpen} text={textConfirmDelete} handleClose={close} CommentUserId={c.userId} userId={id} commentId={c._id} mangaId={mangaId} />}
+                        </AnimatePresence> 
+                    </div> 
+                    : <div> 
+                        <motion.button 
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => modalOpen ? close() : open()}
+                        className="save-button"
+                        >
+                        Delete
+                        </motion.button>
+                        <AnimatePresence
+                        initial={false}
+                        exitBeforeEnter={true}
+                        onExitComplete={() => null}
+                        >
+                        {modalOpen && <PopUp modalOpen={modalOpen} text={textInvalidAction} handleClose={close} CommentUserId={c.userId} userId={id} commentId={c._id} mangaId={mangaId} />}
+                        </AnimatePresence> 
+                      </div>
+                  }
                 </section>
               </div>
               <span className="separator"></span>
