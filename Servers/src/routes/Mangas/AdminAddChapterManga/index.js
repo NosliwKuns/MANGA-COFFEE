@@ -34,14 +34,15 @@ router.put('/admin/addchapter', passport_1.default.authenticate("jwt", { session
                 const mangainfo = yield Manga_js_1.default.findById(idManga);
                 if (mangainfo) {
                     let link = [];
-                    let folderpath = `Mangas/${mangainfo.title}/chapter${mangainfo.mangas.length + 2}`;
+                    let chapter = mangainfo.mangas[mangainfo.mangas.length - 1].chapter || 0;
+                    let folderpath = `Mangas/${mangainfo.title}/chapter${Number(chapter) + 1}`;
                     for (let i = 0; i < books.length; i++) {
                         let linkClaudinary = yield (0, index_js_1.Uploadimage)(books[i].tempFilePath, folderpath);
                         yield fs_extra_1.default.unlink(books[i].tempFilePath);
                         link.push(linkClaudinary.secure_url);
                     }
                     let newmanga = {
-                        chapter: mangainfo.mangas.length + 2,
+                        chapter: Number(chapter) + 1,
                         link: link
                     };
                     yield Manga_js_1.default.findByIdAndUpdate((idManga), { $push: { mangas: newmanga } });

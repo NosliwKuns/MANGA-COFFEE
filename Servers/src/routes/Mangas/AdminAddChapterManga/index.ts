@@ -20,19 +20,19 @@ router.put('/admin/addchapter',  passport.authenticate("jwt", { session: false }
                 const mangainfo = await Manga.findById(idManga)
                 if (mangainfo){
                     let link: any = [];
-                    let folderpath = `Mangas/${mangainfo.title}/chapter${mangainfo.mangas.length +2}`;
+                    let chapter = mangainfo.mangas[mangainfo.mangas.length-1].chapter|| 0; 
+                    let folderpath = `Mangas/${mangainfo.title}/chapter${Number(chapter)+1}`;
                     for (let i = 0; i < books.length; i++) {                
                         let linkClaudinary = await Uploadimage(books[i].tempFilePath, folderpath);
                         await fs.unlink(books[i].tempFilePath)
                         link.push(linkClaudinary.secure_url)
                     }
                     let newmanga = {
-                        chapter: mangainfo.mangas.length +2,
+                        chapter: Number(chapter)+1,
                         link: link
                     }
                     await Manga.findByIdAndUpdate((idManga), {$push:{mangas:newmanga}})
-                    res.status(200).json('El capitulo de su manga se Agrego con Exito!')             
-
+                    res.status(200).json('El capitulo de su manga se Agrego con Exito!')  
                 }                
             }else {
                 res.status(400).json("Informacion incompleta")
