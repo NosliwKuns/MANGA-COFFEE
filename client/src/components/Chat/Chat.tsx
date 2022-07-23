@@ -28,7 +28,12 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("receive_message", (data : any) => {
-      setMessageList((list) => [...list, data]);
+      setMessageList((list) => {
+        if(list.includes(data)){
+          return list;
+        }
+        return list.concat(data);
+      });
     });
   }, [socket]);
   
