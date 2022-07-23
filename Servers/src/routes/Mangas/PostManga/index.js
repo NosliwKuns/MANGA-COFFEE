@@ -46,9 +46,9 @@ router.post('/', passport_1.default.authenticate("jwt", { session: false }), (0,
                 let CoverImgClaudinary = yield (0, index_js_1.Uploadimage)(cover_image.tempFilePath, folderpath);
                 yield fs_extra_1.default.unlink(cover_image.tempFilePath);
                 cover_image = CoverImgClaudinary.secure_url;
-                const manga = new Manga_js_1.default({ title, genres: JSON.parse(genres), cover_image, description, mangas, rating, comments });
-                let newmanga = yield manga.save();
-                res.status(200).json(newmanga);
+                const manga = new Manga_js_1.default({ title, genres: genres.split(','), cover_image, description, mangas, rating, comments });
+                yield manga.save();
+                res.status(200).json('Su manga se Agrego con Exito!');
             }
             else {
                 res.status(400).json("Informacion incompleta");
