@@ -28,12 +28,22 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on("receive_message", (data : any) => {
+<<<<<<< Updated upstream
       setMessageList((list) => {
         if(list.includes(data)){
           return list;
         }
         return list.concat(data);
       });
+=======
+      setMessageList((list)=>{
+        if(list.includes(data)){
+          return list
+        } else {
+          return list.concat(data)
+        }
+      }); //concatenate the new message to the message list
+>>>>>>> Stashed changes
     });
   }, [socket]);
   
