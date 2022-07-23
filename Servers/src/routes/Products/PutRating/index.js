@@ -16,14 +16,14 @@ const express_1 = require("express");
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.put('/rating/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rating } = req.body;
+    const { ratinger } = req.body;
     const { id } = req.params;
-    console.log(rating);
+    console.log(ratinger);
     try {
-        yield index_1.default.findByIdAndUpdate((id), { $push: { rating: rating } });
+        yield index_1.default.findByIdAndUpdate((id), { $push: { ratinger: ratinger } });
         let response = yield index_1.default.findOne({ _id: id });
-        let response2 = response.rating.reduce((a, b) => (a + b)) / response.rating.length;
-        console.log(response2);
+        let response2 = response.ratinger.reduce((a, b) => (a + b)) / response.ratinger.length;
+        yield index_1.default.findByIdAndUpdate((id), { $set: { rating: response2 } });
         res.status(200).json(response2);
     }
     catch (error) {

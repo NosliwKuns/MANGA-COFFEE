@@ -28,6 +28,15 @@ export type favoritesMangas = {
   cover_image: string;
 };
 
+export type wishlist = {
+  _id: string;
+  name: string;
+  category: Array<string>;
+  product_image: string;
+  description: string;
+  price: number;
+};
+
 type Product = {
   idProduct: string;
   name: string;
@@ -58,7 +67,7 @@ type Purchese = {
 export type InitialState = {
   admin : boolean ;
   block : boolean ;
-  wishlist : Array<object> ;
+  wishlist : Array<wishlist> ;
   status : boolean ;
   id: string;
   email: string;
@@ -193,6 +202,12 @@ const userSlice = createSlice({
     ) => {
       state.favorites = action.payload;
     },
+    addToWishlist: (state, action: PayloadAction<Array<wishlist>>) => {
+      state.wishlist = action.payload;
+    },
+    getWishlist: (state, action: PayloadAction<Array<wishlist>>) => {
+      state.wishlist = action.payload;
+    },
   },
 });
 
@@ -273,7 +288,7 @@ export const FetchFavoriteMangas = (
     const { data } = await axios.put(
       `http://localhost:5000/api/user/fav/${id}`,
       {
-        favorites: [mangaId],
+        favorites: mangaId,
       },
       headers
     );
@@ -370,6 +385,8 @@ export const fetchDeleteFavorites = (
       `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`,
       headers
     );
+    console.log("DATAAAAAAAAAAA", data);
+    
     dispatch(getFavoriteManga(data.docs));
   };
 };
@@ -426,6 +443,28 @@ export const siOrNot = ( input : any , boolean : boolean) => {
   };
 };
 
+export const FetchAddToWishlist = (_id: string, idProduct: string | undefined, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.post(`http://localhost:5000/api/products/addToWishlist/${_id}`,
+      {
+        productsId: [idProduct],
+      },
+      headers
+    );
+    console.log("DATAAAAAAAAAAAAAAAAAA ADD", data)
+    dispatch(addToWishlist(data.wishlist));
+  };
+};
+
+export const FetchGetWishlist = (id: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.get(
+      `http://localhost:5000/api/products/wishlist/${id}`,
+      headers
+    );
+    dispatch(getWishlist(data.docs));
+  };
+};
 
 
 export default userSlice.reducer;
@@ -436,4 +475,6 @@ export const {
   logOutUser,
   favoriteMangas,
   getFavoriteManga,
+  getWishlist,
+  addToWishlist,
 } = userSlice.actions;

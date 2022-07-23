@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useAppDispatch } from "../../../app/hooks";
+import { createMangaAdmin } from "../../../features/admin/adminSlice";
 import CheckBoxesGenre from "./CheckBoxesGenre";
 import { arrayGenre, genreManga, validate } from "./functionCreateMangas";
 
@@ -17,6 +19,8 @@ const CreateManga = () => {
     false,
     false,
   ]);
+  const userCopy: any = window.localStorage.getItem("copySliceUser");
+  const { token } = JSON.parse(userCopy);
 
   const [input, setInput] = useState({
     title: "",
@@ -24,7 +28,6 @@ const CreateManga = () => {
     cover_image: "",
     rating: "",
     chapter: "",
-    books : []
   });
   console.log(input)
   const [errors, setErrors] = useState<any>({
@@ -33,8 +36,18 @@ const CreateManga = () => {
     cover_image: "",
     rating: "",
     chapter: "",
-    books : ""
   });
+  const dispatch = useAppDispatch()
+  const [book, setBook] = useState([])
+
+  const handleBook = (e :any) => {
+    setBook(e.target.files)
+  }
+  const headers  ={
+    'headers' : {
+        'Content-Type': 'multipart/form-data'
+    }
+}
 
   const handleChange = (event: any) => {
     console.log(event)
@@ -59,7 +72,7 @@ const CreateManga = () => {
     setCheckedState(updatedCheckedState);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (
       errors.title ||
@@ -70,8 +83,10 @@ const CreateManga = () => {
       !checkedState.filter((e) => e === true).length
     )
       return;
-    const asd = arrayGenre(checkedState, genreManga);
-    alert(asd);
+
+   const verificated = await dispatch(createMangaAdmin(book , input))
+
+    console.log(verificated)
   };
 
   return (
@@ -79,11 +94,8 @@ const CreateManga = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="file"
-          name="books"
-          value={input.books}
-          id="books"
           multiple
-          onChange={handleChange}
+          onChange={handleBook}
         />
         <div>
           <label>Titlte :</label>

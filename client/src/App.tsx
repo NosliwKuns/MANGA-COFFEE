@@ -61,8 +61,8 @@ function App() {
   useEffect(()=>{
     if(user){
      dispatch(loginUser(user))
+     window.localStorage.setItem("pagAdmin","1")
     }
-
   },[])
 
   return (

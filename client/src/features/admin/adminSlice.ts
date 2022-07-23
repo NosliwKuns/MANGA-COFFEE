@@ -87,6 +87,19 @@ export const sendAdvertising = (headers: object, input: object): AppThunk => {
     return data
   };
 };
+
+export const createMangaAdmin = (headers: object, input: object): AppThunk => {
+  return async () => {
+    const { data } = await axios.post(
+      "http://localhost:5000/api/manga",
+      input,
+      headers
+    );
+    return data
+  };
+};
+
+
 // export const switchStatus
 // export const switchStatus
 

@@ -4,8 +4,7 @@ const AdminNotiPubli = (msg, image) => {
     return `
       <head>
           <link rel="stylesheet" href="./style.css">
-      </head>
-      
+      </head>      
       <div id="email___content">
       <img src=${image} >
       <p>${msg}</p>

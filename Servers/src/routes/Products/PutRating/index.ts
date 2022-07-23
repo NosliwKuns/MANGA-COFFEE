@@ -5,20 +5,21 @@ const router = Router();
 
 
 router.put('/rating/:id', async(req, res, next)=>{
-    const {rating} = req.body
+    const {ratinger} = req.body
     const {id} = req.params;
-    console.log(rating)
+    console.log(ratinger)
     
     try {          
-        await Products.findByIdAndUpdate((id),{$push:{rating:rating}})
+        await Products.findByIdAndUpdate((id),{$push:{ratinger:ratinger}})
         
         let response: any = await Products.findOne({_id:id})
-        let response2:any = response.rating.reduce((a:number,b:number) => (a+b)) / response.rating.length
-        console.log(response2)
+        let response2:any = response.ratinger.reduce((a:number,b:number) => (a+b)) / response.ratinger.length
+
+        await Products.findByIdAndUpdate((id),{$set:{rating:response2}})
+
                     res.status(200).json(response2)
     } catch (error) {
         next(error)
     }
 })
-
 export default  router;
