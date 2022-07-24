@@ -115,7 +115,7 @@ export const createMangaAdmin = (
     }
     books.append("cover_image", image[0]);
     books.append("title", input.title);
-    books.append("rating", input.rating);
+    // books.append("rating", input.rating);
     books.append("description", input.description);
     books.append("chapter", input.chapter);
     books.append("genres", genres);
