@@ -38,7 +38,7 @@ import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 import WishList from './components/User/WishList/WishList'
 
 
-axios.defaults.baseURL = "http://localhost:5000/api/manga";
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 function App() {
 
@@ -54,15 +54,21 @@ function App() {
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
+  const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
+  const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
+  const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
+  
   const res = useFetch(
-    query || page || genre ? `?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
+    query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
   );
-  console.log(res, 'yepi')
+  const resShop = useFetch(
+    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&genres=${genreShop}` : ""
+    );
 
   useEffect(()=>{
     if(user){
-     dispatch(loginUser(user))
-     window.localStorage.setItem("pagAdmin","1")
+    dispatch(loginUser(user))
+    window.localStorage.setItem("pagAdmin","1")
     }
   },[])
 
@@ -86,7 +92,15 @@ function App() {
       <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<DiscoverHome/>} />
-        <Route path="/shop" element={<Shop product={product} setProduct={setProduct}/>} />
+        <Route path="/shop" element={
+          <Shop 
+          product={product} 
+          setProduct={setProduct} 
+          resShop={resShop}
+          setPageShop= {setPageShop}
+          genreShop= {genreShop}
+          queryShop= {queryShop}
+          setSearchParams={setSearchParams}/>} />
         <Route path="/mangas" element={
           <CatalogMangas
             setPage={setPage}
@@ -94,7 +108,7 @@ function App() {
             genre={genre}
             setSearchParams={setSearchParams}
             res={res}
-           />} 
+          />} 
         />
         {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
         <Route path="/mangas/detail/:id" element={<Detail/>} />
