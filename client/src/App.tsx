@@ -54,15 +54,21 @@ function App() {
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   
+  const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
+  const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
+  const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
+  
   const res = useFetch(
     query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
   );
-  console.log(res, 'yepi')
+  const resShop = useFetch(
+    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&genres=${genreShop}` : ""
+    );
 
   useEffect(()=>{
     if(user){
-     dispatch(loginUser(user))
-     window.localStorage.setItem("pagAdmin","1")
+    dispatch(loginUser(user))
+    window.localStorage.setItem("pagAdmin","1")
     }
   },[])
 
@@ -73,16 +79,7 @@ function App() {
         <h3 onClick={() => window.location.replace('/')}>MC</h3>
       </div> */}
       <SideBar />
-      {/* <SearchAndFilter 
-        appear={appear}
-        setAppear={setAppear}
-        setGenre={setGenre}
-        setPage={setPage}
-        setQuery={setQuery}
-      /> */}
-      {/* <div className="three">
-        <UserButtons product={product} setProduct={setProduct}/>
-      </div> */}
+      
       <div className="five">
         <SearchAndFilter 
           appear={appear}
@@ -90,12 +87,21 @@ function App() {
           setGenre={setGenre}
           setPage={setPage}
           setQuery={setQuery}
+
         />
 
         <AnimatePresence exitBeforeEnter>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<DiscoverHome/>} />
-          <Route path="/shop" element={<Shop product={product} setProduct={setProduct}/>} />
+          <Route path="/shop" element={
+          <Shop 
+          product={product} 
+          setProduct={setProduct} 
+          resShop={resShop}
+          setPageShop= {setPageShop}
+          genreShop= {genreShop}
+          queryShop= {queryShop}
+          setSearchParams={setSearchParams}/>} />
           <Route path="/mangas" element={
             <CatalogMangas
               setPage={setPage}
