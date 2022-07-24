@@ -119,7 +119,7 @@ function App() {
           <Route path='/userDetail' element={<UserDetail/>}/>
           <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
           <Route path='/user/fav' element={<Favorites/>} />
-          <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
+          <Route path='/user/wishlist' element={<WishList/>} />
           <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
           <Route path='/categories' element={<Categories/>} />
           <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
