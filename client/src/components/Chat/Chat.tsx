@@ -11,7 +11,7 @@ import { BiMailSend } from 'react-icons/bi';
 
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [username, setUsername] = useState("");
+  //const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
 
   const user: InitialState = useAppSelector((state) => state.user);
@@ -56,7 +56,9 @@ const Chat = () => {
         <h6 className="welcome-text">Hola <b>{user.user}</b>, <br/>
         saluda y conoce gente de todo el mundo</h6>
         :
-        <h3>Hola, saluda y conoce gente de todo el mundo</h3>
+        <h6 className="welcome-text">
+          Saluda y conoce gente de todo el mundo
+        </h6>
       }
       
         <ScrollToBottom>
@@ -64,6 +66,7 @@ const Chat = () => {
             return (
               <div
                 id={user.user === messageContent.author ? "you" : "other"}
+                className="message-container"
               >
                
                <div className='burbuja'>

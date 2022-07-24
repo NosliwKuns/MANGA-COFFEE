@@ -169,7 +169,12 @@
 
 
 
-
+#you{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-right: 15px;
+}
 
 #you .burbuja{
   margin-left: auto;
@@ -179,8 +184,7 @@
   margin-left: 15px;
   margin-bottom: 10px;
   width: fit-content;
-  justify-content: flex-end;
-  position: absolute;
+  position: relative;
   &:after{
     content: "";
     position: absolute;
