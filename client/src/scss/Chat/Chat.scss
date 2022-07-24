@@ -1,10 +1,67 @@
+.blur {
+  filter: blur(3px);
+  justify-content: center;
+  .bar-Send{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    bottom: -7px;
+    width: 275px;
+    height: 50px;
+    background-color: #2c3e50;
+    border-radius: 0 0px 10px 10px;
+    padding: 10px;
+    
+
+    .btn-Send{
+      margin-right: 10px;
+      background-color: #2c3e50;
+      border: none;
+      font-size: 25px;
+      color: rgb(0, 217, 255);
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+      &:hover{
+        transform: scale(1.1);
+      }
+
+    }
+    .input-Send{
+      width: calc(100% - 50px);
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: #2c3e50;
+      color: aliceblue;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+      &:focus{
+        border: 1px solid #2c3e50;
+      }
+    }
+    
+
+  }
+  
+
+}
 .chat-container {
   /* max-height: 55vh; */
   overflow-y: auto;
   color: aliceblue;
   padding-bottom: 48px;
+  padding-top: 20px;
   
-
+.welcome-text{
+  color: #ffffff;
+  padding-bottom: 20px;
+}
   .bar-Send{
     display: flex;
     justify-content: space-between;
@@ -54,6 +111,9 @@
   }
 
 }
+#other{
+  justify-content: flex-start;
+}
 #other .burbuja{
   background-color: #00ff15;
   border-radius: 5px;
@@ -71,7 +131,7 @@
     height: 0;
     border-top: 0px solid transparent;
     border-bottom: 15px solid transparent;
-    border-right: 15px solid #ff9900;
+    border-right: 15px solid #00ff15;
     top: 0px;
     left: -12px;
   }
@@ -109,10 +169,15 @@
 
 
 
-
-
+#you{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-right: 15px;
+}
 
 #you .burbuja{
+  margin-left: auto;
   background-color: #ff9900;
   border-radius: 5px;
   padding: 20px;
@@ -120,7 +185,6 @@
   margin-bottom: 10px;
   width: fit-content;
   position: relative;
-
   &:after{
     content: "";
     position: absolute;
@@ -129,9 +193,9 @@
     height: 0;
     border-top: 0px solid transparent;
     border-bottom: 15px solid transparent;
-    border-right: 15px solid #ff9900;
+    border-left: 15px solid #ff9900;
     top: 0px;
-    left: -12px;
+    right: -12px;
   }
   .author{
     position: absolute;

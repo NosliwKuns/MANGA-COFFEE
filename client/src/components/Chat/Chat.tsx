@@ -1,19 +1,25 @@
 import io from 'socket.io-client';
+import { useAppSelector } from '../../app/hooks';
+
+import { InitialState, logOut } from "../../features/user/userSlice";
 import { useState, useEffect } from 'react';
 import  ScrollToBottom from "react-scroll-to-bottom";
 import '../../scss/Chat/Chat.scss';
 const socket = io('http://localhost:5000');
 import { BiMailSend } from 'react-icons/bi';
 
+
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [username, setUsername] = useState("");
+  //const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
+
+  const user: InitialState = useAppSelector((state) => state.user);
 
   const sendMessage = () => {
     if (currentMessage !== "") {
         const messageData = {
-        author: username,
+        author: user.user,
         message: currentMessage,
         time:
             new Date(Date.now()).getHours() +
@@ -27,7 +33,8 @@ const Chat = () => {
       setCurrentMessage("");
     }
   };
-  
+
+    
   
 
   useEffect(() => {
@@ -43,17 +50,34 @@ const Chat = () => {
   }, [socket]);
   
   return (
-    <div className="chat-container">
+    <div className={user.user? "chat-container" : "blur"}>
+      {
+        user.user ?
+        <h6 className="welcome-text">Hola <b>{user.user}</b>, <br/>
+        saluda y conoce gente de todo el mundo</h6>
+        :
+        <h6 className="welcome-text">
+          Saluda y conoce gente de todo el mundo
+        </h6>
+      }
       
         <ScrollToBottom>
           {messageList.map((messageContent : any) => {
             return (
               <div
-                id={username === messageContent.author ? "you" : "other"}
+                id={user.user === messageContent.author ? "you" : "other"}
+                className="message-container"
               >
-                <div className='burbuja'>
+               
+               <div className='burbuja'>
                 <div className="author">
-                    <p id="author">{messageContent.author}</p>
+                    <p id="author">{
+                      user?
+                      user.user === messageContent.author ?
+                      "You" : messageContent.author
+                      : ""
+
+                    }</p>
                     </div>
                   <div className="message">
                     <p>{messageContent.message}</p>
@@ -68,27 +92,48 @@ const Chat = () => {
               </div>
             );
           })}
-         
-         
         </ScrollToBottom>
-        <div className="bar-Send">
-           <input
-          type="text"
-          className='input-Send'
-          value={currentMessage}
-          placeholder="Message..."
-          onChange={(e) => {
-            setCurrentMessage(e.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
-        />
-        <button className="btn-Send" onClick={sendMessage}>
-          <BiMailSend />
-        </button>
-        
-      </div>
+        {
+          user.user ?
+          <div className="bar-Send">
+          <input
+         type="text"
+         className='input-Send'
+         value={currentMessage}
+         placeholder="Message..."
+         onChange={(e) => {
+           setCurrentMessage(e.target.value);
+         }}
+         onKeyPress={(event) => {
+           event.key === "Enter" && sendMessage();
+         }}
+       />
+       <button className="btn-Send" onClick={sendMessage}>
+         <BiMailSend />
+       </button>
+       
+     </div>
+     :
+     <div className="bar-Send">
+          <input
+         type="text"
+         className='input-Send'
+         value={currentMessage}
+         placeholder="Message..."
+         disabled={true}
+         onChange={(e) => {
+           setCurrentMessage(e.target.value);
+         }}
+         onKeyPress={(event) => {
+           event.key === "Enter" && sendMessage();
+         }}
+       />
+       <button className="btn-Send" onClick={sendMessage}>
+         <BiMailSend />
+       </button>
+       
+     </div>
+        }
     </div>
   );
 }

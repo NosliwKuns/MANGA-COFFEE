@@ -22,9 +22,6 @@ router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const user = yield User_js_1.default.findById(id);
         const deleted = yield user.favorites.filter((m) => m !== mangaId);
-        console.log("USEEEEEER", user);
-        console.log("USER . FAVORITEEEES", user.favorites);
-        console.log("DELETEEEED", deleted);
         yield User_js_1.default.findByIdAndUpdate({ _id: id }, { favorites: deleted });
         const userdos = yield User_js_1.default.findById(id, ['favorites']);
         const manga = yield Manga_1.default.paginate({ _id: userdos === null || userdos === void 0 ? void 0 : userdos.favorites }, {

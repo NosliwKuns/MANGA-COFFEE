@@ -35,6 +35,7 @@ import RenamePassword from './components/Registration/RenamePassword/email';
 import RenamePass from './components/Registration/RenamePassword/password';
 import BuyShopping from './components/BuyProduct/BuyShopping';
 import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
+import WishList from './components/User/WishList/WishList'
 
 
 axios.defaults.baseURL = "http://localhost:5000/api";
@@ -90,6 +91,7 @@ function App() {
           setPage={setPage}
           setQuery={setQuery}
         />
+
         <AnimatePresence exitBeforeEnter>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<DiscoverHome/>} />
@@ -127,6 +129,7 @@ function App() {
           <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
         </Routes>
         </AnimatePresence>
+
       </div>
       <RightSide product={product} setProduct={setProduct}/>
     </div>

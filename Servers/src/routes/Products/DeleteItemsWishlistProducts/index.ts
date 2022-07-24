@@ -5,18 +5,18 @@ const router = Router();
 
 
 router.delete('/', async (req, res) => {
-  const {id, productId} = req.query;
-  try {
-      const user: any = await User.findById(id);
-      const deleted = await user.wishlist.filter((m: string) => m !== productId)
-      await User.findByIdAndUpdate({_id: id}, {wishlist: deleted});
-      const userdos = await User.findById(id, ['wishlist'])
+    const {id, productId} = req.query;
+    try {
+        const user: any = await User.findById(id);
+        const deleted = await user.wishlist.filter((m: any) => m._id.toString() !== productId)
+        await User.findByIdAndUpdate({_id: id}, {wishlist: deleted});
+        const userdos = await User.findById(id, ['wishlist'])
 
-      res.status(200).json(userdos)
-  }
-  catch(error){
-      res.status(500).json({message: 'Error'});
-  }
+        res.status(200).json(userdos)
+    }
+    catch(error){
+        res.status(500).json({message: 'Error'});
+    }
 }
 );
 
