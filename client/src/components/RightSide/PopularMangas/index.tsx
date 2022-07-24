@@ -1,7 +1,7 @@
-import '../../../../scss/RightSide/PopularMangas.scss';
-import { useAppDispatch, useAppSelector } from './../../../../app/hooks';
+import '../../../scss/RightSide/PopularMangas.scss';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useEffect } from 'react';
-import { fetchAllManga } from './../../../../features/manga/mangaSlice';
+import { fetchAllManga } from '../../../features/manga/mangaSlice';
 import { GoFlame } from 'react-icons/go';
 
 const PopularMangas = () => {

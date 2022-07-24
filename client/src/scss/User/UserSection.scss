@@ -1,8 +1,11 @@
 .user-container {
   display: grid;
-  grid-template-rows: 40% 1fr 1fr;
+  grid-template-rows: 40% 1fr auto;
   color: var(--light--200);
   overflow: hidden;
+  text-align: center;
+  /* flex-shrink: 0; */
+  height: 210px;
 
   .banner {
     position: relative;

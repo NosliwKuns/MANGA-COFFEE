@@ -3,7 +3,57 @@
   flex-direction: column;
   overflow: hidden;
   transition: width .4s ease-in-out;
-  /* padding-bottom: 2em; */
+
+  .logo {
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    height: 60px;
+    line-height: 68px;
+    letter-spacing: 4px;
+    background: var(--dark--800);
+    /* position: sticky; */
+    /* top: 0; */
+  
+  }
+
+  .side-wrapper {
+    padding: 30px;
+
+    .side-title {
+      font-family: "DM Sans", sans-serif;
+      color: #5c5e6e;
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .side-menu {
+      display: flex;
+      flex-direction: column;
+      font-size: 17px;
+      white-space: nowrap;
+
+      a {
+        font-family: "DM Sans", sans-serif;
+        /* font-weight: 600; */
+        text-decoration: none;
+        color: #9c9cab;
+        display: flex;
+        align-items: center;
+      }
+
+      a:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      svg {
+        margin-right: 16px;
+      }
+    }
+  }
 
   .icons {
     color: var(--light);

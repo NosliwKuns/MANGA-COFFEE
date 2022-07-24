@@ -18,7 +18,13 @@ const UserButtons = ({ setProduct, product }: Props) =>{
         setOpen(!open)
     }
     return(
-        <div>
+        <div className="user-buttons">
+            <ShoppingCard 
+                open={open}
+                setOpen={setOpen}
+                product={product} 
+                setProduct={setProduct} 
+            />
             <span>
                 <Link to='/user/fav'><span><IoIosHeart size={28} color={'#9394A9'} /></span></Link>
             </span>
@@ -28,12 +34,6 @@ const UserButtons = ({ setProduct, product }: Props) =>{
             <span onClick={openShoppingCart}>
                 <FaShoppingCart size={26} color={'#9394A9'} />
             </span>
-            <ShoppingCard 
-                open={open}
-                setOpen={setOpen}
-                product={product} 
-                setProduct={setProduct} 
-            />
             <div 
                 className={open ? "overlay" : "hidden-overlay"}
                 onClick={openShoppingCart}
