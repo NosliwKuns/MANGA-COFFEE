@@ -2,15 +2,15 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector} from '../../../app/hooks';
 import useHeaders from "../../../app/headers";
 import { Link } from 'react-router-dom'
-import { FetchGetWishlist, fetchDeleteFavorites } from '../../../features/user/userSlice'
+import { FetchGetWishlist, fetchDeleteWishlist } from '../../../features/user/userSlice'
 
 const WishList = () => {
     const dispatch= useAppDispatch();
     const { id, wishlist, token} = useAppSelector(state=> state.user)
     const headers = useHeaders(token)
 
-    const handleClick = (mangaid: any) => {
-        // dispatch(fetchDeleteFavorites(id, mangaid, headers))
+    const handleClick = (productId: any) => {
+        dispatch(fetchDeleteWishlist(id, productId, headers))
         dispatch(FetchGetWishlist(id, headers))
     }
 
@@ -23,7 +23,7 @@ const WishList = () => {
             return(
                 <div>
                     <button onClick={() => handleClick(p._id)}>X</button>
-                    <Link to={`/mangas/detail/${p._id}`}>
+                    <Link to={`/product/${p._id}`}>
                         <div key={p._id}>
                         <section>
                             <img src={`${p.product_image}`} alt={`cover_page_${p._id}`} height={'200px'} />

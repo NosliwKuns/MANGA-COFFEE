@@ -19,7 +19,7 @@ router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     const { id, productId } = req.query;
     try {
         const user = yield User_1.default.findById(id);
-        const deleted = yield user.wishlist.filter((m) => m !== productId);
+        const deleted = yield user.wishlist.filter((m) => m._id.toString() !== productId);
         yield User_1.default.findByIdAndUpdate({ _id: id }, { wishlist: deleted });
         const userdos = yield User_1.default.findById(id, ['wishlist']);
         res.status(200).json(userdos);
