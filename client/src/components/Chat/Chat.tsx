@@ -51,6 +51,13 @@ const Chat = () => {
   
   return (
     <div className={user.user? "chat-container" : "blur"}>
+      {
+        user.user ?
+        <h6 className="welcome-text">Hola <b>{user.user}</b>, <br/>
+        saluda y conoce gente de todo el mundo</h6>
+        :
+        <h3>Hola, saluda y conoce gente de todo el mundo</h3>
+      }
       
         <ScrollToBottom>
           {messageList.map((messageContent : any) => {
@@ -58,7 +65,8 @@ const Chat = () => {
               <div
                 id={user.user === messageContent.author ? "you" : "other"}
               >
-                <div className='burbuja'>
+               
+               <div className='burbuja'>
                 <div className="author">
                     <p id="author">{
                       user?

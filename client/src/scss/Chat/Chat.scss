@@ -56,8 +56,12 @@
   overflow-y: auto;
   color: aliceblue;
   padding-bottom: 48px;
+  padding-top: 20px;
   
-
+.welcome-text{
+  color: #ffffff;
+  padding-bottom: 20px;
+}
   .bar-Send{
     display: flex;
     justify-content: space-between;
@@ -106,6 +110,9 @@
 
   }
 
+}
+#other{
+  justify-content: flex-start;
 }
 #other .burbuja{
   background-color: #00ff15;
@@ -164,16 +171,16 @@
 
 
 
-
 #you .burbuja{
+  margin-left: auto;
   background-color: #ff9900;
   border-radius: 5px;
   padding: 20px;
   margin-left: 15px;
   margin-bottom: 10px;
   width: fit-content;
-  position: relative;
-
+  justify-content: flex-end;
+  position: absolute;
   &:after{
     content: "";
     position: absolute;
@@ -182,9 +189,9 @@
     height: 0;
     border-top: 0px solid transparent;
     border-bottom: 15px solid transparent;
-    border-right: 15px solid #ff9900;
+    border-left: 15px solid #ff9900;
     top: 0px;
-    left: -12px;
+    right: -12px;
   }
   .author{
     position: absolute;
