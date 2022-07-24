@@ -16,7 +16,7 @@ const Favorites = () =>{
     const handleClick = (mangaid: any) => {
         const MySwal = withReactContent(Swal)
     MySwal.fire({
-        html: <><RiErrorWarningFill size={55}/> <h1>Are you sure you want to delete this Manga fron favorites?</h1><h3>You won't be able to revert this!</h3></>,
+        html: <><RiErrorWarningFill size={55}/> <h1>Are you sure you want to delete this Manga from favorites?</h1><h3>You won't be able to revert this!</h3></>,
         showCloseButton: true,
         focusConfirm: false,
         showCancelButton: true,
@@ -31,10 +31,8 @@ const Favorites = () =>{
         }
     }).then((result) => {
         if (result.isConfirmed) {
-        if (mangaid === id) {
             dispatch(fetchDeleteFavorites(id, mangaid, headers))
             dispatch(getFavManga(id, headers))
-        }
         MySwal.fire({
             icon: 'success',
             html: <><h1>Deleted!</h1><h3>This Manga has been deleted successfully.</h3></>,
