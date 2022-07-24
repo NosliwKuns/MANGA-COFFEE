@@ -30,14 +30,14 @@ const SideBar = () =>{
             </div>
             <Link to='/' className="icons">
                 <IoMdHome 
-                    size={31}
+                    size={27}
 					color={'#fff'}
                 /> 
                 <h2>Home</h2>
             </Link>
             <Link to='/shop' className="icons">
                 <IoStorefront
-					size={28}
+					size={23}
 					color={'#fff'}
 				/>
                 <h2>Shop</h2>
@@ -45,14 +45,14 @@ const SideBar = () =>{
 
             <div className="icons popular">
                 <GoFlame
-                    size={30}
+                    size={26}
                     color={'#fff'}
                 />
                 <h2>Popular</h2>
             </div>
-            {
+            {/* {
                 transform ? <div className="cap"><PopularMangas /></div> : ""
-            }
+            } */}
             
 {/*             <Link to='/categories'>
                 <AiTwotoneAppstore 

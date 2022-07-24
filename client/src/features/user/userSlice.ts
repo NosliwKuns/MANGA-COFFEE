@@ -292,7 +292,7 @@ export const FetchFavoriteMangas = (
       },
       headers
     );
-    dispatch(favoriteMangas(data.favorites));
+    dispatch(favoriteMangas(data.docs));
   };
 };
 

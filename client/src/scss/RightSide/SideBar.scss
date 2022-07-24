@@ -3,21 +3,19 @@
   flex-direction: column;
   overflow: hidden;
   transition: width .4s ease-in-out;
-  padding-bottom: 2em;
+  /* padding-bottom: 2em; */
 
   .icons {
     color: var(--light);
     display: flex;
     gap: 1.2em;
     align-items: center;
-    padding: 1em;
-    padding-left: 1.5em;
     transition: padding  .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
     animation: icon .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
     h2 {
-      font-weight: 500;
-      font-size: 1.2em;
+      font-weight: 600;
+      font-size: 15px;
     }
   }
 

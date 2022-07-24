@@ -22,7 +22,7 @@ const Detail = () => {
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
   console.log(favorites, "jue[")
-  let fav = favorites.find(e => e._id === params.id)
+  let fav = favorites?.find(e => e._id === params.id) ? true : false
   console.log(fav, 'fav')
 
   const handleClick = () => {
