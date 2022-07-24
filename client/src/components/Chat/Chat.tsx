@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import  ScrollToBottom from "react-scroll-to-bottom";
 import '../../scss/Chat/Chat.scss';
 const socket = io('http://localhost:5000');
+import { BiMailSend } from 'react-icons/bi';
 
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -26,6 +27,8 @@ const Chat = () => {
       setCurrentMessage("");
     }
   };
+  
+  
 
   useEffect(() => {
     socket.on("receive_message", (data : any) => {
@@ -41,40 +44,37 @@ const Chat = () => {
   
   return (
     <div className="chat-container">
-      <div>
-        <p>Live Chat</p>
-      </div>
+      
         <ScrollToBottom>
           {messageList.map((messageContent : any) => {
             return (
               <div
                 id={username === messageContent.author ? "you" : "other"}
               >
-                <div>
-                  <div>
+                <div className='burbuja'>
+                <div className="author">
+                    <p id="author">{messageContent.author}</p>
+                    </div>
+                  <div className="message">
                     <p>{messageContent.message}</p>
                   </div>
-                  <div>
+                  <div className='info-send'>
+
+                    <div className="time">
                     <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             );
           })}
+         
+         
         </ScrollToBottom>
-      <input
-            type="text"
-            placeholder="Nickname..."
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-    <div>
-      <div>
-      <div>
-        <input
+        <div className="bar-Send">
+           <input
           type="text"
+          className='input-Send'
           value={currentMessage}
           placeholder="Message..."
           onChange={(e) => {
@@ -84,10 +84,11 @@ const Chat = () => {
             event.key === "Enter" && sendMessage();
           }}
         />
-        <button onClick={sendMessage}>Send</button>
+        <button className="btn-Send" onClick={sendMessage}>
+          <BiMailSend />
+        </button>
+        
       </div>
-      </div>
-    </div>
     </div>
   );
 }
