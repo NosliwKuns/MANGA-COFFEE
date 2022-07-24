@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700|Source+Sans+Pro:300,400,600,700&display=swap");
+
 :root {
   /* fonts */
-  /* --primary-font: 'Trebuchet MS', 'sans-serif';
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif; */
+  --primary-font: "Source Sans Pro", sans-serif;
+  font-family: --primary-font;
 
   /* colors */
   --primary: #EA374B;

@@ -12,7 +12,7 @@ import Verificate from './components/Verificate';
 import Detail from './components/Detail/Detail';
 import UserDetail from './components/UseDetail';
 import Logeo from './components/Logeo/Logeo';
-import SideBar from './components/RightSide/SideBar';
+import SideBar from './components/SideBar';
 import User from './components/User/User';
 import Chat from './components/Chat/Chat';
 import Home from './components/Home';
@@ -78,21 +78,22 @@ function App() {
         <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
         <h3 onClick={() => window.location.replace('/')}>MC</h3>
       </div> */}
-      <SearchAndFilter 
-        appear={appear}
-        setAppear={setAppear}
-        setGenre={setGenre}
-        setPage={setPage}
-        setQuery={setQuery}
-      />
-      <div className="three">
-        <UserButtons product={product} setProduct={setProduct}/>
-      </div>
       <SideBar />
-      <AnimatePresence exitBeforeEnter>
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<DiscoverHome/>} />
-        <Route path="/shop" element={
+      
+      <div className="five">
+        <SearchAndFilter 
+          appear={appear}
+          setAppear={setAppear}
+          setGenre={setGenre}
+          setPage={setPage}
+          setQuery={setQuery}
+
+        />
+
+        <AnimatePresence exitBeforeEnter>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<DiscoverHome/>} />
+          <Route path="/shop" element={
           <Shop 
           product={product} 
           setProduct={setProduct} 
@@ -101,43 +102,42 @@ function App() {
           genreShop= {genreShop}
           queryShop= {queryShop}
           setSearchParams={setSearchParams}/>} />
-        <Route path="/mangas" element={
-          <CatalogMangas
-            setPage={setPage}
-            query={query}
-            genre={genre}
-            setSearchParams={setSearchParams}
-            res={res}
-          />} 
-        />
-        {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
-        <Route path="/mangas/detail/:id" element={<Detail/>} />
-        <Route path='/logeo' element={<Logeo/>}/>
-        <Route path='/registration' element={<Registration/>}/>
-        <Route path='/user' element={<User/>}/>
-        <Route path='/userDetail' element={<UserDetail/>}/>
-        <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
-        <Route path='/user/fav' element={<Favorites/>} />
-        <Route path='/user/wishlist' element={<WishList/>} />
-        <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
-        <Route path='/categories' element={<Categories/>} />
-        <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
-        <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
-        <Route path='/history' element={<h1>I'm the History component</h1>} />
-        <Route path="/product/:id" element={<ProductDetail product={product} setProduct={setProduct}/>} />
-        <Route path="/categories/:genre" element={<SelectedCategories/>} />
-        <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
-        <Route path='/verificateUser/:id' element={<Verificate/>}/>
-        <Route path='/rename' element={<RenamePassword/>}/>
-        <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
-        <Route path='/shoppingTime' element={<BuyShopping/>}/>
-        <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
-      </Routes>
-      </AnimatePresence>
-      <div className="six">
-        <User/>
-        <Chat/>
+          <Route path="/mangas" element={
+            <CatalogMangas
+              setPage={setPage}
+              query={query}
+              genre={genre}
+              setSearchParams={setSearchParams}
+              res={res}
+            />} 
+          />
+          {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
+          <Route path="/mangas/detail/:id" element={<Detail/>} />
+          <Route path='/logeo' element={<Logeo/>}/>
+          <Route path='/registration' element={<Registration/>}/>
+          <Route path='/user' element={<User/>}/>
+          <Route path='/userDetail' element={<UserDetail/>}/>
+          <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
+          <Route path='/user/fav' element={<Favorites/>} />
+          <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
+          <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
+          <Route path='/categories' element={<Categories/>} />
+          <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
+          <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
+          <Route path='/history' element={<h1>I'm the History component</h1>} />
+          <Route path="/product/:id" element={<ProductDetail product={product} setProduct={setProduct}/>} />
+          <Route path="/categories/:genre" element={<SelectedCategories/>} />
+          <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
+          <Route path='/verificateUser/:id' element={<Verificate/>}/>
+          <Route path='/rename' element={<RenamePassword/>}/>
+          <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
+          <Route path='/shoppingTime' element={<BuyShopping/>}/>
+          <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
+        </Routes>
+        </AnimatePresence>
+
       </div>
+      <RightSide product={product} setProduct={setProduct}/>
     </div>
   )
 }
