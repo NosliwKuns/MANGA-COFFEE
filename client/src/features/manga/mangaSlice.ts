@@ -206,7 +206,7 @@ const initialState: InitialState = {
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
-      const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       dispatch(commentDelete(data.comments))
     }
   };

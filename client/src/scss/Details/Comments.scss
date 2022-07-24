@@ -30,3 +30,44 @@
     }
   }
 }
+
+.text {
+  color: #FFF;
+  width: 100px;
+}
+
+.confirmButton {
+  background: var(--primary);
+  color: #FFF;
+  border: none;
+  height: 30px;
+  width: 70px;
+  border-radius: 100vh;
+  font-size: 17px;
+}
+
+.divSignIn {
+  cursor: pointer;
+}
+
+.confirmButtonDelete {
+  background: var(--primary);
+  color: #FFF;
+  border: none;
+  height: 32px;
+  width: 130px;
+  border-radius: 100vh;
+  font-size: 17px;
+  margin-right: 10px;
+}
+
+.cancelButtonDelete {
+  background: rgb(73, 71, 71);
+  color: #FFF;
+  border: none;
+  height: 32px;
+  width: 130px;
+  border-radius: 100vh;
+  font-size: 17px;
+  margin-left: 10px;
+}
