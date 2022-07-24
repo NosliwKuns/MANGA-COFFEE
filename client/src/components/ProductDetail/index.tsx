@@ -5,6 +5,11 @@ import { fetchDetailManga } from '../../features/products/productsSlice';
 import { FetchAddToWishlist } from '../../features/user/userSlice';
 import { IoIosHeart } from "react-icons/io";
 import useHeaders from "../../app/headers";
+import { BsFillInfoCircleFill } from 'react-icons/bs'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from 'react-router-dom';
+import '../../scss/Shop/ProductDetail.scss'
 
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
@@ -13,6 +18,7 @@ type Props = {
 const ProductDetail = ({ setProduct, product }: Props) => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { productDetail } = useAppSelector(state => state.products)
   const { token, user, verificated } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
@@ -52,11 +58,37 @@ const ProductDetail = ({ setProduct, product }: Props) => {
 
   const handleClick = () => {
     if(user && !verificated) {
-        alert('Please verify your account!')
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          'Ok',
+        confirmButtonAriaLabel: 'Ok',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
     } else if(user && verificated) {
       dispatch(FetchAddToWishlist(userId, id, headers))
     } else if(!user && !verificated){
-        alert('To add Manga to favorites, you must Sign In!')
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>To add this product to the wishlist, you must Sign In!</h2></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          <div onClick={() => navigate("/logeo", { replace: true })} className="divSignIn">Sign In</div>,
+        confirmButtonAriaLabel: 'Sign In',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
     }
 }
 

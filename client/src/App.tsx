@@ -35,6 +35,7 @@ import RenamePassword from './components/Registration/RenamePassword/email';
 import RenamePass from './components/Registration/RenamePassword/password';
 import BuyShopping from './components/BuyProduct/BuyShopping';
 import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
+import WishList from './components/User/WishList/WishList'
 
 
 axios.defaults.baseURL = "http://localhost:5000/api/manga";
@@ -103,7 +104,7 @@ function App() {
         <Route path='/userDetail' element={<UserDetail/>}/>
         <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
         <Route path='/user/fav' element={<Favorites/>} />
-        <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
+        <Route path='/user/wishlist' element={<WishList/>} />
         <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
         <Route path='/categories' element={<Categories/>} />
         <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />

@@ -13,10 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const passport_1 = __importDefault(require("passport"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post("/addToWishlist/:_id", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/addToWishlist/:_id", passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { _id } = req.params;
     const { productsId } = req.body;
     try {
@@ -24,10 +25,8 @@ router.post("/addToWishlist/:_id", (req, res, next) => __awaiter(void 0, void 0,
         const Productos = yield index_1.default.findById({ _id: productsId });
         if (!Usuarios.wishlist.includes(Productos._id)) {
             Usuarios.wishlist.push(Productos);
-            const user = yield User_1.default.findById(_id);
-            res.status(200).json(user);
-            // await Usuarios.save();
-            // res.status(200).send("producto agregado a la wishlist");
+            yield Usuarios.save();
+            res.status(200).send(Usuarios);
         }
         else {
             res.status(200).send("el producto ya esta en la lista de deseos");
