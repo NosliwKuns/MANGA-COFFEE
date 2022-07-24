@@ -83,11 +83,11 @@ export const sendAdvertising = (
   imagess: any
 ): AppThunk => {
   const image = new FormData();
-console.log(image , 'img')
-console.log(input , '==========')
+  console.log(image, "img");
+  console.log(input, "==========");
   image.append("subject", input.subject);
   image.append("msg", input.msg);
-  image.append("image", imagess[0])
+  image.append("image", imagess[0]);
   return async () => {
     const { data } = await axios.post(
       "http://localhost:5000/api/user/adminmails",
@@ -106,8 +106,8 @@ export const createMangaAdmin = (
   genres: any
 ): AppThunk => {
   return async () => {
-    console.log(image)
-    console.log(files)
+    console.log(image);
+    console.log(files);
     const books = new FormData();
     for (let i = 0; i < files.length; i++) {
       books.append("books", files[i]);
@@ -122,6 +122,28 @@ export const createMangaAdmin = (
 
     const { data } = await axios.post(
       "http://localhost:5000/api/manga",
+      books,
+      headers
+    );
+    return data;
+  };
+};
+
+export const addChapterManga = (
+  headers: object,
+  id: string,
+  files: any
+): AppThunk => {
+  return async () => {
+    const books = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      books.append("books", files[i]);
+      console.log(books);
+    }
+    books.append("files", files);
+    books.append("idManga", id);
+    const { data } = await axios.put(
+      "http://localhost:5000/api/manga/admin/addchapter",
       books,
       headers
     );
