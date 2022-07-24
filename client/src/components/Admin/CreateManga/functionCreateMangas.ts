@@ -34,7 +34,7 @@ export const validate = (input: any) => {
   const error = {
     title: "",
     description: "",
-    rating: "",
+    // rating: "",
     chapter: "",
   };
   let regExpCha = /^[0-9]*$/;
@@ -50,10 +50,10 @@ export const validate = (input: any) => {
   if (!input.description) {
     error.description = "insert a description";
   }
-  if (!input.rating) {
-    error.rating = "insert a rating";
-  } else if (!(input.rating >= 0 && input.rating <= 5)) {
-    error.rating = "insert a value from 0 to 5";
-  }
+  // if (!input.rating) {
+  //   error.rating = "insert a rating";
+  // } else if (!(input.rating >= 0 && input.rating <= 5)) {
+  //   error.rating = "insert a value from 0 to 5";
+  // }
   return error;
 };

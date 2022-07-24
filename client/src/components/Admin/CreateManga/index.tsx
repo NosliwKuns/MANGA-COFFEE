@@ -27,14 +27,14 @@ const CreateManga = () => {
   const [input, setInput] = useState({
     title: "",
     description: "",
-    rating: "",
+    // rating: "",
     chapter: "",
   });
   console.log(input);
   const [errors, setErrors] = useState<any>({
     title: "",
     description: "",
-    rating: "",
+    // rating: "",
     chapter: "",
   });
   const dispatch = useAppDispatch();
@@ -113,7 +113,7 @@ const CreateManga = () => {
           />
           {errors.description && <span>{errors.description}</span>}
         </div>
-        <div>
+        {/* <div>
           <label>Rating :</label>
           <input
             type="text"
@@ -122,7 +122,7 @@ const CreateManga = () => {
             onChange={handleChange}
           />
           {errors.rating && <span>{errors.rating}</span>}
-        </div>
+        </div> */}
         <div>
           <label>Chapter :</label>
           <input
