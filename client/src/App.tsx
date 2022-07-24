@@ -63,7 +63,7 @@ function App() {
   );
   const resShop = useFetch(
     queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&genres=${genreShop}` : ""
-    );
+  );
 
   useEffect(()=>{
     if(user){
@@ -135,9 +135,9 @@ function App() {
           <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
         </Routes>
         </AnimatePresence>
-
       </div>
       <RightSide product={product} setProduct={setProduct}/>
+      <Chat />
     </div>
   )
 }

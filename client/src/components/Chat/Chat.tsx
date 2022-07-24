@@ -13,7 +13,8 @@ const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   //const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
-
+  const [minimized, setMinimized] = useState(false);
+ 
   const user: InitialState = useAppSelector((state) => state.user);
 
   const sendMessage = () => {
@@ -48,19 +49,26 @@ const Chat = () => {
       });
     });
   }, [socket]);
+
+  const minimizedChat = () => {
+    setMinimized(!minimized)
+  }
   
   return (
-    <div className={user.user? "chat-container" : "blur"}>
-      {
-        user.user ?
-        <h6 className="welcome-text">Hola <b>{user.user}</b>, <br/>
-        saluda y conoce gente de todo el mundo</h6>
-        :
-        <h6 className="welcome-text">
-          Saluda y conoce gente de todo el mundo
-        </h6>
-      }
-      
+    <div className={/* user.user ? "chat-container" : "blur" */ minimized ? "chat-container" : "chat-container is-minimized"}>
+      <div className='chat-up' onClick={minimizedChat}>
+        {
+          user.user ?
+          <h6 className="welcome-text">Hola <b>{user.user}</b>, <br/>
+          saluda y conoce gente de todo el mundo</h6>
+          :
+          <h6 className="welcome-text">
+            Saluda y conoce gente de todo el mundo
+          </h6>
+        }
+      </div>
+
+      <div className={user.user ? "chat-content" : "chat-content blur"}>
         <ScrollToBottom>
           {messageList.map((messageContent : any) => {
             return (
@@ -93,6 +101,7 @@ const Chat = () => {
             );
           })}
         </ScrollToBottom>
+      </div>
         {
           user.user ?
           <div className="bar-Send">
