@@ -19,9 +19,14 @@ import {
   fetchDeleteFavorites,
 } from "./../../features/user/userSlice";
 import { addChapterManga } from "../../features/admin/adminSlice";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { BsFillInfoCircleFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const Detail = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const params: any = useParams();
   const [add, setAdd] = useState(false);
   const [files, setFiles] = useState();
@@ -52,13 +57,39 @@ const Detail = () => {
 
   const handleClick = () => {
     if (user && !verificated) {
-      alert("Please verify your account!");
+      const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          confirmButtonText:
+            'Ok',
+          confirmButtonAriaLabel: 'Ok',
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
     } else if (user && verificated && !fav) {
       dispatch(FetchFavoriteMangas(userId, manga._id, headers));
     } else if (user && verificated && fav) {
       dispatch(fetchDeleteFavorites(userId, params.id, headers));
     } else if (!user && !verificated) {
-      alert("To add Manga to favorites, you must Sign In!");
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>To add this Manga to favorites, you must Sign In!</h2></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          <div onClick={() => navigate("/logeo", { replace: true })} className="divSignIn">Sign In</div>,
+        confirmButtonAriaLabel: 'Sign In',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
     } /* else if(favorites.find(e => e._id === params.id)) */
   };
 
