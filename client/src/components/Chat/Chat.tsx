@@ -82,7 +82,9 @@ const Chat = () => {
             );
           })}
         </ScrollToBottom>
-        <div className="bar-Send">
+        {
+          user.user ?
+          <div className="bar-Send">
           <input
          type="text"
          className='input-Send'
@@ -100,6 +102,27 @@ const Chat = () => {
        </button>
        
      </div>
+     :
+     <div className="bar-Send">
+          <input
+         type="text"
+         className='input-Send'
+         value={currentMessage}
+         placeholder="Message..."
+         disabled={true}
+         onChange={(e) => {
+           setCurrentMessage(e.target.value);
+         }}
+         onKeyPress={(event) => {
+           event.key === "Enter" && sendMessage();
+         }}
+       />
+       <button className="btn-Send" onClick={sendMessage}>
+         <BiMailSend />
+       </button>
+       
+     </div>
+        }
     </div>
   );
 }
