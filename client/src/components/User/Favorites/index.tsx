@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RiErrorWarningFill } from 'react-icons/ri';
+import NotFavOrWish from "../NotFavOrWish";
+import '../../../scss/User/notFavOrWish.scss'
 
 
 
@@ -69,7 +71,9 @@ const Favorites = () =>{
     },[dispatch, id])
 
     return(
-        <div>{favorites?.map(f=>{
+        <div className='fav'>{
+            favorites.length?
+            favorites?.map(f=>{
             return(
                 <div>
                     <button onClick={() => handleClick(f._id)}>X</button>
@@ -84,7 +88,10 @@ const Favorites = () =>{
                 </div>
             )
             
-        })}</div>
+        })
+        : <NotFavOrWish/>
+        }
+        </div>
     )
 }
 
