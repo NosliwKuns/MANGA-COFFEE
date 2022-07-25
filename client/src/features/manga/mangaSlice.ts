@@ -132,7 +132,7 @@ const initialState: InitialState = {
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/manga/${id}`)
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/${id}`)
       dispatch(getDetailManga(data))
     }
   };
@@ -206,7 +206,7 @@ const initialState: InitialState = {
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
-      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       dispatch(commentDelete(data.comments))
     }
   };

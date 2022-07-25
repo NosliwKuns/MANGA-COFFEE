@@ -5,7 +5,7 @@ import { InitialState, logOut } from "../../features/user/userSlice";
 import { useState, useEffect } from 'react';
 import  ScrollToBottom from "react-scroll-to-bottom";
 import '../../scss/Chat/Chat.scss';
-const socket = io('http://localhost:5000');
+const socket = io('https://manga-coffee.herokuapp.com');
 import { BiMailSend } from 'react-icons/bi';
 
 
