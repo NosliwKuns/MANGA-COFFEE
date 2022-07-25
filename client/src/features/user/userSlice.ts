@@ -480,34 +480,7 @@ export const fetchDeleteWishlist = (
   };
 };
 
-export const editInformation = (
-  headers: object,
-  edit: any,
-  token: string
-): AppThunk => {
-  const books = new FormData();
-  books.append("telephone", edit.phone);
-  books.append("name", edit.name_user);
-  books.append("lastname", edit.last_user);
-  books.append("token", token);
 
-  const address: any = {
-    country: edit.country_user,
-    direction: edit.direction_user,
-    reference: edit.reference,
-    postalCode: edit.postal_code,
-  };
-  books.append("address", address);
-
-  return async () => {
-    const { data } = await axios.put(
-      "http://localhost:5000/api/user/update",
-      books,
-      headers
-    );
-    return data;
-  };
-};
 
 export const preViewhistoryBuy = (headers: object): AppThunk => {
   return async () => {
@@ -545,6 +518,30 @@ export const editProfileAction = (
   books.append("user_image",image[0])
   books.append("user_banner",banner[0])
   books.append("token",token)
+  return async () => {
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/update",
+      books,
+      headers
+    );
+    return data;
+  };
+};
+export const editInformation = (
+  headers: object,
+  edit: any,
+  token: string
+): AppThunk => {
+  const books = new FormData();
+  books.append("telephone", edit.phone);
+  books.append("name", edit.name_user);
+  books.append("lastname", edit.last_user);
+  books.append("country", edit.country_user);
+  books.append("direction", edit.direction_user);
+  books.append("reference", edit.reference);
+  books.append("postalCode", edit.postal_code);
+  books.append("token", token);
+  console.log(books)
   return async () => {
     const { data } = await axios.put(
       "http://localhost:5000/api/user/update",
