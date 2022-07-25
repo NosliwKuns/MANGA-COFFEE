@@ -65,8 +65,10 @@ function App() {
     query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
   );
   const resShop = useFetch(
-    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&genres=${genreShop}` : ""
+    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}` : ""
   );
+  console.log('RES SHOOOOOP', resShop);
+  
 
   useEffect(()=>{
     if(user){
@@ -97,14 +99,19 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<DiscoverHome/>} />
           <Route path="/shop" element={
-          <Shop 
-          product={product} 
-          setProduct={setProduct} 
-          resShop={resShop}
-          setPageShop= {setPageShop}
-          genreShop= {genreShop}
-          queryShop= {queryShop}
-          setSearchParams={setSearchParams}/>} />
+            <Shop 
+            product={product} 
+            setProduct={setProduct} 
+            resShop={resShop}
+            pageShop={pageShop}
+            setPageShop= {setPageShop}
+            genreShop= {genreShop}
+            queryShop= {queryShop}
+            setSearchParams={setSearchParams}
+            setGenreShop={setGenreShop}
+            setQueryShop={setQueryShop} 
+            colorF={colorF}
+            setColorF={setColorF}/>} />
           <Route path="/mangas" element={
             <CatalogMangas
               setGenre={setGenre}
