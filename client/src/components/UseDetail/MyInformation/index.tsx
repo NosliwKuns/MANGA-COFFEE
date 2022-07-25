@@ -1,4 +1,7 @@
 import { useState } from "react";
+import useHeaders from "../../../app/headers";
+import { useAppDispatch } from "../../../app/hooks";
+import { editInformation } from "../../../features/user/userSlice";
 import { validate } from "./func/validate";
 
 const MyInformation = () => {
@@ -16,6 +19,8 @@ const MyInformation = () => {
     address: { country, direction, postalCode, reference :reference_user },
   } = JSON.parse(userCopy);
   const [edit, setEdit] = useState(false);
+  const dispatch = useAppDispatch()
+  const headers = useHeaders(token)
   const phone = telephone ? telephone : "What's your phone number?";
   const name_user = name.length ? name : "What's your name ?";
   const last_user = lastname.length ? lastname : "What's your surname ?";
@@ -58,19 +63,22 @@ const MyInformation = () => {
     );
   };
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     const userCopy: any = window.localStorage.getItem("copySliceUser");
     const copyUser = JSON.parse(userCopy);
-    copyUser.telephone= input.phone
-    copyUser.name= input.name_user
-    copyUser.lastname= input.last_user
-    copyUser.address.country= input.country_user
-    copyUser.address.direction= input.direction_user
-    copyUser.address.postalCode= input.postal_code
-    copyUser.address.reference= input.reference
-    window.localStorage.setItem("copySliceUser", JSON.stringify(copyUser));
+    copyUser.telephone= input.phone[0]
+    copyUser.name= input.name_user[0]
+    copyUser.lastname= input.last_user[0]
+    copyUser.address.country= input.country_user[0]
+    copyUser.address.direction= input.direction_user[0]
+    copyUser.address.postalCode= input.postal_code[0]
+    copyUser.address.reference= input.reference[0]
+
+    const verificated = await dispatch(editInformation(headers,input,token))
+    //
+    window.localStorage.setItem("copySliceUser", JSON.stringify(verificated));
     window.location.reload();
   }
   return (

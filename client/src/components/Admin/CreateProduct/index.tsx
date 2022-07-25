@@ -1,7 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useHeaders from "../../../app/headers";
+import { useAppDispatch } from "../../../app/hooks";
+import { allProductsCreate } from "../../../features/admin/adminSlice";
 import { validate } from "./func/validate";
 
 const CreateProduct = () => {
+  const [allProducts, setAllProducts] = useState()
+  const [allTitles, setAllTitles] = useState()
+  console.log(allProducts  , "????????????????")
+  console.log(allTitles ,"????????????????????")
+
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -16,6 +24,21 @@ const CreateProduct = () => {
     stock: "",
   });
   const [image, setImage] = useState();
+  const dispatch = useAppDispatch();
+  const userCopy: any = window.localStorage.getItem("copySliceUser");
+  const {
+    token,
+    user,
+    admin,
+    user_image,
+    user_banner,
+    user_description,
+    telephone,
+    name,
+    lastname,
+    address: { country, direction, postalCode, reference :reference_user },
+  } = JSON.parse(userCopy);
+  const headers = useHeaders(token)
   const handleChange = (event: any) => {
     console.log(event);
     setInput({
@@ -36,6 +59,16 @@ const CreateProduct = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
   };
+
+  async function allProductsAndTile () {
+    const verificated :any = await dispatch(allProductsCreate(headers))
+    setAllTitles(verificated.titles)
+    setAllProducts(verificated.category)
+  }
+
+  useEffect(()=>{
+    allProductsAndTile()
+  },[])
   return (
     <div>
       <form onSubmit={handleSubmit}>
