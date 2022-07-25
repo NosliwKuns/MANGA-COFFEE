@@ -109,7 +109,7 @@ const initialState: InitialState = {
 };
 
 //! =====================================
-const userSlice :any = createSlice({
+const userSlice  = createSlice({
   //! =====================================
   name: "user",
   initialState,
