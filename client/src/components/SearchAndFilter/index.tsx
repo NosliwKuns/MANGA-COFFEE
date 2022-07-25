@@ -36,7 +36,6 @@ const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF }: Props) => {
             }
           }}>Mangas</span>
           </Link>
-          <span >Hola</span>
         </section>
         {/* <section className="display">
           <h2>WishList</h2>
