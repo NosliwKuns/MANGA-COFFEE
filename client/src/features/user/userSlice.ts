@@ -471,6 +471,27 @@ export const fetchDeleteWishlist = (id: string, productId: string, headers: obje
   };
 };
 
+export const editInformation = (headers :object , edit : any , token:string):AppThunk => {
+  const books = new FormData()
+  books.append("telephone",edit.phone)
+  books.append("name",edit.name_user)
+  books.append("lastname",edit.last_user)
+  books.append("token",token)
+
+  const address :any = {
+    country : edit.country_user ,
+    direction : edit.direction_user ,
+    reference : edit.reference ,
+    postalCode : edit.postal_code
+  }
+  books.append("address",address)
+
+  return async () => {
+    const {data} = await axios.put("http://localhost:5000/api/user/update",books,headers)
+    return data
+  }
+}
+
 
 export default userSlice.reducer;
 

@@ -151,6 +151,13 @@ export const addChapterManga = (
   };
 };
 
+export const allProductsCreate = (headers:object) : AppThunk => {
+  return async () =>{
+    const {data} = await axios.get("http://localhost:5000/api/user/admin?type=products",headers)
+    return data
+  }
+} 
+
 export default adminSlice.reducer;
 
 export const { initUsers } = adminSlice.actions;
