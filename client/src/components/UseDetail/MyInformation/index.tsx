@@ -33,13 +33,13 @@ const MyInformation = () => {
     ? reference_user
     : "can you give us a reference? it would help us a lot !";
   const [input, setInput] = useState({
-    phone,
-    name_user,
-    last_user,
-    country_user,
-    direction_user,
-    postal_code,
-    reference ,
+    phone : "",
+    name_user: "",
+    last_user: "",
+    country_user: "",
+    direction_user: "",
+    postal_code: "",
+    reference : "",
   });
   const [error, setError] = useState({
     phone: "",
@@ -65,19 +65,9 @@ const MyInformation = () => {
 
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-
-    const userCopy: any = window.localStorage.getItem("copySliceUser");
-    const copyUser = JSON.parse(userCopy);
-    copyUser.telephone= input.phone[0]
-    copyUser.name= input.name_user[0]
-    copyUser.lastname= input.last_user[0]
-    copyUser.address.country= input.country_user[0]
-    copyUser.address.direction= input.direction_user[0]
-    copyUser.address.postalCode= input.postal_code[0]
-    copyUser.address.reference= input.reference[0]
-
-    // const verificated = await dispatch(editInformation(headers,input,token))
-    window.localStorage.setItem("copySliceUser", JSON.stringify(copyUser));
+    const verificated = await dispatch(editInformation(headers,input,token))
+    console.log(verificated)
+    window.localStorage.setItem("copySliceUser", JSON.stringify(verificated));
     window.location.reload();
   }
   return (
@@ -94,6 +84,7 @@ const MyInformation = () => {
               type="text"
               name="phone"
               value={input.phone}
+              placeholder={phone}
               onChange={handleChange}
             />
           ) : (
@@ -112,6 +103,7 @@ const MyInformation = () => {
               type="text"
               name="name_user"
               value={input.name_user}
+              placeholder={name_user}
               onChange={handleChange}
             />
           ) : (
@@ -124,6 +116,7 @@ const MyInformation = () => {
               type="text"
               name="last_user"
               value={input.last_user}
+              placeholder={last_user}
               onChange={handleChange}
             />
           ) : (
@@ -136,6 +129,7 @@ const MyInformation = () => {
               type="text"
               name="country_user"
               value={input.country_user}
+              placeholder={country_user}
               onChange={handleChange}
             />
           ) : (
@@ -148,6 +142,7 @@ const MyInformation = () => {
               type="text"
               name="direction_user"
               value={input.direction_user}
+              placeholder={direction_user}
               onChange={handleChange}
             />
           ) : (
@@ -160,6 +155,7 @@ const MyInformation = () => {
               type="text"
               name="postal_code"
               value={input.postal_code}
+              placeholder={postal_code}
               onChange={handleChange}
             />
           ) : (
@@ -176,6 +172,7 @@ const MyInformation = () => {
             <textarea
               name="reference"
               value={input.reference}
+              placeholder={reference}
               onChange={handleChange}
             />
           ) : (
