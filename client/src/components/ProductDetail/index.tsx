@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from './../../app/hooks';
-import { fetchDetailManga } from '../../features/products/productsSlice';
+import { fetchDetailManga, fetchCleanDetails } from '../../features/products/productsSlice';
 import { FetchAddToWishlist } from '../../features/user/userSlice';
 import { IoIosHeart } from "react-icons/io";
 import useHeaders from "../../app/headers";
@@ -28,6 +28,7 @@ const ProductDetail = ({ setProduct, product }: Props) => {
 
   useEffect(() => {
     dispatch(fetchDetailManga(id))
+    return dispatch(fetchCleanDetails())
   },[dispatch])
 
   const {

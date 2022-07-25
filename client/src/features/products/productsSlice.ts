@@ -32,7 +32,7 @@ const initialState: InitialState = {
   products: [],
   productDetail: {
     _id : '',
-    name: 'string',
+    name: '',
     category: [],
     product_image: '',
     description: '',
@@ -56,6 +56,19 @@ const initialState: InitialState = {
       stockProducts: (state, action: PayloadAction<number>) => {
         state.productDetail.stock = action.payload
       },
+      cleanDetails: (state) => {
+        state.productDetail = {
+          _id : '',
+          name: '',
+          category: [],
+          product_image: '',
+          description: '',
+          price: 0,
+          rating: '',  //se tiene que cambiar a number en el back
+          comments: [],
+          stock: 0
+        }
+      },
     }
   });
 
@@ -65,7 +78,7 @@ const initialState: InitialState = {
       dispatch(getProductDetail(data))
     }
   };
-
+  
   export const fetchGetProducts = ( pageNumber : number | string, search : string ):AppThunk =>{
     return async (dispatch) => {
       const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/products?page=${pageNumber}&search=${search}`)
@@ -84,11 +97,18 @@ const initialState: InitialState = {
     }
   };
 
+  export const fetchCleanDetails = () => {
+    return (dispatch : any)  => {
+      dispatch(cleanDetails())
+    }
+  };
+
   export default productsSlice.reducer
   export const {
     getProductDetail,
     getProducts,
-    stockProducts
+    stockProducts,
+    cleanDetails,
   } = productsSlice.actions
   
 
