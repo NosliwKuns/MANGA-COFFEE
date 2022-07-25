@@ -7,6 +7,7 @@ import Advertising from "../../Admin/Advertising/Advertising";
 import CreateManga from "../../Admin/CreateManga";
 import CreateProduct from "../../Admin/CreateProduct";
 import AdminTable from "../AbminTable";
+import MyInformation from "../MyInformation";
 
 const UsersTable = () => {
   const pagAdmin: any = window.localStorage.getItem("pagAdmin");
@@ -22,7 +23,7 @@ const UsersTable = () => {
   }, []);
   let InterfaceUser;
   if (pag === "1") {
-    InterfaceUser = <h1>hola</h1>;
+    InterfaceUser = <MyInformation/>;
   }
   if (pag === "2") {
     InterfaceUser = <h1>hola 2</h1>;
@@ -61,7 +62,7 @@ const UsersTable = () => {
             setPag("1");
           }}
         >
-          My Profile
+          My Information
         </button>
         <button
           onClick={() => {
