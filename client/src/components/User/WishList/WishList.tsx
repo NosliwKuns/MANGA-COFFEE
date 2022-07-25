@@ -6,6 +6,8 @@ import { FetchGetWishlist, fetchDeleteWishlist } from '../../../features/user/us
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RiErrorWarningFill } from 'react-icons/ri';
+import NotFavOrWish from "../NotFavOrWish";
+import '../../../scss/User/notFavOrWish.scss'
 
 const WishList = () => {
     const dispatch= useAppDispatch();
@@ -68,7 +70,9 @@ const WishList = () => {
     },[dispatch, id])
 
     return (
-        <div>{wishlist?.map(p=>{
+        <div className='wish'>{
+            wishlist.length?
+            wishlist?.map(p=>{
             return(
                 <div>
                     <button onClick={() => handleClick(p._id)}>X</button>
@@ -83,7 +87,10 @@ const WishList = () => {
                 </div>
             )
             
-        })}</div>
+        })
+        :<NotFavOrWish/>
+    }
+        </div>
     )
 }
 

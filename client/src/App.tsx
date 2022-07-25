@@ -91,7 +91,7 @@ function App() {
           setGenre={setGenre}
           setPage={setPage}
           setQuery={setQuery}
-          // setColorF={setColorF}
+          setColorF={setColorF}
         />
 
         <AnimatePresence exitBeforeEnter>
@@ -113,15 +113,15 @@ function App() {
             setColorF={setColorF}/>} />
           <Route path="/mangas" element={
             <CatalogMangas
-              // setGenre={setGenre}
+              setGenre={setGenre}
               setPage={setPage}
               query={query}
               genre={genre}
               setSearchParams={setSearchParams}
               res={res}
-              // colorF={colorF}
-              // setColorF={setColorF}
-              // page={page}
+              colorF={colorF}
+              setColorF={setColorF}
+              page={page}
             />} 
           />
           {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}

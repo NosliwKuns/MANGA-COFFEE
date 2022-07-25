@@ -1,9 +1,7 @@
 import SearchBar from "./SearchBar/SearchBar";
-import FilterMangas from "./FilterMangas";
-import { motion } from "framer-motion";
-import '../../scss/SearchAndFilter/SearchAndLinks.scss';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import UserButtons from './../UserButtons/index';
+import '../../scss/SearchAndFilter/SearchAndLinks.scss';
 
 type Props = {
   appear: boolean;
@@ -11,9 +9,12 @@ type Props = {
   setGenre: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<string | number>>;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
+  setColorF: any;
 }
 
-const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Props) => {
+const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF }: Props) => {
+
+  const { pathname, search } = useLocation();
 
   return (
     <div className="two">
@@ -22,27 +23,18 @@ const SearchAndFilter = ({ appear , setAppear, setQuery, setGenre, setPage }: Pr
             setQuery={setQuery}
             setPage={setPage}
           />
-          {/* <motion.div animate={{
-            height: appear ? "200%" : 0,
-            backgroundColor: '#212429',  
-          }} 
-          initial={{height: 0}}
-          transition={ {duration : .5}}
-          className={"appear"}
-          onMouseLeave={handleMouseLeave}
-          >
-            <FilterMangas 
-              setGenre={setGenre}
-              setPage={setPage}
-              appear={appear}
-              setAppear={setAppear} 
-            />
-          </motion.div> */}
+
           <Link to='/' >
            <span>Discover</span>
           </Link>
-          <Link to='/mangas' >
-          <span>Mangas</span>
+          <Link to='/mangas'>
+          <span onClick={() => {
+            if(pathname === '/mangas' && search) {
+              setGenre('All');
+              setColorF([]);
+              setPage(1);
+            }
+          }}>Mangas</span>
           </Link>
         </section>
         {/* <section className="display">

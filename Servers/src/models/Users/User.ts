@@ -8,6 +8,28 @@ export interface IUser extends mongoose.Document{
     users: string,
     comparePassword: (pasword: string) => Promise<boolean>,
     favorites: [Object],
+    historyBuy: [{
+        date: String,
+        idCompra: String,
+        produtcs: [{
+            idProduct: String,
+            name: String,
+            price: Number,
+            quantity: Number 
+        }],
+        total : Number,
+        adrress:{
+            postalCode : String,
+            country : String,
+            direction : String,
+            reference : String
+        },
+        name: String,
+        lastName: String,
+        telephone: String,
+        method: String,
+        email: String
+    }],
     verificated: boolean,    
     status: boolean,
     block: boolean,
