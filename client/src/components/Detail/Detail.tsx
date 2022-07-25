@@ -96,7 +96,9 @@ const Detail = () => {
   useEffect(() => {
     dispatch(fetchDetailManga(params.id));
     dispatch(getFavManga(id, headers));
-    return dispatch(fetchCleanDetails());
+    return () => {
+      dispatch(fetchCleanDetails());
+    }
   }, [dispatch, id]);
 
   return (

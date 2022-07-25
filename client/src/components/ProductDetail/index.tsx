@@ -28,7 +28,9 @@ const ProductDetail = ({ setProduct, product }: Props) => {
 
   useEffect(() => {
     dispatch(fetchDetailManga(id))
-    return dispatch(fetchCleanDetails())
+    return () => {
+      dispatch(fetchCleanDetails())
+    }
   },[dispatch])
 
   const {
