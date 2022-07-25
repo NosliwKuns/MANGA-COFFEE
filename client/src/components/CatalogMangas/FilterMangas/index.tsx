@@ -12,9 +12,10 @@ type Props = {
   colorF: any;
   setColorF : any;
   page: any;
+  query: string;
 }
 
-const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page } : Props) => {
+const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query } : Props) => {
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { genres } = useAppSelector(state => state.mangas);
@@ -28,7 +29,7 @@ const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page } : Props) =>
       const send = colorF.join(',')
       /* setGenre(send) */
 
-      const params : any = send || page ? { page: page, genre: send } : '';
+      const params : any = send || page || query ? { page: page, genre: send, q: query} : '';
       setGenre(send ? send : '')
       navigate({
         pathname: "/mangas",

@@ -1,6 +1,7 @@
 import Cards from "./Cards";
 import Pagination from "./Pagination";
 import FilterMangas from "./FilterMangas"; 
+import Sorts from './Sorts/index';
 
 type Props = {
   res: object;
@@ -12,17 +13,24 @@ type Props = {
   colorF: any;
   setColorF : any;
   page: any;
+  sort: string;
+  setSort: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const CatalogMangas = ({ res, query, genre, setPage, setSearchParams, setGenre, colorF, setColorF, page } : Props) => {
-  return (
+const CatalogMangas = ({ res, query, genre, setPage, setSearchParams, setGenre, colorF, setColorF, page, sort, setSort } : Props) => {
+  return ( 
     <div className="five">
+      <Sorts 
+        sort={sort}
+        setSort={setSort}
+      />
       <FilterMangas 
         setPage={setPage}
         setGenre={setGenre}
         colorF={colorF}
         setColorF={setColorF}
         page={page}
+        query={query}
       />
       <Cards
         res={res}

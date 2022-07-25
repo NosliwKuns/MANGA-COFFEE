@@ -33,6 +33,7 @@ const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF }: Props) => {
               setGenre('All');
               setColorF([]);
               setPage(1);
+              setQuery('')
             }
           }}>Mangas</span>
           </Link>

@@ -55,13 +55,14 @@ function App() {
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
+  const [sort, setSort] = useState<string>(searchParams.get("genre") || "")
   
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
   const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
   
   const res = useFetch(
-    query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
+    query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
   );
   const resShop = useFetch(
     queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&genres=${genreShop}` : ""
@@ -115,6 +116,8 @@ function App() {
               colorF={colorF}
               setColorF={setColorF}
               page={page}
+              sort={sort}
+              setSort={setSort}
             />} 
           />
           {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}

@@ -22,11 +22,11 @@ const SearchBar = ({ setQuery, setPage } : Props) => {
         setPage((prev : any) : any => {
             console.log((prev = 1), "aqui");
             const params : any = { q: input, page: prev };
-            // navigate({
-            //   pathname: "/",
-            //   search: `?${createSearchParams(params)}`
-            // });
-            window.location.replace(`/mangas?${createSearchParams(params)}`)
+            navigate({
+              pathname: "/mangas",
+              search: `?${createSearchParams(params)}`
+            });
+            /* window.location.replace(`/mangas?${createSearchParams(params)}`) */
           });
         setInput('');
     }
