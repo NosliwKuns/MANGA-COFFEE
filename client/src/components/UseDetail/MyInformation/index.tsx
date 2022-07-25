@@ -76,9 +76,8 @@ const MyInformation = () => {
     copyUser.address.postalCode= input.postal_code[0]
     copyUser.address.reference= input.reference[0]
 
-    const verificated = await dispatch(editInformation(headers,input,token))
-    //
-    window.localStorage.setItem("copySliceUser", JSON.stringify(verificated));
+    // const verificated = await dispatch(editInformation(headers,input,token))
+    window.localStorage.setItem("copySliceUser", JSON.stringify(copyUser));
     window.location.reload();
   }
   return (
