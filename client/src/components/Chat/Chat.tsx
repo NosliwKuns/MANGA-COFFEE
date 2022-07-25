@@ -2,12 +2,12 @@ import io from 'socket.io-client';
 import { useAppSelector } from '../../app/hooks';
 
 import { InitialState, logOut } from "../../features/user/userSlice";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import  ScrollToBottom from "react-scroll-to-bottom";
 import '../../scss/Chat/Chat.scss';
 const socket = io('http://localhost:5000');
 import { BiMailSend } from 'react-icons/bi';
-
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -53,6 +53,22 @@ const Chat = () => {
   const minimizedChat = () => {
     setMinimized(!minimized)
   }
+  const messageListEndRef = useRef(null);
+  const scrollToBottom = () => {
+    if (messageListEndRef.current) {
+      scrollIntoView(messageListEndRef.current, {
+        scrollMode: "if-needed",
+        block: "end",
+        inline: "nearest",
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messageList]);
+  
   
   return (
     <div className={/* user.user ? "chat-container" : "blur" */ minimized ? "chat-container" : "chat-container is-minimized"}>
@@ -69,12 +85,11 @@ const Chat = () => {
       </div>
 
       <div className={user.user ? "chat-content" : "chat-content blur"}>
-        <ScrollToBottom>
           {messageList.map((messageContent : any) => {
             return (
               <div
                 id={user.user === messageContent.author ? "you" : "other"}
-                className="message-container"
+                className="message-container messageListEndRef"
               >
                
                <div className='burbuja'>
@@ -100,9 +115,11 @@ const Chat = () => {
               </div>
             );
           })}
-        </ScrollToBottom>
+          <div ref={messageListEndRef} />
+        
       </div>
-        {
+      <div className='bar-send-first'>
+       {
           user.user ?
           <div className="bar-Send">
           <input
@@ -143,6 +160,7 @@ const Chat = () => {
        
      </div>
         }
+       </div>
     </div>
   );
 }

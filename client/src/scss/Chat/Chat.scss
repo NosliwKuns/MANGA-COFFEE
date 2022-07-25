@@ -69,13 +69,12 @@
   background: var(--dark--600);
   transform: 0;
   overflow: hidden;
-  transition: transform .3s cubic-bezier(.4,0,1,1);
-  box-shadow: rgba(0, 0, 0, 0.533) 0px 12px 24px 0px;
 
   .chat-up {
     background: var(--primary);
     height: 48px;
     z-index: 7;
+    position: relative;
   }
   
   .welcome-text{
@@ -86,22 +85,24 @@
   .chat-content {
     max-height: 352px;
     overflow-y: auto;
-  }
+    z-index: 8;
+    padding: 0px;
+    margin: 0px;
+    background: var(--dark--600);
+    border-radius: 0 0 .5em .5em;
 
+
+  }
   .bar-Send{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px;
-    margin: 0px;
+    width: 100%;
     position: absolute;
-    bottom: -7px;
-    width: 280px;
-    height: 50px;
+    bottom: 0;
     background-color: #2c3e50;
     border-radius: 0 0px 10px 10px;
     padding: 10px;
-    
 
     .btn-Send{
       margin-right: 10px;
@@ -128,6 +129,7 @@
       font-size: 14px;
       outline: none;
       transition: all 0.3s ease-in-out;
+
       &:focus{
         border: 1px solid #2c3e50;
       }
@@ -146,9 +148,10 @@
   padding: 20px;
   margin-left: 15px;
   margin-bottom: 10px;
+  margin-top: 10px;
   width: fit-content;
+  max-width: 250px;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.533) 0px 12px 24px 0px;
 
   &:after{
     content: "";
@@ -201,6 +204,7 @@
   justify-content: flex-end;
   align-items: flex-end;
   margin-right: 15px;
+  margin-bottom: 10px;
 }
 
 #you .burbuja{
@@ -209,10 +213,9 @@
   border-radius: 5px;
   padding: 20px;
   margin-left: 15px;
-  margin-bottom: 10px;
+  margin-top: 10px;
   width: fit-content;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.533) 0px 12px 24px 0px;
   &:after{
     content: "";
     position: absolute;
@@ -262,5 +265,4 @@
   align-items: center;
   display: flex;
   padding-top: 20px;
-  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.5);
 }
