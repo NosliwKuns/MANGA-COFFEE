@@ -23,7 +23,7 @@ const index_js_3 = __importDefault(require("../../../controles/Token/ReadTokenDa
 const router = (0, express_1.Router)();
 router.post('/', passport_1.default.authenticate("jwt", { session: false }), (0, index_js_2.FilesImage)(), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const { title, genres, description, rating, comments, chapter } = req.body;
+    const { title, genres, description, comments, chapter } = req.body;
     const { authorization } = req.headers;
     try {
         const data = (0, index_js_3.default)(authorization);
@@ -46,7 +46,7 @@ router.post('/', passport_1.default.authenticate("jwt", { session: false }), (0,
                 let CoverImgClaudinary = yield (0, index_js_1.Uploadimage)(cover_image.tempFilePath, folderpath);
                 yield fs_extra_1.default.unlink(cover_image.tempFilePath);
                 cover_image = CoverImgClaudinary.secure_url;
-                const manga = new Manga_js_1.default({ title, genres: genres.split(','), cover_image, description, mangas, rating, comments });
+                const manga = new Manga_js_1.default({ title, genres: genres.split(','), cover_image, description, mangas, comments });
                 yield manga.save();
                 res.status(200).json('Su manga se Agrego con Exito!');
             }

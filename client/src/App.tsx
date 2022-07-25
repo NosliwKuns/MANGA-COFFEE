@@ -36,6 +36,7 @@ import RenamePass from './components/Registration/RenamePassword/password';
 import BuyShopping from './components/BuyProduct/BuyShopping';
 import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 import WishList from './components/User/WishList/WishList'
+import DetailEment from './components/UseDetail/HistoryBuy/DetailEment';
 
 
 axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api";
@@ -149,6 +150,7 @@ function App() {
           <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
           <Route path='/shoppingTime' element={<BuyShopping/>}/>
           <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
+          <Route path='/detailElementBuy/:idElement' element={<DetailEment/>}/>
         </Routes>
         </AnimatePresence>
       </div>

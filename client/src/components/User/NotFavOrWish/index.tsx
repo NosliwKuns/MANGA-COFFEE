@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import { Link } from "react-router-dom";
-import '../../../scss/User/notFavOrWish.scss';
+import '../../../scss/User/Favorites.scss';
 
 const NotFavOrWish = () =>{
     const {pathname} = useLocation();
