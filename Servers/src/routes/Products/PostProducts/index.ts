@@ -24,7 +24,7 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
                     let linkCloudinary = await Uploadimage(product_image.tempFilePath, folderpath);
                     await fs.unlink(product_image.tempFilePath);
                     product_image = linkCloudinary.secure_url;
-                    const product = new Product({ id_User, name, product_image, description, stock, price, category: JSON.parse(category), rating})
+                    const product = new Product({ id_User, name, product_image, description, stock : Number(stock), price : Number(price), category: JSON.parse(category), rating})
                     await product.save();
                     res.status(201).json("Producto agregado con exito")                    
                 }else{
