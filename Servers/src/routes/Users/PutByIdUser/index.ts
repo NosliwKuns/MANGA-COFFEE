@@ -8,8 +8,10 @@ import User from '../../../models/Users/User.js';
 const router = Router();
 
 router.put('/update', passport.authenticate("jwt", { session: false }), FilesImage(),  async(req, res, next) => {
+    console.log(req.files, "filesssssssssssssss")
+    // console.log(req.body, "bodyyyyyyyyyyyyyy")
     const { users, name, lastname, user_description, telephone, address, token }: any = req.body;
-    const { user_banner, user_image }: any = req.files; 
+
     const {authorization} = req.headers;  
     try {  
         const data= ReadTokenData(authorization);
@@ -17,16 +19,22 @@ router.put('/update', passport.authenticate("jwt", { session: false }), FilesIma
         let newuser_banner;
         let newuser_image;
         if (user){
-            if (user_banner){
+
+            
+            if (req.files?.user_banner){
+                const { user_banner}: any = req.files; 
                 let folderpath = `User/${user.email}/user_banner`;
                 newuser_banner = await Uploadimage(user_banner.tempFilePath, folderpath);
                 await fs.unlink(user_banner.tempFilePath)
             }
-            if (user_image){
+            if (req.files?.user_image){
+                const { user_image }: any = req.files; 
+
                 let folderpath = `User/${user.email}/user_banner`;
                 newuser_image = await Uploadimage(user_image.tempFilePath, folderpath);
                 await fs.unlink(user_image.tempFilePath)
             }
+            
             const userUpdate = {
                 users: users || user.users,
                 name: name || user.name,
@@ -37,6 +45,7 @@ router.put('/update', passport.authenticate("jwt", { session: false }), FilesIma
                 user_banner: newuser_banner?.secure_url || user.user_banner, 
                 user_image: newuser_image?.secure_url || user.user_image
             }                        
+
             await User.findByIdAndUpdate((data.id), userUpdate);
             let userFinish: any = await User.findById(data.id);
             if (userFinish){
@@ -52,7 +61,7 @@ router.put('/update', passport.authenticate("jwt", { session: false }), FilesIma
                     name: userFinish.name,
                     password: userFinish.password,
                     status: userFinish.status,
-                    telephone: userFinish.telephone,
+                    telephone: userFinish.telephone || "" ,
                     token: token,
                     user: userFinish.users,
                     user_banner: userFinish.user_banner,
