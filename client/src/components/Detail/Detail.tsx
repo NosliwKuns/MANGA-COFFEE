@@ -157,13 +157,16 @@ const Detail = () => {
       </div>
 
       {admin && (
-        <button
-          onClick={() => {
-            setAdd(!add);
-          }}
-        >
-          Add chapter +
-        </button>
+        <section className="SectionAddMangaChapterButton">
+          <button
+            onClick={() => {
+              setAdd(!add);
+            }}
+            className="AddMangaChapterButton"
+          >
+            Add chapter +
+          </button>
+        </section>
       )}
       {admin && add && (
         <form onSubmit={handleAddChapter}>
