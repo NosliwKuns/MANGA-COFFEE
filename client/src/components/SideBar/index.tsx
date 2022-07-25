@@ -6,10 +6,11 @@ import { MdLibraryBooks } from "react-icons/md";
 import { GoFlame } from "react-icons/go";
 import { RiHistoryLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
-import PopularMangas from "./PopularMangas";
-import '../../../scss/RightSide/SideBar.scss';
+import PopularMangas from "../RightSide/PopularMangas";
+import '../../scss/RightSide/SideBar.scss';
 import { GiHamburgerMenu } from "react-icons/gi"
 import { useState } from 'react';
+import User from '../User/User';
 
 const SideBar = () =>{
     const [transform, setTransform] = useState<boolean>(true);
@@ -20,39 +21,49 @@ const SideBar = () =>{
     return(
         <div className={transform ? "four side-bar-container" : "hide"}>
             
+            <div className="logo">
+                MANGACOFFEE
+            </div>
+            <User />
+            <div className="side-wrapper">
+                <div className="side-title">MENU</div>
+                <div className="side-menu">
+                    <Link to='/' className="">
+                        <IoMdHome 
+                            size={25}
+                            color={'#fff'}
+                        /> 
+                        Home
+                    </Link>
+                    <Link to='/shop' className="">
+                        <IoStorefront
+                            size={20}
+                            color={'#fff'}
+                        />
+                        Shop
+                    </Link>
+                </div>
+                
+            </div>
             
-            
-            <div onClick={minSidebar}>
+            {/* <div onClick={minSidebar}>
                 <GiHamburgerMenu
                     size={31}
                     color={'#fff'}
                 />
-            </div>
-            <Link to='/' className="icons">
-                <IoMdHome 
-                    size={31}
-					color={'#fff'}
-                /> 
-                <h2>Home</h2>
-            </Link>
-            <Link to='/shop' className="icons">
-                <IoStorefront
-					size={28}
-					color={'#fff'}
-				/>
-                <h2>Shop</h2>
-            </Link>
+            </div> */}
+            
 
-            <div className="icons popular">
+            {/* <div className="icons popular">
                 <GoFlame
-                    size={30}
+                    size={26}
                     color={'#fff'}
                 />
                 <h2>Popular</h2>
-            </div>
-            {
+            </div> */}
+            {/* {
                 transform ? <div className="cap"><PopularMangas /></div> : ""
-            }
+            } */}
             
 {/*             <Link to='/categories'>
                 <AiTwotoneAppstore 

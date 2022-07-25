@@ -1,18 +1,26 @@
 import io from 'socket.io-client';
+import { useAppSelector } from '../../app/hooks';
+
+import { InitialState, logOut } from "../../features/user/userSlice";
 import { useState, useEffect } from 'react';
 import  ScrollToBottom from "react-scroll-to-bottom";
 import '../../scss/Chat/Chat.scss';
 const socket = io('http://localhost:5000');
+import { BiMailSend } from 'react-icons/bi';
+
 
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [username, setUsername] = useState("");
+  //const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
+  const [minimized, setMinimized] = useState(false);
+ 
+  const user: InitialState = useAppSelector((state) => state.user);
 
   const sendMessage = () => {
     if (currentMessage !== "") {
         const messageData = {
-        author: username,
+        author: user.user,
         message: currentMessage,
         time:
             new Date(Date.now()).getHours() +
@@ -27,6 +35,9 @@ const Chat = () => {
     }
   };
 
+    
+  
+
   useEffect(() => {
     socket.on("receive_message", (data : any) => {
       
@@ -38,56 +49,100 @@ const Chat = () => {
       });
     });
   }, [socket]);
+
+  const minimizedChat = () => {
+    setMinimized(!minimized)
+  }
   
   return (
-    <div className="chat-container">
-      <div>
-        <p>Live Chat</p>
+    <div className={/* user.user ? "chat-container" : "blur" */ minimized ? "chat-container" : "chat-container is-minimized"}>
+      <div className='chat-up' onClick={minimizedChat}>
+        {
+          user.user ?
+          <h6 className="welcome-text">Hola <b>{user.user}</b>, <br/>
+          saluda y conoce gente de todo el mundo</h6>
+          :
+          <h6 className="welcome-text">
+            Saluda y conoce gente de todo el mundo
+          </h6>
+        }
       </div>
+
+      <div className={user.user ? "chat-content" : "chat-content blur"}>
         <ScrollToBottom>
           {messageList.map((messageContent : any) => {
             return (
               <div
-                id={username === messageContent.author ? "you" : "other"}
+                id={user.user === messageContent.author ? "you" : "other"}
+                className="message-container"
               >
-                <div>
-                  <div>
+               
+               <div className='burbuja'>
+                <div className="author">
+                    <p id="author">{
+                      user?
+                      user.user === messageContent.author ?
+                      "You" : messageContent.author
+                      : ""
+
+                    }</p>
+                    </div>
+                  <div className="message">
                     <p>{messageContent.message}</p>
                   </div>
-                  <div>
+                  <div className='info-send'>
+
+                    <div className="time">
                     <p id="time">{messageContent.time}</p>
-                    <p id="author">{messageContent.author}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             );
           })}
         </ScrollToBottom>
-      <input
-            type="text"
-            placeholder="Nickname..."
-            onChange={(e) => {
-              setUsername(e.target.value);
-            }}
-          />
-    <div>
-      <div>
-      <div>
-        <input
-          type="text"
-          value={currentMessage}
-          placeholder="Message..."
-          onChange={(e) => {
-            setCurrentMessage(e.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && sendMessage();
-          }}
-        />
-        <button onClick={sendMessage}>Send</button>
       </div>
-      </div>
-    </div>
+        {
+          user.user ?
+          <div className="bar-Send">
+          <input
+         type="text"
+         className='input-Send'
+         value={currentMessage}
+         placeholder="Message..."
+         onChange={(e) => {
+           setCurrentMessage(e.target.value);
+         }}
+         onKeyPress={(event) => {
+           event.key === "Enter" && sendMessage();
+         }}
+       />
+       <button className="btn-Send" onClick={sendMessage}>
+         <BiMailSend />
+       </button>
+       
+     </div>
+     :
+     <div className="bar-Send">
+          <input
+         type="text"
+         className='input-Send'
+         value={currentMessage}
+         placeholder="Message..."
+         disabled={true}
+         onChange={(e) => {
+           setCurrentMessage(e.target.value);
+         }}
+         onKeyPress={(event) => {
+           event.key === "Enter" && sendMessage();
+         }}
+       />
+       <button className="btn-Send" onClick={sendMessage}>
+         <BiMailSend />
+       </button>
+       
+     </div>
+        }
     </div>
   );
 }

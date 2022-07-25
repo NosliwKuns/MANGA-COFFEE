@@ -20,6 +20,9 @@ const ProductSchema = new Schema({
         type: [String],
         required: true
     },
+    title: {
+        type: String,
+    },
     product_image: {
         type: String,
         required: true
@@ -34,14 +37,14 @@ const ProductSchema = new Schema({
     },
     rating: {
         type: Number,
+        default: 5
     },
     ratinger: {
         type: [Number],
         enum: [1, 2, 3, 4, 5]
     },
     comments: {
-        type: [{ name: String, body: String }],
-        created_at: { type: Date, required: true, default: Date.now }
+        type: [{ name: String, body: String, time: String, userId: String }]
     },
     stock: {
         type: Number,
@@ -52,4 +55,3 @@ const ProductSchema = new Schema({
 ProductSchema.plugin(mongoose_paginate_v2_1.default);
 const Product = mongoose_1.default.model('Product', ProductSchema);
 exports.default = Product;
-// esto lo borro despues

@@ -1,11 +1,13 @@
 import mongoose from'mongoose';
 import paginate from 'mongoose-paginate-v2';
+
 const {Schema} = mongoose
 export interface IProducts extends mongoose.Document{
     name: string,
-    category:string,
-    price:string,
-    rating:string
+    category: string,
+    price: Number,
+    rating: Number,
+    title: string
 };
 
 
@@ -19,9 +21,12 @@ const ProductSchema = new Schema({
         type: String,
         required: true
     },
-   category:{
-        type:[String],
+    category:{
+        type: [String],
         required: true
+    },
+    title:{
+        type:String,
     },
     product_image:{
         type: String,
@@ -37,14 +42,14 @@ const ProductSchema = new Schema({
     },
     rating:{
         type:Number,
+        default: 5
     },
     ratinger:{
         type:[Number],
         enum: [ 1 , 2 , 3 , 4 , 5 ]
     },
     comments: {
-        type:[{ name: String, body: String }],
-        created_at:{ type: Date, required: true, default: Date.now }
+        type:[{ name: String, body: String, time: String, userId: String }]        
     },
     stock:{
         type: Number,
@@ -61,4 +66,3 @@ mongoose.PaginateModel<IProducts>
 >('Product', ProductSchema)
 
 export default Product;
-// esto lo borro despues

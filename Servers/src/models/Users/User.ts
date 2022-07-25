@@ -2,12 +2,41 @@ import mongoose from'mongoose';
 import bCrypt from 'bcrypt';
 const {Schema, model} = mongoose;
 
-export interface IUser extends mongoose.Document{    
+export interface IUser extends mongoose.Document{
+    name: string,
+    lastname: string,
+    user_description: string,
+    telephone: string,    
     email: string,
     password: string,
     users: string,
+    user_banner: string,
+    user_image: string,
     comparePassword: (pasword: string) => Promise<boolean>,
     favorites: [Object],
+    address: object,
+    historyBuy: [{
+        date: String,
+        idCompra: String,
+        produtcs: [{
+            idProduct: String,
+            name: String,
+            price: Number,
+            quantity: Number 
+        }],
+        total : Number,
+        adrress:{
+            postalCode : String,
+            country : String,
+            direction : String,
+            reference : String
+        },
+        name: String,
+        lastName: String,
+        telephone: String,
+        method: String,
+        email: String
+    }],
     verificated: boolean,    
     status: boolean,
     block: boolean,

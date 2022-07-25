@@ -24,6 +24,8 @@
     "react-slick": "^0.29.0",
     "sass": "^1.53.0",
     "socket.io-client": "^4.5.1",
+    "sweetalert2": "^11.4.24",
+    "sweetalert2-react-content": "^5.0.2",
     "swiper": "^8.3.1"
   },
   "devDependencies": {

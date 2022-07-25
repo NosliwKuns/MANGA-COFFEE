@@ -1,22 +1,21 @@
 import {Router} from 'express';
+import passport from "passport";
 import User from '../../../models/Users/User'
 import Product from '../../../models/Products/index'
 
 const router = Router();
 
-router.post("/addToWishlist/:_id", async (req, res,next) =>{
+router.post("/addToWishlist/:_id", passport.authenticate("jwt", { session: false }), async (req, res,next) =>{
     const {_id} = req.params;
     const {productsId} = req.body;
-    try{
+    try {
         const Usuarios:any= await User.findOne({_id:_id});
         const Productos:any= await Product.findById({_id:productsId});
-    
+        
         if(!Usuarios.wishlist.includes(Productos._id)){
             Usuarios.wishlist.push(Productos)
-            const user = await User.findById(_id);
-            res.status(200).json(user);
-            // await Usuarios.save();
-            // res.status(200).send("producto agregado a la wishlist");
+            await Usuarios.save();
+            res.status(200).send(Usuarios);
         }else{
             res.status(200).send("el producto ya esta en la lista de deseos")
         }

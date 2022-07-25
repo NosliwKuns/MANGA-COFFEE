@@ -1,5 +1,256 @@
+.blur {
+  filter: blur(3px);
+  // justify-content: center;
+  // .bar-Send{
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   padding: 0px;
+  //   margin: 0px;
+  //   position: absolute;
+  //   bottom: -7px;
+  //   width: 275px;
+  //   height: 50px;
+  //   background-color: #2c3e50;
+  //   border-radius: 0 0px 10px 10px;
+  //   padding: 10px;
+    
+
+  //   .btn-Send{
+  //     margin-right: 10px;
+  //     background-color: #2c3e50;
+  //     border: none;
+  //     font-size: 25px;
+  //     color: rgb(0, 217, 255);
+  //     border-radius: 50%;
+  //     cursor: pointer;
+  //     outline: none;
+  //     transition: all 0.3s ease-in-out;
+  //     &:hover{
+  //       transform: scale(1.1);
+  //     }
+
+  //   }
+  //   .input-Send{
+  //     width: calc(100% - 50px);
+  //     border: none;
+  //     border-radius: 5px;
+  //     padding: 5px;
+  //     background-color: #2c3e50;
+  //     color: aliceblue;
+  //     font-size: 14px;
+  //     outline: none;
+  //     transition: all 0.3s ease-in-out;
+  //     &:focus{
+  //       border: 1px solid #2c3e50;
+  //     }
+  //   }
+    
+
+  // }
+  
+
+}
+
+.is-minimized {
+  transform: translateY(100%) translateY(-48px);
+}
+
 .chat-container {
-  /* max-height: 55vh; */
+  position: absolute;
   overflow-y: auto;
   color: aliceblue;
+  z-index: 10;
+  bottom: 0;
+  right: 0;
+  width: 280px;
+  height: 400px;
+  border-radius: .5em .5em 0 0;
+  background: var(--dark--600);
+  transform: 0;
+  overflow: hidden;
+  transition: transform .3s cubic-bezier(.4,0,1,1);
+  box-shadow: rgba(0, 0, 0, 0.533) 0px 12px 24px 0px;
+
+  .chat-up {
+    background: var(--primary);
+    height: 48px;
+    z-index: 7;
+  }
+  
+  .welcome-text{
+    color: #ffffff;
+    padding-bottom: 20px;
+  }
+
+  .chat-content {
+    max-height: 352px;
+    overflow-y: auto;
+  }
+
+  .bar-Send{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+    position: absolute;
+    bottom: -7px;
+    width: 280px;
+    height: 50px;
+    background-color: #2c3e50;
+    border-radius: 0 0px 10px 10px;
+    padding: 10px;
+    
+
+    .btn-Send{
+      margin-right: 10px;
+      background-color: #2c3e50;
+      border: none;
+      font-size: 25px;
+      color: rgb(0, 217, 255);
+      border-radius: 50%;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+      &:hover{
+        transform: scale(1.1);
+      }
+
+    }
+    .input-Send{
+      width: calc(100% - 50px);
+      border: none;
+      border-radius: 5px;
+      padding: 5px;
+      background-color: #2c3e50;
+      color: aliceblue;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+      &:focus{
+        border: 1px solid #2c3e50;
+      }
+    }
+    
+
+  }
+
+}
+#other{
+  justify-content: flex-start;
+}
+#other .burbuja{
+  background-color: #282a2ebd;
+  border-radius: 5px;
+  padding: 20px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  width: fit-content;
+  position: relative;
+
+  &:after{
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #282a2ebd;
+    top: 0px;
+    left: -12px;
+  }
+  .author{
+    position: absolute;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    top: 0%;
+    right: 0;
+    font-size: 12px;
+    color: var(--light--200);
+  }
+  .message{
+    display: flex;
+    color:var(--light);
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  .info-send{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+   
+    .time{
+      position: absolute;
+      top: 50%;
+      right: 0;
+      font-size: 10px;
+      color: var(--light--200);
+    }
+  }
+}
+
+
+
+#you{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-right: 15px;
+}
+
+#you .burbuja{
+  margin-left: auto;
+  background-color: var(--primary);
+  border-radius: 5px;
+  padding: 20px;
+  margin-left: 15px;
+  margin-bottom: 10px;
+  width: fit-content;
+  position: relative;
+  &:after{
+    content: "";
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid var(--primary);
+    top: 0px;
+    right: -12px;
+  }
+  .author{
+    position: absolute;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    top: 0%;
+    right: 0;
+    font-size: 12px;
+    color: var(--dark--600);
+  }
+  .message{
+    display: flex;
+    color:var(--light);
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+  .info-send{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+   
+    .time{
+      position: absolute;
+      top: 50%;
+      right: 0;
+      font-size: 10px;
+      color: var(--dark--600);
+    }
+  }
 }

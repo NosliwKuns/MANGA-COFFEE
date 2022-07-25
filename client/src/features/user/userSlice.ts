@@ -205,7 +205,7 @@ const userSlice = createSlice({
     addToWishlist: (state, action: PayloadAction<Array<wishlist>>) => {
       state.wishlist = action.payload;
     },
-    getWishlist: (state, action: PayloadAction<Array<wishlist>>) => {
+    deleteWishlistProducts: (state, action: PayloadAction<Array<wishlist>>) => {
       state.wishlist = action.payload;
     },
   },
@@ -292,7 +292,7 @@ export const FetchFavoriteMangas = (
       },
       headers
     );
-    dispatch(favoriteMangas(data.favorites));
+    dispatch(favoriteMangas(data.docs));
   };
 };
 
@@ -385,7 +385,6 @@ export const fetchDeleteFavorites = (
       `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`,
       headers
     );
-    console.log("DATAAAAAAAAAAA", data);
     
     dispatch(getFavoriteManga(data.docs));
   };
@@ -447,11 +446,10 @@ export const FetchAddToWishlist = (_id: string, idProduct: string | undefined, h
   return async (dispatch) => {
     const { data } = await axios.post(`http://localhost:5000/api/products/addToWishlist/${_id}`,
       {
-        productsId: [idProduct],
+        productsId: idProduct,
       },
       headers
     );
-    console.log("DATAAAAAAAAAAAAAAAAAA ADD", data)
     dispatch(addToWishlist(data.wishlist));
   };
 };
@@ -462,7 +460,14 @@ export const FetchGetWishlist = (id: string, headers: object): AppThunk => {
       `http://localhost:5000/api/products/wishlist/${id}`,
       headers
     );
-    dispatch(getWishlist(data.docs));
+    dispatch(addToWishlist(data.docs));
+  };
+};
+
+export const fetchDeleteWishlist = (id: string, productId: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.delete(`http://localhost:5000/api/products/?id=${id}&productId=${productId}`, headers);
+    dispatch(deleteWishlistProducts(data.wishlist));
   };
 };
 
@@ -496,6 +501,6 @@ export const {
   logOutUser,
   favoriteMangas,
   getFavoriteManga,
-  getWishlist,
   addToWishlist,
+  deleteWishlistProducts,
 } = userSlice.actions;
