@@ -49,6 +49,8 @@ function App() {
   const user = JSON.parse(localUser);
   const location = useLocation();
 
+  const [colorF, setColorF] = useLocalStorage('colorFM', [])
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
@@ -87,7 +89,7 @@ function App() {
           setGenre={setGenre}
           setPage={setPage}
           setQuery={setQuery}
-
+          setColorF={setColorF}
         />
 
         <AnimatePresence exitBeforeEnter>
@@ -104,11 +106,15 @@ function App() {
           setSearchParams={setSearchParams}/>} />
           <Route path="/mangas" element={
             <CatalogMangas
+              setGenre={setGenre}
               setPage={setPage}
               query={query}
               genre={genre}
               setSearchParams={setSearchParams}
               res={res}
+              colorF={colorF}
+              setColorF={setColorF}
+              page={page}
             />} 
           />
           {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
