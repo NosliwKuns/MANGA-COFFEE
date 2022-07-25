@@ -109,7 +109,7 @@ const initialState: InitialState = {
 };
 
 //! =====================================
-const userSlice  = createSlice({
+const userSlice = createSlice({
   //! =====================================
   name: "user",
   initialState,
@@ -519,13 +519,39 @@ export const preViewhistoryBuy = (headers: object): AppThunk => {
   };
 };
 
-export const detailElementBuy = (headers:object , id:string | undefined): AppThunk => {
+export const detailElementBuy = (
+  headers: object,
+  id: string | undefined
+): AppThunk => {
   return async () => {
     const { data } = await axios.get(
       `http://localhost:5000/api/user/historybuy/detail/${id}`,
       headers
     );
-    return data
+    return data;
+  };
+};
+
+export const editProfileAction = (
+  headers: object,
+  input: any,
+  image: any,
+  banner: any,
+  token : string
+): AppThunk => {
+  const books = new FormData();
+  books.append("users",input.users)
+  books.append("user_description",input.description)
+  books.append("user_image",image[0])
+  books.append("user_banner",banner[0])
+  books.append("token",token)
+  return async () => {
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/update",
+      books,
+      headers
+    );
+    return data;
   };
 };
 

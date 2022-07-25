@@ -21,8 +21,10 @@ const index_js_3 = require("../../../middlewares/FileUpload/index.js");
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
 const router = (0, express_1.Router)();
 router.put('/update', passport_1.default.authenticate("jwt", { session: false }), (0, index_js_3.FilesImage)(), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
+    console.log(req.files, "filesssssssssssssss");
+    // console.log(req.body, "bodyyyyyyyyyyyyyy")
     const { users, name, lastname, user_description, telephone, address, token } = req.body;
-    const { user_banner, user_image } = req.files;
     const { authorization } = req.headers;
     try {
         const data = (0, index_js_2.default)(authorization);
@@ -30,12 +32,14 @@ router.put('/update', passport_1.default.authenticate("jwt", { session: false })
         let newuser_banner;
         let newuser_image;
         if (user) {
-            if (user_banner) {
+            if ((_a = req.files) === null || _a === void 0 ? void 0 : _a.user_banner) {
+                const { user_banner } = req.files;
                 let folderpath = `User/${user.email}/user_banner`;
                 newuser_banner = yield (0, index_js_1.Uploadimage)(user_banner.tempFilePath, folderpath);
                 yield fs_extra_1.default.unlink(user_banner.tempFilePath);
             }
-            if (user_image) {
+            if ((_b = req.files) === null || _b === void 0 ? void 0 : _b.user_image) {
+                const { user_image } = req.files;
                 let folderpath = `User/${user.email}/user_banner`;
                 newuser_image = yield (0, index_js_1.Uploadimage)(user_image.tempFilePath, folderpath);
                 yield fs_extra_1.default.unlink(user_image.tempFilePath);
@@ -65,7 +69,7 @@ router.put('/update', passport_1.default.authenticate("jwt", { session: false })
                     name: userFinish.name,
                     password: userFinish.password,
                     status: userFinish.status,
-                    telephone: userFinish.telephone,
+                    telephone: userFinish.telephone || "",
                     token: token,
                     user: userFinish.users,
                     user_banner: userFinish.user_banner,
