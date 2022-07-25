@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { allProductsCreate } from "../../../features/admin/adminSlice";
+import CheckBoxesGenre from "../CreateManga/CheckBoxesGenre";
 import { validate } from "./func/validate";
+import SelectComponent from "./SelectComponent";
 
 const CreateProduct = () => {
-  const [allProducts, setAllProducts] = useState()
-  const [allTitles, setAllTitles] = useState()
+  const [allProducts, setAllProducts] = useState([])
+  const [allTitles, setAllTitles] = useState([])
   console.log(allProducts  , "????????????????")
   console.log(allTitles ,"????????????????????")
 
@@ -23,6 +25,22 @@ const CreateProduct = () => {
     price: "",
     stock: "",
   });
+
+  const [checkedState, setCheckedState] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [select, setSelect] = useState("")
   const [image, setImage] = useState();
   const dispatch = useAppDispatch();
   const userCopy: any = window.localStorage.getItem("copySliceUser");
@@ -60,13 +78,21 @@ const CreateProduct = () => {
     e.preventDefault();
   };
 
-  async function allProductsAndTile () {
-    const verificated :any = await dispatch(allProductsCreate(headers))
-    setAllTitles(verificated.titles)
-    setAllProducts(verificated.category)
-  }
+  const handleOnChecked = (position: number) => {
+    console.log(position);
+    const updatedCheckedState: any = checkedState.map((item, index) =>
+      index === position ? !item : item
+    );
+    console.log(updatedCheckedState);
+    setCheckedState(updatedCheckedState);
+  };
 
   useEffect(()=>{
+    async function allProductsAndTile () {
+      const verificated :any = await dispatch(allProductsCreate(headers))
+      setAllTitles(verificated.titles)
+      setAllProducts(verificated.category)
+    }
     allProductsAndTile()
   },[])
   return (
@@ -111,6 +137,12 @@ const CreateProduct = () => {
           />
           {errors.description && <span>{errors.description}</span>}
         </div>
+         <CheckBoxesGenre
+            state={checkedState}
+            handle={handleOnChecked}
+            allGenre={allProducts}
+          />
+          <SelectComponent array={allTitles} setState={setSelect}/>
         <div>
           <input type="file" onChange={handleImage} accept="image/*" />
         </div>
