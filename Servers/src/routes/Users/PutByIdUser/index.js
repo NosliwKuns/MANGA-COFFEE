@@ -53,8 +53,28 @@ router.put('/update', passport_1.default.authenticate("jwt", { session: false })
             yield User_js_1.default.findByIdAndUpdate((data.id), userUpdate);
             let userFinish = yield User_js_1.default.findById(data.id);
             if (userFinish) {
-                userFinish['token'] = token;
-                res.status(200).json(userFinish);
+                let newuser = {
+                    address: userFinish.address,
+                    admin: userFinish.admin,
+                    block: userFinish.block,
+                    email: userFinish.email,
+                    favorites: userFinish.favorites,
+                    historyBuy: userFinish.historyBuy,
+                    id: userFinish._id,
+                    lastname: userFinish.lastname,
+                    name: userFinish.name,
+                    password: userFinish.password,
+                    status: userFinish.status,
+                    telephone: userFinish.telephone,
+                    token: token,
+                    user: userFinish.users,
+                    user_banner: userFinish.user_banner,
+                    user_description: userFinish.user_description,
+                    user_image: userFinish.user_image,
+                    verificated: userFinish.verificated,
+                    wishlist: userFinish.wishlist,
+                };
+                res.status(200).json(newuser);
             }
             else {
                 res.status(400).json('Error al modificar la informacion del usuario');
