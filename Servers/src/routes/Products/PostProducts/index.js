@@ -22,7 +22,7 @@ const index_1 = __importDefault(require("../../../models/Products/index"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
 const router = (0, express_1.Router)();
 router.post('/poster/products', passport_1.default.authenticate("jwt", { session: false }), (0, FileUpload_1.FilesImage)(), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id_User, name, description, stock, price, category, rating } = req.body;
+    const { id_User, name, description, stock, price, category, title } = req.body;
     const { authorization } = req.headers;
     let { product_image } = req.files;
     try {
@@ -35,7 +35,7 @@ router.post('/poster/products', passport_1.default.authenticate("jwt", { session
                     let linkCloudinary = yield (0, Cloudinary_1.Uploadimage)(product_image.tempFilePath, folderpath);
                     yield fs_extra_1.default.unlink(product_image.tempFilePath);
                     product_image = linkCloudinary.secure_url;
-                    const product = new index_1.default({ id_User, name, product_image, description, stock, price, category: JSON.parse(category), rating });
+                    const product = new index_1.default({ id_User, name, product_image, description, stock, price, category: JSON.parse(category), title });
                     yield product.save();
                     res.status(201).json("Producto agregado con exito");
                 }
