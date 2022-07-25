@@ -13,7 +13,8 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
     const { id_User, name, description, stock, price, category, title} = req.body;
     const {authorization} = req.headers;
     let { product_image }: any= req.files;
-
+    console.log(req.files, 'files')
+    console.log(req.body, 'body')
     try {
         const data = ReadTokenData(authorization);
         const useradmin = await User.findById(data.id);
@@ -24,7 +25,7 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
                     let linkCloudinary = await Uploadimage(product_image.tempFilePath, folderpath);
                     await fs.unlink(product_image.tempFilePath);
                     product_image = linkCloudinary.secure_url;
-                    const product = new Product({ id_User, name, product_image, description, stock, price, category: JSON.parse(category), title})
+                    const product = new Product({ id_User, name, product_image, description, stock , price, category: [category], title})
                     await product.save();
                     res.status(201).json("Producto agregado con exito");                    
                 }else{

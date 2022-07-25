@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
-import { allProductsCreate } from "../../../features/admin/adminSlice";
+import { allProductsCreate, createNewProduct } from "../../../features/admin/adminSlice";
 import CheckBoxesGenre from "../CreateManga/CheckBoxesGenre";
+import { arrayGenre } from "../CreateManga/functionCreateMangas";
 import { validate } from "./func/validate";
 import SelectComponent from "./SelectComponent";
 
@@ -54,6 +55,7 @@ const CreateProduct = () => {
     telephone,
     name,
     lastname,
+    id,
     address: { country, direction, postalCode, reference :reference_user },
   } = JSON.parse(userCopy);
   const headers = useHeaders(token)
@@ -74,10 +76,12 @@ const CreateProduct = () => {
     setImage(e.target.files);
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async(e: any) => {
     e.preventDefault();
-  };
-
+    const selectBox = arrayGenre(checkedState,allProducts)
+    const verificated = await dispatch(createNewProduct(headers,input ,selectBox , select ,image , id))
+    alert(verificated)
+  }
   const handleOnChecked = (position: number) => {
     console.log(position);
     const updatedCheckedState: any = checkedState.map((item, index) =>
@@ -153,4 +157,4 @@ const CreateProduct = () => {
 };
 
 export default CreateProduct;
-//
+//! aqui hay que seguir

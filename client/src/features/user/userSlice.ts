@@ -65,10 +65,10 @@ type Purchese = {
 };
 
 export type InitialState = {
-  admin : boolean ;
-  block : boolean ;
-  wishlist : Array<wishlist> ;
-  status : boolean ;
+  admin: boolean;
+  block: boolean;
+  wishlist: Array<wishlist>;
+  status: boolean;
   id: string;
   email: string;
   password: string;
@@ -86,13 +86,12 @@ export type InitialState = {
   historyBuy: Array<Purchese>;
 };
 
-
 const initialState: InitialState = {
-  status : true, //
-  block : false, //
-  admin : false , //
-  wishlist : [] , //
-  id: "", // 
+  status: true, //
+  block: false, //
+  admin: false, //
+  wishlist: [], //
+  id: "", //
   email: "", //
   password: "", //
   verificated: false, //
@@ -109,7 +108,9 @@ const initialState: InitialState = {
   historyBuy: [], //
 };
 
-const userSlice = createSlice({
+//! =====================================
+const userSlice  = createSlice({
+  //! =====================================
   name: "user",
   initialState,
   reducers: {
@@ -124,9 +125,9 @@ const userSlice = createSlice({
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
       const {
-        wishlist ,
-        status ,
-        block ,
+        wishlist,
+        status,
+        block,
         admin,
         id,
         email,
@@ -145,10 +146,10 @@ const userSlice = createSlice({
         historyBuy,
       }: InitialState = action.payload;
       // ! pendiente --------------------------------------------------------------->
-      state.wishlist = wishlist ;
-      state.status= status ;
-      state.block = block ;
-      state.admin = admin ;
+      state.wishlist = wishlist;
+      state.status = status;
+      state.block = block;
+      state.admin = admin;
       state.id = id;
       state.email = email;
       state.password = password;
@@ -169,10 +170,10 @@ const userSlice = createSlice({
     logOutUser: (state) => {
       // ? ------------------------------------------------------------------------------------>
       state = {
-        wishlist : [] ,
-        status : true ,
-        block : false ,
-        admin : false ,
+        wishlist: [],
+        status: true,
+        block: false,
+        admin: false,
         id: "",
         email: "",
         password: "",
@@ -219,10 +220,10 @@ export const userLog = (user: Verificated): AppThunk => {
     });
     // ? ------------------------------------------------------------------------------------>
     const copyInitialState = {
-      wishlist : data.usuario.wishlist ,
-      status : data.usuario.status ,
-      admin : data.usuario.admin ,
-      block : data.usuario.block ,
+      wishlist: data.usuario.wishlist,
+      status: data.usuario.status,
+      admin: data.usuario.admin,
+      block: data.usuario.block,
       id: data.usuario._id,
       email: data.usuario.email,
       password: data.usuario.password,
@@ -385,7 +386,7 @@ export const fetchDeleteFavorites = (
       `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`,
       headers
     );
-    
+
     dispatch(getFavoriteManga(data.docs));
   };
 };
@@ -421,30 +422,38 @@ export const renamePassword = (password: string, id: string | undefined) => {
 export const deleteAcount = (headers: object) => {
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/state", {},
+      "http://localhost:5000/api/user/state",
+      {},
       headers
     );
-    return data
+    return data;
   };
 };
 
-export const siOrNot = ( input : any , boolean : boolean) => {
+export const siOrNot = (input: any, boolean: boolean) => {
   const copyInput = {
-    users : input.user,
-    email : input.email ,
-    password  :input.password ,
-    continuar : boolean
-  }
+    users: input.user,
+    email: input.email,
+    password: input.password,
+    continuar: boolean,
+  };
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/resetuser",copyInput);
-      return data
+      "http://localhost:5000/api/user/resetuser",
+      copyInput
+    );
+    return data;
   };
 };
 
-export const FetchAddToWishlist = (_id: string, idProduct: string | undefined, headers: object): AppThunk => {
+export const FetchAddToWishlist = (
+  _id: string,
+  idProduct: string | undefined,
+  headers: object
+): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post(`http://localhost:5000/api/products/addToWishlist/${_id}`,
+    const { data } = await axios.post(
+      `http://localhost:5000/api/products/addToWishlist/${_id}`,
       {
         productsId: idProduct,
       },
@@ -464,34 +473,68 @@ export const FetchGetWishlist = (id: string, headers: object): AppThunk => {
   };
 };
 
-export const fetchDeleteWishlist = (id: string, productId: string, headers: object): AppThunk => {
+export const fetchDeleteWishlist = (
+  id: string,
+  productId: string,
+  headers: object
+): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.delete(`http://localhost:5000/api/products/?id=${id}&productId=${productId}`, headers);
+    const { data } = await axios.delete(
+      `http://localhost:5000/api/products/?id=${id}&productId=${productId}`,
+      headers
+    );
     dispatch(deleteWishlistProducts(data.wishlist));
   };
 };
 
-export const editInformation = (headers :object , edit : any , token:string):AppThunk => {
-  const books = new FormData()
-  books.append("telephone",edit.phone)
-  books.append("name",edit.name_user)
-  books.append("lastname",edit.last_user)
-  books.append("token",token)
+export const editInformation = (
+  headers: object,
+  edit: any,
+  token: string
+): AppThunk => {
+  const books = new FormData();
+  books.append("telephone", edit.phone);
+  books.append("name", edit.name_user);
+  books.append("lastname", edit.last_user);
+  books.append("token", token);
 
-  const address :any = {
-    country : edit.country_user ,
-    direction : edit.direction_user ,
-    reference : edit.reference ,
-    postalCode : edit.postal_code
-  }
-  books.append("address",address)
+  const address: any = {
+    country: edit.country_user,
+    direction: edit.direction_user,
+    reference: edit.reference,
+    postalCode: edit.postal_code,
+  };
+  books.append("address", address);
 
   return async () => {
-    const {data} = await axios.put("http://localhost:5000/api/user/update",books,headers)
-    return data
-  }
-}
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/update",
+      books,
+      headers
+    );
+    return data;
+  };
+};
 
+export const preViewhistoryBuy = (headers: object): AppThunk => {
+  return async () => {
+    const { data } = await axios.get(
+      "http://localhost:5000/api/user/finall/historybuy",
+      headers
+    );
+    return data;
+  };
+};
+
+export const detailElementBuy = (headers:object , id:string | undefined): AppThunk => {
+  return async () => {
+    const { data } = await axios.get(
+      `http://localhost:5000/api/user/historybuy/detail/${id}`,
+      headers
+    );
+    return data
+  };
+};
 
 export default userSlice.reducer;
 

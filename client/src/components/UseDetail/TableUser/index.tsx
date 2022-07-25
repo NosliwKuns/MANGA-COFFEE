@@ -8,6 +8,7 @@ import CreateManga from "../../Admin/CreateManga";
 import CreateProduct from "../../Admin/CreateProduct";
 import AdminTable from "../AbminTable";
 import MyInformation from "../MyInformation";
+import HistoryBuy from "../HistoryBuy";
 
 const UsersTable = () => {
   const pagAdmin: any = window.localStorage.getItem("pagAdmin");
@@ -26,7 +27,7 @@ const UsersTable = () => {
     InterfaceUser = <MyInformation/>;
   }
   if (pag === "2") {
-    InterfaceUser = <h1>hola 2</h1>;
+    InterfaceUser = <HistoryBuy/>;
   }
   if (pag === "3") {
     InterfaceUser = allUsers.map((e: any) => {

@@ -25,6 +25,8 @@ router.post('/poster/products', passport_1.default.authenticate("jwt", { session
     const { id_User, name, description, stock, price, category, title } = req.body;
     const { authorization } = req.headers;
     let { product_image } = req.files;
+    console.log(req.files, 'files');
+    console.log(req.body, 'body');
     try {
         const data = (0, ReadTokenData_1.default)(authorization);
         const useradmin = yield User_1.default.findById(data.id);
@@ -35,7 +37,7 @@ router.post('/poster/products', passport_1.default.authenticate("jwt", { session
                     let linkCloudinary = yield (0, Cloudinary_1.Uploadimage)(product_image.tempFilePath, folderpath);
                     yield fs_extra_1.default.unlink(product_image.tempFilePath);
                     product_image = linkCloudinary.secure_url;
-                    const product = new index_1.default({ id_User, name, product_image, description, stock, price, category: JSON.parse(category), title });
+                    const product = new index_1.default({ id_User, name, product_image, description, stock, price, category: [category], title });
                     yield product.save();
                     res.status(201).json("Producto agregado con exito");
                 }
