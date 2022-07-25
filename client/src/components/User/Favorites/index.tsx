@@ -7,7 +7,9 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import NotFavOrWish from "../NotFavOrWish";
-import '../../../scss/User/notFavOrWish.scss'
+import '../../../scss/User/Favorites.scss'
+import { motion, AnimateSharedLayout } from 'framer-motion'
+import { gridAnimation, cardAnimation, h3Animation } from '../../../Animation.js';
 
 
 
@@ -70,27 +72,38 @@ const Favorites = () =>{
         dispatch(getFavManga(id, headers))
     },[dispatch, id])
 
+
     return(
-        <div className='fav'>{
-            favorites.length?
-            favorites?.map(f=>{
-            return(
-                <div>
-                    <button onClick={() => handleClick(f._id)}>X</button>
-                    <Link to={`/mangas/detail/${f._id}`}>
-                        <div key={f._id}>
-                        <section>
-                            <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} height={'200px'} />
-                        </section>
-                        <header>{f.title}</header>
-                        </div>
-                    </Link>
-                </div>
-            )
-            
-        })
-        : <NotFavOrWish/>
-        }
+        <div className='favDivContainer'>
+                    {
+                    favorites.length?
+                    favorites?.map(f=>{
+                    return(
+                        <motion.div
+                        variants={gridAnimation}
+                        animate='show'
+                        exit='hide'
+                        className="FavoriteCardsContainer">
+                            <AnimateSharedLayout>
+                                <button onClick={() => handleClick(f._id)} className="DeleteButtonFavorites">X</button>
+                                <Link to={`/mangas/detail/${f._id}`}>
+                                    <motion.div
+                                    variants={cardAnimation}
+                                    key={f._id}
+                                    layout>
+                                    <section>
+                                        <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} />
+                                    </section>
+                                    <header className='MangaTitleFavorites'>{f.title}</header>
+                                    </motion.div>
+                                </Link>
+                            </AnimateSharedLayout>
+                        </motion.div>
+                    )
+                    
+                })
+                :<NotFavOrWish/>
+                }
         </div>
     )
 }
