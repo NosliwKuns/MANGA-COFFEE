@@ -32,7 +32,7 @@ const Sorts = ({ sort, setSort }: Props) => {
             </div>
             <div 
               className="select checkbox"
-              onClick={() => sortBy('desc', 'Alphabetical Z-A')}>
+              onClick={() => sortBy('title,desc', 'Alphabetical Z-A')}>
               Alphabetical Z-A
             </div>
             <div 
