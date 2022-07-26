@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useHeaders from '../../../app/headers';
 import { useAppDispatch } from '../../../app/hooks';
 import { deleteAcount, logOutUser } from '../../../features/user/userSlice';
+import "../../../scss/User/UserSection.scss"
 
 const DeleteAccount = () => {
     const [switchButton, setSwitchB] = useState<boolean>(false);
@@ -40,6 +41,7 @@ const DeleteAccount = () => {
         <div onClick={() => setSwitchB(!switchButton)}>👀</div>
 
         <button
+        className='button_delete_account_user_detail'
           onClick={async () => {
             if (input !== email)
               return alert("the email you`ve entered doesn`t match any accaunt");

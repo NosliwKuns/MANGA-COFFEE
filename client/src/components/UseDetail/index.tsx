@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AiFillEdit } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useHeaders from "../../app/headers";
@@ -84,21 +85,24 @@ const UserDetail = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="banner_user_detail_s_contain">
-          <div>
-            <img
-              src={banner_image}
-              alt="banner_image"
-              className="banner_user_detail_s"
-            />
+          <div className="images_container_user_detail">
+            <div>
+              <img
+                src={banner_image}
+                alt="banner_image"
+                className="banner_user_detail_s"
+              />
+            </div>
+
+            <div className="banner_user_detail_s_contain_icon">
+              {user_image.length ? (
+                <img src={user_image} alt="user_image" />
+              ) : (
+                defaultPic
+              )}
+            </div>
           </div>
 
-          <div className="banner_user_detail_s_contain_icon">
-            {user_image.length ? (
-              <img src={user_image} alt="user_image" />
-            ) : (
-              defaultPic
-            )}
-          </div>
           <div>
             {editProfile && (
               <div>
@@ -107,16 +111,22 @@ const UserDetail = () => {
             )}
             {editProfile && (
               <div>
-               Image User : <input type={"file"} onChange={handleEditImage} />{" "}
+                Image User : <input type={"file"} onChange={handleEditImage} />{" "}
               </div>
             )}
+
+
             <div
+            className="button_edit_profile_user_detail"
               onClick={() => {
                 setEditProfile(!editProfile);
               }}
             >
-              edit profile
+              <AiFillEdit size={30} color={"#64666c"}/>
+             {/* <p>edit profile</p>  */}
             </div>
+
+
           </div>
         </div>
         {editProfile ? (
@@ -148,12 +158,13 @@ const UserDetail = () => {
       </form>
       <div>
         <UsersTable />
-<button
-onClick={()=>setSwitchB(!switchButton)}
->Delete Account</button>
-{
-  switchButton && <DeleteAccount/>
-}
+        <button
+          className="button_delete_account_user_detail"
+          onClick={() => setSwitchB(!switchButton)}
+        >
+          Delete Account
+        </button>
+        {switchButton && <DeleteAccount />}
       </div>
     </div>
   );

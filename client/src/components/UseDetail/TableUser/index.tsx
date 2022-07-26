@@ -9,6 +9,7 @@ import CreateProduct from "../../Admin/CreateProduct";
 import AdminTable from "../AbminTable";
 import MyInformation from "../MyInformation";
 import HistoryBuy from "../HistoryBuy";
+import "../../../scss/User/ButtonsDetailUser.scss"
 
 const UsersTable = () => {
   const pagAdmin: any = window.localStorage.getItem("pagAdmin");
@@ -55,8 +56,8 @@ const UsersTable = () => {
 
   useEffect(() => {}, [pagAdmin]);
   return (
-    <div>
-      <div>
+    <div className="container_user_detail_buttons_div">
+      <div className="buttons_user_detail_conteiner">
         <button
           onClick={() => {
             window.localStorage.setItem("pagAdmin", "1");
