@@ -44,6 +44,8 @@ import GetWishList from './Products/GetWishList/index';
 import AdminPostSendMailUser from './Users/AdminPostSendMailUser/index';
 import AdminAddChapterManga from './Mangas/AdminAddChapterManga/index';
 import AdminGetFindAllForFilters from './Users/AdminGetFindAllForFilters/index';
+import PostCart from './Users/PostCart/index'
+import GetCart from './Users/GetCart/index'
 const router = Router()
 
 router.use('/manga', FilterByGenre);
@@ -67,8 +69,10 @@ router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
 router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
+router.use('/user', GetCart);
 router.use('/user', GetMangaFavoUser);
 router.use('/user', GetConfirmarCuenta);
+router.use('/user', PostCart);
 router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
 router.use('/user', PutResetUser);
@@ -77,7 +81,7 @@ router.use('/user', AdminPutAdminUser);
 router.use('/user', AdminPutBlockUser);
 router.use('/user', AdminPutStatusUser);
 router.use('/user', AdminPostSendMailUser);
-router.use('/user', AdminGetFindAllForFilters)
+router.use('/user', AdminGetFindAllForFilters);
 
 router.use('/products', GetWishList);
 router.use('/products', DeleteByIdProducts);
