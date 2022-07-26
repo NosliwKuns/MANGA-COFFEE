@@ -18,15 +18,13 @@ const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.get('/addtocart/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    let shopingCart = {};
+    let shoppingCart = {};
     try {
         const Usuario = yield User_1.default.findById(id, ['cart']);
-        shopingCart = yield index_1.default.paginate({ _id: Usuario.cart }, {
-            limit: 12,
-            select: ["name", "category", "description", "price", "product_image"],
-            sort: { name: 1 }
-        });
-        res.status(200).json(shopingCart);
+        shoppingCart = yield index_1.default.find({ _id: Usuario.cart }, {});
+        let inter = Usuario.cart;
+        let merged = { inter, shoppingCart };
+        res.status(200).json(merged);
     }
     catch (error) {
         next(error);
