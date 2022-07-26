@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { createMangaAdmin } from "../../../features/admin/adminSlice";
@@ -30,7 +32,7 @@ const CreateManga = () => {
     // rating: "",
     chapter: "",
   });
-  console.log(input);
+
   const [errors, setErrors] = useState<any>({
     title: "",
     description: "",
@@ -40,7 +42,7 @@ const CreateManga = () => {
   const dispatch = useAppDispatch();
   const [book, setBook] = useState();
   const [image, setImage] = useState();
-  console.log(image)
+
 
   const handleBook = (e: any) => {
     setBook(e.target.files);
@@ -50,7 +52,7 @@ const CreateManga = () => {
   };
 
   const handleChange = (event: any) => {
-    console.log(event);
+    
     setInput({
       ...input,
       [event.target.name]: event.target.value,
@@ -64,11 +66,11 @@ const CreateManga = () => {
   };
 
   const handleOnChecked = (position: number) => {
-    console.log(position);
+ 
     const updatedCheckedState: any = checkedState.map((item, index) =>
       index === position ? !item : item
     );
-    console.log(updatedCheckedState);
+
     setCheckedState(updatedCheckedState);
   };
 
@@ -84,9 +86,28 @@ const CreateManga = () => {
       return;
 
     let genres = arrayGenre(checkedState, genreManga);
-    const verificated = await dispatch(
+    const verificated:any = await dispatch(
       createMangaAdmin(headers, input, book, image, genres)
     );
+    
+
+    const MySwal = withReactContent(Swal)
+    MySwal.fire({
+      html: <><h1>{verificated}</h1></>,
+        position: 'center',
+       icon: 'success',
+       showConfirmButton: false,
+       timer: 1500 ,
+      showCloseButton: true,
+      focusConfirm: false,
+      background: "#212429",
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'confirmButton'
+      }
+    })
+
+
     alert(verificated);
   };
 

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { sendAdvertising } from "../../../features/admin/adminSlice";
@@ -25,8 +27,22 @@ const Advertising = () => {
     console.log(image)
     console.log(input)
     e.preventDefault();
-    const verificated = await dispatch(sendAdvertising(headers, input, image));
-    alert(verificated);
+    const verificated  :any= await dispatch(sendAdvertising(headers, input, image));
+    const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><h1>{verificated}</h1></>,
+            position: 'center',
+           icon: 'success',
+           showConfirmButton: false,
+           timer: 1500 ,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
     navigate("/userDetail");
   };
   const handleImage = (e: any) => {

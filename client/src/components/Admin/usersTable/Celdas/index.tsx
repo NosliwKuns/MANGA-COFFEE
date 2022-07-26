@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../../app/headers";
 import { useAppDispatch } from "../../../../app/hooks";
 import {
@@ -24,22 +26,64 @@ const Celdas = (e: any) => {
         onClick={async () => {
           console.log(headers)
           setStatus(!status);
-          const verificated = await dispatch(switchStatus(headers, e.id));
-          alert(verificated);
+          const verificated : any = await dispatch(switchStatus(headers, e.id));
+          const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><h1>{verificated}</h1></>,
+            position: 'center',
+           icon: 'success',
+           showConfirmButton: false,
+           timer: 1500 ,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
         }}
       >{`status ${status}`}</button>
       <button
         onClick={async () => {
           setAdmin(!admin);
-          const verificated = await dispatch(switchAdmin(headers, e.id));
-          alert(verificated);
+          const verificated :any = await dispatch(switchAdmin(headers, e.id));
+          const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><h1>{verificated}</h1></>,
+            position: 'center',
+           icon: 'success',
+           showConfirmButton: false,
+           timer: 1500 ,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
         }}
       >{`admin ${admin}`}</button>
       <button
         onClick={async () => {
           setBlock(!block);
-          const verificated = await dispatch(switchBlock(headers, e.id));
-          alert(verificated);
+          const verificated :any= await dispatch(switchBlock(headers, e.id));
+          const MySwal = withReactContent(Swal)
+          MySwal.fire({
+            html: <><h1>{verificated}</h1></>,
+              position: 'center',
+             icon: 'success',
+             showConfirmButton: false,
+             timer: 1500 ,
+            showCloseButton: true,
+            focusConfirm: false,
+            background: "#212429",
+            buttonsStyling: false,
+            customClass: {
+              confirmButton: 'confirmButton'
+            }
+          })
         }}
       >{`block ${block}`}</button>
       <Link to={`/admin/msg/${e.id}`}>
