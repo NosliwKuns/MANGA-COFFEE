@@ -25,8 +25,6 @@ router.post('/poster/products', passport_1.default.authenticate("jwt", { session
     const { id_User, name, description, stock, price, category, title } = req.body;
     const { authorization } = req.headers;
     let { product_image } = req.files;
-    console.log(req.files, 'files');
-    console.log(req.body, 'body');
     try {
         const data = (0, ReadTokenData_1.default)(authorization);
         const useradmin = yield User_1.default.findById(data.id);
