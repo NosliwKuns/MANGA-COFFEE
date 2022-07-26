@@ -120,6 +120,10 @@ const UserSchema = new Schema({
     wishlist: {
         type: [Object],
         default: []
+    },
+    cart: {
+        type: [Object],
+        default: []
     }
 });
 UserSchema.pre('save', function (next) {
