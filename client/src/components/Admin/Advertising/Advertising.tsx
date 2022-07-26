@@ -56,7 +56,7 @@ const Advertising = () => {
     setImage(e.target.files);
   };
   return (
-    <div className="admin_interdace_advertising_container">
+    <div className="admin_interface_container">
       <form onSubmit={handleSubmit}>
         <div>
           <h3>Subject :</h3>
@@ -83,7 +83,12 @@ const Advertising = () => {
         </div>
         <div>
           <h3>Image :</h3>
-          <input className="input_file_forms_admin_interface" type="file" onChange={handleImage} accept="image/*" />
+          <input
+            className="input_file_forms_admin_interface"
+            type="file"
+            onChange={handleImage}
+            accept="image/*"
+          />
         </div>
         <button className="button_forms_send_admin_interface">Send</button>
       </form>
