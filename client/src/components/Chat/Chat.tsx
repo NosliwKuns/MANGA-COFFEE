@@ -61,8 +61,8 @@ const Chat = () => {
       <div className='chat-up' onClick={minimizedChat}>
         {
           user.user ?
-            <h6 className="welcome-text">Hola <b>{user.user}</b>, <br />
-              saluda y conoce gente de todo el mundo</h6>
+            <h6 className="welcome-text">Hi <b>{user.user}</b>, <br />
+              talk to manga fans like you</h6>
             :
             <h6 className="welcome-text">
               Saluda y conoce gente de todo el mundo
