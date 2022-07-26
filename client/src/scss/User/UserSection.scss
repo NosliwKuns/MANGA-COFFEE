@@ -19,7 +19,6 @@
     }
   }
 
-
   .user-info {
     padding-top: 8%;
     box-sizing: border-box;
@@ -33,12 +32,10 @@
     gap: 1em;
   }
 
-
-
   button {
     background: var(--primary);
     border: none;
-    padding: .3em .6em .3em .6em;
+    padding: 0.3em 0.6em 0.3em 0.6em;
     color: var(--light);
     font-size: 1.2em;
     border-radius: 100vw;
@@ -49,13 +46,13 @@
 .banner_user_detail_s_contain {
   position: relative;
 }
-.banner_user_detail_s{
-  width: 110vh;
+.banner_user_detail_s {
+  max-width: 110vh;
 }
-.banner_user_detail_s_contain_icon{
+.banner_user_detail_s_contain_icon {
   position: absolute;
   left: 54vh;
-  top:30vh;
+  top: 30vh;
 }
 
 .images_container_user_detail {
@@ -65,21 +62,21 @@
 }
 
 .button_delete_account_user_detail {
-    border: none;
-    background-color: #64666c;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    transition: all 250ms ease;
-    &:hover {
-      background-color: red;
-    }
-    &:active {
-      background-color: rgb(146, 59, 59);
-    }
+  border: none;
+  background-color: #64666c;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 250ms ease;
+  &:hover {
+    background-color: red;
+  }
+  &:active {
+    background-color: rgb(146, 59, 59);
+  }
 }
 
-.button_edit_profile_user_detail{
+.button_edit_profile_user_detail {
   position: absolute;
   right: 50px;
   transition: all 250ms ease;
@@ -96,15 +93,83 @@
 
 .user_profile_tile_description_container {
   margin-left: 50px;
-  margin-bottom: 45px;
+  margin-bottom: 50px;
   .name_user_user_detail_h1 {
     font-size: xxx-large;
     color: rgb(172, 169, 169);
   }
-  
+
   .user_description_user_detail_p {
     font-size: xx-large;
     color: rgb(172, 169, 169);
   }
+}
+//!=========================================================
+.user_detail_edit_input_user_name {
+  margin: 5px;
+  font-size: x-large;
+  width: 200px;
+  border: none;
+  color: rgb(172, 169, 169);
+  background-color: transparent;
+  transition: all 250ms ease;
+  border-radius: 8px;
+  &:hover{
+    background-color: rgb(131, 120, 120);
+  }
+}
 
+.user_detail_edit_input_description {
+  margin: 5px;
+  font-size: large;
+  width: 400px;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  color: rgb(172, 169, 169);
+  transition: all 250ms ease;
+  border-radius: 8px;
+  &:hover{
+    background-color: rgb(131, 120, 120);
+  }
+}
+
+.user_detail_edit_label {
+  color: rgb(172, 169, 169);
+}
+
+.buttons_user_detail_edit_profile {
+  border: none;
+  background-color: rgb(131, 120, 120);
+  color: white;
+  padding: 1px;
+  margin: 2px;
+  border-radius: 4px;
+  transition: all 250ms ease;
+
+  &:hover {
+    background-color: #85434b;
+  }
+
+  &:active {
+    background-color: #ed1730;
+  }
+}
+
+.buttons_user_detail_edit_profile_btn {
+    border: none;
+    background-color: #d7727e;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 250ms ease;
+
+    &:hover {
+      background-color: #85434b;
+    }
+
+    &:active {
+      background-color: #ed1730;
+    }
+  
 }
