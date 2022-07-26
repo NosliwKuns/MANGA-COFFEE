@@ -32,13 +32,13 @@ router.put('/admin/addchapter',  passport.authenticate("jwt", { session: false }
                         link: link
                     }
                     await Manga.findByIdAndUpdate((idManga), {$push:{mangas:newmanga}})
-                    res.status(200).json('El capitulo de su manga se Agrego con Exito!')  
+                    res.status(200).json('The chapter was successfuly added !')  
                 }                
             }else {
-                res.status(400).json("Informacion incompleta")
+                res.status(400).json("Some info is missed")
             }
         } else{
-            res.status(400).json("No cuentas con autorizacion")
+            res.status(400).json("you have not authorization")
         }
     } catch (error) {
         next(error)

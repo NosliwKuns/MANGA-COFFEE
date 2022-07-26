@@ -25,7 +25,7 @@ const sendEmail = async (email: string, subject: string, html:string): Promise<a
         const respons = await transporter.sendMail(mailoptions);
         return respons;
     } catch (error) {
-        console.log('Algo no va bien con el email', error);
+        console.log('Oh no!! , Something went wrong with the email', error);
     }    
   }
 

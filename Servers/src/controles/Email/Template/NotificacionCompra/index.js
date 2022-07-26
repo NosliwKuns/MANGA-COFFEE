@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const NotificationBuy = (product, total) => {
     let productos = "";
     product.forEach((element) => {
-        productos = `${productos}<p> Nombre: ${element.name}; Precio: ${element.price}; Cantidad: ${element.quantity}; Total: ${element.totProduct} </p>`;
+        productos = `${productos}<p> Name: ${element.name}; Price: ${element.price}; Cuantity: ${element.quantity}; Total: ${element.totProduct} </p>`;
     });
     console.log(productos);
     return `
@@ -11,10 +11,10 @@ const NotificationBuy = (product, total) => {
           <link rel="stylesheet" href="./style.css">
         </head>      
         <div id="email___content">
-            <h1>Compra realzada con exito </h1>
+            <h1>Thank You For Your Purchase!</h1>
             <h2>Productos </h2>
             ${productos}
-            <h4> Total de la compra: ${total}</h4>
+            <h4> Total Amount: ${total}</h4>
         </div>
     `;
 };
