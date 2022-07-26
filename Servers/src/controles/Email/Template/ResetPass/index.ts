@@ -8,12 +8,12 @@ const ResetPass = (name: string, id: string) => {
     </head>
     
     <div id="email___content" style="margin-right: 37%;" >
-    <h1>Cordial saludo ${name}</h1>
-    <h3>Solicitud restablecimiento de contraseña</h3>
-    <p>Se ha realizado una solicitud para restablecer la contraseña de tu cuenta;</p>
-    <p>Por favor sigue el siguiente vinculo para realizar la modificacion</p>
-    <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="http://localhost:3000/rename/password/${id}" target="_blank" > Restablecer constraseña</a>
-    <p>si no fuiste tu por favor obvie este mensaje, tu contraseña no se modificara</p>
+    <h1>Hello ${name}</h1>
+    <h3>Reset Account Password</h3>
+    <p>There was recently a request to change the passwor for your account;</p>
+    <p>If you requested this change, set a new password here: </p>
+    <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="http://localhost:3000/rename/password/${id}" target="_blank" > Set a New Password</a>
+    <p>If did not make this request, you can ignore this email and your password will remain the same.</p>
            
     </div>
     </div>

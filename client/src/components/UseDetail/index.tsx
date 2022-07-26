@@ -160,7 +160,7 @@ const UserDetail = () => {
         <button
           onClick={async () => {
             if (input !== email)
-              return alert("el email del usuario no coincide");
+              return alert("the email you`ve entered doesn`t match any accaunt");
             const verificated = await dispatch(deleteAcount(headers));
             alert(verificated);
             navigate("/");
