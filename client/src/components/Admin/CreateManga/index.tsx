@@ -114,7 +114,7 @@ const CreateManga = () => {
   return (
     <div className="admin_interface_container">
       <form onSubmit={handleSubmit}>
-        <div className="admin_interface_create_manga_form">
+        <div className="admin_interface_form">
           <div className="section">
             <div>
               <h3>Titlte :</h3>

@@ -3,17 +3,21 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
-import { allProductsCreate, createNewProduct } from "../../../features/admin/adminSlice";
+import {
+  allProductsCreate,
+  createNewProduct,
+} from "../../../features/admin/adminSlice";
 import CheckBoxesGenre from "../CreateManga/CheckBoxesGenre";
 import { arrayGenre } from "../CreateManga/functionCreateMangas";
 import { validate } from "./func/validate";
 import SelectComponent from "./SelectComponent";
+import "../../../scss/User/FormsAdmin.scss";
 
 const CreateProduct = () => {
-  const [allProducts, setAllProducts] = useState([])
-  const [allTitles, setAllTitles] = useState([])
-  console.log(allProducts  , "????????????????")
-  console.log(allTitles ,"????????????????????")
+  const [allProducts, setAllProducts] = useState([]);
+  const [allTitles, setAllTitles] = useState([]);
+  console.log(allProducts, "????????????????");
+  console.log(allTitles, "????????????????????");
 
   const [input, setInput] = useState({
     title: "",
@@ -43,7 +47,7 @@ const CreateProduct = () => {
     false,
     false,
   ]);
-  const [select, setSelect] = useState("")
+  const [select, setSelect] = useState("");
   const [image, setImage] = useState();
   const dispatch = useAppDispatch();
   const userCopy: any = window.localStorage.getItem("copySliceUser");
@@ -58,9 +62,9 @@ const CreateProduct = () => {
     name,
     lastname,
     id,
-    address: { country, direction, postalCode, reference :reference_user },
+    address: { country, direction, postalCode, reference: reference_user },
   } = JSON.parse(userCopy);
-  const headers = useHeaders(token)
+  const headers = useHeaders(token);
   const handleChange = (event: any) => {
     console.log(event);
     setInput({
@@ -78,26 +82,32 @@ const CreateProduct = () => {
     setImage(e.target.files);
   };
 
-  const handleSubmit = async(e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const selectBox = arrayGenre(checkedState,allProducts)
-    const verificated :any = await dispatch(createNewProduct(headers,input ,selectBox , select ,image , id))
-    const MySwal = withReactContent(Swal)
-        MySwal.fire({
-          html: <><h1>{verificated}</h1></>,
-            position: 'center',
-           icon: 'success',
-           showConfirmButton: false,
-           timer: 1500 ,
-          showCloseButton: true,
-          focusConfirm: false,
-          background: "#212429",
-          buttonsStyling: false,
-          customClass: {
-            confirmButton: 'confirmButton'
-          }
-        })
-  }
+    const selectBox = arrayGenre(checkedState, allProducts);
+    const verificated: any = await dispatch(
+      createNewProduct(headers, input, selectBox, select, image, id)
+    );
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      html: (
+        <>
+          <h1>{verificated}</h1>
+        </>
+      ),
+      position: "center",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
+      showCloseButton: true,
+      focusConfirm: false,
+      background: "#212429",
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: "confirmButton",
+      },
+    });
+  };
   const handleOnChecked = (position: number) => {
     console.log(position);
     const updatedCheckedState: any = checkedState.map((item, index) =>
@@ -107,66 +117,86 @@ const CreateProduct = () => {
     setCheckedState(updatedCheckedState);
   };
 
-  useEffect(()=>{
-    async function allProductsAndTile () {
-      const verificated :any = await dispatch(allProductsCreate(headers))
-      setAllTitles(verificated.titles)
-      setAllProducts(verificated.category)
+  useEffect(() => {
+    async function allProductsAndTile() {
+      const verificated: any = await dispatch(allProductsCreate(headers));
+      setAllTitles(verificated.titles);
+      setAllProducts(verificated.category);
     }
-    allProductsAndTile()
-  },[])
+    allProductsAndTile();
+  }, []);
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Titlte :</label>
-          <input
-            type="text"
-            name="title"
-            value={input.title}
-            onChange={handleChange}
-          />
-          {errors.title && <span>{errors.title}</span>}
+        <div className="admin_interface_form">
+          <div className="section">
+            <div>
+              <h3>Titlte :</h3>
+              <input
+                className="input_forms_admin_interface"
+                type="text"
+                name="title"
+                value={input.title}
+                onChange={handleChange}
+              />
+              {errors.title && <span>{errors.title}</span>}
+            </div>
+            <div>
+              <h3>Price :</h3>
+              <input
+                className="input_forms_admin_interface"
+                type="text"
+                name="price"
+                value={input.price}
+                onChange={handleChange}
+              />
+              {errors.price && <span>{errors.price}</span>}
+            </div>
+            <div>
+              <h3>Stock :</h3>
+              <input
+                className="input_forms_admin_interface"
+                type="text"
+                name="stock"
+                value={input.stock}
+                onChange={handleChange}
+              />
+              {errors.stock && <span>{errors.stock}</span>}
+            </div>
+            <div>
+              <h3>Description :</h3>
+              <textarea
+                className="input_forms_admin_interface_text"
+                name="description"
+                value={input.description}
+                onChange={handleChange}
+              />
+              {errors.description && <span>{errors.description}</span>}
+            </div>
+            <div>
+              <h3>Cover Image</h3>
+              <input
+                className="input_file_forms_admin_interface"
+                type="file"
+                onChange={handleImage}
+                accept="image/*"
+              />
+            </div>
+          </div>
+          <div className="section">
+            <div>
+              <h3>Categories:</h3>
+              <CheckBoxesGenre
+                state={checkedState}
+                handle={handleOnChecked}
+                allGenre={allProducts}
+              />
+              <SelectComponent array={allTitles} setState={setSelect} />
+            </div>
+            
+            <button className="button_forms_send_admin_interface">Send</button>
+          </div>
         </div>
-        <div>
-          <label>Price :</label>
-          <input
-            type="text"
-            name="price"
-            value={input.price}
-            onChange={handleChange}
-          />
-          {errors.price && <span>{errors.price}</span>}
-        </div>
-        <div>
-          <label>Stock :</label>
-          <input
-            type="text"
-            name="stock"
-            value={input.stock}
-            onChange={handleChange}
-          />
-          {errors.stock && <span>{errors.stock}</span>}
-        </div>
-        <div>
-          <label>Description :</label>
-          <textarea
-            name="description"
-            value={input.description}
-            onChange={handleChange}
-          />
-          {errors.description && <span>{errors.description}</span>}
-        </div>
-         <CheckBoxesGenre
-            state={checkedState}
-            handle={handleOnChecked}
-            allGenre={allProducts}
-          />
-          <SelectComponent array={allTitles} setState={setSelect}/>
-        <div>
-          <input type="file" onChange={handleImage} accept="image/*" />
-        </div>
-        <button>Send</button>
       </form>
     </div>
   );
