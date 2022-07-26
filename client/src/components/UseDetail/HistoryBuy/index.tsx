@@ -16,7 +16,6 @@ interface ElementBuy {
 
 const HistoryBuy = () => {
   const [history, setHistory] = useState([]);
-  console.log(history, "historyyyyyyyyyyyyyyyyyy");
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
   const dispatch = useAppDispatch();

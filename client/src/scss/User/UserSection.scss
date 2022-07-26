@@ -54,6 +54,42 @@
 }
 .banner_user_detail_s_contain_icon{
   position: absolute;
-  left: 15vh;
-  top:29vh;
+  left: 54vh;
+  top:30vh;
+}
+
+.images_container_user_detail {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+
+.button_delete_account_user_detail {
+    border: none;
+    background-color: #64666c;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 250ms ease;
+    &:hover {
+      background-color: red;
+    }
+    &:active {
+      background-color: rgb(146, 59, 59);
+    }
+}
+
+.button_edit_profile_user_detail{
+  position: absolute;
+  right: 50px;
+  transition: all 250ms ease;
+  &:hover {
+    background-color: rgb(155, 154, 154);
+    border-radius: 100%;
+    padding: 7px;
+  }
+  &:active {
+    background-color: rgb(97, 95, 95);
+    padding: 15px;
+  }
 }
