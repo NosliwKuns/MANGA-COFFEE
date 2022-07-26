@@ -1,0 +1,39 @@
+.celda_user_table_users_admin {
+  display: flex;
+  color: rgb(181, 149, 149);
+  margin: 18px;
+  max-height: 20px;
+
+  .celda_user_name_user {
+    width: 200px;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    font-size: small;
+  }
+  .celda_user_email {
+    width: 300px;
+    overflow-x: auto;
+    font-size: small;
+  }
+  .button_true_table_user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: rgb(152, 171, 124);
+    border: none;
+    margin: 0px 5px 0px 5px;
+    padding: 5px;
+  }
+  .button_false_table_user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: white;
+    background-color: rgb(196, 100, 100);
+    padding: 5px;
+    margin: 0px 5px 0px 5px;
+  }
+}
