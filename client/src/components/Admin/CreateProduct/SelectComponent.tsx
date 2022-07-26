@@ -11,7 +11,7 @@ const SelectComponent = ({array , setState}:any) => {
 
   return (
     <div>
-      <label className="choose"> Choose a diet : </label>
+      <h3 > Choose a manga : </h3>
       <select onChange={onSubmitSelect} >
         <option value="" >
           {"..."}

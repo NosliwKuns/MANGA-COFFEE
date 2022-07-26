@@ -50,7 +50,7 @@
   background-color: var(--primary);
   color: white;
   padding: 10px;
-  margin: 5px;
+
   border-radius: 4px;
   transition: all 250ms ease;
 
@@ -85,7 +85,7 @@
     margin: 50px;
 }
 
-.admin_interface_create_manga_form{
+.admin_interface_form{
     display: flex;
     .section{
         margin: 30px;
