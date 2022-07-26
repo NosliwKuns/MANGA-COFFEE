@@ -8,17 +8,37 @@ const router = Router();
 
 router.get('/addtocart/:id', async(req, res, next) => {
     const {id} = req.params;
-    let shoppingCart={}
+    let shoppingCart:any
     try { 
         const Usuario:any = await User.findById(id,[ 'cart'])
             
             shoppingCart = await Product.find({_id:Usuario.cart},{})
             let inter = Usuario.cart
         
+            console.log(shoppingCart , inter)
+            
+            let carts= []
+            
+            for (let i = 0; i < shoppingCart.length; i++) {
+                for (let j = 0; j < inter.length; j++) {
+                    if(inter[j]._id === shoppingCart[i].id){
+                        let cart = {
+                            ...shoppingCart[i]._doc,
+                            cuantity:inter[j].cuantity
+                        }
+                        carts.push(cart)
+                    }
+            }
+            
+        }
+        console.log(carts)
+        res.status(200).json(carts)
 
-        let merged = {inter,shoppingCart}
+            //   let merged = {shoppingCart}
 
-    res.status(200).json(merged)
+
+
+
         
     } catch (error) {
         next(error)

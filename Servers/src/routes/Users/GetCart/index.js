@@ -18,13 +18,24 @@ const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.get('/addtocart/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    let shoppingCart = {};
+    let shoppingCart;
     try {
         const Usuario = yield User_1.default.findById(id, ['cart']);
         shoppingCart = yield index_1.default.find({ _id: Usuario.cart }, {});
         let inter = Usuario.cart;
-        let merged = { inter, shoppingCart };
-        res.status(200).json(merged);
+        console.log(shoppingCart, inter);
+        let carts = [];
+        for (let i = 0; i < shoppingCart.length; i++) {
+            for (let j = 0; j < inter.length; j++) {
+                if (inter[j]._id === shoppingCart[i].id) {
+                    let cart = Object.assign(Object.assign({}, shoppingCart[i]._doc), { cuantity: inter[j].cuantity });
+                    carts.push(cart);
+                }
+            }
+        }
+        console.log(carts);
+        res.status(200).json(carts);
+        //   let merged = {shoppingCart}
     }
     catch (error) {
         next(error);
