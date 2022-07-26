@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import NotFavOrWish from "../NotFavOrWish";
-import '../../../scss/User/WishList.scss'
+import '../../../scss/User/Wishlist.scss'
 import { motion, AnimateSharedLayout } from 'framer-motion'
 import { gridAnimation, cardAnimation } from '../../../Animation.js';
 
