@@ -3,10 +3,10 @@ import { useAppSelector } from '../../app/hooks';
 
 import { InitialState, logOut } from "../../features/user/userSlice";
 import { useState, useEffect, useRef } from 'react';
-import ScrollToBottom from "react-scroll-to-bottom";
 import '../../scss/Chat/Chat.scss';
 const socket = io('https://manga-coffee.herokuapp.com');
 import { BiMailSend } from 'react-icons/bi';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 
 const Chat = () => {
@@ -39,6 +39,7 @@ const Chat = () => {
 
 
   useEffect(() => {
+
     socket.on("receive_message", (data: any) => {
 
       setMessageList((list) => {
@@ -49,11 +50,7 @@ const Chat = () => {
       });
     });
   }, [socket]);
-  let MessageListRef = useRef(null);
-  useEffect(() => {
-    MessageListRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-  }
-    , [messageList]);
+
 
   const minimizedChat = () => {
     setMinimized(!minimized)
@@ -74,7 +71,7 @@ const Chat = () => {
       </div>
 
       <div className={user.user ? "chat-content" : "chat-content blur"}>
-        <ScrollToBottom>
+        <ScrollToBottom className='chat-container'>
           {messageList.map((messageContent: any) => {
             return (
               <div
@@ -105,7 +102,6 @@ const Chat = () => {
               </div>
             );
           })}
-          <div ref={MessageListRef} />
         </ScrollToBottom>
       </div>
       {
