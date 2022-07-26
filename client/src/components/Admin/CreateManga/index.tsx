@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { createMangaAdmin } from "../../../features/admin/adminSlice";
 import CheckBoxesGenre from "./CheckBoxesGenre";
 import { arrayGenre, genreManga, validate } from "./functionCreateMangas";
+import "../../../scss/User/FormsAdmin.scss";
 
 const CreateManga = () => {
   const [checkedState, setCheckedState] = useState([
@@ -43,7 +44,6 @@ const CreateManga = () => {
   const [book, setBook] = useState();
   const [image, setImage] = useState();
 
-
   const handleBook = (e: any) => {
     setBook(e.target.files);
   };
@@ -52,7 +52,6 @@ const CreateManga = () => {
   };
 
   const handleChange = (event: any) => {
-    
     setInput({
       ...input,
       [event.target.name]: event.target.value,
@@ -66,7 +65,6 @@ const CreateManga = () => {
   };
 
   const handleOnChecked = (position: number) => {
- 
     const updatedCheckedState: any = checkedState.map((item, index) =>
       index === position ? !item : item
     );
@@ -86,90 +84,113 @@ const CreateManga = () => {
       return;
 
     let genres = arrayGenre(checkedState, genreManga);
-    const verificated:any = await dispatch(
+    const verificated: any = await dispatch(
       createMangaAdmin(headers, input, book, image, genres)
     );
-    
 
-    const MySwal = withReactContent(Swal)
+    const MySwal = withReactContent(Swal);
     MySwal.fire({
-      html: <><h1>{verificated}</h1></>,
-        position: 'center',
-       icon: 'success',
-       showConfirmButton: false,
-       timer: 1500 ,
+      html: (
+        <>
+          <h1>{verificated}</h1>
+        </>
+      ),
+      position: "center",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
       showCloseButton: true,
       focusConfirm: false,
       background: "#212429",
       buttonsStyling: false,
       customClass: {
-        confirmButton: 'confirmButton'
-      }
-    })
-
+        confirmButton: "confirmButton",
+      },
+    });
 
     alert(verificated);
   };
 
   return (
-    <div>
+    <div className="admin_interface_container">
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Titlte :</label>
-          <input
-            type="text"
-            name="title"
-            value={input.title}
-            onChange={handleChange}
-          />
-          {errors.title && <span>{errors.title}</span>}
-        </div>
-        <div>
-          <label>Description :</label>
-          <input
-            type="textarea"
-            name="description"
-            value={input.description}
-            onChange={handleChange}
-          />
-          {errors.description && <span>{errors.description}</span>}
-        </div>
-        {/* <div>
+        <div className="admin_interface_create_manga_form">
+          <div className="section">
+            <div>
+              <h3>Titlte :</h3>
+              <input
+                className="input_forms_admin_interface "
+                type="text"
+                name="title"
+                value={input.title}
+                onChange={handleChange}
+              />
+              {errors.title && <span>{errors.title}</span>}
+            </div>
+            <div>
+              <h3>Description :</h3>
+              <textarea
+                className="input_forms_admin_interface_text"
+                name="description"
+                value={input.description}
+                onChange={handleChange}
+              />
+              {errors.description && <span>{errors.description}</span>}
+            </div>
+            <div>
+              <h3>Chapter :</h3>
+              <input
+                className="input_forms_admin_interface "
+                type="text"
+                name="chapter"
+                value={input.chapter}
+                onChange={handleChange}
+              />
+              {errors.chapter && <span>{errors.chapter}</span>}
+            </div>
+            <button className="button_forms_send_admin_interface">send</button>
+          </div>
+          {/* <div>
           <label>Rating :</label>
           <input
             type="text"
             name="rating"
             value={input.rating}
             onChange={handleChange}
-          />
-          {errors.rating && <span>{errors.rating}</span>}
-        </div> */}
-        <div>
-          <label>Chapter :</label>
-          <input
-            type="text"
-            name="chapter"
-            value={input.chapter}
-            onChange={handleChange}
-          />
-          {errors.chapter && <span>{errors.chapter}</span>}
+            />
+            {errors.rating && <span>{errors.rating}</span>}
+          </div> */}
+          <div className="section">
+            <h3>Select chapters :</h3>
+            <input
+              className="input_file_forms_admin_interface"
+              type="file"
+              multiple
+              onChange={handleBook}
+              accept="image/*"
+            />
+            <h3>Select cover image :</h3>
+            <input
+              className="input_file_forms_admin_interface"
+              type="file"
+              onChange={handleImage}
+              accept="image/*"
+            />
+            <div>
+              <h3>Genres :</h3>
+              <CheckBoxesGenre
+                state={checkedState}
+                handle={handleOnChecked}
+                allGenre={genreManga}
+              />
+              {!checkedState.filter((e) => e === true).length && (
+                <span>select at least two genre</span>
+              )}
+            </div>
+          </div>
         </div>
-        <div>
-          <label>Genres :</label>
-          <CheckBoxesGenre
-            state={checkedState}
-            handle={handleOnChecked}
-            allGenre={genreManga}
-          />
-          {!checkedState.filter((e) => e === true).length && (
-            <span>select at least two genre</span>
-          )}
-        </div>
-        <label>Select chapters :</label>
-        <input type="file" multiple onChange={handleBook} accept="image/*" />
-        <label>Select cover image :</label>
-        <input type="file" onChange={handleImage} accept="image/*" />
-        <button>send</button>
+
+       
       </form>
     </div>
   );

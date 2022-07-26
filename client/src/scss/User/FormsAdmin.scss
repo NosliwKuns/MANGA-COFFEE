@@ -33,7 +33,7 @@
     background-color: rgb(131, 120, 120);
     color: white;
     padding: 1px;
-    margin: 20px;
+    margin: 15px;
     border-radius: 4px;
     transition: all 250ms ease;
   
@@ -49,14 +49,14 @@
   border: none;
   background-color: var(--primary);
   color: white;
-  padding: 5px;
+  padding: 10px;
   margin: 5px;
   border-radius: 4px;
   transition: all 250ms ease;
 
   &:hover {
     background-color: #85434b;
-    padding: 10px;
+    padding: 15px;
   }
 
   &:active {
@@ -64,9 +64,30 @@
   }
 }
 
-.admin_interdace_advertising_container{
+.container_check_box_genre_create{
+    margin: 10px;
+    padding: 5px;
+}
+
+.check_box_forms_admin_interface{
+    accent-color: var(--primary);
+    margin: 6px;
+}
+.check_box_forms_admin_interface_label {
+    color: rgb(131, 120, 120);
+    font-size: large;
+}
+
+.admin_interface_container{
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 50px;
+}
+
+.admin_interface_create_manga_form{
+    display: flex;
+    .section{
+        margin: 30px;
+    }
 }
