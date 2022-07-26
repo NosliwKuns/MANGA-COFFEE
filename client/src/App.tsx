@@ -37,6 +37,7 @@ import BuyShopping from './components/BuyProduct/BuyShopping';
 import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 import WishList from './components/User/WishList/WishList'
 import DetailEment from './components/UseDetail/HistoryBuy/DetailEment';
+import AboutUs from './components/SideBar/AboutUs/AboutUs'
 
 
 axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api";
@@ -68,7 +69,6 @@ function App() {
   const resShop = useFetch(
     queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}` : ""
   );
-  console.log('RES SHOOOOOP', resShop);
   
 
   useEffect(()=>{
@@ -151,6 +151,7 @@ function App() {
           <Route path='/shoppingTime' element={<BuyShopping/>}/>
           <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
           <Route path='/detailElementBuy/:idElement' element={<DetailEment/>}/>
+          <Route path='/aboutUs' element={<AboutUs/>}/>
         </Routes>
         </AnimatePresence>
       </div>

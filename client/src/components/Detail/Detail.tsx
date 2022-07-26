@@ -133,7 +133,7 @@ const Detail = () => {
       </header>
       <h2 className="sub-title">Description :</h2>
       <p>{manga.description}</p>
-      <h2 className="sub-title">Lista de capitulos</h2>
+      <h2 className="sub-title">Chapter List:</h2>
       <div className="chapter-container">
         {manga.mangas.map((e: any) => {
           return (
@@ -168,8 +168,8 @@ const Detail = () => {
       )}
       {admin && add && (
         <form onSubmit={handleAddChapter}>
-          <input type="file" multiple accept="image/*" onChange={handleFiles} />
-          <button>Send</button>
+          <input type="file" multiple accept="image/*" onChange={handleFiles} className='inputChooseFiles'/>
+          <button className="SendChapterButton">Send</button>
         </form>
       )}
       <Comments />

@@ -46,15 +46,15 @@ router.put('/admin/addchapter', passport_1.default.authenticate("jwt", { session
                         link: link
                     };
                     yield Manga_js_1.default.findByIdAndUpdate((idManga), { $push: { mangas: newmanga } });
-                    res.status(200).json('El capitulo de su manga se Agrego con Exito!');
+                    res.status(200).json('The chapter was successfuly added !');
                 }
             }
             else {
-                res.status(400).json("Informacion incompleta");
+                res.status(400).json("Some info is missed");
             }
         }
         else {
-            res.status(400).json("No cuentas con autorizacion");
+            res.status(400).json("you have not authorization");
         }
     }
     catch (error) {

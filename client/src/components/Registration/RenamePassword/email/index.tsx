@@ -18,10 +18,10 @@ const RenamePassword = () => {
     if (error.length) return;
     // dispatch
    const validate : any = await dispatch(renameEmail(input))
-   if(validate === "El usuario no existe"){
+   if(validate === "this user does not exist"){
     alert (validate)
    } else {
-    alert("revise su correo electronico en breve le lleagra una link para cambiar su contrasenia")
+    alert("Check your email, We've sent password reset instruction, if it doesn`t arrive soon, check your spam folder.")
    }
   };
 

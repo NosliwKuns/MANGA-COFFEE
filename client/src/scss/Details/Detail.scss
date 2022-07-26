@@ -94,3 +94,27 @@
     text-align: justify;
   }
 }
+
+.inputChooseFiles{
+  input[type=”file”]#file-upload-button{
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: 100vh;
+    font-size: 14px;
+    margin-right: 10px;
+    padding: 5px;
+  }
+}
+
+.SendChapterButton{
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: 100vh;
+    font-size: 14px;
+    margin-right: 10px;
+    padding: 5px;
+    width: 50px;
+}
+
