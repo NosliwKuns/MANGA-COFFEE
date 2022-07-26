@@ -1,17 +1,16 @@
-.favDivContainer{
+.wishDivContainer{
     display: grid;
     grid-template-columns: repeat(auto-fit, 20vh);
     justify-content: center;
     height: 100%;
     gap: 2em 4em;
-    .FavoriteCardsContainer {
+    .WishlistCardsContainer {
         section {
             height: 30vh;
             border-radius: 1em;
             overflow: hidden;
             margin-bottom: .5em;
             background: var(--dark--100);
-            
             img {
                 cursor: pointer;
                 height: 100%;
@@ -19,10 +18,10 @@
                 object-fit: cover;
             }
         }
-        .divContainerMangaFav{
+        .divContainerMangaWish{
             position: relative;
         }
-        .DeleteButtonFavorites{
+        .DeleteButtonWishlist{
             background-color: rgb(73, 71, 71);
             color: #FFF;
             border: none;
@@ -35,7 +34,7 @@
             right: 4px;
             top: 4px;
         }
-        .MangaTitleFavorites{
+        .ProductsTitleWishlist{
             cursor: pointer;
             text-decoration: none;
             color: #a1b8c8;

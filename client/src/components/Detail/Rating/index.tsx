@@ -1,44 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaStar } from 'react-icons/fa'
+import { fetchUpdateRating } from "../../../features/manga/mangaSlice";
 import '../../../scss/Details/Rating.scss';
+import { useAppDispatch, useAppSelector } from './../../../app/hooks';
+
 
 const colors = {
   orange: "#EA374B",
   grey: "#a9a9a9"
 }
 
-type Props = {
-  rating: number;
-}
 
-const Rating = ({ rating }: Props) => {
+const Rating = () => {
 
   const stars = Array(5).fill(0);
-  const [currentValue, setCurrentValue] = useState<number>(0);
   const [hoverValue, setHoverValue] = useState<undefined | number>(undefined);
   const [display, setDisplay] = useState<string | number>('');
   const [appear, setAppear] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { _id } = useAppSelector((state) => state.mangas.manga);
+  const { rating } = useAppSelector((state) => state.mangas);
+
 
   const handleClick = (value : number) => {
-    setCurrentValue(value);
+    dispatch(fetchUpdateRating(_id, value))
     setAppear(!appear);
     setTimeout(() => {
       setAppear(false);
     }, 2000);
   };
 
-  console.log(appear);
-
   const handleMouseOver = (value : number) => {
     setHoverValue(value);
     setDisplay('Your Rating');
   };
-  console.log(currentValue);
 
   const handleMouseLeave = () => {
     setHoverValue(undefined);
     setDisplay('')
-  }
+  };
 
 
   return (
@@ -58,7 +58,7 @@ const Rating = ({ rating }: Props) => {
                   marginRight: 10,
                   cursor: "pointer",
                 }}
-                color={(hoverValue || currentValue || rating) > i 
+                color={(hoverValue || rating - .5 ) > i
                         ? colors.orange : colors.grey}
                 onClick={() => handleClick(i + 1)}
                 

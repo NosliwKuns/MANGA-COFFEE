@@ -109,9 +109,41 @@
   }
 }
 
+@media screen and (max-width: 1210px) {
+  .App {
+    grid-template-columns: min-content 1fr;
+
+    .six {
+      position: fixed;
+      right: 0;
+      top: 0;
+      transition: 0.3s;
+      height: 100%;
+      transform: translateX(280px);
+      z-index: 4;
+    }
+  }
+}
+
 /* -----------mobile----------- */
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 930px) {
+  .App {
+    grid-template-columns: 1fr;
+
+    .four {
+      position: fixed;
+      left: 0;
+      top: 0;
+      transition: 0.3s;
+      height: 100%;
+      transform: translateX(-260px);
+      z-index: 4;
+    }
+  }
+}
+
+/* @media only screen and (max-width: 600px) {
   .App {
     grid-template-columns: 3em auto;
     grid-template-rows: auto 1fr;
@@ -190,7 +222,7 @@
     }
 
   }
-}
+} */
 
 .loading {
   background: #ffffff;

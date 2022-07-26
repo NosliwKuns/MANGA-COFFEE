@@ -115,7 +115,7 @@ const PopularGenres = () => {
                 <img className='left' src={Img} alt="" />
                 <img className='center' src={Img} alt="" />
                 <img className='right' src={Img} alt="" />
-                <h3>GENERO X</h3> 
+                <h3>GENRES X</h3> 
               </SwiperSlide>
                 </div>
               

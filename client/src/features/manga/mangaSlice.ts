@@ -39,7 +39,8 @@ type InitialState = {
     comments : Comments[],
     commentsCopy : Comments[],
     genres: Array<string>,
-    category: Array<any>
+    category: Array<any>,
+    rating: number
   }
 
 const initialState: InitialState = {
@@ -63,6 +64,7 @@ const initialState: InitialState = {
   commentsCopy : [],
   genres : [],
   category: [],
+  rating: 0,
   }
   
   const mangaSlice = createSlice({
@@ -74,7 +76,8 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
-        state.manga = action.payload 
+        state.manga = action.payload
+        state.rating = action.payload.rating 
       },
       searchMangaByName: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
@@ -116,6 +119,9 @@ const initialState: InitialState = {
         state.manga.comments = action.payload
         state.comments = action.payload
       },
+      updateRating: (state, action : PayloadAction<number>) => {
+        state.rating = action.payload
+      }
     }
   })
   
@@ -203,6 +209,13 @@ const initialState: InitialState = {
       dispatch(cleanCategories())
     }
   };
+
+  export const fetchUpdateRating = (id : string, value : number) : AppThunk => {
+    return async (dispatch: any) => {
+      const { data } = await axios.put(`https://manga-coffee.herokuapp.com/api/manga/rating/${id}`, {ratinger: value}) 
+      dispatch(updateRating(data))
+    }
+  };
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
@@ -226,6 +239,7 @@ const initialState: InitialState = {
       getGenres,
       cleanCategories,
       commentDelete,
+      updateRating,
   } = mangaSlice.actions
 
   

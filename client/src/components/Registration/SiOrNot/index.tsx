@@ -17,7 +17,7 @@ const SiOrNot = ({ input }: Props) => {
   const navigate = useNavigate()
   return (
     <div>
-      <h4>Este correo tiene una cuenta vinculada, desea recuperarla</h4>
+      <h4>This email is already registered, do you want to get it back? </h4>
       <button
         onClick={async () => {
           const verificate = await   dispatch(siOrNot(input, true));

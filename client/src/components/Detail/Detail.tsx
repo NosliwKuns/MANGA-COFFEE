@@ -1,28 +1,28 @@
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { Link } from "react-router-dom";
 import {
   fetchDetailManga,
   fetchCleanDetails,
 } from "../../features/manga/mangaSlice";
-import { FetchFavoriteMangas } from "../../features/user/userSlice";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Rating from "./Rating";
-import "../../scss/Details/Detail.scss";
-import Comments from "./Comments";
-import { IoIosHeart } from "react-icons/io";
-import useHeaders from "../../app/headers";
-import { carAnimation, h3Animation } from "../../Animation";
-import { motion } from "framer-motion";
 import {
   getFavManga,
   fetchDeleteFavorites,
 } from "./../../features/user/userSlice";
+import { FetchFavoriteMangas } from "../../features/user/userSlice";
+import { IoIosHeart } from "react-icons/io";
+import { carAnimation, h3Animation } from "../../Animation";
+import { motion } from "framer-motion";
 import { addChapterManga } from "../../features/admin/adminSlice";
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import withReactContent from 'sweetalert2-react-content';
+import useHeaders from "../../app/headers";
+import Comments from "./Comments";
+import Swal from 'sweetalert2';
+import Rating from "./Rating";
+import "../../scss/Details/Detail.scss";
 
 const Detail = () => {
   const dispatch = useAppDispatch();
@@ -41,9 +41,7 @@ const Detail = () => {
   const userId = useAppSelector((state) => state.user.id);
 
   const headers = useHeaders(token);
-  console.log(favorites, "jue[")
-  let fav = favorites?.find(e => e._id === params.id) ? true : false
-  console.log(fav, 'fav');
+  let fav = favorites?.find(e => e._id === params.id) ? true : false;
 
   const handleAddChapter = async (e: any) => {
     e.preventDefault();
@@ -93,7 +91,7 @@ const Detail = () => {
           confirmButton: 'confirmButton'
         }
       })
-    } /* else if(favorites.find(e => e._id === params.id)) */
+    }
   };
 
   useEffect(() => {
@@ -124,7 +122,7 @@ const Detail = () => {
           <img src={`${manga.cover_image}`} alt={`cover_page_${manga._id}`} />
         </motion.div>
         <div className="info-container">
-          <Rating rating={manga.rating} />
+          <Rating />
           <div className="favorites" onClick={() => handleClick()}>
             <IoIosHeart size="34" color={fav ? "#EA374B" : "#9394A9"} />
           </div>
@@ -138,7 +136,7 @@ const Detail = () => {
       </header>
       <h2 className="sub-title">Description :</h2>
       <p>{manga.description}</p>
-      <h2 className="sub-title">Lista de capitulos</h2>
+      <h2 className="sub-title">Chapter List:</h2>
       <div className="chapter-container">
         {manga.mangas.map((e: any) => {
           return (
@@ -173,8 +171,8 @@ const Detail = () => {
       )}
       {admin && add && (
         <form onSubmit={handleAddChapter}>
-          <input type="file" multiple accept="image/*" onChange={handleFiles} />
-          <button>Send</button>
+          <input type="file" multiple accept="image/*" onChange={handleFiles} className='inputChooseFiles'/>
+          <button className="SendChapterButton">Send</button>
         </form>
       )}
       <Comments />

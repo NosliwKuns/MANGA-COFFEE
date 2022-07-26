@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useHeaders from "../../app/headers";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchAllUser } from "../../features/admin/adminSlice";
+import { useAppDispatch } from "../../app/hooks";
 import {
   deleteAcount,
   editProfileAction,
@@ -40,8 +39,8 @@ const UserDetail = () => {
     : "you still don't have a description of your profile ! Create a description to tell a little more about yourself so you can connect with more people who love manga like you.";
   const emailStorage: any = window.localStorage.getItem("copySliceUser");
   const [inputEdit, setInputEdit] = useState<any>({
-    users: user,
-    description: description,
+    users: "",
+    description: "",
   });
   const { email } = JSON.parse(emailStorage);
   const defaultPic = <FaUserCircle size={70} color={"white"} />;
@@ -124,6 +123,7 @@ const UserDetail = () => {
             type={"text"}
             name="users"
             value={inputEdit.users}
+            placeholder={user}
             onChange={handleChangeEdit}
           />
         ) : (
@@ -136,6 +136,7 @@ const UserDetail = () => {
               type={"text"}
               name="description"
               value={inputEdit.description}
+              placeholder={description}
               onChange={handleChangeEdit}
             />
           ) : (
@@ -159,7 +160,7 @@ const UserDetail = () => {
         <button
           onClick={async () => {
             if (input !== email)
-              return alert("el email del usuario no coincide");
+              return alert("the email you`ve entered doesn`t match any accaunt");
             const verificated = await dispatch(deleteAcount(headers));
             alert(verificated);
             navigate("/");

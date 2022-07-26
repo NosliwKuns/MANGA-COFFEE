@@ -9,20 +9,21 @@ import { IoMdHome } from "react-icons/io";
 import PopularMangas from "../RightSide/PopularMangas";
 import '../../scss/RightSide/SideBar.scss';
 import { GiHamburgerMenu } from "react-icons/gi"
+import { BsFillFilePersonFill } from "react-icons/bs"
 import { useState } from 'react';
 import User from '../User/User';
 
 const SideBar = () =>{
-    const [transform, setTransform] = useState<boolean>(true);
+    const [transform, setTransform] = useState<boolean>(false);
     const minSidebar = () => {
         setTransform(!transform);
     }
 
     return(
-        <div className={transform ? "four side-bar-container" : "hide"}>
+        <div className={transform ? "four side-bar-container is-active " : "four side-bar-container"}>
             
             <div className="logo">
-                MANGACOFFEE
+                <span onClick={minSidebar}>a</span> MANGACOFFEE
             </div>
             <User />
             <div className="side-wrapper">
@@ -41,6 +42,13 @@ const SideBar = () =>{
                             color={'#fff'}
                         />
                         Shop
+                    </Link>
+                    <Link to='/aboutUs'>
+                        <BsFillFilePersonFill
+                        size={20}
+                        color={'#fff'}
+                        />
+                        About Us
                     </Link>
                 </div>
                 
