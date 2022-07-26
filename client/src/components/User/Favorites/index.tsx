@@ -78,7 +78,7 @@ const Favorites = () =>{
         <div className='favDivContainer'>
                     {
                     favorites.length?
-                    favorites?.map(f=>{
+                    favorites?.map((f: any)=>{
                     return(
                         <motion.div
                         variants={gridAnimation}
@@ -86,7 +86,6 @@ const Favorites = () =>{
                         exit='hide'
                         className="FavoriteCardsContainer">
                             <AnimateSharedLayout>
-                                {/* <Link to={`/mangas/detail/${f._id}`}> */}
                                     <motion.div
                                     variants={cardAnimation}
                                     key={f._id}
@@ -98,7 +97,6 @@ const Favorites = () =>{
                                     </section>
                                     <header className='MangaTitleFavorites' onClick={() => navigate(`/mangas/detail/${f._id}`)}>{f.title}</header>
                                     </motion.div>
-                                {/* </Link> */}
                             </AnimateSharedLayout>
                         </motion.div>
                     )
