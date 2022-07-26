@@ -1,16 +1,19 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector} from '../../../app/hooks';
 import useHeaders from "../../../app/headers";
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { FetchGetWishlist, fetchDeleteWishlist } from '../../../features/user/userSlice'
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RiErrorWarningFill } from 'react-icons/ri';
 import NotFavOrWish from "../NotFavOrWish";
-import '../../../scss/User/notFavOrWish.scss'
+import '../../../scss/User/WishList.scss'
+import { motion, AnimateSharedLayout } from 'framer-motion'
+import { gridAnimation, cardAnimation } from '../../../Animation.js';
 
 const WishList = () => {
     const dispatch= useAppDispatch();
+    const navigate = useNavigate()
     const { id, wishlist, token} = useAppSelector(state=> state.user)
     const headers = useHeaders(token)
 
@@ -70,23 +73,31 @@ const WishList = () => {
     },[dispatch, id])
 
     return (
-        <div className='wish'>{
+        <div className='wishDivContainer'>
+            {
             wishlist.length?
             wishlist?.map(p=>{
             return(
-                <div>
-                    <button onClick={() => handleClick(p._id)}>X</button>
-                    <Link to={`/product/${p._id}`}>
-                        <div key={p._id}>
-                        <section>
-                            <img src={`${p.product_image}`} alt={`cover_page_${p._id}`} height={'200px'} />
-                        </section>
-                        <header>{p.name}</header>
-                        </div>
-                    </Link>
-                </div>
+                <motion.div
+                        variants={gridAnimation}
+                        animate='show'
+                        exit='hide'
+                        className="WishlistCardsContainer">
+                            <AnimateSharedLayout>
+                                <motion.div
+                                    variants={cardAnimation}
+                                    key={p._id}
+                                    layout
+                                    className='divContainerMangaWish'>
+                                        <button onClick={() => handleClick(p._id)} className="DeleteButtonWishlist">X</button>
+                                    <section>
+                                        <img src={`${p.product_image}`} alt={`cover_page_${p._id}`} onClick={() => navigate(`/product/${p._id}`)}/>
+                                    </section>
+                                    <header className='ProductsTitleWishlist' onClick={() => navigate(`/product/${p._id}`)}>{p.name}</header>
+                                    </motion.div>
+                            </AnimateSharedLayout>
+                        </motion.div>
             )
-            
         })
         :<NotFavOrWish/>
     }
