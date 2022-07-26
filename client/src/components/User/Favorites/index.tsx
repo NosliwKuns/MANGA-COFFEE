@@ -2,7 +2,7 @@ import { getFavManga, fetchDeleteFavorites } from '../../../features/user/userSl
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector} from '../../../app/hooks';
 import useHeaders from "../../../app/headers";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { RiErrorWarningFill } from 'react-icons/ri';
@@ -15,6 +15,7 @@ import { gridAnimation, cardAnimation, h3Animation } from '../../../Animation.js
 
 const Favorites = () =>{
     const dispatch= useAppDispatch();
+    const navigate = useNavigate()
     const { id, favorites, token} = useAppSelector(state=> state.user)
     const headers = useHeaders(token)
     const handleClick = (mangaid: any) => {
@@ -85,18 +86,19 @@ const Favorites = () =>{
                         exit='hide'
                         className="FavoriteCardsContainer">
                             <AnimateSharedLayout>
-                                <button onClick={() => handleClick(f._id)} className="DeleteButtonFavorites">X</button>
-                                <Link to={`/mangas/detail/${f._id}`}>
+                                {/* <Link to={`/mangas/detail/${f._id}`}> */}
                                     <motion.div
                                     variants={cardAnimation}
                                     key={f._id}
-                                    layout>
+                                    layout
+                                    className='divContainerMangaFav'>
+                                        <button onClick={() => handleClick(f._id)} className="DeleteButtonFavorites">X</button>
                                     <section>
-                                        <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} />
+                                        <img src={`${f.cover_image}`} alt={`cover_page_${f._id}`} onClick={() => navigate(`/mangas/detail/${f._id}`)}/>
                                     </section>
-                                    <header className='MangaTitleFavorites'>{f.title}</header>
+                                    <header className='MangaTitleFavorites' onClick={() => navigate(`/mangas/detail/${f._id}`)}>{f.title}</header>
                                     </motion.div>
-                                </Link>
+                                {/* </Link> */}
                             </AnimateSharedLayout>
                         </motion.div>
                     )
