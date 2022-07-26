@@ -6,11 +6,9 @@ import ReadTokenData from '../../../controles/Token/ReadTokenData/index.js';
 import { FilesImage } from '../../../middlewares/FileUpload/index.js';
 import User from '../../../models/Users/User.js';
 const router = Router();
-
+ 
 router.put('/update', passport.authenticate("jwt", { session: false }), FilesImage(),  async(req, res, next) => {
-    console.log(req.files, "filesssssssssssssss")
-    // console.log(req.body, "bodyyyyyyyyyyyyyy")
-    const { users, name, lastname, user_description, telephone, address, token }: any = req.body;
+    const { users, name, lastname, user_description, telephone, token, country, direction, reference, postalCode}: any = req.body;
 
     const {authorization} = req.headers;  
     try {  
@@ -18,9 +16,7 @@ router.put('/update', passport.authenticate("jwt", { session: false }), FilesIma
         const user = await User.findById(data.id);
         let newuser_banner;
         let newuser_image;
-        if (user){
-
-            
+        if (user){            
             if (req.files?.user_banner){
                 const { user_banner}: any = req.files; 
                 let folderpath = `User/${user.email}/user_banner`;
@@ -29,19 +25,23 @@ router.put('/update', passport.authenticate("jwt", { session: false }), FilesIma
             }
             if (req.files?.user_image){
                 const { user_image }: any = req.files; 
-
                 let folderpath = `User/${user.email}/user_banner`;
                 newuser_image = await Uploadimage(user_image.tempFilePath, folderpath);
                 await fs.unlink(user_image.tempFilePath)
             }
-            
+            const address = {
+                postalCode: postalCode || user.address.postalCode,
+                country: country || user.address.country,
+                direction: direction || user.address.direction,
+                reference: reference || user.address.reference
+            }
             const userUpdate = {
                 users: users || user.users,
                 name: name || user.name,
                 lastname: lastname || user.lastname,
                 user_description: user_description || user.user_description,
                 telephone: telephone || user.telephone,
-                address: address || user.address,
+                address,
                 user_banner: newuser_banner?.secure_url || user.user_banner, 
                 user_image: newuser_image?.secure_url || user.user_image
             }                        

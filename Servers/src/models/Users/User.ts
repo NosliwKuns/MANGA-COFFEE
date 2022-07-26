@@ -14,7 +14,12 @@ export interface IUser extends mongoose.Document{
     user_image: string,
     comparePassword: (pasword: string) => Promise<boolean>,
     favorites: [Object],
-    address: object,
+    address: {
+        postalCode: String,
+        country:  String,
+        direction:  String,
+        reference:  String
+    },
     historyBuy: [{
         date: String,
         idCompra: String,

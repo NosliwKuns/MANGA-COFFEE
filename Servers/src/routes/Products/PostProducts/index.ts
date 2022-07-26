@@ -13,8 +13,6 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
     const { id_User, name, description, stock, price, category, title} = req.body;
     const {authorization} = req.headers;
     let { product_image }: any= req.files;
-    console.log(req.files, 'files')
-    console.log(req.body, 'body')
     try {
         const data = ReadTokenData(authorization);
         const useradmin = await User.findById(data.id);
