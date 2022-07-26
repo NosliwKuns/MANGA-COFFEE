@@ -49,12 +49,9 @@ const Chat = () => {
       });
     });
   }, [socket]);
-  const MessageListRef = useRef(null);
+  let MessageListRef = useRef(null);
   useEffect(() => {
-    MessageListRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-    });
+    MessageListRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
   }
     , [messageList]);
 
