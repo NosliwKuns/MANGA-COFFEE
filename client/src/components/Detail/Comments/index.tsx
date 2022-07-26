@@ -104,7 +104,7 @@ const Comments = () => {
     }
   }
 
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleCancel = () => {
     setInput({
       name : '',
       body : '',
@@ -193,8 +193,8 @@ const Comments = () => {
               onChange={(e) => handleChange(e)}
               placeholder="Add a comment..."/>
             <section>
-              <span onClick={handleCancel} >Cancel </span>
-              <button type="submit">Comment</button>
+              <div onClick={handleCancel} className="CancelCommentButton">Cancel </div>
+              <button type="submit" className='AddCommentButton'>Comment</button>
             </section>
           </form>
         </div>
@@ -212,8 +212,7 @@ const Comments = () => {
                 <section>
                   <h4>{c.name}<span> {`${c.time ? timeAgo(c.time) : "2days ago"}`}</span></h4>
                   <p>{c.body}</p>
-                  <h5>REPLY</h5>
-                  {c.userId === id ? <button onClick={()=> handleDelete(c.userId, c._id)}>Delete</button> : ""}
+                  {c.userId === id ? <button onClick={()=> handleDelete(c.userId, c._id)} className="DeleteCommentButton">Delete</button> : ""}
                 </section>
               </div>
               <span className="separator"></span>

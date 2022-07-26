@@ -151,6 +151,31 @@ export const addChapterManga = (
   };
 };
 
+
+
+export const allProductsCreate = (headers:object) : AppThunk => {
+  return async () =>{
+    const {data} = await axios.get("http://localhost:5000/api/user/admin?type=products",headers)
+    return data
+  }
+} 
+
+
+export const createNewProduct = (headers:object, input:any , selectBox:any , select:any , image:any , id :string) : AppThunk => {
+  const book = new FormData()
+  book.append("id_User",id)
+  book.append("category",selectBox)
+  book.append("stock",input.stock)
+  book.append("price",input.price)
+  book.append("description",input.description)
+  book.append("name",input.title)
+  book.append("title",select)
+  book.append("product_image",image[0])
+  return async () =>{
+    const {data} = await axios.post("http://localhost:5000/api/products/poster/products", book,headers)
+    return data
+  }
+} 
 export default adminSlice.reducer;
 
 export const { initUsers } = adminSlice.actions;

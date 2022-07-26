@@ -9,7 +9,7 @@ import ReadTokenData from '../../../controles/Token/ReadTokenData/index.js';
 const router = Router();
 
 router.post('/',  passport.authenticate("jwt", { session: false }), FilesImage(), async(req, res, next) => { 
-    const {title, genres, description, rating, comments, chapter} = req.body;
+    const {title, genres, description, comments, chapter} = req.body;
     const {authorization} = req.headers;
     try { 
         const data= ReadTokenData(authorization);
@@ -32,7 +32,7 @@ router.post('/',  passport.authenticate("jwt", { session: false }), FilesImage()
                 let CoverImgClaudinary = await Uploadimage(cover_image.tempFilePath, folderpath);
                 await fs.unlink(cover_image.tempFilePath);
                 cover_image = CoverImgClaudinary.secure_url;
-                const manga = new Manga({title, genres: genres.split(','), cover_image, description, mangas, rating, comments});
+                const manga = new Manga({title, genres: genres.split(','), cover_image, description, mangas, comments});
                 await manga.save()
                 res.status(200).json('Su manga se Agrego con Exito!')
             }else {

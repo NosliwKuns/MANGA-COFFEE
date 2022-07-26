@@ -36,9 +36,10 @@ import RenamePass from './components/Registration/RenamePassword/password';
 import BuyShopping from './components/BuyProduct/BuyShopping';
 import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 import WishList from './components/User/WishList/WishList'
+import DetailEment from './components/UseDetail/HistoryBuy/DetailEment';
 
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api";
 
 function App() {
 
@@ -49,21 +50,26 @@ function App() {
   const user = JSON.parse(localUser);
   const location = useLocation();
 
+  const [colorF, setColorF] = useLocalStorage('colorFM', [])
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
+  const [sort, setSort] = useState<string>(searchParams.get("genre") || "")
   
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
   const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
   
   const res = useFetch(
-    query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}` : ""
+    query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
   );
   const resShop = useFetch(
-    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&genres=${genreShop}` : ""
-    );
+    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}` : ""
+  );
+  console.log('RES SHOOOOOP', resShop);
+  
 
   useEffect(()=>{
     if(user){
@@ -87,28 +93,39 @@ function App() {
           setGenre={setGenre}
           setPage={setPage}
           setQuery={setQuery}
-
+          setColorF={setColorF}
         />
 
         <AnimatePresence exitBeforeEnter>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<DiscoverHome/>} />
           <Route path="/shop" element={
-          <Shop 
-          product={product} 
-          setProduct={setProduct} 
-          resShop={resShop}
-          setPageShop= {setPageShop}
-          genreShop= {genreShop}
-          queryShop= {queryShop}
-          setSearchParams={setSearchParams}/>} />
+            <Shop 
+            product={product} 
+            setProduct={setProduct} 
+            resShop={resShop}
+            pageShop={pageShop}
+            setPageShop= {setPageShop}
+            genreShop= {genreShop}
+            queryShop= {queryShop}
+            setSearchParams={setSearchParams}
+            setGenreShop={setGenreShop}
+            setQueryShop={setQueryShop} 
+            colorF={colorF}
+            setColorF={setColorF}/>} />
           <Route path="/mangas" element={
             <CatalogMangas
+              setGenre={setGenre}
               setPage={setPage}
               query={query}
               genre={genre}
               setSearchParams={setSearchParams}
               res={res}
+              colorF={colorF}
+              setColorF={setColorF}
+              page={page}
+              sort={sort}
+              setSort={setSort}
             />} 
           />
           {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
@@ -119,7 +136,7 @@ function App() {
           <Route path='/userDetail' element={<UserDetail/>}/>
           <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>
           <Route path='/user/fav' element={<Favorites/>} />
-          <Route path='/user/wishlist' element={<h1>I'm the Wish List component</h1>} />
+          <Route path='/user/wishlist' element={<WishList/>} />
           <Route path='/user/cart' element={<h1>I'm the Cart component</h1>} />
           <Route path='/categories' element={<Categories/>} />
           <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
@@ -133,11 +150,12 @@ function App() {
           <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
           <Route path='/shoppingTime' element={<BuyShopping/>}/>
           <Route path='/admin/msg/:idUser' element={<MessageAdmin/>}/>
+          <Route path='/detailElementBuy/:idElement' element={<DetailEment/>}/>
         </Routes>
         </AnimatePresence>
-
       </div>
       <RightSide product={product} setProduct={setProduct}/>
+      <Chat />
     </div>
   )
 }

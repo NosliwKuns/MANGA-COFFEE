@@ -65,10 +65,10 @@ type Purchese = {
 };
 
 export type InitialState = {
-  admin : boolean ;
-  block : boolean ;
-  wishlist : Array<wishlist> ;
-  status : boolean ;
+  admin: boolean;
+  block: boolean;
+  wishlist: Array<wishlist>;
+  status: boolean;
   id: string;
   email: string;
   password: string;
@@ -86,13 +86,12 @@ export type InitialState = {
   historyBuy: Array<Purchese>;
 };
 
-
 const initialState: InitialState = {
-  status : true, //
-  block : false, //
-  admin : false , //
-  wishlist : [] , //
-  id: "", // 
+  status: true, //
+  block: false, //
+  admin: false, //
+  wishlist: [], //
+  id: "", //
   email: "", //
   password: "", //
   verificated: false, //
@@ -109,7 +108,9 @@ const initialState: InitialState = {
   historyBuy: [], //
 };
 
+//! =====================================
 const userSlice = createSlice({
+  //! =====================================
   name: "user",
   initialState,
   reducers: {
@@ -124,9 +125,9 @@ const userSlice = createSlice({
     },
     loginUser: (state, action: PayloadAction<InitialState>) => {
       const {
-        wishlist ,
-        status ,
-        block ,
+        wishlist,
+        status,
+        block,
         admin,
         id,
         email,
@@ -145,10 +146,10 @@ const userSlice = createSlice({
         historyBuy,
       }: InitialState = action.payload;
       // ! pendiente --------------------------------------------------------------->
-      state.wishlist = wishlist ;
-      state.status= status ;
-      state.block = block ;
-      state.admin = admin ;
+      state.wishlist = wishlist;
+      state.status = status;
+      state.block = block;
+      state.admin = admin;
       state.id = id;
       state.email = email;
       state.password = password;
@@ -169,10 +170,10 @@ const userSlice = createSlice({
     logOutUser: (state) => {
       // ? ------------------------------------------------------------------------------------>
       state = {
-        wishlist : [] ,
-        status : true ,
-        block : false ,
-        admin : false ,
+        wishlist: [],
+        status: true,
+        block: false,
+        admin: false,
         id: "",
         email: "",
         password: "",
@@ -213,16 +214,16 @@ const userSlice = createSlice({
 
 export const userLog = (user: Verificated): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post("http://localhost:5000/api/user/login", {
+    const { data } = await axios.post("https://manga-coffee.herokuapp.com/api/user/login", {
       email: user.email,
       password: user.password,
     });
     // ? ------------------------------------------------------------------------------------>
     const copyInitialState = {
-      wishlist : data.usuario.wishlist ,
-      status : data.usuario.status ,
-      admin : data.usuario.admin ,
-      block : data.usuario.block ,
+      wishlist: data.usuario.wishlist,
+      status: data.usuario.status,
+      admin: data.usuario.admin,
+      block: data.usuario.block,
       id: data.usuario._id,
       email: data.usuario.email,
       password: data.usuario.password,
@@ -251,7 +252,7 @@ export const userLog = (user: Verificated): AppThunk => {
 export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.post(
-      "http://localhost:5000/api/user/register",
+      "https://manga-coffee.herokuapp.com/api/user/register",
       {
         users: user.user,
         email: user.email,
@@ -270,7 +271,7 @@ export const setDetailUser = (headers: object): AppThunk => {
   return async () => {
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user/detail`,
+        `https://manga-coffee.herokuapp.com/api/user/detail`,
         headers
       );
     } catch (e) {
@@ -286,7 +287,7 @@ export const FetchFavoriteMangas = (
 ): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `http://localhost:5000/api/user/fav/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/fav/${id}`,
       {
         favorites: mangaId,
       },
@@ -299,7 +300,7 @@ export const FetchFavoriteMangas = (
 export const getFavManga = (id: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/favorites/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/favorites/${id}`,
       headers
     );
     console.log(data, "siuuu");
@@ -329,7 +330,7 @@ export const loginWithGoogle = (): AppThunk => {
       user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
     const { data } = await axios.post(
-      "http://localhost:5000/api/user/register",
+      "https://manga-coffee.herokuapp.com/api/user/register",
       {
         users: displayName,
         email: email,
@@ -350,7 +351,7 @@ export const loginWithGoogle = (): AppThunk => {
 export const verificatedUser = (id: string | undefined): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/verificated/${id}`
+      `https://manga-coffee.herokuapp.com/api/user/verificated/${id}`
     );
     const copyInitialState = {
       id: data.usuario._id,
@@ -382,10 +383,10 @@ export const fetchDeleteFavorites = (
 ): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.delete(
-      `http://localhost:5000/api/user/?id=${id}&mangaId=${mangaId}`,
+      `https://manga-coffee.herokuapp.com/api/user/?id=${id}&mangaId=${mangaId}`,
       headers
     );
-    
+
     dispatch(getFavoriteManga(data.docs));
   };
 };
@@ -394,7 +395,7 @@ export const renameEmail = (email: string): AppThunk => {
   return async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/user/resetpass",
+        "https://manga-coffee.herokuapp.com/api/user/resetpass",
         { email }
       );
       return data;
@@ -408,7 +409,7 @@ export const renamePassword = (password: string, id: string | undefined) => {
   return async () => {
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/user/resetpass/${id}`,
+        `https://manga-coffee.herokuapp.com/api/user/resetpass/${id}`,
         { password }
       );
       return data;
@@ -421,30 +422,34 @@ export const renamePassword = (password: string, id: string | undefined) => {
 export const deleteAcount = (headers: object) => {
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/state", {},
+      "https://manga-coffee.herokuapp.com/api/user/state", {},
       headers
     );
-    return data
+    return data;
   };
 };
 
-export const siOrNot = ( input : any , boolean : boolean) => {
+export const siOrNot = (input: any, boolean: boolean) => {
   const copyInput = {
-    users : input.user,
-    email : input.email ,
-    password  :input.password ,
-    continuar : boolean
-  }
+    users: input.user,
+    email: input.email,
+    password: input.password,
+    continuar: boolean,
+  };
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/resetuser",copyInput);
+      "https://manga-coffee.herokuapp.com/api/user/resetuser",copyInput);
       return data
   };
 };
 
-export const FetchAddToWishlist = (_id: string, idProduct: string | undefined, headers: object): AppThunk => {
+export const FetchAddToWishlist = (
+  _id: string,
+  idProduct: string | undefined,
+  headers: object
+): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post(`http://localhost:5000/api/products/addToWishlist/${_id}`,
+    const { data } = await axios.post(`https://manga-coffee.herokuapp.com/api/products/addToWishlist/${_id}`,
       {
         productsId: idProduct,
       },
@@ -457,20 +462,95 @@ export const FetchAddToWishlist = (_id: string, idProduct: string | undefined, h
 export const FetchGetWishlist = (id: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/products/wishlist/${id}`,
+      `https://manga-coffee.herokuapp.com/api/products/wishlist/${id}`,
       headers
     );
     dispatch(addToWishlist(data.docs));
   };
 };
 
-export const fetchDeleteWishlist = (id: string, productId: string, headers: object): AppThunk => {
+export const fetchDeleteWishlist = (
+  id: string,
+  productId: string,
+  headers: object
+): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.delete(`http://localhost:5000/api/products/?id=${id}&productId=${productId}`, headers);
+    const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/products/?id=${id}&productId=${productId}`, headers);
     dispatch(deleteWishlistProducts(data.wishlist));
   };
 };
 
+
+
+export const preViewhistoryBuy = (headers: object): AppThunk => {
+  return async () => {
+    const { data } = await axios.get(
+      "http://localhost:5000/api/user/finall/historybuy",
+      headers
+    );
+    return data;
+  };
+};
+
+export const detailElementBuy = (
+  headers: object,
+  id: string | undefined
+): AppThunk => {
+  return async () => {
+    const { data } = await axios.get(
+      `http://localhost:5000/api/user/historybuy/detail/${id}`,
+      headers
+    );
+    return data;
+  };
+};
+
+export const editProfileAction = (
+  headers: object,
+  input: any,
+  image: any,
+  banner: any,
+  token : string
+): AppThunk => {
+  const books = new FormData();
+  books.append("users",input.users)
+  books.append("user_description",input.description)
+  books.append("user_image",image[0])
+  books.append("user_banner",banner[0])
+  books.append("token",token)
+  return async () => {
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/update",
+      books,
+      headers
+    );
+    return data;
+  };
+};
+export const editInformation = (
+  headers: object,
+  edit: any,
+  token: string
+): AppThunk => {
+  const books = new FormData();
+  books.append("telephone", edit.phone);
+  books.append("name", edit.name_user);
+  books.append("lastname", edit.last_user);
+  books.append("country", edit.country_user);
+  books.append("direction", edit.direction_user);
+  books.append("reference", edit.reference);
+  books.append("postalCode", edit.postal_code);
+  books.append("token", token);
+  console.log(books)
+  return async () => {
+    const { data } = await axios.put(
+      "http://localhost:5000/api/user/update",
+      books,
+      headers
+    );
+    return data;
+  };
+};
 
 export default userSlice.reducer;
 

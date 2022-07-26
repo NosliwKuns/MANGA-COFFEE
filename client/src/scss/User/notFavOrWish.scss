@@ -1,0 +1,31 @@
+.notFavOrWish{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-direction: column;
+    height: 100%;
+    h1, h3{
+        color: var(--light--200);
+    }
+    svg{
+        fill: var(--light--200);
+    }
+    .addButton{
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: 100vh;
+    font-size: 17px;
+    padding: 10px;
+}
+}
+
+// .fav{
+//     height: 100%;
+// }
+
+.wish{
+    height: 100%;
+}
