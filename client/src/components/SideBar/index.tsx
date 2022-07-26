@@ -13,16 +13,16 @@ import { useState } from 'react';
 import User from '../User/User';
 
 const SideBar = () =>{
-    const [transform, setTransform] = useState<boolean>(true);
+    const [transform, setTransform] = useState<boolean>(false);
     const minSidebar = () => {
         setTransform(!transform);
     }
 
     return(
-        <div className={transform ? "four side-bar-container" : "hide"}>
+        <div className={transform ? "four side-bar-container is-active " : "four side-bar-container"}>
             
             <div className="logo">
-                MANGACOFFEE
+               <span onClick={minSidebar}>a</span> MANGACOFFEE
             </div>
             <User />
             <div className="side-wrapper">
