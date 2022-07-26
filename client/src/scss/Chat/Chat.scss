@@ -70,6 +70,7 @@
   background: var(--dark--600);
   transform: 0;
   transition: transform .3s cubic-bezier(.4,0,1,1);
+  margin-top: 10px;
   ::-webkit-scrollbar {
     display: none;
     }
@@ -83,6 +84,8 @@
   .welcome-text{
     color: #ffffff;
     padding-bottom: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
   }
 
   .chat-content {
