@@ -3,6 +3,8 @@ import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { editInformation } from "../../../features/user/userSlice";
 import { validate } from "./func/validate";
+import "../../../scss/User/MyInformation.scss";
+import { AiFillEdit } from "react-icons/ai";
 
 const MyInformation = () => {
   const userCopy: any = window.localStorage.getItem("copySliceUser");
@@ -16,11 +18,11 @@ const MyInformation = () => {
     telephone,
     name,
     lastname,
-    address: { country, direction, postalCode, reference :reference_user },
+    address: { country, direction, postalCode, reference: reference_user },
   } = JSON.parse(userCopy);
   const [edit, setEdit] = useState(false);
-  const dispatch = useAppDispatch()
-  const headers = useHeaders(token)
+  const dispatch = useAppDispatch();
+  const headers = useHeaders(token);
   const phone = telephone ? telephone : "What's your phone number?";
   const name_user = name.length ? name : "What's your name ?";
   const last_user = lastname.length ? lastname : "What's your surname ?";
@@ -33,13 +35,13 @@ const MyInformation = () => {
     ? reference_user
     : "can you give us a reference? it would help us a lot !";
   const [input, setInput] = useState({
-    phone : "",
+    phone: "",
     name_user: "",
     last_user: "",
     country_user: "",
     direction_user: "",
     postal_code: "",
-    reference : "",
+    reference: "",
   });
   const [error, setError] = useState({
     phone: "",
@@ -63,124 +65,143 @@ const MyInformation = () => {
     );
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const verificated = await dispatch(editInformation(headers,input,token))
-    console.log(verificated)
+    const verificated = await dispatch(editInformation(headers, input, token));
+    console.log(verificated);
     window.localStorage.setItem("copySliceUser", JSON.stringify(verificated));
     window.location.reload();
-  }
+  };
   return (
-    <div>
-      <button onClick={() => setEdit(!edit)}>edit your information</button>
+    <div className="container_user_detail_information">
+      <div
+        className="container_user_detail_btn_edit"
+        onClick={() => setEdit(!edit)}
+      >
+        <AiFillEdit size={30} color={"#64666c"} />
+      </div>
       <form onSubmit={handleSubmit}>
-        <span>
-          This information is only visible to you; by filling it out you help us
-          to improve your user experience.
-        </span>
-        <div>
-          {edit ? (
-            <input
-              type="text"
-              name="phone"
-              value={input.phone}
-              placeholder={phone}
-              onChange={handleChange}
-            />
-          ) : (
-            <div>
-              <p>{phone}</p>
+       {edit && <div className="span_msg_edit_info">
+          <span>
+            This information is only visible to you; by filling it out you help
+            us to improve your user experience.
+          </span>
+        </div>}
 
-              
-            </div>
-          )}
-          
+        <div className="user_detail_edit_information_container">
+          <div>
+          <h5>Phone Number</h5>
+            {edit ? (
+              <input
+                className="user_detail_edit_information_input"
+                type="text"
+                name="phone"
+                value={input.phone}
+                placeholder={phone}
+                onChange={handleChange}
+              />
+            ) : (
+              <div>
+                <p className="user_detail_information">{phone}</p>
+              </div>
+            )}
+          </div>
+          {error.phone && <div>{error.phone}</div>}
+          <div>
+          <h5>Name</h5>
+            {edit ? (
+              <input
+                className="user_detail_edit_information_input"
+                type="text"
+                name="name_user"
+                value={input.name_user}
+                placeholder={name_user}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="user_detail_information">{name_user}</p>
+            )}
+          </div>
+          <div>
+            <h5>Last Name</h5>
+            {edit ? (
+              <input
+                className="user_detail_edit_information_input"
+                type="text"
+                name="last_user"
+                value={input.last_user}
+                placeholder={last_user}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="user_detail_information">{last_user}</p>
+            )}
+          </div>
+          <div>
+            <h5>Country:</h5>
+            {edit ? (
+              <input
+                className="user_detail_edit_information_input"
+                type="text"
+                name="country_user"
+                value={input.country_user}
+                placeholder={country_user}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="user_detail_information">{country_user}</p>
+            )}
+          </div>
+          <div>
+            <h5>Direction</h5>
+            {edit ? (
+              <input
+                className="user_detail_edit_information_input"
+                type="text"
+                name="direction_user"
+                value={input.direction_user}
+                placeholder={direction_user}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="user_detail_information">{direction_user}</p>
+            )}
+          </div>
+          <div>
+            <h5>Postal Code</h5>
+            {edit ? (
+              <input
+                className="user_detail_edit_information_input"
+                type="text"
+                name="postal_code"
+                value={input.postal_code}
+                placeholder={postal_code}
+                onChange={handleChange}
+              />
+            ) : (
+              <div>
+                <p className="user_detail_information">{postal_code}</p>
+              </div>
+            )}
+          </div>
+          {error.postal_code && <div>{error.postal_code}</div>}
+          <div>
+            <h5>Reference :</h5>
+            {edit ? (
+              <textarea
+                className="user_detail_edit_information_input"
+                name="reference"
+                value={input.reference}
+                placeholder={reference}
+                onChange={handleChange}
+              />
+            ) : (
+              <p className="user_detail_information">{reference}</p>
+            )}
+          </div>
         </div>
-        {error.phone && <div>{error.phone}</div>}
-        <div>
-          {edit ? (
-            <input
-              type="text"
-              name="name_user"
-              value={input.name_user}
-              placeholder={name_user}
-              onChange={handleChange}
-            />
-          ) : (
-            <p>{name_user}</p>
-          )}
-        </div>
-        <div>
-          {edit ? (
-            <input
-              type="text"
-              name="last_user"
-              value={input.last_user}
-              placeholder={last_user}
-              onChange={handleChange}
-            />
-          ) : (
-            <p>{last_user}</p>
-          )}
-        </div>
-        <div>
-          {edit ? (
-            <input
-              type="text"
-              name="country_user"
-              value={input.country_user}
-              placeholder={country_user}
-              onChange={handleChange}
-            />
-          ) : (
-            <p>{country_user}</p>
-          )}
-        </div>
-        <div>
-          {edit ? (
-            <input
-              type="text"
-              name="direction_user"
-              value={input.direction_user}
-              placeholder={direction_user}
-              onChange={handleChange}
-            />
-          ) : (
-            <p>{direction_user}</p>
-          )}
-        </div>
-        <div>
-        {edit ? (
-            <input
-              type="text"
-              name="postal_code"
-              value={input.postal_code}
-              placeholder={postal_code}
-              onChange={handleChange}
-            />
-          ) : (
-            <div>
-              <p>{postal_code}</p>
 
-              
-            </div>
-          )}
-        </div>
-        {error.postal_code && <div>{error.postal_code}</div>}
-        <div>
-          {edit ? (
-            <textarea
-              name="reference"
-              value={input.reference}
-              placeholder={reference}
-              onChange={handleChange}
-            />
-          ) : (
-              <p>{reference}</p>
-
-          )}
-        </div>
-        {edit && <button>edit</button>}
+        {edit && <button className="button_edit_info_user_detail">edit</button>}
       </form>
     </div>
   );

@@ -51,7 +51,7 @@
 }
 .banner_user_detail_s_contain_icon {
   position: absolute;
-  left: 54vh;
+  left: 58vh;
   top: 30vh;
 }
 
@@ -62,6 +62,7 @@
 }
 
 .button_delete_account_user_detail {
+  margin: 40px;
   border: none;
   background-color: #64666c;
   color: white;
@@ -73,6 +74,18 @@
   }
   &:active {
     background-color: rgb(146, 59, 59);
+  }
+}
+.button_delete_account_user_detail_delete {
+  margin: 40px;
+  border: none;
+  background-color: var(--primary);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 250ms ease;
+  &:hover {
+    background-color: red;
   }
 }
 
