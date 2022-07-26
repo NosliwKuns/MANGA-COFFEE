@@ -115,45 +115,45 @@ const UserDetail = () => {
               </div>
             )}
 
-
             <div
-            className="button_edit_profile_user_detail"
+              className="button_edit_profile_user_detail"
               onClick={() => {
                 setEditProfile(!editProfile);
               }}
             >
-              <AiFillEdit size={30} color={"#64666c"}/>
-             {/* <p>edit profile</p>  */}
+              <AiFillEdit size={30} color={"#64666c"} />
+              {/* <p>edit profile</p>  */}
             </div>
-
-
           </div>
         </div>
-        {editProfile ? (
-          <input
-            type={"text"}
-            name="users"
-            value={inputEdit.users}
-            placeholder={user}
-            onChange={handleChangeEdit}
-          />
-        ) : (
-          <h1>{user}</h1>
-        )}
-        <div>
-          <label>Description:</label>
+        <div className="user_profile_tile_description_container">
           {editProfile ? (
             <input
               type={"text"}
-              name="description"
-              value={inputEdit.description}
-              placeholder={description}
+              name="users"
+              value={inputEdit.users}
+              placeholder={user}
               onChange={handleChangeEdit}
             />
           ) : (
-            <p>{description}</p>
+            <h1 className="name_user_user_detail_h1">{user}</h1>
           )}
+          <div>
+            {/* <label>Description:</label> */}
+            {editProfile ? (
+              <input
+                type={"text"}
+                name="description"
+                value={inputEdit.description}
+                placeholder={description}
+                onChange={handleChangeEdit}
+              />
+            ) : (
+              <p className="user_description_user_detail_p">{description}</p>
+            )}
+          </div>
         </div>
+
         {editProfile && <button>Edit</button>}
       </form>
       <div>
