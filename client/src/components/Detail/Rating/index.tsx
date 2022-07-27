@@ -3,6 +3,11 @@ import { FaStar } from 'react-icons/fa'
 import { fetchUpdateRating } from "../../../features/manga/mangaSlice";
 import '../../../scss/Details/Rating.scss';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
+import '../../../scss/Details/Comments.scss'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { BsFillInfoCircleFill } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom';
 
 
 const colors = {
@@ -20,6 +25,8 @@ const Rating = () => {
   const dispatch = useAppDispatch();
   const { _id } = useAppSelector((state) => state.mangas.manga);
   const { rating } = useAppSelector((state) => state.mangas);
+  const { user, verificated } = useAppSelector(state => state.user)
+  const navigate = useNavigate();
 
 
   const handleClick = (value : number) => {
@@ -40,6 +47,39 @@ const Rating = () => {
     setDisplay('')
   };
 
+  const PopUp = () => {
+    if(!user && !verificated) {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>To rate, you must Sign In!</h2></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+        <div onClick={() => navigate("/logeo", { replace: true })} className="divSignIn">Sign In</div>,
+        confirmButtonAriaLabel: 'Sign In',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+    } else if(user && !verificated) {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          'Ok',
+        confirmButtonAriaLabel: 'Ok',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+    }
+  }
 
   return (
     <div className={ appear ? "star-widget opacity" : "star-widget"}>
@@ -60,7 +100,7 @@ const Rating = () => {
                 }}
                 color={(hoverValue || rating - .5 ) > i
                         ? colors.orange : colors.grey}
-                onClick={() => handleClick(i + 1)}
+                onClick={() => user && verificated ? handleClick(i + 1) : PopUp()}
                 
               />
             </div>

@@ -9,6 +9,10 @@ import { BiMailSend } from 'react-icons/bi';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import {Link} from 'react-router-dom'
 import moment from 'moment';
+import '../../scss/Details/Comments.scss'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { BsFillInfoCircleFill } from 'react-icons/bs'
 
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -61,6 +65,23 @@ const Chat = () => {
 
   const minimizedChat = () => {
     setMinimized(!minimized)
+  }
+
+  const handleChange = () => {
+const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          confirmButtonText:
+            'Ok',
+          confirmButtonAriaLabel: 'Ok',
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
   }
 
   return (
@@ -121,7 +142,7 @@ const Chat = () => {
       </div>
       
       {
-        user.user ?
+        user.user && user.verificated ?
           <div className="bar-Send">
             <input
               type="text"
@@ -141,16 +162,13 @@ const Chat = () => {
 
           </div>
           :
-          <div className="bar-Send">
+          <div className="bar-Send" onClick={() => handleChange()}>
             <input
               type="text"
               className='input-Send'
               value={currentMessage}
               placeholder="Message..."
               disabled={true}
-              onChange={(e) => {
-                setCurrentMessage(e.target.value);
-              }}
               onKeyPress={(event) => {
                 event.key === "Enter" && sendMessage();
               }}
