@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { preViewhistoryBuy } from "../../../features/user/userSlice";
 import NotFavOrWish from "../../User/NotFavOrWish";
 import '../../../scss/User/Favorites.scss';
+import "../../../scss/User/TableAllUsers.scss"
 
 interface ElementBuy {
   date: string;
@@ -35,12 +36,12 @@ const HistoryBuy = () => {
       history.length ?
       history.map((e: ElementBuy, i: number) => {
         return (
-          <div key={`elment_history_buy_${i}`}>
-            <h3>{e.products}</h3>
-            <h3>{`$/. ${e.total / 100}`}</h3>
-            <h3>{e.date}</h3>
+          <div className="celda_user_table_users_admin" key={`elment_history_buy_${i}`}>
+            <h3 className="celda_user_email">{e.products}</h3>
+            <h3 className="celda_user_name_user">{`$/. ${e.total / 100}`}</h3>
+            <h3 className="celda_user_name_user">{e.date}</h3>
             <Link to={`/detailElementBuy/${e.id}`}>
-              <button>detail</button>
+              <button className="button_true_table_user">detail</button>
             </Link>
           </div>
         );
