@@ -12,7 +12,7 @@ const verificCorreo = (name, token) => {
         <fieldset style="margin: 1%; margin-right:20%; margin-left:20%; background-image:url(https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-national-tide-wind-dunhuang-cultural-background-picture-image_784394.jpg); background-size: cover; border:solid; border-radius:10px ">
              <h2 style="margin-left:30%; font-size:italic; font-weight:bold">Hi ${name}</h2>
             <p style="margin-left:6%; font-weight:bold;">Verify your email, Click on the next link:</p>
-            <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="http://localhost:3000/verificateUser/${token}"target="_blank" > Confirm your email</a>
+            <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="https://manga-coffee.vercel.app/verificateUser/${token}"target="_blank" > Confirm your email</a>
         </fieldset>
            
     </div>
