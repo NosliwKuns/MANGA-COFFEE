@@ -66,10 +66,11 @@ const Registration = ({ setMove } : Props) => {
     MySwal.fire({
       position: 'center',
       icon: 'success',
-      title: 'Your count was created',
+      title: 'Your account was created successfully',
       background: "#212429",
+      color: '#fff',
       showConfirmButton: false,
-      timer: 100,
+      timer: 1500,
     })
     setTimeout(() => {
       navigate("/", { replace: true });
