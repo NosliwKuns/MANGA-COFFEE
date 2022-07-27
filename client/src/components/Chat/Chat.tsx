@@ -78,6 +78,7 @@ const Chat = () => {
       </div>
 
       <div className={user.user ? "chat-content" : "chat-content blur"}>
+        <br/>
         {/* <ScrollToBottom className='chat-container'> */}
           {messageList.map((messageContent: any) => {
             return (
@@ -87,7 +88,16 @@ const Chat = () => {
               >
 
                 <div className='burbuja'>
-                  <div className="author">
+                
+                  <div className="message">
+                    <p>{messageContent.message}</p>
+                  </div>
+                  
+                </div>
+                <div className='info-send'>
+
+                  
+                    <div className="author">
                   <Link id="author"
                        to={user.user === messageContent.author ? "/userDetail" : "/userDetail"}
                        >{
@@ -98,22 +108,18 @@ const Chat = () => {
 
                     }</Link>
                   </div>
-                  <div className="message">
-                    <p>{messageContent.message}</p>
-                  </div>
-                  <div className='info-send'>
-
-                    <div className="time">
+                  <div className="time">
                       <p id="time">{messageContent.time}</p>
                     </div>
                   </div>
-                </div>
               </div>
+              
             );
           })}
         {<div ref={messageEndRef}/>}
         {/* </ScrollToBottom> */}
       </div>
+      
       {
         user.user ?
           <div className="bar-Send">
