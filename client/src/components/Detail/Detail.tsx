@@ -35,8 +35,11 @@ const Detail = () => {
     (state) => state.user
   );
   const userCopy: any = window.localStorage.getItem("copySliceUser");
-  const { admin, token } = JSON.parse(userCopy);
+  let admin;
+  let token; 
+  userCopy?  { admin, token } = JSON.parse(userCopy): admin = undefined; token = undefined
   const userId = useAppSelector((state) => state.user.id);
+
   const headers = useHeaders(token);
   let fav = favorites?.find(e => e._id === params.id) ? true : false;
 
