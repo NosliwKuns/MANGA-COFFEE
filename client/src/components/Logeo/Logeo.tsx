@@ -13,6 +13,7 @@ import { validate } from "./func/validate";
 import "../../scss/User/Registration.scss";
 import { cardAnimation, gridAnimation } from "../../Animation";
 import { FcGoogle } from 'react-icons/fc'
+import Registration from './../Registration/Registration';
 
 const Logeo = () => {
   const space: any = useRef(null);
@@ -28,6 +29,7 @@ const Logeo = () => {
   });
 
   const [error, setError] = useState<string>("");
+  const [move, setMove] = useState<boolean>(true);
   const user = useAppSelector((state) => state.user);
   const [switchButton, setSwitchB] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -74,12 +76,14 @@ const Logeo = () => {
 
   const handleGoogleSignin = async () => {
     try {
-await dispatch(loginWithGoogle());
+      await dispatch(loginWithGoogle());
       navigate("/", { replace: true });
     } catch (e: any) {
       setError(e.response.data);
     }
   };
+
+
 
   return (
     <div className="modal-exterior">
@@ -95,41 +99,25 @@ await dispatch(loginWithGoogle());
           variants={cardAnimation}
         >
           <section></section>
-          <form onSubmit={handleSubmit} className="form-content">
+          {
+            move ?
+            <motion.form 
+              variants={gridAnimation}
+              animate="show"
+              exit="hide"
+              ref={space}
+              onSubmit={handleSubmit} 
+              className="form-content">
+            <button 
+              className="btn-close"
+              onClick={() => navigate("/", { replace: true })} 
+            >X
+            </button>
             {/* <h2 onClick={() => navigate("/", { replace: true })}>Back Home</h2> */}
             {error && <div> {error}</div>}
             {/* <div className="form_Registration_title"> */}
             <h3>Sign In</h3>
-            {/* </div> */}
 
-            {/* <div className="form_Registration_input"> */}
-            {/* <label htmlFor="emial">Email :</label>
-            <input
-              name="email"
-              type="text"
-              placeholder="youremail@company.ldt"
-              onChange={handleChange}
-              value={input.email}
-            />
-
-            {errors.email.length > 1 && <p>{errors.email}</p>}
-          </div>
-
-          <div className="form_Registration_input">
-          <div className="form_Registration_view_password">
-
-            <label htmlFor="password">Password :</label>
-            <input
-              name="password"
-              type={switchButton ? "text" : "password"}
-              placeholder="**********"
-              onChange={handleChange}
-              value={input.password}
-            />
-            
-          </div>
-            {errors.password.length > 1 && <p>{errors.password}</p>} */}
-            {/* </div> */}
             <div className="form-container">
               <div className="form-group">
                 <input
@@ -177,7 +165,11 @@ await dispatch(loginWithGoogle());
               </div>
               <div className="sign-up">
                 <span>Not a member?  </span>
-                <Link to="/registration">Sign Up</Link>
+                <span 
+                  className="color-link" 
+                  onClick={() => setMove(false)}
+                > Sign Up
+                </span>
               </div>
               <div className="line"><span></span> <h4>or</h4> <span></span></div>
               <div 
@@ -189,7 +181,13 @@ await dispatch(loginWithGoogle());
                 <h5>Sign In with Google</h5>
               </div>
             </div>
-          </form>
+          </motion.form>
+          :
+          <Registration 
+            setMove={setMove}
+          />
+          }
+          
         </motion.div>
       </motion.div>
     </div>

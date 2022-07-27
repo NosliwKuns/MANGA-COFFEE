@@ -2,11 +2,9 @@ import { Routes, Route, useLocation, useSearchParams } from 'react-router-dom';
 import { loginUser } from './features/user/userSlice';
 import { useAppDispatch } from './app/hooks';
 import { useEffect, useState } from 'react'
-import Registration from './components/Registration/Registration';
 import SearchAndFilter from './components/SearchAndFilter';
 import ProductDetail from './components/ProductDetail';
 import Favorites from './components/User/Favorites';
-import UserButtons from './components/UserButtons';
 import CatalogMangas from './components/CatalogMangas';
 import Verificate from './components/Verificate';
 import Detail from './components/Detail/Detail';
@@ -15,18 +13,14 @@ import Logeo from './components/Logeo/Logeo';
 import SideBar from './components/SideBar';
 import User from './components/User/User';
 import Chat from './components/Chat/Chat';
-import Home from './components/Home';
 import Shop from './components/Shop';
 import axios from "axios";
-import Cards from './components/CatalogMangas/Cards';
 import './App.scss';
 import useFetch from './app/customHooks/useFetch';
 import { AnimatePresence } from 'framer-motion';
 import RightSide from './components/RightSide';
 import DiscoverHome from './components/DiscoverHome/index';
 import BuyProduct from './components/BuyProduct';
-
-import LeftSide from './components/RightSide';
 import Categories from './components/Categories/Categories';
 import SelectedCategories from './components/Categories/SelectedCategories';
 import ReadManga from './components/ReadManga/index';
@@ -51,13 +45,19 @@ function App() {
   const user = JSON.parse(localUser);
   const location = useLocation();
 
-  const [colorF, setColorF] = useLocalStorage('colorFM', [])
+  // ---------- states to be used with both mangas and store -------------//
 
+  const [colorF, setColorF] = useLocalStorage('colorFM', [])
   const [searchParams, setSearchParams] = useSearchParams();
+
+  //------------------- states to be used with mangas ---------------------//
+
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
   const [sort, setSort] = useState<string>(searchParams.get("genre") || "")
+
+  //------------------- states to be used in the store ---------------------//
   
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
   const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
@@ -81,10 +81,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className="one">
-        <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
-        <h3 onClick={() => window.location.replace('/')}>MC</h3>
-      </div> */}
       <SideBar 
       setPageShop={setPageShop}
       setGenreShop={setGenreShop}
@@ -110,20 +106,22 @@ function App() {
           <Route path="/" element={<DiscoverHome res={res} />} />
           <Route path="/shop" element={
             <Shop 
-            product={product} 
-            setProduct={setProduct} 
-            resShop={resShop}
-            pageShop={pageShop}
-            setPageShop= {setPageShop}
-            genreShop= {genreShop}
-            queryShop= {queryShop}
-            setSearchParams={setSearchParams}
-            setGenreShop={setGenreShop}
-            setQueryShop={setQueryShop} 
-            colorF={colorF}
-            setColorF={setColorF}
-            shopSort={shopSort}
-            setshopSort={setshopSort} />} />
+              product={product} 
+              setProduct={setProduct} 
+              resShop={resShop}
+              pageShop={pageShop}
+              setPageShop= {setPageShop}
+              genreShop= {genreShop}
+              queryShop= {queryShop}
+              setSearchParams={setSearchParams}
+              setGenreShop={setGenreShop}
+              setQueryShop={setQueryShop} 
+              colorF={colorF}
+              setColorF={setColorF}
+              shopSort={shopSort}
+              setshopSort={setshopSort} 
+            />} 
+          />
           <Route path="/mangas" element={
             <CatalogMangas
               setGenre={setGenre}
@@ -139,10 +137,8 @@ function App() {
               setSort={setSort}
             />} 
           />
-          {/* <Route path="/mangas/search" element={<CatalogMangas res={res}/>} /> */}
           <Route path="/mangas/detail/:id" element={<Detail/>} />
           <Route path='/logeo' element={<Logeo/>}/>
-          <Route path='/registration' element={<Registration/>}/>
           <Route path='/user' element={<User/>}/>
           <Route path='/userDetail' element={<UserDetail/>}/>
           <Route path='/mangas/:title/:chapter/:id' element={<ReadManga/>}/>

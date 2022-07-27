@@ -17,11 +17,12 @@ const http_1 = __importDefault(require("http"));
 const socket_io_1 = require("../node_modules/socket.io");
 const server = (0, express_1.default)();
 exports.server = server;
+const origin = 'http://localhost:3000' || 'https://manga-coffee.vercel.app';
 const IoServer = http_1.default.createServer(server);
 exports.IoServer = IoServer;
 const io = new socket_io_1.Server(IoServer, {
     cors: {
-        origin: 'https://manga-coffee.vercel.app/',
+        origin: origin,
         methods: ['GET', 'POST']
     },
 });
