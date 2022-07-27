@@ -14,6 +14,7 @@ const Chat = () => {
   //const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
   const [minimized, setMinimized] = useState(false);
+  const messageEndRef = useRef<any>(null);
 
   const user: InitialState = useAppSelector((state) => state.user);
 
@@ -51,13 +52,17 @@ const Chat = () => {
     });
   }, [socket]);
 
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView()
+  }, [messageList])
+
 
   const minimizedChat = () => {
     setMinimized(!minimized)
   }
 
   return (
-    <div className={/* user.user ? "chat-container" : "blur" */ minimized ? "chat-container" : "chat-container is-minimized"}>
+    <div className={minimized ? "chat-container" : "chat-container is-minimized"}>
       <div className='chat-up' onClick={minimizedChat}>
         {
           user.user ?
@@ -71,7 +76,7 @@ const Chat = () => {
       </div>
 
       <div className={user.user ? "chat-content" : "chat-content blur"}>
-        <ScrollToBottom className='chat-container'>
+        {/* <ScrollToBottom className='chat-container'> */}
           {messageList.map((messageContent: any) => {
             return (
               <div
@@ -102,7 +107,8 @@ const Chat = () => {
               </div>
             );
           })}
-        </ScrollToBottom>
+        {<div ref={messageEndRef}/>}
+        {/* </ScrollToBottom> */}
       </div>
       {
         user.user ?
