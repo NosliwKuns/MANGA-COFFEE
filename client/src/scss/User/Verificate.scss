@@ -2,8 +2,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
-    height: 70vh;
-    width: 70vh;
+    background-color: var(--primary);
+    height: 410px;
+    width: 430px;
+    margin: 10vh;
+    margin-left: 25vh;
+    // border-radius: 8px;
+    .container_verificate_account_content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #212429;
+        padding:29px 110px;
+        // border-radius: 8px;
+        color: var(--primary);
+        .icon_verificate{
+            font-size: 30vh;
+            padding: 5vh;
+        }
+    }
 
 }
