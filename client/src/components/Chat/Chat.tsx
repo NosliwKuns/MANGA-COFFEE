@@ -7,7 +7,7 @@ import '../../scss/Chat/Chat.scss';
 const socket = io('https://manga-coffee.herokuapp.com');
 import { BiMailSend } from 'react-icons/bi';
 import ScrollToBottom from 'react-scroll-to-bottom';
-
+import moment from 'moment';
 
 const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -23,10 +23,10 @@ const Chat = () => {
       const messageData = {
         author: user.user,
         message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
+        time: moment().format('h:mm a'),
+          /* new Date(Date.now()).getHours() +
           ":" +
-          new Date(Date.now()).getMinutes(),
+          new Date(Date.now()).getMinutes(), */
       };
 
       socket.emit("send_message", messageData);
