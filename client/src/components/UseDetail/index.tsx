@@ -165,7 +165,9 @@ const UserDetail = () => {
         >
           Delete Account
         </button>
+        <div className="span_msg_delete_account_container">
         {switchButton && <DeleteAccount />}
+        </div>
       </div>
     </div>
   );
