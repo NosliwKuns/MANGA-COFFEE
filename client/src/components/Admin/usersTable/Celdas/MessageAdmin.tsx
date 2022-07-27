@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { BsFillInfoCircleFill } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router-dom";
+import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../../app/headers";
 import { useAppDispatch } from "../../../../app/hooks";
 import { sendMessageUser } from "../../../../features/admin/adminSlice";
-
+import Swal from 'sweetalert2'
 const MessageAdmin = () => {
   const { idUser } = useParams();
   const [input, setInput] = useState({
@@ -25,8 +27,22 @@ const MessageAdmin = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     //!==============================================
-    const verificated = await dispatch(sendMessageUser(headers ,idUser ,input))
-    alert(verificated)
+    const verificated :any = await dispatch(sendMessageUser(headers ,idUser ,input))
+    const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><h1>{verificated}</h1></>,
+            position: 'center',
+           icon: 'success',
+           showConfirmButton: false,
+           timer: 1500 ,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
     navigate("/userDetail");
   };
 

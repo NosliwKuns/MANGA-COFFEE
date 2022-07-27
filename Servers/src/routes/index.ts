@@ -48,6 +48,8 @@ import PostCart from './Users/PostCart/index'
 import GetCart from './Users/GetCart/index'
 import AdminGetFindAllHistoryBuy from './Users/AdminGetFindAllHistoryBuy/index';
 import AdminGetByIdHistoryBuy from './Users/AdminGetByIdHistoryBuy/index';
+import PutCart from './Users/PutCart/index'
+import DeleteCart from './Users/DeleteCart/index'
 const router = Router()
 
 
@@ -66,6 +68,7 @@ router.use('/manga', AdminAddChapterManga);
 
 router.use('/user', DisabledUser);
 router.use('/user', AdminPostSendMailFindAll);
+router.use('/user', DeleteCart);
 router.use('/user', DeleteFavorites);
 router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
@@ -76,6 +79,7 @@ router.use('/user', GetCart);
 router.use('/user', GetMangaFavoUser);
 router.use('/user', GetConfirmarCuenta);
 router.use('/user', PostCart);
+router.use('/user', PutCart);
 router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
 router.use('/user', PutResetUser);

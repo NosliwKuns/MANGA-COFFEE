@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { sendAdvertising } from "../../../features/admin/adminSlice";
+import "../../../scss/User/FormsAdmin.scss";
 
 const Advertising = () => {
   const [input, setInput] = useState({
@@ -22,22 +25,43 @@ const Advertising = () => {
     });
   };
   const handleSubmit = async (e: any) => {
-    console.log(image)
-    console.log(input)
+    console.log(image);
+    console.log(input);
     e.preventDefault();
-    const verificated = await dispatch(sendAdvertising(headers, input, image));
-    alert(verificated);
+    const verificated: any = await dispatch(
+      sendAdvertising(headers, input, image)
+    );
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      html: (
+        <>
+          <h1>{verificated}</h1>
+        </>
+      ),
+      position: "center",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
+      showCloseButton: true,
+      focusConfirm: false,
+      background: "#212429",
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: "confirmButton",
+      },
+    });
     navigate("/userDetail");
   };
   const handleImage = (e: any) => {
     setImage(e.target.files);
   };
   return (
-    <div>
+    <div className="admin_interface_container">
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="subject">Subject :</label>
+          <h3>Subject :</h3>
           <input
+            className="input_forms_admin_interface"
             type="text"
             value={input.subject}
             name="subject"
@@ -45,20 +69,28 @@ const Advertising = () => {
           />
         </div>
         <div>
-          <label htmlFor="image">Image :</label>
-          {/* <img src={input.image} alt="copy at URL"/> */}
-          <input type="file" onChange={handleImage} accept="image/*" />
+          <div>
+            <h3>Message :</h3>
+          </div>
+          <div>
+            <textarea
+              className="input_forms_admin_interface_text"
+              value={input.msg}
+              name="msg"
+              onChange={handleOnChange}
+            />
+          </div>
         </div>
         <div>
-          <div>
-            <label htmlFor="message">Message :</label>
-          </div>
-          <div>
-            <textarea value={input.msg} name="msg" onChange={handleOnChange} />
-          </div>
+          <h3>Image :</h3>
+          <input
+            className="input_file_forms_admin_interface"
+            type="file"
+            onChange={handleImage}
+            accept="image/*"
+          />
         </div>
-
-        <button>Send</button>
+        <button className="button_forms_send_admin_interface">Send</button>
       </form>
     </div>
   );

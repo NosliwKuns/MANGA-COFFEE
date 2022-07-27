@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AiFillEdit } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import useHeaders from "../../app/headers";
@@ -9,6 +10,7 @@ import {
   logOutUser,
   setDetailUser,
 } from "../../features/user/userSlice";
+import DeleteAccount from "./DeleteAccount";
 import UsersTable from "./TableUser";
 
 const UserDetail = () => {
@@ -83,92 +85,87 @@ const UserDetail = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="banner_user_detail_s_contain">
-          <div>
-            <img
-              src={banner_image}
-              alt="banner_image"
-              className="banner_user_detail_s"
-            />
+          <div className="images_container_user_detail">
+            <div>
+              <img
+                src={banner_image}
+                alt="banner_image"
+                className="banner_user_detail_s"
+              />
+            </div>
+
+            <div className="banner_user_detail_s_contain_icon">
+              {user_image.length ? (
+                <img src={user_image} alt="user_image" />
+              ) : (
+                defaultPic
+              )}
+            </div>
           </div>
 
-          <div className="banner_user_detail_s_contain_icon">
-            {user_image.length ? (
-              <img src={user_image} alt="user_image" />
-            ) : (
-              defaultPic
-            )}
-          </div>
           <div>
             {editProfile && (
-              <div>
-                Banner : <input type={"file"} onChange={handleEditBanner} />
+              <div className="user_detail_edit_label">
+                Banner : <input type={"file"} className="buttons_user_detail_edit_profile" onChange={handleEditBanner} />
               </div>
             )}
             {editProfile && (
-              <div>
-               Image User : <input type={"file"} onChange={handleEditImage} />{" "}
+              <div className="user_detail_edit_label">
+                Image User : <input className="buttons_user_detail_edit_profile" type={"file"} onChange={handleEditImage} />{" "}
               </div>
             )}
+
             <div
+              className="button_edit_profile_user_detail"
               onClick={() => {
                 setEditProfile(!editProfile);
               }}
             >
-              edit profile
+              <AiFillEdit size={30} color={"#64666c"} />
+              {/* <p>edit profile</p>  */}
             </div>
           </div>
         </div>
-        {editProfile ? (
-          <input
-            type={"text"}
-            name="users"
-            value={inputEdit.users}
-            placeholder={user}
-            onChange={handleChangeEdit}
-          />
-        ) : (
-          <h1>{user}</h1>
-        )}
-        <div>
-          <label>Description:</label>
+        <div className="user_profile_tile_description_container">
           {editProfile ? (
             <input
+            className="user_detail_edit_input_user_name"
               type={"text"}
-              name="description"
-              value={inputEdit.description}
-              placeholder={description}
+              name="users"
+              value={inputEdit.users}
+              placeholder={`${user}...`}
               onChange={handleChangeEdit}
             />
           ) : (
-            <p>{description}</p>
+            <h1 className="name_user_user_detail_h1">{user}</h1>
           )}
+          <div>
+            {/* <label>Description:</label> */}
+            {editProfile ? (
+              <input
+              className="user_detail_edit_input_description"
+                type={"text"}
+                name="description"
+                value={inputEdit.description}
+                placeholder={`${description}...`}
+                onChange={handleChangeEdit}
+              />
+            ) : (
+              <p className="user_description_user_detail_p">{description}</p>
+            )}
+          </div>
+        {editProfile && <button className="buttons_user_detail_edit_profile_btn">Edit</button>}
         </div>
-        {editProfile && <button>Edit</button>}
       </form>
       <div>
         <UsersTable />
-
-        <input
-          type={switchButton ? "text" : "password"}
-          value={input}
-          name="password"
-          placeholder="******"
-          onChange={handleChange}
-        />
-        <div onClick={() => setSwitchB(!switchButton)}>👀</div>
-
         <button
-          onClick={async () => {
-            if (input !== email)
-              return alert("the email you`ve entered doesn`t match any accaunt");
-            const verificated = await dispatch(deleteAcount(headers));
-            alert(verificated);
-            navigate("/");
-            await dispatch(logOutUser());
-          }}
+          className="button_delete_account_user_detail"
+          onClick={() => setSwitchB(!switchButton)}
         >
-          delete account
+          Delete Account
         </button>
+        {switchButton && <DeleteAccount />}
       </div>
     </div>
   );

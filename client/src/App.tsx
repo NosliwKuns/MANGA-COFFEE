@@ -40,7 +40,7 @@ import DetailEment from './components/UseDetail/HistoryBuy/DetailEment';
 import AboutUs from './components/SideBar/AboutUs/AboutUs'
 
 
-axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api";
+axios.defaults.baseURL = "http://localhost:5000/api";
 
 function App() {
 
@@ -62,12 +62,13 @@ function App() {
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
   const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
+  const [shopSort, setshopSort] = useState<string>(searchParams.get("genre") || "")
   
   const res = useFetch(
     query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
   );
   const resShop = useFetch(
-    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}` : ""
+    queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}&sort=${shopSort}` : ""
   );
   
 
@@ -112,7 +113,9 @@ function App() {
             setGenreShop={setGenreShop}
             setQueryShop={setQueryShop} 
             colorF={colorF}
-            setColorF={setColorF}/>} />
+            setColorF={setColorF}
+            shopSort={shopSort}
+            setshopSort={setshopSort} />} />
           <Route path="/mangas" element={
             <CatalogMangas
               setGenre={setGenre}

@@ -12,6 +12,7 @@ export interface IUser extends mongoose.Document{
     users: string,
     user_banner: string,
     user_image: string,
+    cart:[string]
     comparePassword: (pasword: string) => Promise<boolean>,
     favorites: [Object],
     address: {

@@ -9,6 +9,7 @@ import CreateProduct from "../../Admin/CreateProduct";
 import AdminTable from "../AbminTable";
 import MyInformation from "../MyInformation";
 import HistoryBuy from "../HistoryBuy";
+import "../../../scss/User/ButtonsDetailUser.scss";
 
 const UsersTable = () => {
   const pagAdmin: any = window.localStorage.getItem("pagAdmin");
@@ -24,22 +25,22 @@ const UsersTable = () => {
   }, []);
   let InterfaceUser;
   if (pag === "1") {
-    InterfaceUser = <MyInformation/>;
+    InterfaceUser = <MyInformation />;
   }
   if (pag === "2") {
-    InterfaceUser = <HistoryBuy/>;
+    InterfaceUser = <HistoryBuy />;
   }
   if (pag === "3") {
     InterfaceUser = allUsers.map((e: any) => {
       return (
-        <Celdas
-          email={e.email}
-          users={e.users}
-          status={e.status}
-          admin={e.admin}
-          block={e.block}
-          id={e._id}
-        />
+          <Celdas
+            email={e.email}
+            users={e.users}
+            status={e.status}
+            admin={e.admin}
+            block={e.block}
+            id={e._id}
+          />
       );
     });
   }
@@ -55,8 +56,8 @@ const UsersTable = () => {
 
   useEffect(() => {}, [pagAdmin]);
   return (
-    <div>
-      <div>
+    <div className="container_user_detail_buttons_div">
+      <div className="buttons_user_detail_conteiner">
         <button
           onClick={() => {
             window.localStorage.setItem("pagAdmin", "1");
