@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from './../../app/hooks';
 import { fetchDetailManga, fetchCleanDetails } from '../../features/products/productsSlice';
-import { FetchAddToWishlist } from '../../features/user/userSlice';
+import { FetchAddToWishlist, FetchModifyCart } from '../../features/user/userSlice';
 import { IoIosHeart } from "react-icons/io";
 import useHeaders from "../../app/headers";
 import { BsFillInfoCircleFill } from 'react-icons/bs'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
+import { FaShoppingCart } from "react-icons/fa";
+import { FetchAddCart } from '../../features/user/userSlice'
 import '../../scss/Shop/ProductDetail.scss'
 
 type Props = {
@@ -17,6 +19,9 @@ type Props = {
 }
 const ProductDetail = ({ setProduct, product }: Props) => {
   const { id } = useParams();
+  console.log("IDDDDDDDDDDDDD", id);
+  console.log("TYPE OF IDDDDDDDDDDDDD", typeof(id));
+  
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { productDetail } = useAppSelector(state => state.products)
@@ -43,21 +48,21 @@ const ProductDetail = ({ setProduct, product }: Props) => {
     stock
   } = productDetail
 
-  const addToCard : any = (a : any, b: any, c: any) => {
-    let order = {
-      product_image : a,
-      price: b,
-      id : c,
-      amount: 1
-    }
-    if (!product) {
-      setProduct([order])
-    } else {
-      const add = product.find((e : any) => e.id === order.id)
-      console.log(add)
-      if(!add) setProduct([order, ...product]);
-    }
-  }
+  // const addToCard : any = (a : any, b: any, c: any) => {
+  //   let order = {
+  //     product_image : a,
+  //     price: b,
+  //     id : c,
+  //     amount: 1
+  //   }
+  //   if (!product) {
+  //     setProduct([order])
+  //   } else {
+  //     const add = product.find((e : any) => e.id === order.id)
+  //     console.log(add)
+  //     if(!add) setProduct([order, ...product]);
+  //   }
+  // }
 
   const handleClick = () => {
     if(user && !verificated) {
@@ -95,6 +100,23 @@ const ProductDetail = ({ setProduct, product }: Props) => {
     }
 }
 
+const handleAddToCart = (productId: string) => {
+  dispatch(FetchAddCart(userId, productId, 1, headers))
+  const MySwal = withReactContent(Swal)
+  MySwal.fire({
+    html: <><FaShoppingCart size={26} color={'#9394A9'} className="cart-icon"/><h2 className='PopUpText'>Product added to the Cart</h2></>,
+    position: 'bottom-end',
+    background: "#212429",
+    showConfirmButton: false,
+    confirmButtonAriaLabel: 'Ok',
+    timer: 1500,
+    buttonsStyling: false,
+    customClass: {
+      confirmButton: 'confirmButton'
+    }
+  })
+}
+
   return (
     <div className="five">
       <h1>{name}</h1>
@@ -121,7 +143,7 @@ const ProductDetail = ({ setProduct, product }: Props) => {
                   ? "Out of stock" 
                   : stock}
       </h2>
-      <button onClick={() => addToCard(product_image, price, id)}>Add to cart</button>
+      <button onClick={() => handleAddToCart(productDetail._id)}>Add to cart</button>
       <Link to={`/buyProduct/${id}`}>
       <button>
         Buy

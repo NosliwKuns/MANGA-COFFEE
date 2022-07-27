@@ -20,7 +20,7 @@ router.put('/putcart/:id', (req, res, next) => __awaiter(void 0, void 0, void 0,
     const { _id, cuantity } = req.body;
     try {
         yield User_1.default.findByIdAndUpdate(id, { cart: { find: _id,
-                $set: cuantity }
+                $inc: cuantity }
         });
         res.send('Item Updated!');
     }

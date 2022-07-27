@@ -6,15 +6,15 @@ import Product from '../../../models/Products/index'
 const router = Router();
 
 router.post("/addtocart/:_id",passport.authenticate("jwt", { session: false }), async (req, res, next) =>{
-    const {_id} = req.params;
-    const {id , cuantity} = req.body;
+    const id = req.params;
+    const {_id , cuantity} = req.body;
     console.log(_id , id)
     try {
-        const Usuarios:any= await User.findById(_id);
-        const Productos:any= await Product.findById(id);
+        const Usuarios:any= await User.findById(id);
+        const Productos:any= await Product.findById(_id);
         
         if(!Usuarios.cart.includes(Productos.id)){
-            Usuarios.cart.push( {id , cuantity})
+            Usuarios.cart.push( {_id , cuantity})
             await Usuarios.save();
             res.status(200).send(Usuarios.cart);
         }else{

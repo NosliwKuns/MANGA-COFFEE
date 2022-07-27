@@ -7,7 +7,7 @@ router.put('/putcart/:id', async (req, res, next) => {
     const {_id , cuantity} = req.body;
     try {
       await User.findByIdAndUpdate(id, {cart:{find:_id,
-        $set:cuantity}
+        $inc:cuantity}
       });
       res.send('Item Updated!');
 

@@ -18,14 +18,14 @@ const User_1 = __importDefault(require("../../../models/Users/User"));
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
 router.post("/addtocart/:_id", passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { _id } = req.params;
-    const { id, cuantity } = req.body;
+    const id = req.params;
+    const { _id, cuantity } = req.body;
     console.log(_id, id);
     try {
-        const Usuarios = yield User_1.default.findById(_id);
-        const Productos = yield index_1.default.findById(id);
+        const Usuarios = yield User_1.default.findById(id);
+        const Productos = yield index_1.default.findById(_id);
         if (!Usuarios.cart.includes(Productos.id)) {
-            Usuarios.cart.push({ id, cuantity });
+            Usuarios.cart.push({ _id, cuantity });
             yield Usuarios.save();
             res.status(200).send(Usuarios.cart);
         }

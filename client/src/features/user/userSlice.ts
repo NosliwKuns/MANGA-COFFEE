@@ -84,6 +84,7 @@ export type InitialState = {
   lastname: string;
   user_description: string;
   historyBuy: Array<Purchese>;
+  cart: Array<object>;
 };
 
 const initialState: InitialState = {
@@ -106,6 +107,7 @@ const initialState: InitialState = {
   lastname: "", //
   user_description: "", //
   historyBuy: [], //
+  cart: [] //
 };
 
 //! =====================================
@@ -189,6 +191,7 @@ const userSlice = createSlice({
         lastname: "",
         user_description: "",
         historyBuy: [],
+        cart: []
       };
 
       window.localStorage.setItem("copySliceUser", JSON.stringify(""));
@@ -208,6 +211,24 @@ const userSlice = createSlice({
     },
     deleteWishlistProducts: (state, action: PayloadAction<Array<wishlist>>) => {
       state.wishlist = action.payload;
+    },
+    addToCart: (state, action: PayloadAction<Array<wishlist>>) => {
+      console.log("QUE ME LLEGAAAAA ADD", action.payload);
+      
+      state.cart = action.payload
+    },
+    ModifyCart: (state, action: PayloadAction<Array<wishlist>>) => {
+      state.cart = action.payload
+    },
+    deleteCart: (state, action: PayloadAction<Array<wishlist>>) => {
+      state.cart = action.payload
+    },
+    getCart: (state, action: PayloadAction<Array<wishlist>>) => {
+      console.log("QUE ME LLEGAAAAA GET", action.payload);
+      state.cart = action.payload
+    },
+    cleanCart: (state) => {
+      state.cart = []
     },
   },
 });
@@ -239,6 +260,7 @@ export const userLog = (user: Verificated): AppThunk => {
       name: data.usuario.name,
       lastname: data.usuario.lastname,
       historyBuy: data.usuario.historyBuy,
+      cart: data.usuario.cart,
     };
     dispatch(loginUser(copyInitialState));
 
@@ -552,6 +574,54 @@ export const editInformation = (
   };
 };
 
+export const FetchAddCart = (id: string, productId: string, ProductQuantity: number, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.post(`http://localhost:5000/api/user/addtocart/${id}`, {
+      _id: productId,
+      cuantity: ProductQuantity
+    },
+      headers
+    );
+    console.log("DATAAAAAAAAAAAA ADDDDDDDDDDD", data);
+    
+    // guardar el carrito
+    dispatch(addToCart(data));
+  };
+};
+export const FetchModifyCart = (id: string, productId: string, ProductQuantity: number, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.put(`http://localhost:5000/api/user/putcart/${id}`, {
+      _id: productId,
+      cuantity: ProductQuantity
+    },
+      headers
+    );
+    // cambiar las cantidades de los productos
+    dispatch(ModifyCart(data.docs));
+  };
+};
+export const FetchDeleteCart = (productId: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.delete(`http://localhost:5000/api/user/deletecart/${productId}`, headers);
+    // eliminar los productos del carrito
+    dispatch(deleteCart(data.docs));
+  };
+};
+export const FetchGetCart = (id: string, headers: object): AppThunk => {
+  return async (dispatch) => {
+    const { data } = await axios.get(`http://localhost:5000/api/user/addtocart/${id}`, headers);
+    // obtener carrito
+    console.log("DATAAAAAAAAAAAA GEEEEEET", data);
+    dispatch(getCart(data));
+  };
+};
+
+export const fetchCleanCart = () => {
+  return (dispatch : any)  => {
+    dispatch(cleanCart())
+  }
+};
+
 export default userSlice.reducer;
 
 export const {
@@ -562,4 +632,9 @@ export const {
   getFavoriteManga,
   addToWishlist,
   deleteWishlistProducts,
+  addToCart,
+  ModifyCart,
+  deleteCart,
+  getCart,
+  cleanCart,
 } = userSlice.actions;

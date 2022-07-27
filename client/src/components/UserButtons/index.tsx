@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import ShoppingCard from "../ShoppingCard";
 import '../../scss/Shop/ShoppingCard.scss';
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { FetchGetCart } from '../../features/user/userSlice'
+import useHeaders from "../../app/headers";
 
 type Props = {
     setProduct: React.Dispatch<React.SetStateAction<any>>;
@@ -12,11 +15,16 @@ type Props = {
 }
 
 const UserButtons = ({ setProduct, product }: Props) =>{
+    const dispatch = useAppDispatch()
+    const { id, token } = useAppSelector(state => state.user)
+    const headers = useHeaders(token)
     const [open, setOpen] = useState<boolean>(false)
-
+    
     const openShoppingCart = () => {
         setOpen(!open)
+        dispatch(FetchGetCart(id, headers))
     }
+    
     return(
         <div className="user-buttons">
             <ShoppingCard 

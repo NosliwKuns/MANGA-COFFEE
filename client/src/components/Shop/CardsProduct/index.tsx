@@ -5,6 +5,9 @@ import withReactContent from 'sweetalert2-react-content'
 import { FaShoppingCart } from "react-icons/fa";
 // import NotFound from '../../SearchAndFilter/NotFound/NotFound'
 import { BsFillInfoCircleFill } from 'react-icons/bs';
+import { FetchAddCart } from '../../../features/user/userSlice'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import useHeaders from "../../../app/headers";
 
 
 type Props = {
@@ -15,35 +18,42 @@ type Props = {
 }
 
 const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
+  const dispatch = useAppDispatch()
+  const { id, token } = useAppSelector(state => state.user)
+  const headers = useHeaders(token)
 
-  const addToCard : any = (a : any, b: any, c: any) => {
-    let order = {
-      product_image : a,
-      price: b,
-      id : c,
-      amount: 1
-    }
-    
-    if (!product) {
-      setProduct([order])
-    } else {
-      const add = product.find((e : any) => e.id === order.id)
-      if(!add) setProduct([order, ...product]);
-    }
+  const handleAddToCart = (productId: string) => {
+    dispatch(FetchAddCart(id, productId, 1, headers))
     const MySwal = withReactContent(Swal)
-        MySwal.fire({
-          html: <><FaShoppingCart size={26} color={'#9394A9'} className="cart-icon"/><h2 className='PopUpText'>Product added to the Cart</h2></>,
-          position: 'bottom-end',
-          background: "#212429",
-          showConfirmButton: false,
-          confirmButtonAriaLabel: 'Ok',
-          timer: 1500,
-          buttonsStyling: false,
-          customClass: {
-            confirmButton: 'confirmButton'
-          }
-        })
+    MySwal.fire({
+      html: <><FaShoppingCart size={26} color={'#9394A9'} className="cart-icon"/><h2 className='PopUpText'>Product added to the Cart</h2></>,
+      position: 'bottom-end',
+      background: "#212429",
+      showConfirmButton: false,
+      confirmButtonAriaLabel: 'Ok',
+      timer: 1500,
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: 'confirmButton'
+      }
+    })
   }
+
+  // const addToCard : any = (a : any, b: any, c: any) => {
+  //   let order = {
+  //     product_image : a,
+  //     price: b,
+  //     id : c,
+  //     amount: 1
+  //   }
+    
+    // if (!product) {
+    //   setProduct([order])
+    // } else {
+    //   const add = product.find((e : any) => e.id === order.id)
+    //   if(!add) setProduct([order, ...product]);
+    // }
+  // }
   
   
   return (
@@ -64,7 +74,7 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
                   : "Available"}
                   </p>
               <p className="card__price">${resShop.data?.products.length > 1 &&  resShop.data?.products[0].price}</p>
-              <button onClick={() => addToCard(resShop.data?.products.length > 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length > 1 &&  resShop.data?.products[0].price, resShop.data?.products.length > 1 &&  resShop.data?.products[0]._id)}>Add to cart</button>
+              <button onClick={() => handleAddToCart(resShop.data?.products.length > 1 && resShop.data?.products[0]._id)}>Add to cart</button>
           </div>
         </Link>
         <>
@@ -83,7 +93,7 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
                   : "Available"}
                   </p>
                   <p className="card__price">${e.price}</p>
-                  <button onClick={() => addToCard(e.product_image, e.price, e._id)}>Add to cart</button>
+                  <button onClick={() => handleAddToCart(e._id)}>Add to cart</button>
                 </div>
               </div>
             )

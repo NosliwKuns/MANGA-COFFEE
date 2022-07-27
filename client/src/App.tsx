@@ -48,6 +48,8 @@ function App() {
   const dispatch = useAppDispatch()
   const localUser:any  = localStorage.getItem('copySliceUser')
   const [product, setProduct] = useLocalStorage('test', []);
+  console.log("PRODUUUUUUCT", product);
+  
   const user = JSON.parse(localUser);
   const location = useLocation();
 
