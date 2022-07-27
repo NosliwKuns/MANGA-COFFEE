@@ -12,9 +12,18 @@ import { GiHamburgerMenu } from "react-icons/gi"
 import { BsFillFilePersonFill } from "react-icons/bs"
 import { useState } from 'react';
 import User from '../User/User';
+import { useLocation } from "react-router-dom";
 
-const SideBar = () =>{
+type Props = {
+    setPageShop: any;
+    setGenreShop: any;
+    setQueryShop: any;
+    setColorF: any;
+}
+
+const SideBar = ({setPageShop, setGenreShop, setQueryShop, setColorF}: Props ) =>{
     const [transform, setTransform] = useState<boolean>(false);
+    const { pathname, search } = useLocation();
     const minSidebar = () => {
         setTransform(!transform);
     }
@@ -42,7 +51,14 @@ const SideBar = () =>{
                             size={20}
                             color={'#fff'}
                         />
-                        Shop
+                        <span onClick={() => {
+                            if(pathname === '/shop' && search) {
+                                setGenreShop('All');
+                                setColorF([]);
+                                setPageShop(1);
+                                setQueryShop('')
+                            }
+                            }}>Shop</span>
                     </Link>
                     <Link to='/aboutUs'>
                         <BsFillFilePersonFill
