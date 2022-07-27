@@ -5,7 +5,7 @@ import Product from '../../../models/Products/index'
 
 const router = Router();
 
-router.post("/addtocart/:_id", async (req, res, next) =>{
+router.post("/addtocart/:_id",passport.authenticate("jwt", { session: false }), async (req, res, next) =>{
     const {_id} = req.params;
     const {id , cuantity} = req.body;
     console.log(_id , id)
@@ -27,4 +27,4 @@ router.post("/addtocart/:_id", async (req, res, next) =>{
 });
 
 export default router;
-//passport.authenticate("jwt", { session: false }),
+//
