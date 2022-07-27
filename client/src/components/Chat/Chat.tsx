@@ -57,6 +57,7 @@ const Chat = () => {
   }, [messageList])
 
 
+
   const minimizedChat = () => {
     setMinimized(!minimized)
   }
