@@ -41,7 +41,7 @@ const DeleteAccount = () => {
         <div onClick={() => setSwitchB(!switchButton)}>👀</div>
 
         <button
-        className='button_delete_account_user_detail'
+        className='button_delete_account_user_detail_delete'
           onClick={async () => {
             if (input !== email)
               return alert("the email you`ve entered doesn`t match any accaunt");
@@ -51,7 +51,7 @@ const DeleteAccount = () => {
             await dispatch(logOutUser());
           }}
         >
-          delete account
+          DELETE 
         </button>
     </div>
   )
