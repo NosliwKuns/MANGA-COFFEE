@@ -95,6 +95,9 @@ function App() {
           setPage={setPage}
           setQuery={setQuery}
           setColorF={setColorF}
+          setQueryShop={setQueryShop}
+          res={res}
+          resShop={resShop}
         />
 
         <AnimatePresence exitBeforeEnter>

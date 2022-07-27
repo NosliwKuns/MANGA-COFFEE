@@ -10,9 +10,12 @@ type Props = {
   setPage: React.Dispatch<React.SetStateAction<string | number>>;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
   setColorF: any;
+  setQueryShop: any
+  res: any
+  resShop: any
 }
 
-const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF }: Props) => {
+const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop, res, resShop }: Props) => {
 
   const { pathname, search } = useLocation();
 
@@ -22,10 +25,13 @@ const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF }: Props) => {
           <SearchBar
             setQuery={setQuery}
             setPage={setPage}
+            setQueryShop={setQueryShop}
+            res={res}
+            resShop={resShop}
           />
 
           <Link to='/' >
-           <span>Discover</span>
+            <span>Discover</span>
           </Link>
           <Link to='/mangas'>
           <span onClick={() => {

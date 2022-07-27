@@ -2,6 +2,9 @@ import '../../../scss/Home/Cards.scss';
 import { Link } from 'react-router-dom';
 import { motion, AnimateSharedLayout } from 'framer-motion'
 import { gridAnimation, cardAnimation, h3Animation } from '../../../Animation.js';
+// import NotFound from '../../SearchAndFilter/NotFound/NotFound'
+import { BsFillInfoCircleFill } from 'react-icons/bs';
+
 /* interface Manga {
   data: any;
 } */
@@ -26,7 +29,7 @@ const Cards = ({ res }: Props) => {
         )
       })
     } else {
-      display = info?.mangas.map((e : any)=> {
+      display = info?.mangas.length ? info?.mangas.map((e : any)=> {
         return (
             
           <Link to={`/mangas/detail/${e._id}`}>
@@ -49,6 +52,11 @@ const Cards = ({ res }: Props) => {
             
         )
       }) 
+      : <section className='NotSearchFoundMangas'>
+      <BsFillInfoCircleFill size={55}/>
+      <h1>No Mangas found for your search.</h1>
+      <h3>Try searching for another one</h3>
+      </section>
     }
 
     return (
