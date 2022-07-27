@@ -153,6 +153,7 @@ function App() {
           <Route path="/categories/:genre" element={<SelectedCategories/>} />
           <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
           <Route path='/verificateUser/:id' element={<Verificate/>}/>
+          <Route path='/prueba' element={<Verificate/>}/>
           <Route path='/rename' element={<RenamePassword/>}/>
           <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
           <Route path='/shoppingTime' element={<BuyShopping/>}/>
