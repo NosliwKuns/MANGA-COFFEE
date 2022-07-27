@@ -85,7 +85,7 @@ const CreateManga = () => {
       MySwal.fire({
         html: (
           <>
-            <h1>Please fill in the blanks correctly</h1>
+            <h1>Please fill in all the spaces correctly</h1>
           </>
         ),
         position: "center",
