@@ -84,6 +84,36 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (
+      errors.title ||
+      errors.description ||
+      errors.price ||
+      errors.stock ||
+      !checkedState.filter((e) => e === true).length
+    ) {
+      const MySwal = withReactContent(Swal);
+      MySwal.fire({
+        html: (
+          <>
+            <h1>Please fill in the blanks correctly</h1>
+          </>
+        ),
+        position: "center",
+        icon: "error",
+        title: "Oops...",
+        showConfirmButton: false,
+        timer: 3000,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "confirmButton",
+        },
+      });
+
+      return;
+    }
     const selectBox = arrayGenre(checkedState, allProducts);
     const verificated: any = await dispatch(
       createNewProduct(headers, input, selectBox, select, image, id)
@@ -139,7 +169,9 @@ const CreateProduct = () => {
                 value={input.title}
                 onChange={handleChange}
               />
-              {errors.title && <span>{errors.title}</span>}
+              {errors.title && (
+                <h4 className="error_form_admin_interface">{errors.title}</h4>
+              )}
             </div>
             <div>
               <h3>Price :</h3>
@@ -150,7 +182,9 @@ const CreateProduct = () => {
                 value={input.price}
                 onChange={handleChange}
               />
-              {errors.price && <span>{errors.price}</span>}
+              {errors.price && (
+                <h4 className="error_form_admin_interface">{errors.price}</h4>
+              )}
             </div>
             <div>
               <h3>Stock :</h3>
@@ -161,7 +195,9 @@ const CreateProduct = () => {
                 value={input.stock}
                 onChange={handleChange}
               />
-              {errors.stock && <span>{errors.stock}</span>}
+              {errors.stock && (
+                <h4 className="error_form_admin_interface">{errors.stock}</h4>
+              )}
             </div>
             <div>
               <h3>Description :</h3>
@@ -171,7 +207,11 @@ const CreateProduct = () => {
                 value={input.description}
                 onChange={handleChange}
               />
-              {errors.description && <span>{errors.description}</span>}
+              {errors.description && (
+                <h4 className="error_form_admin_interface">
+                  {errors.description}
+                </h4>
+              )}
             </div>
             <div>
               <h3>Cover Image</h3>
@@ -191,9 +231,14 @@ const CreateProduct = () => {
                 handle={handleOnChecked}
                 allGenre={allProducts}
               />
+              {!checkedState.filter((e) => e === true).length && (
+                <h4 className="error_form_admin_interface">
+                  select at least two genre
+                </h4>
+              )}
               <SelectComponent array={allTitles} setState={setSelect} />
             </div>
-            
+
             <button className="button_forms_send_admin_interface">Send</button>
           </div>
         </div>
