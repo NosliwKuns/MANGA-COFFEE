@@ -98,7 +98,7 @@ function App() {
 
         <AnimatePresence exitBeforeEnter>
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<DiscoverHome/>} />
+          <Route path="/" element={<DiscoverHome res={res} />} />
           <Route path="/shop" element={
             <Shop 
             product={product} 

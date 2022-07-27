@@ -1,4 +1,13 @@
 /* From uiverse.io by @gagan-gv */
+
+.AboutUs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 20vh);
+    justify-content: center;
+    gap: 2em 4em;
+    height: max-content;
+}
+
 .AboutUsCard {
     width: 190px;
     height: 254px;
@@ -6,6 +15,7 @@
     border-radius: 10px;
     text-align: center;
     transition: all 0.5s;
+    overflow: hidden;
    }
    
    .AboutUsCard:hover {
@@ -38,6 +48,7 @@
     justify-content: center;
     align-items: center;
     transition: all 0.5s;
+    object-fit: cover;
    }
    
    .AboutUsCard:hover .img {
@@ -50,6 +61,8 @@
    }
    
    .AboutUsCard h2 {
+    display: grid;
+    gap: 0.5em;
     padding: 15px 10px;
     font-size: 23px;
     transition: all 0.1s;

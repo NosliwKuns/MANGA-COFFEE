@@ -63,33 +63,43 @@
           
                   .form-input {
                     width: 100%;
-                    background: none;
-                    color: var(--color);
-                    font-size: 1.1rem;
-                    padding: .6em .3em;
+                    background: #E8F0FE;
+                    color: var(--dark--600);
+                    font-size: 16px;
+                    border-radius: 100vh;
+                    padding: 10px;
                     border: none;
                     outline: none;
-                    border-bottom: 1px solid var(--color);
+                    /* border-bottom: 1px solid var(--color); */
                     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif;
-                    font-weight: 600;
+                    /* font-weight: 400; */
                   }
+
+                  /* input:-webkit-autofill,
+                  input:-webkit-autofill:hover, 
+                  input:-webkit-autofill:focus {
+                      -webkit-box-shadow: 0 0 0px 1000px var(--light) inset;
+                      box-shadow: 0 0 0px 1000px var(--light) inset;
+                      border: 1px var(--light--200) solid;
+                  } */
           
                   .form-input:focus + .form-label,
                   .form-input:not(:placeholder-shown) + .form-label {
-                    transform: translateY(-12px) scale(.8);
+                    transform: translateY(-19px) scale(.8);
+                    color: var(--light--200);
                     transform-origin: left top;
                   }
           
                   .form-label {
-                    color: var(--color);
+                    color: var(--dark--600);
                     cursor: pointer;
                     position: absolute;
                     top: 0;
-                    left: 5px;
-                    font-size: 1.1rem;
+                    left: 10px;
+                    font-size: 16px;
                     transform: translateY(10px);
                     transition: transform .5s, color .3s;
-                    font-weight: 600;
+                    font-weight: 400;
                     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif;
                   }
           
@@ -111,14 +121,86 @@
                   button {
                     color: #fff;
                     margin: auto;
-                    font-weight: 600;
-                    font-size: 1.1em;
+                    font-size: 1em;
                     transition: 0.4s;
-                    padding: 8px 16px;
+                    padding: 11px 16px;
                     border: none;
-                    border-radius: 99px;
+                    border-radius: 100vh;
                     background: var(--primary);
-                    cursor: pointer;
+                    width: 100%;
+                    margin-bottom: 8px;
+                  }
+
+                  #email.form-input {
+                    background: #E8F0FE;
+                    
+                  }
+
+                  .show-password {
+                    position: relative;
+
+                    .eyes {
+                      position: absolute;
+                      top: 8px;
+                      right: 11px;
+                    }
+                  }
+
+                  .forgot-password {
+                    text-align: right;
+                    margin-bottom: 8px;
+
+                    a {
+                      color: var(--light--200);
+                      font-size: 16px;
+                    }
+                  }
+
+                  .sign-up {
+                    text-align: center;
+                    color: var(--light--200);
+                    margin-bottom: 8px;
+                    
+                    a {
+                      color: var(--primary);
+                    }
+                  }
+
+                  .google-sign-in {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1em;
+                    background: #E8F0FE;
+                    text-align: center;
+                    height: 40px;
+                    border-radius: 100vh;
+                    
+                    h5 {
+                      font-size: 16px;
+                      color: var(--dark--600);
+                      font-weight: 600;
+                    }
+                    /* height: ; */
+                  }
+
+                  .line {
+                    display: grid;
+                    grid-template-columns: 1fr auto 1fr;
+                    color: var(--light--200);
+                    margin-bottom: 8px;
+
+                    h4 {
+                      margin-left: 6px;
+                      margin-right: 6px;
+                    }
+
+                    span {
+                      height: 1.8px;
+                      align-self: center;
+                      background-color: var(--light--200);
+                      border-radius: 100vh;
+                    }
                   }
                 }
               }

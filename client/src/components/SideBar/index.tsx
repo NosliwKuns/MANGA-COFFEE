@@ -23,7 +23,8 @@ const SideBar = () =>{
         <div className={transform ? "four side-bar-container is-active " : "four side-bar-container"}>
             
             <div className="logo">
-                <span onClick={minSidebar}>a</span> MANGACOFFEE
+                {/* <span onClick={minSidebar}>a</span> MANGACOFFEE */}
+                {/* <img src="https://res.cloudinary.com/dbqlsilt2/image/upload/v1658858831/a/sin_fondo_blanco_cd6rtl.png" alt="" /> */}
             </div>
             <User />
             <div className="side-wrapper">

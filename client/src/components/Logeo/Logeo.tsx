@@ -12,6 +12,7 @@ import { motion, AnimateSharedLayout } from "framer-motion";
 import { validate } from "./func/validate";
 import "../../scss/User/Registration.scss";
 import { cardAnimation, gridAnimation } from "../../Animation";
+import { FcGoogle } from 'react-icons/fc'
 
 const Logeo = () => {
   const space: any = useRef(null);
@@ -98,7 +99,7 @@ await dispatch(loginWithGoogle());
             {/* <h2 onClick={() => navigate("/", { replace: true })}>Back Home</h2> */}
             {error && <div> {error}</div>}
             {/* <div className="form_Registration_title"> */}
-            <h3>Welcome Back !</h3>
+            <h3>Sign In</h3>
             {/* </div> */}
 
             {/* <div className="form_Registration_input"> */}
@@ -134,21 +135,21 @@ await dispatch(loginWithGoogle());
                 <input
                   className="form-input"
                   type="text"
-                  id="name"
+                  id="email"
                   name="email"
                   placeholder=" "
                   value={input.email}
                   onChange={handleChange}
                 />
-                <label htmlFor="name" className="form-label">
+                <label htmlFor="email" className="form-label">
                   Email:
                 </label>
                 <div className="error">
-                  {errors.email.length > 1 && <p>{errors.email}</p>}
+                  <p>{errors.email}</p>
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="form-group show-password">
                 <input
                   className="form-input"
                   type={switchButton ? "text" : "password"}
@@ -161,26 +162,31 @@ await dispatch(loginWithGoogle());
                 <label htmlFor="password" className="form-label">
                   Password:
                 </label>
-                <div onClick={() => setSwitchB(!switchButton)}>👀</div>
+                <div className="eyes" onClick={() => setSwitchB(!switchButton)}>👀</div>
                 <div className="error">
-                  {errors.password.length > 1 && <p>{errors.password}</p>}
+                  <p>{errors.password}</p>
                 </div>
               </div>
               <div>
-                <button>Log in</button>
+                <button>Sign In</button>
               </div>
-              <div>
+              <div className="forgot-password">
                 <Link to={"/rename"}>
-                forgot your account ?
+                Forgot Password
                 </Link>
               </div>
-              <div>
-                <span>Don't have an account ? </span>
-                <Link to="/registration">Register</Link>
+              <div className="sign-up">
+                <span>Not a member?  </span>
+                <Link to="/registration">Sign Up</Link>
               </div>
-              <span>------------------------------------------</span>
-              <div onClick={handleGoogleSignin}>
-                <h5>Google Login</h5>
+              <div className="line"><span></span> <h4>or</h4> <span></span></div>
+              <div 
+                className="google-sign-in"
+                onClick={handleGoogleSignin}>
+                <FcGoogle 
+                  size={30}
+                />
+                <h5>Sign In with Google</h5>
               </div>
             </div>
           </form>

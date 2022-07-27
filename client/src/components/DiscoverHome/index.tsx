@@ -1,13 +1,16 @@
 import BannerMangas from "./BannerMangas";
 import PopularGenres from './PopularGenres/index';
 import '../../scss/Home/Discover.scss';
-import a from '../../Images/dbz.jpg';
 
-const DiscoverHome = () => {
+type Props = {
+  res: any;
+}
+
+const DiscoverHome = ({ res } : Props) => {
   return (
     <div className="five discover-section">
       <BannerMangas />
-      <PopularGenres />
+      <PopularGenres res={res}/>
     </div>
   )
 };

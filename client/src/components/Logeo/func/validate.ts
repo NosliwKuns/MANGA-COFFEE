@@ -13,14 +13,14 @@ export const validate = (input: any) => {
   let password = input.password.match(regExpPass);
 
   if (!input.email) {
-    errors.email = "copy an email ";
-  } else if (!email?.length) {
+    errors.email = "";
+  } else if (!email) {
     errors.email = "copy a valid email! ";
   }
 
   if (!input.password) {
-    errors.password = "copy an password ";
-  } else if (!password?.length) {
+    errors.password = "";
+  } else if (!password) {
     errors.password = "copy a valid password! ";
   }
 
