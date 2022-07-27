@@ -58,10 +58,6 @@ const DetailEment = () => {
     telephone: "",
     total: 0,
   });
-  console.log(
-    detailElement,
-    111111111111111111111111111111111111111111111111111111111111111111111111111111
-  );
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
   const dispatch = useAppDispatch();
