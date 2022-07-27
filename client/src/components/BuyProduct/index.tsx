@@ -5,7 +5,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { fetchDetailManga, fetchModifyStock } from "../../features/products/productsSlice";
 import useHeaders from "../../app/headers";
-import "../BuyProduct/buyProduct.scss";
+import "../../scss/Shop/buyProduct.scss";
 import { validate } from "./func/validate";
 
 const BuyProduct = () => {
@@ -124,15 +124,16 @@ const BuyProduct = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="colorrr">
-      
+    <div className="five">
+      <div className="checkout-container">
+      <form onSubmit={handleSubmit} className="info-user-form">
       <div>
         <h1 className="space title">{name}</h1>
-        <img
+        {<img
           src={product_image}
           alt={`product image ${name}`}
           className={"image_product space"}
-        />
+        />}
         <h3 className="space">{`$/. ${price}`}</h3>
         <div className="space">
           <CardElement />
@@ -245,6 +246,11 @@ const BuyProduct = () => {
         </div>
       </div>
     </form>
+      <section className="product-view-container">Hola</section>
+      </div>
+      
+    </div>
+    
   );
 };
 
