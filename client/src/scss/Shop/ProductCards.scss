@@ -50,6 +50,29 @@
     aspect-ratio: 1 / 1.25;
     object-fit: cover;
   }
+  .NotSearchFoundProducts{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-direction: column;
+    height: 100%;
+    white-space: pre;
+    line-height: 100%;
+    overflow: visible;
+    h1{
+      color: var(--light--200);
+      font-size: 23px;
+    } 
+    h3{
+      color: var(--light--200);
+      font-size: 20px;
+    }
+    svg{
+        fill: var(--light--200);
+    }
+  }
 }
 
 @media (min-width: 60em) {

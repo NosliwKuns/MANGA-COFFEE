@@ -85,7 +85,12 @@ function App() {
         <h2 onClick={() => window.location.replace('/')}>MANGA <span style={{color: '#EA374B'}} color={'red'}>COFFEE</span></h2>
         <h3 onClick={() => window.location.replace('/')}>MC</h3>
       </div> */}
-      <SideBar />
+      <SideBar 
+      setPageShop={setPageShop}
+      setGenreShop={setGenreShop}
+      setQueryShop={setQueryShop}
+      setColorF={setColorF}
+      />
       
       <div className="five">
         <SearchAndFilter 
@@ -95,6 +100,9 @@ function App() {
           setPage={setPage}
           setQuery={setQuery}
           setColorF={setColorF}
+          setQueryShop={setQueryShop}
+          res={res}
+          resShop={resShop}
         />
 
         <AnimatePresence exitBeforeEnter>

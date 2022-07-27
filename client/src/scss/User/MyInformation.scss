@@ -75,3 +75,28 @@
     background-color: rgb(235, 108, 108);
   }
 }
+
+.span_msg_delete_account_container {
+  display: flex;
+  justify-content: center;
+  .span_msg_delete_account{
+    background-color: rgb(255, 195, 195);
+    border-style: dashed;
+    border-width: 1px;
+    border-color: red;
+    width: 60vh;
+    padding: 10px;
+    margin: 15px;
+    margin-bottom: 50px;
+  }
+}
+
+.input_forms_admin_interface_delete_view {
+  position: relative;
+  .input_forms_delete_view{
+    position: absolute;
+    width: 15px;
+    right: 9vh;
+    bottom: 16px;
+  }
+}
