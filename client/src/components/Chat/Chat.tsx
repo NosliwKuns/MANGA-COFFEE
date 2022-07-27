@@ -52,6 +52,7 @@ const Chat = () => {
   }, [socket]);
 
 
+
   const minimizedChat = () => {
     setMinimized(!minimized)
   }
