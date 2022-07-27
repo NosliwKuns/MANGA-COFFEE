@@ -80,8 +80,30 @@ const CreateManga = () => {
       errors.rating ||
       errors.chapter ||
       !checkedState.filter((e) => e === true).length
-    )
+    ) {
+      const MySwal = withReactContent(Swal);
+      MySwal.fire({
+        html: (
+          <>
+            <h1>Please fill in the blanks correctly</h1>
+          </>
+        ),
+        position: "center",
+        icon: "error",
+        title: "Oops...",
+        showConfirmButton: false,
+        timer: 3000,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "confirmButton",
+        },
+      });
+
       return;
+    }
 
     let genres = arrayGenre(checkedState, genreManga);
     const verificated: any = await dispatch(
@@ -107,8 +129,6 @@ const CreateManga = () => {
         confirmButton: "confirmButton",
       },
     });
-
-    alert(verificated);
   };
 
   return (
@@ -125,7 +145,9 @@ const CreateManga = () => {
                 value={input.title}
                 onChange={handleChange}
               />
-              {errors.title && <span>{errors.title}</span>}
+              {errors.title && (
+                <h4 className="error_form_admin_interface">{errors.title}</h4>
+              )}
             </div>
             <div>
               <h3>Description :</h3>
@@ -135,7 +157,11 @@ const CreateManga = () => {
                 value={input.description}
                 onChange={handleChange}
               />
-              {errors.description && <span>{errors.description}</span>}
+              {errors.description && (
+                <h4 className="error_form_admin_interface">
+                  {errors.description}
+                </h4>
+              )}
             </div>
             <div>
               <h3>Chapter :</h3>
@@ -146,7 +172,9 @@ const CreateManga = () => {
                 value={input.chapter}
                 onChange={handleChange}
               />
-              {errors.chapter && <span>{errors.chapter}</span>}
+              {errors.chapter && (
+                <h4 className="error_form_admin_interface">{errors.chapter}</h4>
+              )}
             </div>
             <button className="button_forms_send_admin_interface">send</button>
           </div>
@@ -184,13 +212,13 @@ const CreateManga = () => {
                 allGenre={genreManga}
               />
               {!checkedState.filter((e) => e === true).length && (
-                <span>select at least two genre</span>
+                <h4 className="error_form_admin_interface">
+                  select at least two genre
+                </h4>
               )}
             </div>
           </div>
         </div>
-
-       
       </form>
     </div>
   );
