@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import useHeaders from "../../../app/headers";
 import { useAppDispatch } from "../../../app/hooks";
 import { detailElementBuy } from "../../../features/user/userSlice";
+import "../../../scss/User/DetailBuy.scss";
 
 interface Adrress {
   country: string;
@@ -57,7 +58,10 @@ const DetailEment = () => {
     telephone: "",
     total: 0,
   });
-  console.log(detailElement , 111111111111111111111111111111111111111111111111111111111111111111111111111111)
+  console.log(
+    detailElement,
+    111111111111111111111111111111111111111111111111111111111111111111111111111111
+  );
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
   const dispatch = useAppDispatch();
@@ -72,29 +76,77 @@ const DetailEment = () => {
     updateHistory();
   }, []);
   return (
-    <div>
-      <h2>{detailElement.name}</h2>
-      <h2>{detailElement.lastName}</h2>
-      <h2>{detailElement.telephone}</h2>
-      <h2>{detailElement.email}</h2>
-      <h2>{detailElement.method}</h2>
-      <h2>{detailElement.date}</h2>
-      <h2>{detailElement.adrress.country}</h2>
-      <h2>{detailElement.adrress.direction}</h2>
-      <h2>{detailElement.adrress.postalCode}</h2>
-      <h2>{detailElement.adrress.reference}</h2>
-      {detailElement.produtcs.map((e: Produtcs, i: number) => {
-        console.log(e)
+    <div className="containe_detail_buy">
+      <div>
+        <div>
+          <h3 className="detail_buy_title">
+            {` INVOICE ${detailElement.idCompra}`}
+          </h3>
+        </div>
+        <div>
+          <h4>Name:</h4>
+          <h3 className="detail_buy">{detailElement.name}</h3>
+        </div>
+        <div>
+          <h4>Last Name:</h4>
+          <h3 className="detail_buy">{detailElement.lastName}</h3>
+        </div>
+        <div>
+          <h4>Telephone:</h4>
+          <h3 className="detail_buy">{detailElement.telephone}</h3>
+        </div>
+        <div>
+          <h4>Email:</h4>
+          <h3 className="detail_buy">{detailElement.email}</h3>
+        </div>
+        <div>
+          <h4>Method:</h4>
+          <h3 className="detail_buy">{detailElement.method}</h3>
+        </div>
+        <div>
+          <h4>Date:</h4>
+          <h3 className="detail_buy">{detailElement.date}</h3>
+        </div>
+        <div>
+          <h4>Country:</h4>
+          <h3 className="detail_buy">{detailElement.adrress.country}</h3>
+        </div>
+      </div>
+      <div>
+        <div>
+          <h4>Direction:</h4>
+          <h3 className="detail_buy">{detailElement.adrress.direction}</h3>
+        </div>
+        <div>
+          <h4>Postal Code:</h4>
+          <h3 className="detail_buy">{detailElement.adrress.postalCode}</h3>
+        </div>
+        <div>
+          <h4>Reference:</h4>
+          <h3 className="detail_buy">{detailElement.adrress.reference}</h3>
+        </div>
+        <div>
+          <h4>Products:</h4>
+          {detailElement.produtcs.map((e: Produtcs, i: number) => {
+            console.log(e);
 
-        return (
-          <div>
-            <h3>{e.name}</h3>
-            <h3>{e.price}</h3>
-            <h3>{e.quantity}</h3>
-          </div>
-        );
-      })}
-      <h2>{`$/.${detailElement.total/100}`}</h2>
+            return (
+              <div className="detail_buy_product_copntainer">
+                <h5>Product:</h5>
+                <h4 className="detail_buy">{e.name}</h4>
+                <h5>Price:</h5>
+                <h4 className="detail_buy">{`$/.${e.price}`}</h4>
+                <h5>Quantity:</h5>
+                <h4 className="detail_buy">{e.quantity}</h4>
+              </div>
+            );
+          })}
+        </div>
+        <div>
+          <h2>TOTAL :</h2>
+          <h1 className="detail_buy">{`$/.${detailElement.total / 100}`}</h1>
+        </div>
+      </div>
     </div>
   );
 };
