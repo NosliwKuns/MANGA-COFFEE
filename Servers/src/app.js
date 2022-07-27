@@ -21,7 +21,7 @@ const IoServer = http_1.default.createServer(server);
 exports.IoServer = IoServer;
 const io = new socket_io_1.Server(IoServer, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: 'https://manga-coffee.vercel.app/',
         methods: ['GET', 'POST']
     },
 });

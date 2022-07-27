@@ -14,7 +14,7 @@ const server = express();
 const IoServer = http.createServer(server);
 const io = new Server(IoServer,{
   cors:{
-    origin: 'http://localhost:3000',
+    origin: 'https://manga-coffee.vercel.app/',
     methods: ['GET', 'POST']
   },
 });
