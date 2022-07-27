@@ -5,18 +5,18 @@ import Product from '../../../models/Products/index'
 
 const router = Router();
 
-router.post("/addtocart/:_id", passport.authenticate("jwt", { session: false }), async (req, res,next) =>{
+router.post("/addtocart/:_id", async (req, res, next) =>{
     const {_id} = req.params;
     const {id , cuantity} = req.body;
-    console.log(cuantity)
+    console.log(_id , id)
     try {
-        const Usuarios:any= await User.findOne({_id:_id});
-        const Productos:any= await Product.findById({_id:id});
+        const Usuarios:any= await User.findById(_id);
+        const Productos:any= await Product.findById(id);
         
-        if(!Usuarios.cart.includes(Productos._id)){
+        if(!Usuarios.cart.includes(Productos.id)){
             Usuarios.cart.push( {id , cuantity})
             await Usuarios.save();
-            res.status(200).send(Usuarios);
+            res.status(200).send(Usuarios.cart);
         }else{
             res.status(200).send("this item is allredy in the cart")
         }
@@ -27,3 +27,4 @@ router.post("/addtocart/:_id", passport.authenticate("jwt", { session: false }),
 });
 
 export default router;
+//passport.authenticate("jwt", { session: false }),
