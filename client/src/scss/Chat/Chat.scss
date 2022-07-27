@@ -21,9 +21,9 @@
   transform: 0;
   transition: transform .3s cubic-bezier(.4,0,1,1);
   margin-top: 10px;
-  /* ::-webkit-scrollbar {
+  ::-webkit-scrollbar {
     display: none;
-    } */
+    } 
 
   .chat-up {
     display: flex;
@@ -127,7 +127,7 @@
     color:var(--light);
     justify-content: center;
     align-items: center;
-    margin: 10px;
+    margin: 20Qpx;
     font-size: 12px;
   }
   .info-send{
@@ -190,7 +190,7 @@
     color:var(--light);
     justify-content: center;
     align-items: center;
-    margin: 10px;
+    margin: 20px;
     font-size: 14px;
   }
   .info-send{
