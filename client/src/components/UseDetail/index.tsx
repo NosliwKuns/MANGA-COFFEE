@@ -23,6 +23,9 @@ const UserDetail = () => {
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const [editProfile, setEditProfile] = useState(false);
 
+  const [switchButtonImage, setSImage] = useState(false);
+  const [switchButtonBanner, setSBanner] = useState(false);
+
   const {
     token,
     user,
@@ -102,16 +105,43 @@ const UserDetail = () => {
               )}
             </div>
           </div>
-
+          {/* const [switchButtonImage, setSImage] = useState(false)
+  const [switchButtonBanner, setSBanner] = useState(false) */}
           <div>
             {editProfile && (
+              <div
+                onClick={() => setSBanner(!switchButtonBanner)}
+                className="buttons_user_detail_edit_profile_btn"
+              >
+                Edit Banner
+              </div>
+            )}
+            {switchButtonBanner && (
               <div className="user_detail_edit_label">
-                Banner : <input type={"file"} className="buttons_user_detail_edit_profile" onChange={handleEditBanner} />
+                Banner :{" "}
+                <input
+                  type={"file"}
+                  className="buttons_user_detail_edit_profile"
+                  onChange={handleEditBanner}
+                />
               </div>
             )}
             {editProfile && (
+              <div
+                onClick={() => setSImage(!switchButtonImage)}
+                className="buttons_user_detail_edit_profile_btn"
+              >
+                Edit Image User
+              </div>
+            )}
+            {switchButtonImage && (
               <div className="user_detail_edit_label">
-                Image User : <input className="buttons_user_detail_edit_profile" type={"file"} onChange={handleEditImage} />{" "}
+                Image User :{" "}
+                <input
+                  className="buttons_user_detail_edit_profile"
+                  type={"file"}
+                  onChange={handleEditImage}
+                />{" "}
               </div>
             )}
 
@@ -129,7 +159,7 @@ const UserDetail = () => {
         <div className="user_profile_tile_description_container">
           {editProfile ? (
             <input
-            className="user_detail_edit_input_user_name"
+              className="user_detail_edit_input_user_name"
               type={"text"}
               name="users"
               value={inputEdit.users}
@@ -143,7 +173,7 @@ const UserDetail = () => {
             {/* <label>Description:</label> */}
             {editProfile ? (
               <input
-              className="user_detail_edit_input_description"
+                className="user_detail_edit_input_description"
                 type={"text"}
                 name="description"
                 value={inputEdit.description}
@@ -154,7 +184,11 @@ const UserDetail = () => {
               <p className="user_description_user_detail_p">{description}</p>
             )}
           </div>
-        {editProfile && <button className="buttons_user_detail_edit_profile_btn">Edit</button>}
+          {editProfile && (
+            <button className="buttons_user_detail_edit_profile_btn">
+              Send
+            </button>
+          )}
         </div>
       </form>
       <div>
@@ -166,7 +200,7 @@ const UserDetail = () => {
           Delete Account
         </button>
         <div className="span_msg_delete_account_container">
-        {switchButton && <DeleteAccount />}
+          {switchButton && <DeleteAccount />}
         </div>
       </div>
     </div>
