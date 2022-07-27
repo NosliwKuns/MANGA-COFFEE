@@ -7,6 +7,7 @@ import '../../scss/Chat/Chat.scss';
 const socket = io('https://manga-coffee.herokuapp.com');
 import { BiMailSend } from 'react-icons/bi';
 import ScrollToBottom from 'react-scroll-to-bottom';
+import {Link} from 'react-router-dom'
 import moment from 'moment';
 
 const Chat = () => {
@@ -77,6 +78,7 @@ const Chat = () => {
       </div>
 
       <div className={user.user ? "chat-content" : "chat-content blur"}>
+        <br/>
         {/* <ScrollToBottom className='chat-container'> */}
           {messageList.map((messageContent: any) => {
             return (
@@ -86,31 +88,38 @@ const Chat = () => {
               >
 
                 <div className='burbuja'>
-                  <div className="author">
-                    <p id="author">{
+                
+                  <div className="message">
+                    <p>{messageContent.message}</p>
+                  </div>
+                  
+                </div>
+                <div className='info-send'>
+
+                  
+                    <div className="author">
+                  <Link id="author"
+                       to={user.user === messageContent.author ? "/userDetail" : "/userDetail"}
+                       >{
                       user ?
                         user.user === messageContent.author ?
                           "You" : messageContent.author
                         : ""
 
-                    }</p>
+                    }</Link>
                   </div>
-                  <div className="message">
-                    <p>{messageContent.message}</p>
-                  </div>
-                  <div className='info-send'>
-
-                    <div className="time">
+                  <div className="time">
                       <p id="time">{messageContent.time}</p>
                     </div>
                   </div>
-                </div>
               </div>
+              
             );
           })}
         {<div ref={messageEndRef}/>}
         {/* </ScrollToBottom> */}
       </div>
+      
       {
         user.user ?
           <div className="bar-Send">

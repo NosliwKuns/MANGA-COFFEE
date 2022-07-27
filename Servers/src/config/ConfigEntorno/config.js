@@ -15,7 +15,7 @@ exports.default = {
     PASS: "manga23coffe10",
     CLIENTD_ID: "185422760918-fauj1280lc128l69nc4s5lnr47031ms7.apps.googleusercontent.com",
     CLIENTD_SECRET: "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",
-    CLIENTD_REFRESHTOKEN: "1//04PkLsmfu124nCgYIARAAGAQSNwF-L9IrdB68eDOQahrkhiNzOp7NChx-YyvfS30sSB1_YOhzj6wvH7IoH5Hz9GZHNi4F3eaQQKQ",
+    CLIENTD_REFRESHTOKEN: "1//04Pz3_Xv5BS4CCgYIARAAGAQSNwF-L9IrCUWIrKgyoHBVSvREIdkXthPX6jSENz7Iwr1VDakqlhJ1mlzYEHoumi5JYhsQ3KLeoCs",
     URI_REDIRECT: "https://developers.google.com/oauthplayground",
     //------cloudinary----//
     CLOUDINARY_NAME: "manga-coffe",
