@@ -3,6 +3,8 @@ import '../../../scss/Shop/ProductCards.scss';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { FaShoppingCart } from "react-icons/fa";
+// import NotFound from '../../SearchAndFilter/NotFound/NotFound'
+import { BsFillInfoCircleFill } from 'react-icons/bs';
 
 
 type Props = {
@@ -42,28 +44,27 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
           }
         })
   }
-
-  console.log("GENREEEEEE SHOOOOOOP", genreShop);
   
   
   return (
     <div className='product-container'>
+        {resShop.data?.products.length ?
       <div className="container">
         <div className="product-grid">
         <Link 
-          to={`/product/${resShop.data?.products && resShop.data?.products[0]._id}`} 
+          to={`/product/${resShop.data?.products.length > 1 && resShop.data?.products[0]._id}`} 
           className="card stacked featured">
-            <img src={resShop.data?.products &&  resShop.data?.products[0].product_image} alt="product-img" className="card__img"/>
+            <img src={resShop.data?.products.length > 1 &&  resShop.data?.products[0].product_image} alt="product-img" className="card__img"/>
             <div className="card__content">
-              <h2 className="card__title">{resShop.data?.products &&  resShop.data?.products[0].name}</h2>
-                  <p>{resShop.data?.products &&  resShop.data?.products[0].stock <= 10 
+              <h2 className="card__title">{resShop.data?.products.length > 1 &&  resShop.data?.products[0].name}</h2>
+                  <p>{resShop.data?.products.length > 1 &&  resShop.data?.products[0].stock <= 10 
                   ? "Less than 10" 
-                  : resShop.data?.products &&  resShop.data?.products[0].stock === 0 
+                  : resShop.data?.products.length > 1 &&  resShop.data?.products[0].stock === 0 
                   ? "Out of stock" 
                   : "Available"}
                   </p>
-              <p className="card__price">${resShop.data?.products &&  resShop.data?.products[0].price}</p>
-              <button onClick={() => addToCard(resShop.data?.products &&  resShop.data?.products[0].product_image, resShop.data?.products &&  resShop.data?.products[0].price, resShop.data?.products &&  resShop.data?.products[0]._id)}>Add to cart</button>
+              <p className="card__price">${resShop.data?.products.length > 1 &&  resShop.data?.products[0].price}</p>
+              <button onClick={() => addToCard(resShop.data?.products.length > 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length > 1 &&  resShop.data?.products[0].price, resShop.data?.products.length > 1 &&  resShop.data?.products[0]._id)}>Add to cart</button>
           </div>
         </Link>
         <>
@@ -93,6 +94,11 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
           </div>
 
     </div>
+    : <div className="NotSearchFoundProducts">
+    <BsFillInfoCircleFill size={55}/>
+    <h1>No Products found for your search.</h1>
+    <h3>Try searching for another one</h3>
+    </div>}
     </div>
   )
 };
