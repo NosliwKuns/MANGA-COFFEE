@@ -8,24 +8,27 @@
     .info-user-form {
         background: tomato;
         background-color: #fbfbfb;
-        display: flex;
+        /* display: flex;
         align-items: center;
         justify-content: space-around;
-        height: 40vw;
+        height: 40vw; */
         transition: all ease 800ms;
         flex-grow: 1;
 
 
-        .image_product {
-            width: 22vw;
-        }
+        
     }
 
     .product-view-container {
         background: teal;
         min-width: 310px;
-        display: flex;
-        flex-shrink: 0;
+        /* display: flex; */
+        flex-grow: 1;
+
+        .image_product {
+            width: 22vw;
+        }
+
     }
 }
 

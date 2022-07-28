@@ -129,12 +129,6 @@ const BuyProduct = () => {
       <form onSubmit={handleSubmit} className="info-user-form">
       <div>
         <h1 className="space title">{name}</h1>
-        {<img
-          src={product_image}
-          alt={`product image ${name}`}
-          className={"image_product space"}
-        />}
-        <h3 className="space">{`$/. ${price}`}</h3>
         <div className="space">
           <CardElement />
         </div>
@@ -246,7 +240,14 @@ const BuyProduct = () => {
         </div>
       </div>
     </form>
-      <section className="product-view-container">Hola</section>
+      <section className="product-view-container">
+      {<img
+          src={product_image}
+          alt={`product image ${name}`}
+          className={"image_product space"}
+        />}
+        <h3 className="space">{`$/. ${price}`}</h3>
+      </section>
       </div>
       
     </div>

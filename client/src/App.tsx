@@ -55,14 +55,14 @@ function App() {
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
-  const [sort, setSort] = useState<string>(searchParams.get("genre") || "")
+  const [sort, setSort] = useState<string>(searchParams.get("sort") || "")
 
   //------------------- states to be used in the store ---------------------//
   
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
   const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
-  const [shopSort, setshopSort] = useState<string>(searchParams.get("genre") || "")
+  const [shopSort, setshopSort] = useState<string>(searchParams.get("sort") || "")
   
   const res = useFetch(
     query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
