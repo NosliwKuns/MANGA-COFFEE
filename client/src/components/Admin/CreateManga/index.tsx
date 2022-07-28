@@ -23,6 +23,7 @@ const CreateManga = () => {
     false,
     false,
   ]);
+  const [loading, setLoading] = useState(false);
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token } = JSON.parse(userCopy);
   const headers = useHeaders(token);
@@ -105,12 +106,12 @@ const CreateManga = () => {
 
       return;
     }
-
+    setLoading(true);
     let genres = arrayGenre(checkedState, genreManga);
     const verificated: any = await dispatch(
       createMangaAdmin(headers, input, book, image, genres)
     );
-
+    setLoading(false);
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       html: (
@@ -133,53 +134,64 @@ const CreateManga = () => {
   };
 
   return (
-    <div className="admin_interface_container">
-      <form onSubmit={handleSubmit}>
-        <div className="admin_interface_form">
-          <div className="section">
-            <div>
-              <h3>Titlte :</h3>
-              <input
-                className="input_forms_admin_interface "
-                type="text"
-                name="title"
-                value={input.title}
-                onChange={handleChange}
-              />
-              {errors.title && (
-                <h4 className="error_form_admin_interface">{errors.title}</h4>
-              )}
+    <div className="position_loader">
+      {
+        loading && <div className="span_msg_loader">
+          <span>LOADING...</span>
+        </div>
+      }
+
+      <div className="admin_interface_container">
+        <form onSubmit={handleSubmit}>
+          <div className="admin_interface_form">
+            <div className="section">
+              <div>
+                <h3>Titlte :</h3>
+                <input
+                  className="input_forms_admin_interface "
+                  type="text"
+                  name="title"
+                  value={input.title}
+                  onChange={handleChange}
+                />
+                {errors.title && (
+                  <h4 className="error_form_admin_interface">{errors.title}</h4>
+                )}
+              </div>
+              <div>
+                <h3>Description :</h3>
+                <textarea
+                  className="input_forms_admin_interface_text"
+                  name="description"
+                  value={input.description}
+                  onChange={handleChange}
+                />
+                {errors.description && (
+                  <h4 className="error_form_admin_interface">
+                    {errors.description}
+                  </h4>
+                )}
+              </div>
+              <div>
+                <h3>Chapter :</h3>
+                <input
+                  className="input_forms_admin_interface "
+                  type="text"
+                  name="chapter"
+                  value={input.chapter}
+                  onChange={handleChange}
+                />
+                {errors.chapter && (
+                  <h4 className="error_form_admin_interface">
+                    {errors.chapter}
+                  </h4>
+                )}
+              </div>
+              <button className="button_forms_send_admin_interface">
+                send
+              </button>
             </div>
-            <div>
-              <h3>Description :</h3>
-              <textarea
-                className="input_forms_admin_interface_text"
-                name="description"
-                value={input.description}
-                onChange={handleChange}
-              />
-              {errors.description && (
-                <h4 className="error_form_admin_interface">
-                  {errors.description}
-                </h4>
-              )}
-            </div>
-            <div>
-              <h3>Chapter :</h3>
-              <input
-                className="input_forms_admin_interface "
-                type="text"
-                name="chapter"
-                value={input.chapter}
-                onChange={handleChange}
-              />
-              {errors.chapter && (
-                <h4 className="error_form_admin_interface">{errors.chapter}</h4>
-              )}
-            </div>
-            <button className="button_forms_send_admin_interface">send</button>
-          </div>
-          {/* <div>
+            {/* <div>
           <label>Rating :</label>
           <input
             type="text"
@@ -189,38 +201,39 @@ const CreateManga = () => {
             />
             {errors.rating && <span>{errors.rating}</span>}
           </div> */}
-          <div className="section">
-            <h3>Select chapters :</h3>
-            <input
-              className="input_file_forms_admin_interface"
-              type="file"
-              multiple
-              onChange={handleBook}
-              accept="image/*"
-            />
-            <h3>Select cover image :</h3>
-            <input
-              className="input_file_forms_admin_interface"
-              type="file"
-              onChange={handleImage}
-              accept="image/*"
-            />
-            <div>
-              <h3>Genres :</h3>
-              <CheckBoxesGenre
-                state={checkedState}
-                handle={handleOnChecked}
-                allGenre={genreManga}
+            <div className="section">
+              <h3>Select chapters :</h3>
+              <input
+                className="input_file_forms_admin_interface"
+                type="file"
+                multiple
+                onChange={handleBook}
+                accept="image/*"
               />
-              {!checkedState.filter((e) => e === true).length && (
-                <h4 className="error_form_admin_interface">
-                  select at least two genre
-                </h4>
-              )}
+              <h3>Select cover image :</h3>
+              <input
+                className="input_file_forms_admin_interface"
+                type="file"
+                onChange={handleImage}
+                accept="image/*"
+              />
+              <div>
+                <h3>Genres :</h3>
+                <CheckBoxesGenre
+                  state={checkedState}
+                  handle={handleOnChecked}
+                  allGenre={genreManga}
+                />
+                {!checkedState.filter((e) => e === true).length && (
+                  <h4 className="error_form_admin_interface">
+                    select at least two genre
+                  </h4>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
