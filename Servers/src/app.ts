@@ -11,11 +11,11 @@ import http from 'http'
 import {Server} from '../node_modules/socket.io';
 
 const server = express();
-const origin = 'http://localhost:3000' || 'https://manga-coffee.vercel.app'
+
 const IoServer = http.createServer(server);
 const io = new Server(IoServer,{
   cors:{
-    origin: origin,
+    origin: '*',
     methods: ['GET', 'POST']
   },
 });
