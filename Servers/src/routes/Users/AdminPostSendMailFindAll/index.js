@@ -49,10 +49,10 @@ router.post('/adminmails', passport_1.default.authenticate("jwt", { session: fal
             correos.forEach(element => {
                 (0, index_2.default)(element.email, subject, template);
             });
-            res.status(200).json('Se ha enviado el correo a todos los usuarios de forma exitosa');
+            res.status(200).json('The email has been sent successfully to all Users');
         }
         else {
-            res.status(400).json('No cuenta con autorizacion para realizar esta accion');
+            res.status(400).json('You are not authorized to do this action');
         }
     }
     catch (err) {

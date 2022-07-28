@@ -15,7 +15,7 @@ router.get('/historybuy/detail/:id', passport.authenticate('jwt', {session: fals
             const historyDetail = user.historyBuy.filter((compra: any) => compra.idCompra === id );
             res.status(200).json(historyDetail);            
         } else {
-            res.status(400).json('Usuario no encontrado');
+            res.status(400).json('User not founded');
         }
     } catch (error) {
         next(error);

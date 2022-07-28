@@ -40,7 +40,7 @@ router.get('/admin', passport_1.default.authenticate("jwt", { session: false }),
                 res.status(200).json(data);
             }
             else {
-                res.status(400).json('Opcion Invalida');
+                res.status(400).json('No valid option');
             }
         }
     }

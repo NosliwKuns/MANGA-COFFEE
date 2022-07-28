@@ -34,9 +34,9 @@ router.post('/adminmails', passport.authenticate("jwt", { session: false }), Fil
             correos.forEach(element => {
                 sendEmail(element.email, subject, template);           
             });             
-            res.status(200).json('Se ha enviado el correo a todos los usuarios de forma exitosa');                        
+            res.status(200).json('The email has been sent successfully to all Users');                        
         } else {
-            res.status(400).json('No cuenta con autorizacion para realizar esta accion');
+            res.status(400).json('You are not authorized to do this action');
         }          
     }catch(err){
         next(err)

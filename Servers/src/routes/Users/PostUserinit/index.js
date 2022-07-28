@@ -21,16 +21,16 @@ router.post('/login', (req, res, next) => __awaiter(void 0, void 0, void 0, func
     try {
         const user = yield User_1.default.findOne({ email });
         if (!email || !password) {
-            res.status(400).json("Por favor, llenar todos los campos");
+            res.status(400).json("You must fill out all fields");
         }
         else if (!user) {
-            res.status(400).json("Usuario inexistente");
+            res.status(400).json("Non Existent User");
         }
         else if (!user.status) {
-            res.status(400).json("Cuenta eliminada; por favor registrese de nuevo");
+            res.status(400).json("This Account was deleted, please sing Up again");
         }
         else if (user.block) {
-            res.status(400).json("Cuenta bloqueada; si hubo un error, por favor informenos por medio de nuestro correo oficial ");
+            res.status(400).json("Your Account has been Banned ; if you belive this was a mistake you can comunicate with us by email");
         }
         else {
             const istmach = yield user.comparePassword(password);
