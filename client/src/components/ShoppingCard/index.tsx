@@ -112,7 +112,7 @@ const ShoppingCard = ({ open, setOpen, setProduct, product, setClickBuy } : Prop
   }
   
   const handleBuyCart = () => {
-    if(parsLocal >=1) {
+    if(parsLocal.length >= 1) {
       setClickBuy("cartBtn")
       navigate("/buyProduct")
       setOpen(false)
