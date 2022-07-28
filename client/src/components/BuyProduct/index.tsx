@@ -13,7 +13,12 @@ import { validate } from "./func/validate";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-const BuyProduct = () => {
+type Props = {
+  clickBuy: any
+  setProduct: any
+}
+
+const BuyProduct = ({clickBuy, setProduct}: Props) => {
   const { idProduct } = useParams();
   const [input, setInput] = useState<any>({
     postalCode: "0",
@@ -42,6 +47,11 @@ const BuyProduct = () => {
   const dispatch = useAppDispatch();
   const { productDetail } = useAppSelector((state) => state.products);
   const { name, product_image, price } = productDetail;
+  const prod: any = localStorage.getItem('prod')
+  const realProd = JSON.parse(prod)
+  const cart: any = localStorage.getItem('test')
+  const allCart = JSON.parse(cart)
+  
 
   const handleChange = (event: any) => {
     setInput({
@@ -58,12 +68,18 @@ const BuyProduct = () => {
 
   const token = useAppSelector((state) => state.user.token);
   const headers = useHeaders(token);
+  const array = clickBuy === "cartBtn" ? allCart : clickBuy === "indBuy" ? realProd : ''
 
   useEffect(() => {
     dispatch(fetchDetailManga(idProduct));
   }, [dispatch]);
 
   const handleSubmit = async (e: any) => {
+    const initBuy = array.map((e:any)=>{
+      console.log("EEEEEEEEEEEEEEEE", e);
+      return {idProduct : e._id, quantity: e.amount ? e.amount : 1}
+  })
+  console.log(initBuy,'initBuyyyyyy')
     e.preventDefault();
 
     if (
@@ -108,7 +124,7 @@ const BuyProduct = () => {
       const { id } = paymentMethod;
       try {
         const envio = {
-          product: [{ idProduct, quantity: numberOfGuests }],
+          product: initBuy,
           adrress: {
             postalCode: input.postalCode,
             country: input.country,
@@ -156,6 +172,19 @@ const BuyProduct = () => {
           },
         });
       }
+      setInput({
+        postalCode: "0",
+        country: "",
+        direction: "",
+        reference: "",
+        name: "",
+        lastName: "",
+        telephone: "",
+        email: "",
+      })
+      if (array === allCart) {
+        setProduct([])
+      }
     }
   };
 
@@ -170,6 +199,17 @@ const BuyProduct = () => {
     const stock = `-${numberOfGuests}`;
     dispatch(fetchModifyStock(idProduct, stock));
   };
+  let total: any = []
+  let totalQuantity: any = []
+  
+  array.map((a: any) => {
+    total.push(a.price)
+    a.amount ? totalQuantity.push(a.amount) : totalQuantity.push(1)
+  })
+  
+  let subTotal: any = total.reduce((a: any, b: any) => a + b,0) 
+  let subTotalQuantity: any = totalQuantity.reduce((a: any, b: any) => a + b,0) 
+
 
   return (
     <div className="five">
@@ -294,14 +334,23 @@ const BuyProduct = () => {
       </div>
     </form>
       <section className="product-view-container">
-      {<img
-          src={product_image}
-          alt={`product image ${name}`}
-          className={"image_product space"}
-        />}
-        <h3 className="space">{`$/. ${price}`}</h3>
+      { array.map((p: any) => {
+        return (
+          <>
+            <img
+              src={p.product_image}
+              alt={`product image `}
+              className={"image_product space"}
+            />
+            <h3>{p.name}</h3>
+            <h3 className="space">{`$/. Price: ${p.price}`}</h3>
+            <h3 className="space">{p.amount && p.amount > 1 ? `$/. Subtotal: ${p.price*p.amount}` : ""}</h3>
+            <h3>{p.amount > 1 ? `Quantity: ${p.amount}` : ""}</h3>
+          </>
+        )})}
+          <div>{`Total: $/.${subTotal*subTotalQuantity}`}</div>
       </section>
-      </div>
+    </div>
       
     </div>
     

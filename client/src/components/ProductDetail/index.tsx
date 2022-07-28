@@ -10,12 +10,14 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
 import '../../scss/Shop/ProductDetail.scss'
+import useLocalStorage from '../../app/customHooks/useLocalStorage'
 
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
   product: any
+  setClickBuy: any
 }
-const ProductDetail = ({ setProduct, product }: Props) => {
+const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -23,11 +25,11 @@ const ProductDetail = ({ setProduct, product }: Props) => {
   const { token, user, verificated } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
-
-  console.log(productDetail);
+  const [addProduct, setAddProduct] = useLocalStorage('prod', [])
 
   useEffect(() => {
     dispatch(fetchDetailManga(id))
+    
     return () => {
       dispatch(fetchCleanDetails())
     }
@@ -129,6 +131,12 @@ const ProductDetail = ({ setProduct, product }: Props) => {
     }
   }
 
+  const handleBuy = () => {
+    setAddProduct([productDetail])
+    setClickBuy("indBuy")
+    navigate(`/buyProduct`)
+  }
+
   return (
     <div className="five">
       <h1>{name}</h1>
@@ -156,7 +164,7 @@ const ProductDetail = ({ setProduct, product }: Props) => {
                   : stock}
       </h2>
       <button onClick={() => addToCard(product_image, price, id)}>Add to cart</button>
-      <button onClick={() => user && verificated ? navigate(`/buyProduct/${id}`) : handleNotUser()}>
+      <button onClick={() => user && verificated ? handleBuy() : handleNotUser()} >
         Buy
       </button>
     </div>

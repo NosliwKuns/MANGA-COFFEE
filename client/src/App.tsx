@@ -1,7 +1,7 @@
 import { Routes, Route, useLocation, useSearchParams } from 'react-router-dom';
 import { loginUser } from './features/user/userSlice';
 import { useAppDispatch } from './app/hooks';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import SearchAndFilter from './components/SearchAndFilter';
 import ProductDetail from './components/ProductDetail';
 import Favorites from './components/User/Favorites';
@@ -64,8 +64,6 @@ function App() {
   const [genreShop, setGenreShop] = useState(searchParams.get("category") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
   const [shopSort, setshopSort] = useState<string>(searchParams.get("sort") || "")
-  console.log("CATEGORYYYYYYYYY", genreShop)
-  console.log("SEARCH PARAAAAAAAAAMS", searchParams.getAll("category"))
   
   const res = useFetch(
     query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
@@ -73,6 +71,8 @@ function App() {
   const resShop = useFetch(
     queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}&sort=${shopSort}` : ""
   );
+
+  const [clickBuy, setClickBuy] = useState("")
   
 
   useEffect(()=>{
@@ -152,9 +152,9 @@ function App() {
           <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
           <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
           <Route path='/history' element={<h1>I'm the History component</h1>} />
-          <Route path="/product/:id" element={<ProductDetail product={product} setProduct={setProduct}/>} />
+          <Route path="/product/:id" element={<ProductDetail product={product} setProduct={setProduct} setClickBuy={setClickBuy}/>} />
           <Route path="/categories/:genre" element={<SelectedCategories/>} />
-          <Route path='/buyProduct/:idProduct' element={<BuyProduct/>}/>
+          <Route path='/buyProduct' element={<BuyProduct clickBuy={clickBuy} setProduct={setProduct}/>}/>
           <Route path='/verificateUser/:id' element={<Verificate/>}/>
           <Route path='/rename' element={<RenamePassword/>}/>
           <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
@@ -165,7 +165,7 @@ function App() {
         </Routes>
         </AnimatePresence>
       </div>
-      <RightSide product={product} setProduct={setProduct}/>
+      <RightSide product={product} setProduct={setProduct} setClickBuy={setClickBuy}/>
       <Chat />
     </div>
   )

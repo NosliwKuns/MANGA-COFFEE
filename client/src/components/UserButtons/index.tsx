@@ -9,9 +9,10 @@ import '../../scss/Shop/ShoppingCard.scss';
 type Props = {
     setProduct: React.Dispatch<React.SetStateAction<any>>;
     product: any
+    setClickBuy: any
 }
 
-const UserButtons = ({ setProduct, product }: Props) =>{
+const UserButtons = ({ setProduct, product, setClickBuy }: Props) =>{
     const [open, setOpen] = useState<boolean>(false)
 
     const openShoppingCart = () => {
@@ -24,6 +25,7 @@ const UserButtons = ({ setProduct, product }: Props) =>{
                 setOpen={setOpen}
                 product={product} 
                 setProduct={setProduct} 
+                setClickBuy={setClickBuy}
             />
             <span>
                 <Link to='/user/fav'><span><IoIosHeart size={28} color={'#9394A9'} /></span></Link>

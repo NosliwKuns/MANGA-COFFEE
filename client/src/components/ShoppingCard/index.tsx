@@ -13,9 +13,10 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setProduct: React.Dispatch<React.SetStateAction<any>>;
   product: any
+  setClickBuy: any
 }
 
-const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
+const ShoppingCard = ({ open, setOpen, setProduct, product, setClickBuy } : Props) => {
   const getLocal : any = localStorage.getItem('test');
   const parsLocal = JSON.parse(getLocal);
   const navigate = useNavigate()
@@ -27,20 +28,40 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
   }, [setProduct])
 
   const deleteProduct = (id : any) => {
-    const remove = product.filter((e : any)=> e.id !== id);
+    const remove = product.filter((e : any)=> e._id !== id);
     setProduct(remove);
-    console.log(remove);
   };
 
   const addAmount = (id : any) => {
-    const findProduct = product.find((e : any)=> e.id === id);
-    findProduct.amount =  findProduct.amount + 1;
-    console.log(findProduct);
+    const findProduct = product.find((e : any)=> e._id === id);
+    if(findProduct.stock === findProduct.amount) {
+      const MySwal = withReactContent(Swal);
+      MySwal.fire({
+        html: (
+          <>
+            <h1>Not enough stock!</h1>
+          </>
+        ),
+        position: "center",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 3000,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "confirmButton",
+        },
+      }); 
+    } else{
+        findProduct.amount =  findProduct.amount + 1;
+    } 
     setProduct([...product]);
   };
 
   const sustractAmount = (id : any) => {
-    const findProduct = product.find((e : any)=> e.id === id);
+    const findProduct = product.find((e : any)=> e._id === id);
     if(findProduct.amount > 1)
     findProduct.amount =  findProduct.amount -1;
     setProduct([...product]);
@@ -85,6 +106,12 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
     }
   }
   
+
+  const handleBuyCart = () => {
+    setClickBuy("cartBtn")
+    navigate("/buyProduct")
+  }
+
   return (
     <div 
       className="shopping-card-container"
@@ -110,10 +137,11 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
             return (
               <div>
                 <img src={e.product_image} alt={e.product_image} />
-                <h3>Amount: {e.amount}</h3>
-                <button onClick={() => sustractAmount(e.id)} style={{height: "30px", width: "30px"}}>-</button>
-                <button onClick={() => deleteProduct(e.id)} style={{height: "30px", width: "60px"}}>remove</button>
-                <button onClick={() => addAmount(e.id)} style={{height: "30px", width: "30px"}}>+</button>
+                <h3>{e.name}</h3>
+                <h3>Quantity: {e.amount}</h3>
+                <button onClick={() => sustractAmount(e._id)} style={{height: "30px", width: "30px"}}>-</button>
+                <button onClick={() => deleteProduct(e._id)} style={{height: "30px", width: "60px"}}>remove</button>
+                <button onClick={() => addAmount(e._id)} style={{height: "30px", width: "30px"}}>+</button>
               </div>
             )
           })
@@ -123,7 +151,7 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
           window.localStorage.setItem("test", JSON.stringify(""));
         }}>Clear Card</button>
         {/* <Link to={"/shoppingTime"}> */}
-        <button onClick={() => user && verificated ? navigate("/shoppingTime") : handleNotUser()}>Buy All</button>
+        <button onClick={() => user && verificated ? handleBuyCart() : handleNotUser()}>Buy All</button>
         {/* </Link> */}
         
       </motion.div>
