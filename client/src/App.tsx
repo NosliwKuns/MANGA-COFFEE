@@ -48,6 +48,7 @@ function App() {
   // ---------- states to be used with both mangas and store -------------//
 
   const [colorF, setColorF] = useLocalStorage('colorFM', [])
+  const [colorFShop, setColorShop] = useLocalStorage('colorFMShop', [])
   const [searchParams, setSearchParams] = useSearchParams();
 
   //------------------- states to be used with mangas ---------------------//
@@ -55,14 +56,16 @@ function App() {
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const [page, setPage] = useState<any>(searchParams.get("page") || 1);
   const [genre, setGenre] = useState(searchParams.get("genre") || "");
-  const [sort, setSort] = useState<string>(searchParams.get("genre") || "")
+  const [sort, setSort] = useState<string>(searchParams.get("sort") || "")
 
   //------------------- states to be used in the store ---------------------//
   
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
-  const [genreShop, setGenreShop] = useState(searchParams.get("genre") || "");
+  const [genreShop, setGenreShop] = useState(searchParams.get("category") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
-  const [shopSort, setshopSort] = useState<string>(searchParams.get("genre") || "")
+  const [shopSort, setshopSort] = useState<string>(searchParams.get("sort") || "")
+  console.log("CATEGORYYYYYYYYY", genreShop)
+  console.log("SEARCH PARAAAAAAAAAMS", searchParams.getAll("category"))
   
   const res = useFetch(
     query || page || genre ? `/manga?limit=12&search=${query}&page=${page}&genres=${genre}&sort=${sort}` : ""
@@ -116,10 +119,10 @@ function App() {
               setSearchParams={setSearchParams}
               setGenreShop={setGenreShop}
               setQueryShop={setQueryShop} 
-              colorF={colorF}
-              setColorF={setColorF}
+              colorFShop={colorFShop}
+              setColorShop={setColorShop}
               shopSort={shopSort}
-              setshopSort={setshopSort} 
+              setshopSort={setshopSort}
             />} 
           />
           <Route path="/mangas" element={
