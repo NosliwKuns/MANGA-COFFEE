@@ -1,4 +1,107 @@
-.text {
+.detail-container-product {
+  display: grid;
+  gap: 1em;
+  color: var(--light);
+  // opacity: 0;
+  
+  title {
+    background: var(--primary);
+    display: inherit;
+    min-height: 4em;
+    border-radius: 1.1em;
+    padding-left: 1em;
+    justify-content: start;
+    align-items: center;
+    
+    h2 {
+      font-size: xx-large;
+    }
+  }
+
+  header{
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    gap: 2em;
+    border-radius: 1.2em;
+    max-height: 55vh;
+
+    
+    .image-container-product {
+      overflow: hidden;
+      /* width: 19em; */
+      height:  55vh;
+      border-radius: 1em;
+      aspect-ratio: 1/1;
+      justify-self: center;
+      background-color: var(--dark--600);
+      
+      img {
+        height: 55vh;
+        width: 55vh;
+        object-fit: cover;
+      }
+    }
+
+    .info-container-product {
+      position: relative;
+      background: var(--dark--600);
+      width: 270px;
+      border-radius: 1em;
+      padding: 2em;
+      h2{
+        color: white;
+      }
+      .wishlist {
+        cursor: pointer;
+        text-align: end;
+      }
+      .addToCartButton{
+        cursor: pointer;
+        background: var(--primary);
+        color: #FFF;
+        border: none;
+        border-radius: 100vh;
+        font-size: 25px;
+        margin-right: 10px;
+        padding: 6px;
+        width: 100%;
+      }
+      
+      .BuyProductDetailButton {
+        background: var(--primary);
+        color: #FFF;
+        border: none;
+        border-radius: 100vh;
+        font-size: 25px;
+        margin-right: 10px;
+        padding: 5px;
+        width: 100%;
+      }
+      .InfoProductDiv{
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        .BuyAndAddButtons{
+          display: flex;
+          justify-content: space-between;
+          h2{
+            display: inline;
+          }
+        }
+      }
+    }
+  }
+  .DescriptionProduct{
+    color: var(--primary);
+    text-align: start;
+  }
+  p {
+    text-align: justify;
+  }
+}
+
+  
+  .text {
     color: #FFF;
     width: 100px;
   }
@@ -16,3 +119,4 @@
   .divSignIn {
     cursor: pointer;
   }
+

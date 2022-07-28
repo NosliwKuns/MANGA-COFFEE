@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useEffect } from 'react';
 import { fetchAllManga } from '../../../features/manga/mangaSlice';
 import { GoFlame } from 'react-icons/go';
+import { Link } from 'react-router-dom'
 
 const PopularMangas = () => {
   const dispatch = useAppDispatch();
@@ -21,10 +22,12 @@ const PopularMangas = () => {
       {
         mangas.slice(0, 16).map((e : any) => {
           return (
-            <div>
-              <img src={e.cover_image} alt="" />
-              <h3>{e.title}</h3>
-            </div>
+            <Link to={`/mangas/detail/${e._id}`}>
+              <div>
+                <img src={e.cover_image} alt="" />
+                <h3>{e.title}</h3>
+              </div>
+            </Link>
           )
         })
       }
