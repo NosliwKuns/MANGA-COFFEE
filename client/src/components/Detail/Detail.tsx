@@ -23,6 +23,7 @@ import Comments from "./Comments";
 import Swal from 'sweetalert2';
 import Rating from "./Rating";
 import "../../scss/Details/Detail.scss";
+import "../../scss/User/FormsAdmin.scss"
 
 const Detail = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,7 @@ const Detail = () => {
   const { id, user, verificated, favorites } = useAppSelector(
     (state) => state.user
   );
+  const [loading, setLoading] = useState(false);
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   let admin;
   let token; 
@@ -44,11 +46,35 @@ const Detail = () => {
   let fav = favorites?.find(e => e._id === params.id) ? true : false;
 
   const handleAddChapter = async (e: any) => {
+    const userCopy: any = window.localStorage.getItem("copySliceUser");
+    const {token} = JSON.parse(userCopy)
+    console.log(token)
+    const headers = useHeaders(token)
     e.preventDefault();
-    const verificated = await dispatch(
+    setLoading(true)
+    const verificated : any = await dispatch(
       addChapterManga(headers, params.id, files)
     );
-    alert(verificated);
+    const MySwal = withReactContent(Swal);
+    MySwal.fire({
+      html: (
+        <>
+          <h1>{verificated}</h1>
+        </>
+      ),
+      position: "center",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500,
+      showCloseButton: true,
+      focusConfirm: false,
+      background: "#212429",
+      buttonsStyling: false,
+      customClass: {
+        confirmButton: "confirmButton",
+      },
+    });
+    setLoading(false)
     window.location.reload();
   };
 
@@ -175,6 +201,10 @@ const Detail = () => {
           <button className="SendChapterButton">Send</button>
         </form>
       )}
+      {admin && add && loading && <div className="span_msg_loader_add">
+          <h1>LOADING...</h1>
+        </div>
+      }
       <Comments />
     </motion.div>
   );
