@@ -12,6 +12,7 @@ import "../../scss/Shop/buyProduct.scss";
 import { validate } from "./func/validate";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { FaRegCreditCard } from "react-icons/fa";
 
 type Props = {
   clickBuy: any
@@ -74,12 +75,16 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
     dispatch(fetchDetailManga(idProduct));
   }, [dispatch]);
 
+  const appearance = {
+    theme: 'stripe'
+  };
+  
+
+
   const handleSubmit = async (e: any) => {
     const initBuy = array.map((e:any)=>{
-      console.log("EEEEEEEEEEEEEEEE", e);
       return {idProduct : e._id, quantity: e.amount ? e.amount : 1}
   })
-  console.log(initBuy,'initBuyyyyyy')
     e.preventDefault();
 
     if (
@@ -202,7 +207,7 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
   let total: any = []
   let totalQuantity: any = []
   
-  array.map((a: any) => {
+  array && array.map((a: any) => {
     total.push(a.price)
     a.amount ? totalQuantity.push(a.amount) : totalQuantity.push(1)
   })
@@ -214,31 +219,10 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
   return (
     <div className="five">
       <div className="checkout-container">
-      <form onSubmit={handleSubmit} className="info-user-form">
-
-      <div>
-        <h1 className="space title">{name}</h1>
-        <div className="space">
-          <CardElement />
-        </div>
-        <input
-          name="numberOfGuests"
-          type="number"
-          value={numberOfGuests}
-          onChange={handleInputChange}
-          className="space"
-        />
-        <button
-          className="space btn_buy"
-          disabled={!stripe}
-          onClick={() => handleBuy()}
-        >
-          {loading ? "Loading" : "Buy"}
-        </button>
-      </div>
-
-      <div>
-        <h1 className="space">Your Data</h1>
+        <form onSubmit={handleSubmit} className="info-user-form">
+          <div className="wrapper">
+          <h2>shipping information</h2>
+      <div className="grid-inputs">
         <div className="space">
           <label htmlFor="emial">Email :</label>
           <input
@@ -247,7 +231,7 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
             value={input.email}
             onChange={handleChange}
           />
-          {errors.email.length > 1 && <p>{errors.email}</p>}
+          <p>{errors.email}</p>
         </div>
 
         <div className="space">
@@ -332,23 +316,48 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
           {errors.reference.length > 1 && <p>{errors.reference}</p>}
         </div>
       </div>
-    </form>
+      <div className="payment-container">
+        <h2>Payment method</h2>
+        <div 
+          className="payment-text"> 
+            <FaRegCreditCard size={23} />   
+            Credit or debit card | Visa, Mastercard and more!
+        </div>
+        <div className="payment">
+          <CardElement />
+        </div>
+        <div className="total">{`Total: $/.${subTotal*subTotalQuantity}`}</div>
+        <button
+          className="space btn_buy"
+          disabled={!stripe}
+          onClick={() => handleBuy()}
+        >
+          {loading ? "Loading" : "Checkout"}
+        </button>
+      </div>
+          </div>
+        </form>
       <section className="product-view-container">
-      { array.map((p: any) => {
-        return (
-          <>
-            <img
-              src={p.product_image}
-              alt={`product image `}
-              className={"image_product space"}
-            />
-            <h3>{p.name}</h3>
-            <h3 className="space">{`$/. Price: ${p.price}`}</h3>
-            <h3 className="space">{p.amount && p.amount > 1 ? `$/. Subtotal: ${p.price*p.amount}` : ""}</h3>
-            <h3>{p.amount > 1 ? `Quantity: ${p.amount}` : ""}</h3>
-          </>
-        )})}
-          <div>{`Total: $/.${subTotal*subTotalQuantity}`}</div>
+        <h2>Your products</h2>
+        <div className="sub-section">
+          {array &&  array.map((p: any) => {
+            return (
+              <div className="product-content">
+                <img
+                  src={p.product_image}
+                  alt={`product image `}
+                  className={"image_product space"}
+                />
+                <div>
+                  <h3>{p.name}</h3>
+                  <h3 className="space">{`$/. Price: ${p.price}`}</h3>
+                  <h3 className="space">{p.amount && p.amount > 1 ? `$/. Subtotal: ${p.price*p.amount}` : ""}</h3>
+                  <h3>{p.amount > 1 ? `Quantity: ${p.amount}` : ""}</h3>
+                </div>
+              </div>
+            )})}
+        </div>
+        
       </section>
     </div>
       
