@@ -30,7 +30,7 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             res.status(200).json("An Account with thid email already exist, do you want get it back?");
         }
         else if (user && user.status) {
-            res.status(200).json("Non Existent User");
+            res.status(200).json("Existing User");
         }
         else {
             let newuser = new User_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist });

@@ -146,7 +146,7 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
         };
         console.log(envio);
         const { data } = await axios.post(
-          `http://localhost:5000/api/products/checkout/${id}`,
+          `https://manga-coffee.herokuapp.com/api/products/checkout/${id}`,
           envio,
           headers
         );
