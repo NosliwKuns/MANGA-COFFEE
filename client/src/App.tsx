@@ -72,6 +72,7 @@ function App() {
   const resShop = useFetch(
     queryShop || pageShop || genreShop ? `/products?limit=12&search=${queryShop}&page=${pageShop}&category=${genreShop}&sort=${shopSort}` : ""
   );
+  console.log(resShop, 'ehhhh');
 
   const [clickBuy, setClickBuy] = useState("")
   
