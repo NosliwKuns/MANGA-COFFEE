@@ -1,7 +1,12 @@
 import '../../scss/Shop/ShoppingCard.scss';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../app/hooks';
+import '../../scss/Details/Comments.scss'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { BsFillInfoCircleFill } from 'react-icons/bs'
 
 type Props = {
   open: boolean;
@@ -13,6 +18,8 @@ type Props = {
 const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
   const getLocal : any = localStorage.getItem('test');
   const parsLocal = JSON.parse(getLocal);
+  const navigate = useNavigate()
+  const { user, verificated } = useAppSelector(state => state.user)
   console.log(product);
 
   useEffect(() => {
@@ -43,6 +50,40 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
   const arrAmount = product && product.map((e: any) => e.amount);
   const totalAmount = arrAmount ? arrAmount.reduce((a : number, b : number) => a + b, 0 ) : '';
   console.log(arrAmount);
+
+  const handleNotUser = () => {
+    if(!user && !verificated) {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>To buy, you must Sign In!</h2></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+        <div onClick={() => navigate("/logeo", { replace: true })} className="divSignIn">Sign In</div>,
+        confirmButtonAriaLabel: 'Sign In',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+    } else if(user && !verificated) {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          'Ok',
+        confirmButtonAriaLabel: 'Ok',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+    }
+  }
   
   return (
     <div 
@@ -81,9 +122,9 @@ const ShoppingCard = ({ open, setOpen, setProduct, product } : Props) => {
           setProduct([])
           window.localStorage.setItem("test", JSON.stringify(""));
         }}>Clear Card</button>
-        <Link to={"/shoppingTime"}>
-        <button>Buy All</button>
-        </Link>
+        {/* <Link to={"/shoppingTime"}> */}
+        <button onClick={() => user && verificated ? navigate("/shoppingTime") : handleNotUser()}>Buy All</button>
+        {/* </Link> */}
         
       </motion.div>
     </div>

@@ -95,6 +95,40 @@ const ProductDetail = ({ setProduct, product }: Props) => {
     }
 }
 
+  const handleNotUser = () => {
+    if(!user && !verificated) {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>To buy, you must Sign In!</h2></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+        <div onClick={() => navigate("/logeo", { replace: true })} className="divSignIn">Sign In</div>,
+        confirmButtonAriaLabel: 'Sign In',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+    } else if(user && !verificated) {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          'Ok',
+        confirmButtonAriaLabel: 'Ok',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+    }
+  }
+
   return (
     <div className="five">
       <h1>{name}</h1>
@@ -122,11 +156,9 @@ const ProductDetail = ({ setProduct, product }: Props) => {
                   : stock}
       </h2>
       <button onClick={() => addToCard(product_image, price, id)}>Add to cart</button>
-      <Link to={`/buyProduct/${id}`}>
-      <button>
+      <button onClick={() => user && verificated ? navigate(`/buyProduct/${id}`) : handleNotUser()}>
         Buy
       </button>
-      </Link>
     </div>
   )
 };
