@@ -106,10 +106,37 @@ const ShoppingCard = ({ open, setOpen, setProduct, product, setClickBuy } : Prop
     }
   }
   
-
+  const HhandleShopBuyAlert = () => {
+    navigate("/shop", { replace: true }) 
+    setOpen(false)
+  }
+  
   const handleBuyCart = () => {
-    setClickBuy("cartBtn")
-    navigate("/buyProduct")
+    if(parsLocal >=1) {
+      setClickBuy("cartBtn")
+      navigate("/buyProduct")
+      setOpen(false)
+    } else {
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>It seems you have no products in your cart</h2> <h3>Looking for your favorites Products?</h3></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+        <div onClick={() => HhandleShopBuyAlert()} className="divSignIn">Add some!</div>,
+        confirmButtonAriaLabel: 'Add some',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButtonBUY'
+        }
+      })
+    }
+  }
+  
+  const handleClearCart = () => {
+    setProduct([])
+    setOpen(false)
   }
 
   return (
@@ -131,28 +158,33 @@ const ShoppingCard = ({ open, setOpen, setProduct, product, setClickBuy } : Prop
         transition={ {duration : .5}}
       >
         {/* <button onClick={() => setOpen(!open)}>fff</button> */}
-        <h2>Total Amount: {totalAmount}</h2>
+        <h2>Total Quantity: {totalAmount}</h2>
         {
           product?.map((e : any) => {
             return (
-              <div>
-                <img src={e.product_image} alt={e.product_image} />
-                <h3>{e.name}</h3>
-                <h3>Quantity: {e.amount}</h3>
-                <button onClick={() => sustractAmount(e._id)} style={{height: "30px", width: "30px"}}>-</button>
-                <button onClick={() => deleteProduct(e._id)} style={{height: "30px", width: "60px"}}>remove</button>
-                <button onClick={() => addAmount(e._id)} style={{height: "30px", width: "30px"}}>+</button>
+              <div className='ProductTotalInfoContainer'>
+                <div className='ImageSoppingCartContainer'>
+                  <img src={e.product_image} alt={e.product_image} />
+                </div>
+                <div className='ProductInformationShoppingCart'>
+                  <div className='NameAndQuantity'>
+                    <h3>{e.name}</h3>
+                    <h4>Quantity: {e.amount}</h4>
+                  </div>
+                  <div>
+                    <button className="ButtonsInsideTheProduct" onClick={() => sustractAmount(e._id)} style={{height: "30px", width: "30px"}}>-</button>
+                    <button className="ButtonsInsideTheProduct" onClick={() => deleteProduct(e._id)} style={{height: "30px", width: "60px"}}>remove</button>
+                    <button className="ButtonsInsideTheProduct" onClick={() => addAmount(e._id)} style={{height: "30px", width: "30px"}}>+</button>
+                  </div>
+                </div>
               </div>
             )
           })
         }
-        <button onClick={() => {
-          setProduct([])
-          window.localStorage.setItem("test", JSON.stringify(""));
-        }}>Clear Card</button>
-        {/* <Link to={"/shoppingTime"}> */}
-        <button onClick={() => user && verificated ? handleBuyCart() : handleNotUser()}>Buy All</button>
-        {/* </Link> */}
+        <div className='ButtonsOutside'>
+          <button onClick={() => handleClearCart()} className="ButtonsOutsideTheProduct">Clear Cart</button>
+          <button className="ButtonsOutsideTheProduct" onClick={() => user && verificated ? handleBuyCart() : handleNotUser()}>Buy All</button>
+        </div>
         
       </motion.div>
     </div>
