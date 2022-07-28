@@ -166,6 +166,14 @@ const Registration = ({ setMove }: Props) => {
             </div>
           </div>
           <div>
+            <div className="span_msg_error_info">
+              <span>
+                the password must have 7 digits 
+                -min 1 lowercase 
+                -min 1 uppercase 
+                -min 1 number
+              </span>
+            </div>
             <button>Sign Up</button>
           </div>
           <div className="sign-up">

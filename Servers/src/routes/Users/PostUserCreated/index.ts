@@ -15,7 +15,7 @@ router.post('/register', async (req, res, next) => {
         } else if (user && !user.status){
             res.status(200).json("An Account with thid email already exist, do you want get it back?");
         } else if (user && user.status){
-            res.status(200).json("Non Existent User");
+            res.status(200).json("Existing User");
         }else{
             let newuser = new User({users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist});
             const token = createToken(newuser);
