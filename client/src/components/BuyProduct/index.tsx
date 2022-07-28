@@ -326,7 +326,7 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
         <div className="payment">
           <CardElement />
         </div>
-        <div className="total">{`Total: $/.${subTotal*subTotalQuantity}`}</div>
+        <div className="total">{`Total: $/. ${subTotal*subTotalQuantity}`}</div>
         <button
           className="space btn_buy"
           disabled={!stripe}
@@ -350,8 +350,8 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
                 />
                 <div>
                   <h3>{p.name}</h3>
-                  <h3 className="space">{`$/. Price: ${p.price}`}</h3>
-                  <h3 className="space">{p.amount && p.amount > 1 ? `$/. Subtotal: ${p.price*p.amount}` : ""}</h3>
+                  <h3 className="space">{`Price: $/. ${p.price}`}</h3>
+                  <h3 className="space">{p.amount && p.amount > 1 ? `Subtotal: $/. ${p.price*p.amount}` : ""}</h3>
                   <h3>{p.amount > 1 ? `Quantity: ${p.amount}` : ""}</h3>
                 </div>
               </div>
