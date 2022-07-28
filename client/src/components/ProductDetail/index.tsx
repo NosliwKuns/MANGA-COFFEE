@@ -11,6 +11,7 @@ import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
 import '../../scss/Shop/ProductDetail.scss'
 import useLocalStorage from '../../app/customHooks/useLocalStorage'
+import { FaShoppingCart } from "react-icons/fa";
 
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
@@ -47,12 +48,14 @@ const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
     stock
   } = productDetail
 
-  const addToCard : any = (a : any, b: any, c: any) => {
+  const addToCard : any = (a : any, b: any, c: any, d: any, e: any) => {
     let order = {
       product_image : a,
       price: b,
       id : c,
-      amount: 1
+      amount: 1,
+      name: d, 
+      stock: e
     }
     if (!product) {
       setProduct([order])
@@ -139,6 +142,22 @@ const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
     navigate(`/buyProduct`)
   }
 
+  const hanldeAddToCartDetail = () => {
+    addToCard(product_image, price, id, name, stock)
+    const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><FaShoppingCart size={26} color={'#9394A9'} className="cart-icon"/><h2 className='PopUpText'>Product added to the Cart</h2></>,
+          position: 'bottom-end',
+          background: "#212429",
+          showConfirmButton: false,
+          confirmButtonAriaLabel: 'Ok',
+          timer: 1500,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
+  }
   return (
     <div className="five detail-container-product">
       <title><h2>{name}</h2></title>
@@ -158,7 +177,7 @@ const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
                         : stock}
             </h2>
               <h2>Price: ${price}</h2>
-              <button onClick={() => addToCard(product_image, price, id)} className="addToCartButton">Add to cart</button>
+              <button onClick={() => hanldeAddToCartDetail()} className="addToCartButton">Add to cart</button>
               <button onClick={() => user && verificated ? handleBuy() : handleNotUser()} className="BuyProductDetailButton">Buy</button>
             <div className='BuyAndAddButtons'>
             </div>
