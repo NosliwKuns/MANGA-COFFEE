@@ -92,7 +92,6 @@ const initialState: InitialState = {
       const { data } = await axios.put(`https://manga-coffee.herokuapp.com/api/products/stock/${id}`, {
         updates
       })
-      console.log('DATAAAAAAAAAAAA', data)
       dispatch(stockProducts(data));
     }
   };

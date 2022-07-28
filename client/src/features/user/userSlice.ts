@@ -485,7 +485,7 @@ export const fetchDeleteWishlist = (
 export const preViewhistoryBuy = (headers: object): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      "http://localhost:5000/api/user/finall/historybuy",
+      "https://manga-coffee.herokuapp.com/api/user/finall/historybuy",
       headers
     );
     return data;
@@ -498,7 +498,7 @@ export const detailElementBuy = (
 ): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      `http://localhost:5000/api/user/historybuy/detail/${id}`,
+      `https://manga-coffee.herokuapp.com/api/user/historybuy/detail/${id}`,
       headers
     );
     return data;
@@ -520,7 +520,7 @@ export const editProfileAction = (
   books.append("token",token)
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/update",
+      "https://manga-coffee.herokuapp.com/api/user/update",
       books,
       headers
     );
@@ -544,7 +544,7 @@ export const editInformation = (
   console.log(books)
   return async () => {
     const { data } = await axios.put(
-      "http://localhost:5000/api/user/update",
+      "https://manga-coffee.herokuapp.com/api/user/update",
       books,
       headers
     );

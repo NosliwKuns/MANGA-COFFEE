@@ -145,7 +145,7 @@ const initialState: InitialState = {
   
   export const fetchMangaByName = (name: string | number): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?search=${name}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?search=${name}`)
       dispatch(searchMangaByName(data))
     }
   }
@@ -160,14 +160,14 @@ const initialState: InitialState = {
   
   export const fetchMangaSortByName = (name: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?${name}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${name}`)
       dispatch(searchMangaByName(data))
     }
   }
 
   export const fetchMangaSortByRating = (rating: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?${rating}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${rating}`)
       dispatch(searchMangaByName(data))
     }
   };
@@ -192,7 +192,7 @@ const initialState: InitialState = {
   
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?page=${page}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?page=${page}`)
       dispatch(paginate(data))
     }
   };
