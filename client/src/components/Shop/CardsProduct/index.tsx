@@ -16,18 +16,20 @@ type Props = {
 
 const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
 
-  const addToCard : any = (a : any, b: any, c: any) => {
+  const addToCard : any = (a : any, b: any, c: any, d: any, e: any) => {
     let order = {
       product_image : a,
       price: b,
-      id : c,
-      amount: 1
+      _id : c,
+      amount: 1,
+      name: d,
+      stock: e
     }
     
     if (!product) {
       setProduct([order])
     } else {
-      const add = product.find((e : any) => e.id === order.id)
+      const add = product.find((e : any) => e.id === order._id)
       if(!add) setProduct([order, ...product]);
     }
     const MySwal = withReactContent(Swal)
@@ -64,7 +66,7 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
                   : "Available"}
                   </p>
               <p className="card__price">${resShop.data?.products.length > 1 &&  resShop.data?.products[0].price}</p>
-              <button onClick={() => addToCard(resShop.data?.products.length > 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length > 1 &&  resShop.data?.products[0].price, resShop.data?.products.length > 1 &&  resShop.data?.products[0]._id)}>Add to cart</button>
+              <button onClick={() => addToCard(resShop.data?.products.length > 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length > 1 &&  resShop.data?.products[0].price, resShop.data?.products.length > 1 &&  resShop.data?.products[0]._id, resShop.data?.products.length > 1 &&  resShop.data?.products[0].name, resShop.data?.products.length > 1 &&  resShop.data?.products[0].stock)}>Add to cart</button>
           </div>
         </Link>
         <>
@@ -83,7 +85,7 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
                   : "Available"}
                   </p>
                   <p className="card__price">${e.price}</p>
-                  <button onClick={() => addToCard(e.product_image, e.price, e._id)}>Add to cart</button>
+                  <button onClick={() => addToCard(e.product_image, e.price, e._id, e.name, e.stock)}>Add to cart</button>
                 </div>
               </div>
             )

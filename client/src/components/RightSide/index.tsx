@@ -5,14 +5,16 @@ import UserButtons from './../UserButtons/index';
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
   product: any
+  setClickBuy: any
 }
-const LeftSide = ({ setProduct, product }: Props) => {
+const LeftSide = ({ setProduct, product, setClickBuy }: Props) => {
   const { user } = useAppSelector(state => state.user)
   return (
     <div className="six">
       <UserButtons 
         product={product}  
-        setProduct={setProduct}/>
+        setProduct={setProduct}
+        setClickBuy={setClickBuy}/>
       <PopularMangas />
       {/* <div className="greeting">
         {
