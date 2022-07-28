@@ -46,6 +46,7 @@
       padding: 2em;
 
       .favorites {
+        cursor: pointer;
         position: absolute;
         top: 2em;
         right: 2em;
@@ -117,4 +118,5 @@
     padding: 5px;
     width: 50px;
 }
+
 
