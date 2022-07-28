@@ -25,15 +25,15 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
                     product_image = linkCloudinary.secure_url;
                     const product = new Product({ id_User, name, product_image, description, stock , price, category: [category], title})
                     await product.save();
-                    res.status(201).json("Producto agregado con exito");                    
+                    res.status(201).json("Product addes successfull");                    
                 }else{
-                    res.status(400).json("Informacion incompleta");
+                    res.status(400).json("Uncomplete Information");
                 }
             } else {
-                res.status(400).json('No cuenta con autorizacion');           
+                res.status(400).json('You are not authorized');           
             }
         } else {
-            res.status(400).json("Usuario no encontardo")
+            res.status(400).json("User not founded")
         }
     } catch (error) {
         next(error)

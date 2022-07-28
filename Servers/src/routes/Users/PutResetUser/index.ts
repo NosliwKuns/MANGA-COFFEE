@@ -17,7 +17,7 @@ router.put('/resetuser/',  async(req, res, next) => {
                 const user: any = await User.findOne({email});
                 let template = ResetUser(user.users, user.id);
                 sendEmail(email, 'Recuperar cuenta', template)
-                res.status(201).json('Confirmar solicitud desde el correo electronico');
+                res.status(201).json('To Complete the Request Check your email');
             }else{
                 const user: any = await User.findOne({email});
                 let mail = user.email + `_deprecated_${uuid()}`;

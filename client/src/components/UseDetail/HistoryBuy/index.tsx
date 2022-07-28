@@ -53,7 +53,6 @@ const HistoryBuy = () => {
                 <Link to='/shop'><button className="addButton">Add some!</button></Link>
                 </div>
       )
-      
       }
     </div>
   );

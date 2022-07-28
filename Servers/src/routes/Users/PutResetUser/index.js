@@ -27,7 +27,7 @@ router.put('/resetuser/', (req, res, next) => __awaiter(void 0, void 0, void 0, 
             const user = yield User_js_1.default.findOne({ email });
             let template = (0, index_js_4.default)(user.users, user.id);
             (0, index_js_1.default)(email, 'Recuperar cuenta', template);
-            res.status(201).json('Confirmar solicitud desde el correo electronico');
+            res.status(201).json('To Complete the Request Check your email');
         }
         else {
             const user = yield User_js_1.default.findOne({ email });

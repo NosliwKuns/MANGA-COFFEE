@@ -23,8 +23,13 @@ const CatalogMangas = ({ res, query, genre, setPage, setSearchParams, setGenre, 
       <Sorts 
         sort={sort}
         setSort={setSort}
-      />
+        setPage={setPage}
+        setGenre={setGenre}
+        genre={genre}
+        />
       <FilterMangas 
+        sort={sort}
+        setSort={setSort}
         setPage={setPage}
         setGenre={setGenre}
         colorF={colorF}

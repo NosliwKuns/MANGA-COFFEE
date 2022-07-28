@@ -34,12 +34,12 @@ router.post('/',  passport.authenticate("jwt", { session: false }), FilesImage()
                 cover_image = CoverImgClaudinary.secure_url;
                 const manga = new Manga({title, genres: genres.split(','), cover_image, description, mangas, comments});
                 await manga.save()
-                res.status(200).json('Su manga se Agrego con Exito!')
+                res.status(200).json('Manga Added Successfull!')
             }else {
-                res.status(400).json("Informacion incompleta")
+                res.status(400).json("Uncomplete Information")
             }
         } else{
-            res.status(400).json("No cuentas con autorizacion")
+            res.status(400).json("You are not authorized")
         }
     } catch (error) {
         next(error)

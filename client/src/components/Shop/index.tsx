@@ -14,25 +14,30 @@ type Props = {
   setGenreShop: any
   setQueryShop: any
   pageShop: any
-  colorF: any
-  setColorF: any
+  colorFShop: any
+  setColorShop: any
   shopSort: string
   setshopSort: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Shop = ({ setProduct, product, resShop, setPageShop, genreShop, queryShop, setSearchParams, setGenreShop, setQueryShop, colorF, setColorF, pageShop, shopSort, setshopSort }: Props) => {
+const Shop = ({ setProduct, product, resShop, setPageShop, genreShop, queryShop, setSearchParams, setGenreShop, setQueryShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort }: Props) => {
   return (
     <div className="five">
       <ShopSort 
         shopSort={shopSort}
         setshopSort={setshopSort}
-      />
+        setPageShop={setPageShop}
+        setGenreShop={setGenreShop}
+        genreShop={genreShop}
+        />
       <ShopFilter
+      shopSort={shopSort}
+      setshopSort={setshopSort}
       setPageShop={setPageShop}
       setGenreShop={setGenreShop}
       resShop={resShop}
-      colorF= {colorF}
-      setColorF= {setColorF}
+      colorFShop= {colorFShop}
+      setColorShop= {setColorShop}
       pageShop={pageShop}
       />
       <CardsProduct 

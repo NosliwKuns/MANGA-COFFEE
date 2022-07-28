@@ -72,10 +72,10 @@ router.put('/update', passport.authenticate("jwt", { session: false }), FilesIma
                 }
                 res.status(200).json(newuser);
             } else{
-                res.status(400).json('Error al modificar la informacion del usuario')
+                res.status(400).json('Error: Please Check your information!')
             }            
         } else {
-            res.status(400).json('Usuario no encontrado');
+            res.status(400).json('User not Found!');
         }    
     } catch (error) {
         next(error);

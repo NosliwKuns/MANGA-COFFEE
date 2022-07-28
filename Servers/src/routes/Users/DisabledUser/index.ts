@@ -9,7 +9,7 @@ router.put("/state", passport.authenticate("jwt", { session: false }), async (re
     try {
       const data = ReadTokenData(authorization);
       await User.findByIdAndUpdate(data.id, { status: false });
-      res.status(200).send("Cuenta eliminada con exito");
+      res.status(200).send("Accaunt deleted Successfully");
     } catch (err) {
       next(err);
     }

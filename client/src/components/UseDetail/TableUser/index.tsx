@@ -59,6 +59,7 @@ const UsersTable = () => {
     <div className="container_user_detail_buttons_div">
       <div className="buttons_user_detail_conteiner">
         <button
+        className={pag === 1 ? "buttons_user_detail_conteiner" : '' }
           onClick={() => {
             window.localStorage.setItem("pagAdmin", "1");
             setPag("1");

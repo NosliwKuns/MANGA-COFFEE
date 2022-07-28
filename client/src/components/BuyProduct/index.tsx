@@ -3,15 +3,20 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { fetchDetailManga, fetchModifyStock } from "../../features/products/productsSlice";
+import {
+  fetchDetailManga,
+  fetchModifyStock,
+} from "../../features/products/productsSlice";
 import useHeaders from "../../app/headers";
 import "../../scss/Shop/buyProduct.scss";
 import { validate } from "./func/validate";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const BuyProduct = () => {
   const { idProduct } = useParams();
   const [input, setInput] = useState<any>({
-    postalCode: "",
+    postalCode: "0",
     country: "",
     direction: "",
     reference: "",
@@ -70,8 +75,29 @@ const BuyProduct = () => {
       errors.lastName ||
       errors.telephone ||
       errors.email
-    )
+    ) {
+      const MySwal = withReactContent(Swal);
+      MySwal.fire({
+        html: (
+          <>
+            <h1>Please fill in all the spaces correctly</h1>
+          </>
+        ),
+        position: "center",
+        icon: "error",
+        title: "Oops...",
+        showConfirmButton: false,
+        timer: 3000,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "confirmButton",
+        },
+      });
       return;
+    }
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -109,6 +135,27 @@ const BuyProduct = () => {
         console.log(error);
       }
       setLoading(false);
+      if (!loading) {
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+          html: (
+            <>
+              <h1>Purchase sucessfuly completed</h1>
+            </>
+          ),
+          position: "center",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "confirmButton",
+          },
+        });
+      }
     }
   };
 
@@ -117,16 +164,18 @@ const BuyProduct = () => {
     console.log(numberOfGuests);
   };
 
-  const handleBuy = () => { // falta agregar esto mismo en el otro archivo que es el buy pero del carrito
-    console.log(numberOfGuests)
-    const stock = `-${numberOfGuests}`
-    dispatch(fetchModifyStock(idProduct, stock))
-  }
+  const handleBuy = () => {
+    // falta agregar esto mismo en el otro archivo que es el buy pero del carrito
+    console.log(numberOfGuests);
+    const stock = `-${numberOfGuests}`;
+    dispatch(fetchModifyStock(idProduct, stock));
+  };
 
   return (
     <div className="five">
       <div className="checkout-container">
       <form onSubmit={handleSubmit} className="info-user-form">
+
       <div>
         <h1 className="space title">{name}</h1>
         <div className="space">
@@ -139,13 +188,17 @@ const BuyProduct = () => {
           onChange={handleInputChange}
           className="space"
         />
-        <button className="space btn_buy" disabled={!stripe} onClick={() => handleBuy() }>
+        <button
+          className="space btn_buy"
+          disabled={!stripe}
+          onClick={() => handleBuy()}
+        >
           {loading ? "Loading" : "Buy"}
         </button>
       </div>
 
       <div>
-      <h1 className="space">Your Data</h1>
+        <h1 className="space">Your Data</h1>
         <div className="space">
           <label htmlFor="emial">Email :</label>
           <input
@@ -179,7 +232,7 @@ const BuyProduct = () => {
           {errors.lastName.length > 1 && <p>{errors.lastName}</p>}
         </div>
 
-        <div className="space" >
+        <div className="space">
           {" "}
           <label htmlFor="country">Country :</label>
           <input

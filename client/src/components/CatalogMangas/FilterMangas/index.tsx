@@ -13,9 +13,11 @@ type Props = {
   setColorF : any;
   page: any;
   query: string;
+  sort: any;
+  setSort: any;
 }
 
-const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query } : Props) => {
+const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query, sort, setSort } : Props) => {
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { genres } = useAppSelector(state => state.mangas);
@@ -29,7 +31,7 @@ const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query } : Pr
       const send = colorF.join(',')
       /* setGenre(send) */
 
-      const params : any = send || page || query ? { page: page, genre: send, q: query} : '';
+      const params : any = send || page || query || sort ? { page: page, genre: send, q: query, sort: sort} : '';
       setGenre(send ? send : '')
       navigate({
         pathname: "/mangas",
@@ -52,7 +54,7 @@ const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query } : Pr
     setGenre(send ? send : 'All')
     setPage((prev) : any => {
       console.log((prev = 1), "aqui");
-      const params : any = send ? { page: prev, genre: send } : { page: prev};
+      const params : any = send ? { page: prev, genre: send, sort: sort } : { page: prev};
       navigate({
         pathname: "/mangas",
         search: `?${createSearchParams(params)}`
