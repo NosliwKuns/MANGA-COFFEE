@@ -6,12 +6,14 @@ type Props = {
   setPageShop: any
   setGenreShop: any
   resShop: any
-  colorF: any
-  setColorF: any
+  colorFShop: any
+  setColorShop: any
   pageShop: any
+  shopSort: any
+  setshopSort: any
 }
 
-const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorF, setColorF, pageShop } : Props) => {
+const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort } : Props) => {
   const infoShop = resShop.data
   let navigate = useNavigate();
   
@@ -36,10 +38,10 @@ const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorF, setColorF, pag
 
   useEffect(() => {
     if (pathname === "/shop" && search === "") {
-      const send = colorF.join(',')
+      const send = colorFShop.join(',')
       /* setGenre(send) */
-
-      const params : any = send || pageShop ? { page: pageShop, genre: send } : '';
+      console.log("SEEEEEEND", send)
+      const params : any = send || pageShop || shopSort ? { page: pageShop, category: send, sort: shopSort } : '';
       setGenreShop(send ? send : '')
       navigate({
         pathname: "/shop",
@@ -53,15 +55,15 @@ const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorF, setColorF, pag
     const value = e.target.value;
 
     const newArr = checked
-      ? [...colorF, value]
-      : [...colorF.filter((name : any) => name !== value)]
+      ? [...colorFShop, value]
+      : [...colorFShop.filter((name : any) => name !== value)]
 
-    setColorF(newArr)
+      setColorShop(newArr)
     const send = newArr.join(',')
     setGenreShop(send ? send : 'All')
     setPageShop((prev : any) => {
       console.log((prev = 1), "aqui");
-      const params : any = send ? { page: prev, genre: send } : { page: prev};
+      const params : any = send ? { page: prev, category: send, sort: shopSort } : { page: prev};
       navigate({
         pathname: "/shop",
         search: `?${createSearchParams(params)}`
@@ -84,7 +86,7 @@ const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorF, setColorF, pag
           <div className='checkbox_content'>
           {
             infoShop?.category.map((t : any) => {
-              let boolean = colorF.includes(t); 
+              let boolean = colorFShop.includes(t); 
               return (
                 <label htmlFor={t.id} key={t.id} className={boolean ? 'checkbox' : 'select checkbox'}>
                   {t}

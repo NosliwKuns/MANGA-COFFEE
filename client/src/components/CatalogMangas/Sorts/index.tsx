@@ -1,17 +1,32 @@
 import { useState } from 'react'
+import { createSearchParams, useNavigate } from "react-router-dom";
 
 type Props = {
   sort: string;
   setSort: React.Dispatch<React.SetStateAction<string>>;
+  setPage: any
+  setGenre: any
+  genre: any
 }
 
-const Sorts = ({ sort, setSort }: Props) => {
-
+const Sorts = ({ sort, setSort, setPage, setGenre, genre }: Props) => {
+  
   const [display, setDisplay] = useState('All')
+  const navigate = useNavigate();
 
   const sortBy = (value: string, text: string) => {
     setSort(value)
     setDisplay(text)
+    setPage((prev : any) : any => {
+      console.log((prev = 1), "aqui");
+      genre === '' ? setGenre("All") : genre
+      const params : any = { page: prev, genre: genre === '' ? "All" : genre, sort: value };
+      navigate({
+          pathname: "/mangas",
+          search: `?${createSearchParams(params)}`
+      });
+      /* window.location.replace(`/mangas?${createSearchParams(params)}`) */
+  });
   }
 
   return (
