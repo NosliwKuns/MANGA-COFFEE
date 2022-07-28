@@ -18,7 +18,7 @@ const Chat = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   //const [username, setUsername] = useState("");
   const [messageList, setMessageList] = useState<Array<any>>([]);
-  const [minimized, setMinimized] = useState(false);
+  const [minimized, setMinimized] = useState(true);
   const messageEndRef = useRef<any>(null);
 
   const user: InitialState = useAppSelector((state) => state.user);

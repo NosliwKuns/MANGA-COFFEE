@@ -82,7 +82,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 50px;
+  margin: 20px;
 }
 
 .admin_interface_form {
@@ -123,4 +123,21 @@
   width: 60vh;
   padding: 10px;
   margin: 10px;
+}
+.position_loader{
+  position: relative;
+  .span_msg_loader {
+    position: absolute;
+    background-color: rgb(255, 195, 195);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-style: dashed;
+    border-width: 1px;
+    border-color: var(--primary);
+    padding: 40px;
+    left: 50vh;
+    top: 50vh;
+    font-size: 3vh;
+  }
 }

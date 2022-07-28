@@ -47,6 +47,7 @@ const CreateProduct = () => {
     false,
     false,
   ]);
+  const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState("");
   const [image, setImage] = useState();
   const dispatch = useAppDispatch();
@@ -115,9 +116,11 @@ const CreateProduct = () => {
       return;
     }
     const selectBox = arrayGenre(checkedState, allProducts);
+    setLoading(true);
     const verificated: any = await dispatch(
       createNewProduct(headers, input, selectBox, select, image, id)
     );
+    setLoading(false);
     const MySwal = withReactContent(Swal);
     MySwal.fire({
       html: (
@@ -156,6 +159,12 @@ const CreateProduct = () => {
     allProductsAndTile();
   }, []);
   return (
+    <div className="position_loader">
+{
+     loading &&    <div className="span_msg_loader">
+          <span>LOADING...</span>
+        </div>
+      }
     <div>
       <form onSubmit={handleSubmit}>
         <div className="admin_interface_form">
@@ -243,6 +252,7 @@ const CreateProduct = () => {
           </div>
         </div>
       </form>
+    </div>
     </div>
   );
 };

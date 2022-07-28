@@ -26,11 +26,14 @@ const BuyShopping = () => {
       telephone: "insert telephone",
       email: "insert email",
     });
+
     const localShop:any  = localStorage.getItem('test')
     const shop = JSON.parse(localShop);
     const stripe: any = useStripe();
     const elements: any = useElements();
+
     const [loading, setLoading] = useState(false);
+
     const [numberOfGuests, setNumberOfGuests] = useState(1);
     const dispatch = useAppDispatch();
     const { productDetail } = useAppSelector((state) => state.products);
