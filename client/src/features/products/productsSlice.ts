@@ -32,7 +32,7 @@ const initialState: InitialState = {
   products: [],
   productDetail: {
     _id : '',
-    name: 'string',
+    name: '',
     category: [],
     product_image: '',
     description: '',
@@ -52,29 +52,62 @@ const initialState: InitialState = {
       },
       getProductDetail: (state , action : PayloadAction<Detail> ) =>{
         state.productDetail = action.payload 
-      }
+      },
+      stockProducts: (state, action: PayloadAction<number>) => {
+        state.productDetail.stock = action.payload
+      },
+      cleanDetails: (state) => {
+        state.productDetail = {
+          _id : '',
+          name: '',
+          category: [],
+          product_image: '',
+          description: '',
+          price: 0,
+          rating: '',  //se tiene que cambiar a number en el back
+          comments: [],
+          stock: 0
+        }
+      },
     }
   });
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/products/${id}`)
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/products/${id}`)
       dispatch(getProductDetail(data))
     }
   };
-
+  
   export const fetchGetProducts = ( pageNumber : number | string, search : string ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/products?page=${pageNumber}&search=${search}`)
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/products?page=${pageNumber}&search=${search}`)
       console.log(data, 'hola');
       dispatch(getProducts(data));
     }
   };
   
+  export const fetchModifyStock = ( id : string | undefined, updates : string | number ):AppThunk =>{
+    return async (dispatch) => {
+      const { data } = await axios.put(`https://manga-coffee.herokuapp.com/api/products/stock/${id}`, {
+        updates
+      })
+      dispatch(stockProducts(data));
+    }
+  };
+
+  export const fetchCleanDetails = () => {
+    return (dispatch : any)  => {
+      dispatch(cleanDetails())
+    }
+  };
+
   export default productsSlice.reducer
   export const {
     getProductDetail,
-    getProducts
+    getProducts,
+    stockProducts,
+    cleanDetails,
   } = productsSlice.actions
   
 

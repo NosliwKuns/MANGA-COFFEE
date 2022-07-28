@@ -70,13 +70,13 @@ router.post("/checkout/:idCompra", passport_1.default.authenticate("jwt", { sess
         // console.log(payment)
         const data = (0, ReadTokenData_1.default)(authorization);
         yield User_1.default.findByIdAndUpdate((data.id), { $push: { historyBuy: [compra] } });
-        let template = (0, NotificacionCompra_1.default)(ArrrayProducts, amount);
+        let template = (0, NotificacionCompra_1.default)(ArrrayProducts, amount / 100);
         if (data.email === InfoComprador.email) {
-            (0, SendEmail_1.default)(data.email, 'Notificacion de compra', template);
+            (0, SendEmail_1.default)(data.email, 'Purchase Notification', template);
         }
         else {
-            (0, SendEmail_1.default)(data.email, 'Notificacion de compra', template);
-            (0, SendEmail_1.default)(InfoComprador.email, 'Notificacion de compra', template);
+            (0, SendEmail_1.default)(data.email, 'Purchase Notification', template);
+            (0, SendEmail_1.default)(InfoComprador.email, 'Purchase Notification', template);
         }
         ;
         res.send({ message: "Successull payment" });

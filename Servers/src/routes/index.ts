@@ -40,8 +40,18 @@ import AdminPutBlockUser from './Users/AdminPutBlockUser/index';
 import AdminPutStatusUser from './Users/AdminPutStatusUser/index';
 import PutStock from './Products/PutStock/index';
 import PutRating from './Products/PutRating/index';
+import GetWishList from './Products/GetWishList/index';
 import AdminPostSendMailUser from './Users/AdminPostSendMailUser/index';
+import AdminAddChapterManga from './Mangas/AdminAddChapterManga/index';
+import AdminGetFindAllForFilters from './Users/AdminGetFindAllForFilters/index';
+import PostCart from './Users/PostCart/index'
+import GetCart from './Users/GetCart/index'
+import AdminGetFindAllHistoryBuy from './Users/AdminGetFindAllHistoryBuy/index';
+import AdminGetByIdHistoryBuy from './Users/AdminGetByIdHistoryBuy/index';
+import PutCart from './Users/PutCart/index'
+import DeleteCart from './Users/DeleteCart/index'
 const router = Router()
+
 
 router.use('/manga', FilterByGenre);
 router.use('/manga', GetFindAll);
@@ -54,17 +64,22 @@ router.use('/manga', PatchComments);
 router.use('/manga', PutManga);
 router.use('/manga', GetByFavorites);
 router.use('/manga', PostRating);
+router.use('/manga', AdminAddChapterManga);
 
 router.use('/user', DisabledUser);
 router.use('/user', AdminPostSendMailFindAll);
+router.use('/user', DeleteCart);
 router.use('/user', DeleteFavorites);
 router.use('/user', PostUserCreated);
 router.use('/user', PostUserinit);
 router.use('/user', GetByIdUser);
 router.use('/user', PutByIdUser);
 router.use('/user', PutByIdUserFav);
+router.use('/user', GetCart);
 router.use('/user', GetMangaFavoUser);
 router.use('/user', GetConfirmarCuenta);
+router.use('/user', PostCart);
+router.use('/user', PutCart);
 router.use('/user', PostResetPass);
 router.use('/user', PutResetPass);
 router.use('/user', PutResetUser);
@@ -73,8 +88,11 @@ router.use('/user', AdminPutAdminUser);
 router.use('/user', AdminPutBlockUser);
 router.use('/user', AdminPutStatusUser);
 router.use('/user', AdminPostSendMailUser);
+router.use('/user', AdminGetFindAllForFilters);
+router.use('/user', AdminGetByIdHistoryBuy);
+router.use('/user', AdminGetFindAllHistoryBuy);
 
-
+router.use('/products', GetWishList);
 router.use('/products', DeleteByIdProducts);
 router.use('/products', FilterByIdProducts);
 router.use('/products', FilterByNameProducts);

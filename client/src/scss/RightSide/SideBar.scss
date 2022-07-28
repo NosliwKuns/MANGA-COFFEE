@@ -3,21 +3,73 @@
   flex-direction: column;
   overflow: hidden;
   transition: width .4s ease-in-out;
-  padding-bottom: 2em;
+
+  .logo {
+    font-family: "DM Sans", sans-serif;
+    font-size: 15px;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    height: 60px;
+    line-height: 68px;
+    letter-spacing: 4px;
+    background: var(--dark--800);
+    background-image: url('https://res.cloudinary.com/dbqlsilt2/image/upload/v1658858831/a/sin_fondo_blanco_cd6rtl.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* position: sticky; */
+    /* top: 0; */
+  
+  }
+
+  .side-wrapper {
+    padding: 30px;
+
+    .side-title {
+      font-family: "DM Sans", sans-serif;
+      color: #5c5e6e;
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .side-menu {
+      display: flex;
+      flex-direction: column;
+      font-size: 17px;
+      white-space: nowrap;
+
+      a {
+        font-family: "DM Sans", sans-serif;
+        /* font-weight: 600; */
+        text-decoration: none;
+        color: #9c9cab;
+        display: flex;
+        align-items: center;
+      }
+
+      a:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      svg {
+        margin-right: 16px;
+      }
+    }
+  }
 
   .icons {
     color: var(--light);
     display: flex;
     gap: 1.2em;
     align-items: center;
-    padding: 1em;
-    padding-left: 1.5em;
     transition: padding  .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
     animation: icon .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
 
     h2 {
-      font-weight: 500;
-      font-size: 1.2em;
+      font-weight: 600;
+      font-size: 15px;
     }
   }
 
@@ -54,6 +106,7 @@
   }
 }
 
+
 @keyframes icons {
   0% {opacity: 0}
   50% {opacity: 0}
@@ -67,8 +120,22 @@
 }
 
 
-@media only screen and (max-width: 1300px) {
+@media screen and (max-width: 930px) {
+  .App {
+    grid-template-columns: 1fr;
+
+    .is-active.four {
+    
+      transform: none;
+      
+    }
+  }
+}
+
+
+
+/* @media only screen and (max-width: 1300px) {
   .side-bar-container {
     max-width: max(15em);
   }
-}
+} */

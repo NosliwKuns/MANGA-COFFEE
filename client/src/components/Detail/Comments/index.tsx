@@ -4,9 +4,15 @@ import moment from 'moment';
 import { useAppDispatch, useAppSelector } from './../../../app/hooks';
 import { fetchMangaComments, deleteComment } from './../../../features/manga/mangaSlice';
 import '../../../scss/Details/Comments.scss'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { BsFillInfoCircleFill } from 'react-icons/bs'
+import { RiErrorWarningFill } from 'react-icons/ri';
+import { useNavigate } from 'react-router-dom';
 
 const Comments = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { comments } = useAppSelector(state => state.mangas.manga)
   const mangaId = useAppSelector(state => state.mangas.manga._id)
   const newComment = useAppSelector(state => state.mangas.comments)
@@ -40,10 +46,36 @@ const Comments = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if(user && !verificated) {
-      alert('Please verify your account!')
+      const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><BsFillInfoCircleFill size={55}/> <h1>Please verify your account!</h1> <h3>Check your e-mail to verify your account</h3></>,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          confirmButtonText:
+            'Ok',
+          confirmButtonAriaLabel: 'Ok',
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
     } else if(user && verificated) {
       if(!input.body) {
-        alert('Write a comment')
+        const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><BsFillInfoCircleFill size={55}/> <h1>Write a comment</h1></>,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          confirmButtonText:
+            'Ok',
+          confirmButtonAriaLabel: 'Ok',
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
       } else {
         dispatch(fetchMangaComments(input, mangaId, user, id))
         setInput({
@@ -55,11 +87,24 @@ const Comments = () => {
         })
       }
     } else if(!user && !verificated){
-      alert('To comment, you must Sign In!')
+      const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><BsFillInfoCircleFill size={55}/> <h2>To comment, you must Sign In!</h2></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        confirmButtonText:
+          <div onClick={() => navigate("/logeo", { replace: true })} className="divSignIn">Sign In</div>,
+        confirmButtonAriaLabel: 'Sign In',
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
     }
   }
 
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleCancel = () => {
     setInput({
       name : '',
       body : '',
@@ -67,6 +112,57 @@ const Comments = () => {
       time : '',
       userId: id
     })
+  }
+
+  const handleDelete = (uId: string, cId: string) => {
+    const MySwal = withReactContent(Swal)
+      MySwal.fire({
+        html: <><RiErrorWarningFill size={55}/> <h1>Are you sure you want to delete this comment?</h1><h3>You won't be able to revert this!</h3></>,
+        showCloseButton: true,
+        focusConfirm: false,
+        showCancelButton: true,
+        background: "#212429",
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonAriaLabel: 'Delete it',
+        buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButtonDelete',
+            cancelButton: 'cancelButtonDelete'
+          }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (uId === id) {
+            dispatch(deleteComment(cId, mangaId))
+          }
+          MySwal.fire({
+            icon: 'success',
+            html: <><h1>Deleted!</h1><h3>Your comment has been deleted successfully.</h3></>,
+            focusConfirm: false,
+            confirmButtonColor: "#ea374b",
+            background: "#212429",
+            confirmButtonText: 'Ok',
+            buttonsStyling: false,
+            customClass: {
+              confirmButton: 'confirmButton',
+            }
+          })
+          } else if (
+            result.dismiss === Swal.DismissReason.cancel
+        ) {
+          MySwal.fire({
+            icon: 'error',
+            html: <><h1>Cancelled!</h1><h3>Your Comment is safe :)</h3></>,
+            focusConfirm: false,
+            confirmButtonColor: "#ea374b",
+            background: "#212429",
+            confirmButtonText: 'Ok',buttonsStyling: false,
+            customClass: {
+              confirmButton: 'confirmButton',
+            }
+          })
+        }
+      })
   }
 
   useEffect(()=>{
@@ -97,8 +193,8 @@ const Comments = () => {
               onChange={(e) => handleChange(e)}
               placeholder="Add a comment..."/>
             <section>
-              <span onClick={handleCancel} >Cancel </span>
-              <button type="submit">Comment</button>
+              <div onClick={handleCancel} className="CancelCommentButton">Cancel </div>
+              <button type="submit" className='AddCommentButton'>Comment</button>
             </section>
           </form>
         </div>
@@ -116,8 +212,7 @@ const Comments = () => {
                 <section>
                   <h4>{c.name}<span> {`${c.time ? timeAgo(c.time) : "2days ago"}`}</span></h4>
                   <p>{c.body}</p>
-                  <h5>REPLY</h5>
-                  <button onClick={()=> c.userId === id ? dispatch(deleteComment(c._id, mangaId)) : alert('invalid Action!')}>Delete</button>
+                  {c.userId === id ? <button onClick={()=> handleDelete(c.userId, c._id)} className="DeleteCommentButton">Delete</button> : ""}
                 </section>
               </div>
               <span className="separator"></span>

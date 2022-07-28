@@ -22,7 +22,7 @@ router.put("/state", passport_1.default.authenticate("jwt", { session: false }),
     try {
         const data = (0, index_1.default)(authorization);
         yield User_js_1.default.findByIdAndUpdate(data.id, { status: false });
-        res.status(200).send("Cuenta eliminada con exito");
+        res.status(200).send("Accaunt deleted Successfully");
     }
     catch (err) {
         next(err);

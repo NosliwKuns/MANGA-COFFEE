@@ -39,7 +39,8 @@ type InitialState = {
     comments : Comments[],
     commentsCopy : Comments[],
     genres: Array<string>,
-    category: Array<any>
+    category: Array<any>,
+    rating: number
   }
 
 const initialState: InitialState = {
@@ -63,6 +64,7 @@ const initialState: InitialState = {
   commentsCopy : [],
   genres : [],
   category: [],
+  rating: 0,
   }
   
   const mangaSlice = createSlice({
@@ -74,7 +76,8 @@ const initialState: InitialState = {
         state.mangas = action.payload
       },
       getDetailManga : (state , action : PayloadAction<Detail> ) =>{
-        state.manga = action.payload 
+        state.manga = action.payload
+        state.rating = action.payload.rating 
       },
       searchMangaByName: (state, action : PayloadAction<allMangas>) => {
         state.mangas = action.payload
@@ -116,13 +119,16 @@ const initialState: InitialState = {
         state.manga.comments = action.payload
         state.comments = action.payload
       },
+      updateRating: (state, action : PayloadAction<number>) => {
+        state.rating = action.payload
+      }
     }
   })
   
   export const fetchAllManga = (limit : number):AppThunk =>{
     return async (dispatch) => {
       try {
-        const {data} = await axios.get(`http://localhost:5000/api/manga/?limit=${limit}`)
+        const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?limit=${limit}`)
         dispatch(getAddMangas(data))
       } catch (error) {
         console.error(error)
@@ -132,14 +138,14 @@ const initialState: InitialState = {
 
   export const fetchDetailManga = ( id : string | undefined ):AppThunk =>{
     return async (dispatch) => {
-      const {data} = await axios.get(`http://localhost:5000/api/manga/${id}`)
+      const {data} = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/${id}`)
       dispatch(getDetailManga(data))
     }
   };
   
   export const fetchMangaByName = (name: string | number): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?search=${name}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?search=${name}`)
       dispatch(searchMangaByName(data))
     }
   }
@@ -147,28 +153,28 @@ const initialState: InitialState = {
   export const fetchMangaByGenres = (genre: string): AppThunk => {
     console.log(genre)
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?genre=${genre}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?genre=${genre}`)
       dispatch(filterMangaByGenres(data.docs))
     }
   }
   
   export const fetchMangaSortByName = (name: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?${name}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${name}`)
       dispatch(searchMangaByName(data))
     }
   }
 
   export const fetchMangaSortByRating = (rating: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?${rating}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?${rating}`)
       dispatch(searchMangaByName(data))
     }
   };
 
   export const fetchMangaComments = (comment : any | null, id: string, name: string | null, userId: string): AppThunk => {
     return async (dispatch) => {
-      const {data} = await axios.put(`http://localhost:5000/api/manga/${id}`, {
+      const {data} = await axios.put(`https://manga-coffee.herokuapp.com/api/manga/${id}`, {
         name,
         body: comment.body,
         time: comment.time,
@@ -186,14 +192,14 @@ const initialState: InitialState = {
   
   export const fetchPagination = (page: string): AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/?page=${page}`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/?page=${page}`)
       dispatch(paginate(data))
     }
   };
 
   export const fetchGetGenres = () : AppThunk => {
     return async (dispatch) => {
-      const { data } = await axios.get(`http://localhost:5000/api/manga/genres`)
+      const { data } = await axios.get(`https://manga-coffee.herokuapp.com/api/manga/genres`)
       dispatch(getGenres(data))
     }
   };
@@ -203,10 +209,17 @@ const initialState: InitialState = {
       dispatch(cleanCategories())
     }
   };
+
+  export const fetchUpdateRating = (id : string, value : number) : AppThunk => {
+    return async (dispatch: any) => {
+      const { data } = await axios.put(`https://manga-coffee.herokuapp.com/api/manga/rating/${id}`, {ratinger: value}) 
+      dispatch(updateRating(data))
+    }
+  };
   
   export const deleteComment = (id : string, mangaId : any) : AppThunk => {
     return async (dispatch: any) => {
-      const { data } = await axios.delete(`http://localhost:5000/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
+      const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/manga/deletecomments/comments/?id=${id}&mangaId=${mangaId}`)
       dispatch(commentDelete(data.comments))
     }
   };
@@ -226,6 +239,7 @@ const initialState: InitialState = {
       getGenres,
       cleanCategories,
       commentDelete,
+      updateRating,
   } = mangaSlice.actions
 
   

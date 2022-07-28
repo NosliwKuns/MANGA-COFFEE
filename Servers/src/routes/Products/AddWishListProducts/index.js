@@ -13,37 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
+const passport_1 = __importDefault(require("passport"));
 const User_1 = __importDefault(require("../../../models/Users/User"));
 const index_1 = __importDefault(require("../../../models/Products/index"));
 const router = (0, express_1.Router)();
-router.post("/addToWishlist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
+router.post("/addToWishlist/:_id", passport_1.default.authenticate("jwt", { session: false }), (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { _id } = req.params;
     const { productsId } = req.body;
     try {
-        const user = yield User_1.default.findOne({ email: email });
-        if (!user) {
-            res.status(404).json({ message: "Usernot found" });
+        const Usuarios = yield User_1.default.findOne({ _id: _id });
+        const Productos = yield index_1.default.findById({ _id: productsId });
+        if (!Usuarios.wishlist.includes(Productos._id)) {
+            Usuarios.wishlist.push(Productos);
+            yield Usuarios.save();
+            res.status(200).send(Usuarios);
         }
         else {
-            console.log(user);
-            const product = yield index_1.default.findById({ _id: productsId });
-            if (!product) {
-                res.status(404).json({ message: "Product not found" });
-            }
-            else {
-                if (!user.wishlist.includes(product.id)) {
-                    user.wishlist.push(product.id);
-                    yield user.save();
-                    res.status(200).json({ message: "Product added to wishlist" });
-                }
-                else {
-                    res.status(200).json({ message: "Product already in wishlist" });
-                }
-            }
+            res.status(200).send("Already on the wish list");
         }
     }
     catch (error) {
-        res.status(500).json(error);
+        next(error);
     }
 }));
 exports.default = router;

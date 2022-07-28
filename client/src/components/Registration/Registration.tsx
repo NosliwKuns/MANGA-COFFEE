@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { CreateUser, signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
 import "../../scss/User/Registration.scss";
 import SiOrNot from "./SiOrNot";
-const Registration = () => {
+import { gridAnimation } from "./../../Animation";
+import { motion } from "framer-motion";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import "../../scss/User/FormsAdmin.scss";
+
+type Props = {
+  setMove: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Registration = ({ setMove }: Props) => {
+  const space: any = useRef(null);
+
   const [input, setInput] = useState<CreateUser>({
-    email: "", 
-    password: "", 
+    email: "",
+    password: "",
     user: "",
   });
   const [errors, setErrors] = useState<CreateUser>({
@@ -17,7 +29,7 @@ const Registration = () => {
     user: "",
   });
 
-  const [error, setError] = useState <any>()
+  const [error, setError] = useState<any>();
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -39,100 +51,140 @@ const Registration = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (errors.email || errors.password || !input.email || !input.password)
-    return;
-    setError('')
+      return;
+    setError("");
     // dispatch (idUser)  'qqwwq12123444sadas'  // aqui insertar funcion
     // ? no te olvides enviar el user name modificado en el reducer
     try {
-  //  dispatch(signUp(input.email ,input.password))
-    const verificate: any = await dispatch(singUpUser(input));
+      //  dispatch(signUp(input.email ,input.password))
+      const verificate: any = await dispatch(singUpUser(input));
 
-    if ( verificate === "Usuario existente") return setError(verificate);
-    if ( verificate === "Este correo tiene una cuenta vinculada, desea recuperarla") return setError(<SiOrNot input={input}/>);
+      if (verificate === "Non Existent User") return setError(verificate);
+      if (
+        verificate ===
+        "An Account with thid email already exist, do you want get it back?"
+      )
+        return setError(<SiOrNot input={input} />);
 
-
-    alert("Your count was created");
-    navigate("/", { replace: true });
-    setInput({
-      email: "", // segio@
-      password: "", // sds2
-      user: "",
-    });
-    setErrors({
-      email: "",
-      password: "",
-      user: "",
-    });
-    } catch(e:any){
-      if(e.code === 'auth/inter-error') {
-        setError('Correo invalido')
+      const MySwal = withReactContent(Swal);
+      MySwal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your account was created successfully",
+        background: "#212429",
+        color: "#fff",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 1500);
+      setInput({
+        email: "", // segio@
+        password: "", // sds2
+        user: "",
+      });
+      setErrors({
+        email: "",
+        password: "",
+        user: "",
+      });
+    } catch (e: any) {
+      if (e.code === "auth/inter-error") {
+        setError("Correo invalido");
       }
-      setError(e.message)
+      setError(e.message);
     }
-    
-  };
-
-  const passwordText = () => {
-    setSwitchB(!switchButton);
   };
 
   return (
-    <div className={"form_Registration_container"}>
-      {error && <div>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="form_Registration_title">
-          <h1>Welcome</h1>
-        </div>
-        <div className="form_Registration_input">
-          <label htmlFor="emial">Email :</label>
-          <input
-            name="email"
-            type="text"
-            placeholder="youremail@company.ldt"
-            onChange={handleChange}
-            value={input.email}
-          />
-
-          {errors.email.length > 1 && <div>{errors.email}</div>}
-        </div>
-
-        <div className="form_Registration_input">
-          <div className="form_Registration_view_password">
-            <label htmlFor="password">Password :</label>
+    <div className="form-wrapper">
+      <motion.form
+        variants={gridAnimation}
+        animate="show"
+        exit="hide"
+        ref={space}
+        onSubmit={handleSubmit}
+        className="form-content"
+      >
+        <h3>Welcome</h3>
+        {error && <div className="span_msg_error_info">{error}</div>}
+        <div className="form-container">
+          <div className="form-group">
             <input
-              name="password"
-              type={switchButton ? "text" : "password"}
-              placeholder="**********"
+              className="form-input"
+              type="text"
+              id="nickname"
+              name="user"
+              placeholder=" "
+              value={input.user}
               onChange={handleChange}
-              value={input.password}
             />
-            <div onClick={passwordText} className="form_Registration_view">
-              👀
+            <label htmlFor="nickname" className="form-label">
+              NickName:
+            </label>
+            <div className="error">
+              <p>{errors.user}</p>
             </div>
           </div>
-          {errors.password.length > 1 && <div>{errors.password}</div>}
-        </div>
+          <div className="form-group">
+            <input
+              className="form-input"
+              type="text"
+              id="email"
+              name="email"
+              placeholder=" "
+              value={input.email}
+              onChange={handleChange}
+            />
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
+            <div className="error">
+              <p>{errors.email}</p>
+            </div>
+          </div>
 
-        <div className="form_Registration_input">
-          <label htmlFor="user"> NickName :</label>
-          <input
-            name="user"
-            type="text"
-            placeholder="user"
-            onChange={handleChange}
-            value={input.user}
-          />
-
-          {errors.user.length > 1 && <div>{errors.user}</div>}
+          <div className="form-group show-password">
+            <input
+              className="form-input"
+              type={switchButton ? "text" : "password"}
+              id="password"
+              value={input.password}
+              name="password"
+              placeholder=" "
+              onChange={handleChange}
+            />
+            <label htmlFor="password" className="form-label">
+              Password:
+            </label>
+            <div className="eyes" onClick={() => setSwitchB(!switchButton)}>
+              👀
+            </div>
+            <div className="error">
+              <p>{errors.password}</p>
+            </div>
+          </div>
+          <div>
+            <div className="span_msg_error_info">
+              <span>
+                the password must have 7 digits 
+                -min 1 lowercase 
+                -min 1 uppercase 
+                -min 1 number
+              </span>
+            </div>
+            <button>Sign Up</button>
+          </div>
+          <div className="sign-up">
+            <span>Already have an Account?</span>
+            <span className="color-link" onClick={() => setMove(true)}>
+              {" "}
+              LogIn
+            </span>
+          </div>
         </div>
-        <div>
-          <input type="submit" value={"Sign In"} />
-        </div>
-        <span>Already have an Account?</span>
-        <Link to={"/logeo"}>
-        Login
-        </Link>
-      </form>
+      </motion.form>
     </div>
   );
 };

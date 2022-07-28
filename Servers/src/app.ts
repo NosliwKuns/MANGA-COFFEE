@@ -11,10 +11,11 @@ import http from 'http'
 import {Server} from '../node_modules/socket.io';
 
 const server = express();
+
 const IoServer = http.createServer(server);
 const io = new Server(IoServer,{
   cors:{
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: ['GET', 'POST']
   },
 });
@@ -61,3 +62,4 @@ server.use((err:any, _req:any, res:any, _next:any) => {
 
 
 export {IoServer ,server };
+//commit prueba

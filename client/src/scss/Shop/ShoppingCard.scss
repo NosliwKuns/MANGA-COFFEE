@@ -1,3 +1,15 @@
+.user-buttons {
+  height: 60px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: var(--dark--800);
+  z-index: 3;
+  flex-shrink: 0;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -34,16 +46,82 @@
     z-index: 999;
     transition: 1s;
     overflow: auto;
-
-    img {
-      height: 10em;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    
+    .ProductTotalInfoContainer{
+      display: flex;
+      background-color: var(--light--200);
+      border-radius: 15px;
+      .ImageSoppingCartContainer{
+        img {
+          border-radius: 15px;
+          height: 25vh;
+          width: 25vh;
+          object-fit: cover;
+        }
+      }
+      .ProductInformationShoppingCart{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        width: 300px;
+        margin-bottom: 10px;
+        .NameAndQuantity{
+          margin-top: 20px;
+          h4{
+            text-align: center;
+            margin-top: 15px;
+          }
+        }
+        .ButtonsInsideTheProduct{
+          background: var(--primary);
+          color: #FFF;
+          border: none;
+          border-radius: 100vh;
+          font-size: 14px;
+          margin-right: 10px;
+          padding: 6px;
+          width: 75px;
+        }
+      }
     }
   }
+  
+  .ButtonsOutside{
+    display: flex;
+    .ButtonsOutsideTheProduct{
+      background-color: var(--dark--800);
+      color: #FFF;
+      border: none;
+      border-radius: 100vh;
+      font-size: 14px;
+      padding: 4px;
+      width: 90px;
+      display: inline;
+      margin-top: 5px;
+      margin-left: 25px
+    }
+}
 
   .active {
     transform: translate(100%);
     transition: 1s;
   }
+}
+
+.confirmButtonBUY{
+  background: var(--primary);
+  color: #FFF;
+  border: none;
+  border-radius: 100vh;
+  font-size: 14px;
+  margin-right: 10px;
+  padding: 6px;
+  width: 90px;
 }
 
 @media only screen and (max-width: 600px)  {

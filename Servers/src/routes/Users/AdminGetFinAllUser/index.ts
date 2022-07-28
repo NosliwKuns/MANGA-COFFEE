@@ -14,7 +14,7 @@ router.get('/findall', passport.authenticate("jwt", { session: false }), async(r
             const userfindall = await User.find({email:{$not:{$regex: '.*' + mail + '.*', $options: 'i' }}});
             res.status(200).json(userfindall);
         } else {
-            res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
+            res.status(400).json('You are not authorized to get this information');
         }
     } catch (error) {
       next(error);

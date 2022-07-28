@@ -1,7 +1,8 @@
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 20vh);
+  grid-template-columns: repeat(auto-fit, 21vh);
   justify-content: center;
+  height: 100%;
   gap: 2em 4em;
 
   section {
@@ -17,6 +18,33 @@
       object-fit: cover;
     }
   }
+
+  .CardsTitle{
+    cursor: pointer;
+    text-decoration: none;
+    color: #a1b8c8;
+    text-align: center;
+}
+
+  .NotSearchFoundMangas{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-direction: column;
+    height: 100%;
+    white-space: pre;
+    line-height: 100%;
+    overflow: visible;
+    h1, h3{
+        color: var(--light--200);
+    }
+    svg{
+        fill: var(--light--200);
+    }
+  }
+
 
   }
 

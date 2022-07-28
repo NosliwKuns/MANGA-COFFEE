@@ -15,20 +15,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_1 = __importDefault(require("../../../models/Users/User"));
 const router = (0, express_1.Router)();
-router.delete("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email } = req.body;
-    const { productsId } = req.body;
+router.delete('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id, productId } = req.query;
     try {
-        const user = yield User_1.default.findOne({ email });
-        if (user) {
-            user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
-            yield user.save();
-            res.status(200).json({ message: "Producto eliminado de la lista de deseos" });
-            console.log(user.wishlist);
-        }
+        const user = yield User_1.default.findById(id);
+        const deleted = yield user.wishlist.filter((m) => m._id.toString() !== productId);
+        yield User_1.default.findByIdAndUpdate({ _id: id }, { wishlist: deleted });
+        const userdos = yield User_1.default.findById(id, ['wishlist']);
+        res.status(200).json(userdos);
     }
     catch (error) {
-        res.status(500).json("error");
+        res.status(500).json({ message: 'Error' });
     }
 }));
+// router.delete("/", async(req, res) => {
+//     const id= req.params;
+//     const {productsId}= req.body;
+//     try {
+//       const user:any = await User.findOne({id});
+//       if(user){
+//         user.wishlist.splice(user.wishlist.indexOf(productsId), 1);
+//         await user.save();
+//         res.status(200).json({message: "Item deleted From wish list"});
+//         console.log(user.wishlist);
+//       }
+//     } catch (error) {   res.status(500).json("error")}  }
+//     );
 exports.default = router;

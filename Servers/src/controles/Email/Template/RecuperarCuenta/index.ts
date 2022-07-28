@@ -6,14 +6,35 @@ const ResetUser = (name: string, id: string) => {
         <link rel="stylesheet" href="./style.css">
     </head>
     
-    <div id="email___content" style="margin-right: 37%;" >
-    <h1>Cordial saludo ${name}</h1>
-    <h3>Solicitud restablecimiento de cuenta</h3>
-    <p>Se ha realizado una solicitud para restablecer tu cuenta;</p>
-    <p>Por favor sigue el siguiente vinculo para modificar tu contraseña</p>
-    <a style="margin-left: 35%; color:rgb(0, 26, 255); font-weight:bold;" href="http://localhost:3000/rename/password/${id}" target="_blank" > Restablecer constraseña</a>
-    <p>si no fuiste tu por favor obvie este mensaje</p>
-           
+    <div id="email___content" style="
+    margin-right: 39%; 
+    border: 5px solid;
+    background-image: url(https://i.gifer.com/2A64.gif);
+    background-size: cover;
+
+    " >
+    <h1 style=" 
+    font-family: cursive;
+    margin-left: 2%;
+    ">Cordial saludo ${name}</h1>
+    <h3 style=" 
+    font-family: cursive;
+    margin-left: 2%;
+    ">There was recently a request to restpre your account</h3>
+    <p style=" 
+    font-family: cursive; 
+    margin-left: 2%;">Se ha realizado una solicitud para restablecer tu cuenta;</p>
+
+    <p style=" 
+    font-family: cursive;
+    margin-left: 2%;
+    ">you requested this change, set a new password here:</p>
+    <a style="margin-left: 35%; color:rgb(0, 26, 255); font-family: cursive;  font-weight:bold;" href="https://manga-coffee.vercel.app/rename/password/${id}" target="_blank" > Set a New Password</a>
+    <p style=" 
+    font-family: cursive; 
+    margin-left: 2%;">If did not make this request, you can ignore this email and your password will remain the same.</p> 
+    <img style="margin-right: 2%;" src="https://i.pinimg.com/originals/62/db/78/62db782fa9d80b351e4f8a4d3db48c00.gif"/>  
+    </div>
     </div>
     </div>
     `;

@@ -1,0 +1,80 @@
+.favDivContainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 20vh);
+    justify-content: center;
+    gap: 2em 4em;
+    .FavoriteCardsContainer {
+        section {
+            height: 30vh;
+            border-radius: 1em;
+            overflow: hidden;
+            margin-bottom: .5em;
+            background: var(--dark--100);
+            
+            img {
+                cursor: pointer;
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+        .divContainerMangaFav{
+            position: relative;
+        }
+        .DeleteButtonFavorites{
+            background-color: rgb(73, 71, 71);
+            color: #FFF;
+            border: none;
+            border-radius: 100vh;
+            font-size: 14px;
+            padding: 4px;
+            width: 25px;
+            display: inline;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+        .MangaTitleFavorites{
+            cursor: pointer;
+            text-decoration: none;
+            color: #a1b8c8;
+            text-align: center;
+        }
+    }
+}
+.notFavOrWish{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    flex-direction: column;
+    height: 100%;
+    white-space: pre;
+    line-height: 100%;
+    h1, h3{
+        color: var(--light--200);
+    }
+    svg{
+        fill: var(--light--200);
+    }
+    .addButton{
+    background: var(--primary);
+    color: #FFF;
+    border: none;
+    border-radius: 100vh;
+    font-size: 17px;
+    padding: 10px;
+}
+}
+
+
+    @media only screen and (max-width: 450px) {
+        .cards-container {
+            grid-template-columns: repeat(auto-fit, 38vw);
+            gap: 2em 2em;
+            section {
+                height: 58vw;
+            }
+        }
+    }

@@ -1,11 +1,13 @@
 import mongoose from'mongoose';
 import paginate from 'mongoose-paginate-v2';
 const {Schema} = mongoose
+
 export interface IMangas extends mongoose.Document{
     title:string,
-    genres:string,
+    genres:[String],
     cover_image:string,
-    rating:string
+    rating: Number,
+    mangas: [{chapter: Number, link: [String]}]
 };
 
 const MangaSchema = new Schema({
@@ -30,6 +32,10 @@ const MangaSchema = new Schema({
         required: true
     },
     rating:{
+        type: Number,
+        default: 5
+    },
+    ratinger:{
         type:[Number],
         enum: [ 1 , 2 , 3 , 4 , 5 ]
     },

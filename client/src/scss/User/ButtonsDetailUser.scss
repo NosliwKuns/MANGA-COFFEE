@@ -1,0 +1,23 @@
+.buttons_user_detail_conteiner {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+
+  button {
+    border: none;
+    background-color: var(--primary);
+    color: white;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+    transition: all 250ms ease;
+
+    &:hover {
+      background-color: #85434b;
+    }
+
+    &:active {
+      background-color: #ed1730;
+    }
+  }
+}

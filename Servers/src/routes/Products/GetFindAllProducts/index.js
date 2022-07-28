@@ -20,7 +20,7 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const page = parseInt(req.query.page) - 1 || 0;
         const limit = parseInt(req.query.limit) || 12;
         const search = req.query.search || '';
-        let sort = req.query.sort || 'rating';
+        let sort = req.query.sort || 'name';
         let category = req.query.category || 'All';
         const filters = yield index_1.default.find();
         const data = filters.flatMap(e => e.category);
@@ -63,4 +63,4 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 }));
 exports.default = router;
-// Product
+// Product//////

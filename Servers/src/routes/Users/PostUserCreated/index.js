@@ -24,13 +24,13 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
     try {
         const user = yield User_1.default.findOne({ email });
         if (!email || !password) {
-            res.status(200).json("Por favor, llenar todos los campos");
+            res.status(200).json("You must fill out all fields");
         }
         else if (user && !user.status) {
-            res.status(200).json("Este correo tiene una cuenta vinculada, desea recuperarla");
+            res.status(200).json("An Account with thid email already exist, do you want get it back?");
         }
         else if (user && user.status) {
-            res.status(200).json("Usuario existente");
+            res.status(200).json("Existing User");
         }
         else {
             let newuser = new User_1.default({ users, email, password, verificated, name, lastname, user_image, user_banner, user_description, telephone, address, historyBuy, favorites, wishlist });
@@ -39,11 +39,11 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             let template;
             if (newuser.verificated) {
                 template = (0, bienvenida_1.default)(users);
-                (0, index_3.default)(email, 'Mensaje de Bienvenida', template);
+                (0, index_3.default)(email, 'Welcome to MangaCoffee', template);
             }
             else {
                 template = (0, index_2.default)(users, newuser._id);
-                (0, index_3.default)(email, 'Confirmacion de cuenta', template);
+                (0, index_3.default)(email, 'Accaunt Confirmation', template);
             }
             res.status(201).json({ token, usuario: newuser });
         }

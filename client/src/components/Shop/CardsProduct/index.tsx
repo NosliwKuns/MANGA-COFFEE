@@ -1,92 +1,91 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from './../../../app/hooks';
-import { fetchGetProducts } from '../../../features/products/productsSlice';
-import useLocalStorage from '../../../app/customHooks/useLocalStorage';
 import '../../../scss/Shop/ProductCards.scss';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { FaShoppingCart } from "react-icons/fa";
+// import NotFound from '../../SearchAndFilter/NotFound/NotFound'
+import { BsFillInfoCircleFill } from 'react-icons/bs';
+
 
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
   product: any
+  resShop: any
+  genreShop: any
 }
 
-const CardsProduct = ({ setProduct, product }: Props) => {
-  const [page, setPage] = useState(1);
-  /* const [p, setP] = useLocalStorage('page', '') */
-  const [search, setSearch] = useState('');
-  const dispatch = useAppDispatch();
-  const a = useAppSelector(state => state.products)
-  const b : any = a.products
-  /* console.log(a.products); */
+const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
 
-  /* const [fetchProducts, setFetchProducts] = useState<any>([]); */
-
-  /* const API_KEY_P = `http://localhost:5000/api/products?page=${page}&search=${search}` */
-  
-  useEffect(() => {
-    dispatch(fetchGetProducts(page, search));
-    /* localStorage.removeItem('test'); */
-  },[dispatch, product]);
-
-  const addToCard : any = (a : any, b: any, c: any) => {
+  const addToCard : any = (a : any, b: any, c: any, d: any, e: any) => {
     let order = {
       product_image : a,
       price: b,
-      id : c,
-      amount: 1
+      _id : c,
+      amount: 1,
+      name: d,
+      stock: e
     }
     
     if (!product) {
       setProduct([order])
     } else {
-      const add = product.find((e : any) => e.id === order.id)
-      console.log(add)
+      const add = product.find((e : any) => e.id === order._id)
       if(!add) setProduct([order, ...product]);
     }
+    const MySwal = withReactContent(Swal)
+        MySwal.fire({
+          html: <><FaShoppingCart size={26} color={'#9394A9'} className="cart-icon"/><h2 className='PopUpText'>Product added to the Cart</h2></>,
+          position: 'bottom-end',
+          background: "#212429",
+          showConfirmButton: false,
+          confirmButtonAriaLabel: 'Ok',
+          timer: 1500,
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: 'confirmButton'
+          }
+        })
   }
   
-  console.log(a, 'roducts');
-  console.log(b.products, 'lunch');
-
- 
+  
   return (
     <div className='product-container'>
+        {resShop.data?.products.length ?
       <div className="container">
         <div className="product-grid">
         <Link 
-          to={`/product/${b.products && b.products[0]._id}`} 
+          to={`/product/${resShop.data?.products.length >= 1 && resShop.data?.products[0]._id}`} 
           className="card stacked featured">
-            <img src={b.products &&  b.products[0].product_image} alt="a grey baseball hat with a small palm tree on the front" className="card__img"/>
+            <img src={resShop.data?.products.length >= 1 &&  resShop.data?.products[0].product_image} alt="product-img" className="card__img"/>
             <div className="card__content">
-              <h2 className="card__title">Lorem, ipsum dolor.</h2>
-              <p className="card__price">${b.products &&  b.products[0].price}</p>
-              <p className="card__description">Lorem, ipsum dolor.</p>
+              <h2 className="card__title">{resShop.data?.products.length >= 1 &&  resShop.data?.products[0].name}</h2>
+                  <p>{resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock <= 10 
+                  ? "Less than 10" 
+                  : resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock === 0 
+                  ? "Out of stock" 
+                  : "Available"}
+                  </p>
+              <p className="card__price">${resShop.data?.products.length >= 1 &&  resShop.data?.products[0].price}</p>
+              <button className="btnAddcartToShop" onClick={() => addToCard(resShop.data?.products.length >= 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].price, resShop.data?.products.length >= 1 &&  resShop.data?.products[0]._id, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].name, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock)}>Add to cart</button>
           </div>
         </Link>
         <>
-        {
-          b.products?.slice(1).map((e : any) => {
+        {resShop.data?.products.slice(1).map((e : any) => {
             return (
               <div className="card stacked">
-               <Link to={`/product/${e._id}`}>
-                  <img src={e.product_image} alt="a grey baseball hat with a small palm tree on the front" className="card__img"/>
+              <Link to={`/product/${e._id}`}>
+                  <img src={e.product_image} alt="product-img" className="card__img"/>
                 </Link>
                 <div className="card__content">
-                  <h2 className="card__title">Lorem, ipsum dolor.</h2>
-                  <p className="card__price">${e.price}</p>
-                  <p className="card__description">Lorem, ipsum dolor.</p>
-                  {/* <button> - </button> */}<button onClick={() => addToCard(e.product_image, e.price, e._id)}>Add to cart</button>{/* <button> + </button> */}
-                  <Link to={`/buyProduct/${e._id}`}>
-                    <button>
-                      Buy
-                    </button>
-                  </Link>
+                  <h2 className="card__title">{e.name}</h2>
                   <p>{e.stock <= 10 
                   ? "Less than 10" 
                   : e.stock === 0 
                   ? "Out of stock" 
                   : "Available"}
                   </p>
+                  <p className="card__price">${e.price}</p>
+                  <button onClick={() => addToCard(e.product_image, e.price, e._id, e.name, e.stock)} className="btnAddcartToShop">Add to cart</button>
                 </div>
               </div>
             )
@@ -97,6 +96,11 @@ const CardsProduct = ({ setProduct, product }: Props) => {
           </div>
 
     </div>
+    : <div className="NotSearchFoundProducts">
+    <BsFillInfoCircleFill size={55}/>
+    <h1>No Products found for your search.</h1>
+    <h3>Try searching for another one</h3>
+    </div>}
     </div>
   )
 };

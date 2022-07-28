@@ -3,15 +3,26 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { fetchDetailManga } from "../../features/products/productsSlice";
+import {
+  fetchDetailManga,
+  fetchModifyStock,
+} from "../../features/products/productsSlice";
 import useHeaders from "../../app/headers";
-import "../BuyProduct/buyProduct.scss";
+import "../../scss/Shop/buyProduct.scss";
 import { validate } from "./func/validate";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { FaRegCreditCard } from "react-icons/fa";
 
-const BuyProduct = () => {
+type Props = {
+  clickBuy: any
+  setProduct: any
+}
+
+const BuyProduct = ({clickBuy, setProduct}: Props) => {
   const { idProduct } = useParams();
   const [input, setInput] = useState<any>({
-    postalCode: "",
+    postalCode: "0",
     country: "",
     direction: "",
     reference: "",
@@ -37,6 +48,11 @@ const BuyProduct = () => {
   const dispatch = useAppDispatch();
   const { productDetail } = useAppSelector((state) => state.products);
   const { name, product_image, price } = productDetail;
+  const prod: any = localStorage.getItem('prod')
+  const realProd = JSON.parse(prod)
+  const cart: any = localStorage.getItem('test')
+  const allCart = JSON.parse(cart)
+  
 
   const handleChange = (event: any) => {
     setInput({
@@ -53,12 +69,22 @@ const BuyProduct = () => {
 
   const token = useAppSelector((state) => state.user.token);
   const headers = useHeaders(token);
+  const array = clickBuy === "cartBtn" ? allCart : clickBuy === "indBuy" ? realProd : ''
 
   useEffect(() => {
     dispatch(fetchDetailManga(idProduct));
   }, [dispatch]);
 
+  const appearance = {
+    theme: 'stripe'
+  };
+  
+
+
   const handleSubmit = async (e: any) => {
+    const initBuy = array.map((e:any)=>{
+      return {idProduct : e._id, quantity: e.amount ? e.amount : 1}
+  })
     e.preventDefault();
 
     if (
@@ -70,8 +96,29 @@ const BuyProduct = () => {
       errors.lastName ||
       errors.telephone ||
       errors.email
-    )
+    ) {
+      const MySwal = withReactContent(Swal);
+      MySwal.fire({
+        html: (
+          <>
+            <h1>Please fill in all the spaces correctly</h1>
+          </>
+        ),
+        position: "center",
+        icon: "error",
+        title: "Oops...",
+        showConfirmButton: false,
+        timer: 3000,
+        showCloseButton: true,
+        focusConfirm: false,
+        background: "#212429",
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: "confirmButton",
+        },
+      });
       return;
+    }
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -82,7 +129,7 @@ const BuyProduct = () => {
       const { id } = paymentMethod;
       try {
         const envio = {
-          product: [{ idProduct, quantity: numberOfGuests }],
+          product: initBuy,
           adrress: {
             postalCode: input.postalCode,
             country: input.country,
@@ -99,7 +146,7 @@ const BuyProduct = () => {
         };
         console.log(envio);
         const { data } = await axios.post(
-          `http://localhost:5000/api/products/checkout/${id}`,
+          `https://manga-coffee.herokuapp.com/api/products/checkout/${id}`,
           envio,
           headers
         );
@@ -109,6 +156,40 @@ const BuyProduct = () => {
         console.log(error);
       }
       setLoading(false);
+      if (!loading) {
+        const MySwal = withReactContent(Swal);
+        MySwal.fire({
+          html: (
+            <>
+              <h1>Purchase sucessfuly completed</h1>
+            </>
+          ),
+          position: "center",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 3000,
+          showCloseButton: true,
+          focusConfirm: false,
+          background: "#212429",
+          buttonsStyling: false,
+          customClass: {
+            confirmButton: "confirmButton",
+          },
+        });
+      }
+      setInput({
+        postalCode: "0",
+        country: "",
+        direction: "",
+        reference: "",
+        name: "",
+        lastName: "",
+        telephone: "",
+        email: "",
+      })
+      if (array === allCart) {
+        setProduct([])
+      }
     }
   };
 
@@ -117,34 +198,31 @@ const BuyProduct = () => {
     console.log(numberOfGuests);
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="colorrr">
-      
-      <div>
-        <h1 className="space title">{name}</h1>
-        <img
-          src={product_image}
-          alt={`product image ${name}`}
-          className={"image_product space"}
-        />
-        <h3 className="space">{`$/. ${price}`}</h3>
-        <div className="space">
-          <CardElement />
-        </div>
-        <input
-          name="numberOfGuests"
-          type="number"
-          value={numberOfGuests}
-          onChange={handleInputChange}
-          className="space"
-        />
-        <button className="space btn_buy" disabled={!stripe}>
-          {loading ? "Loading" : "Buy"}
-        </button>
-      </div>
+  const handleBuy = () => {
+    // falta agregar esto mismo en el otro archivo que es el buy pero del carrito
+    console.log(numberOfGuests);
+    const stock = `-${numberOfGuests}`;
+    dispatch(fetchModifyStock(idProduct, stock));
+  };
+  let total: any = []
+  let totalQuantity: any = []
+  
+  array && array.map((a: any) => {
+    total.push(a.price)
+    a.amount ? totalQuantity.push(a.amount) : totalQuantity.push(1)
+  })
+  
+  let subTotal: any = total.reduce((a: any, b: any) => a + b,0) 
+  let subTotalQuantity: any = totalQuantity.reduce((a: any, b: any) => a + b,0) 
 
-      <div>
-      <h1 className="space">Your Data</h1>
+
+  return (
+    <div className="five">
+      <div className="checkout-container">
+        <form onSubmit={handleSubmit} className="info-user-form">
+          <div className="wrapper">
+          <h2>shipping information</h2>
+      <div className="grid-inputs">
         <div className="space">
           <label htmlFor="emial">Email :</label>
           <input
@@ -153,7 +231,7 @@ const BuyProduct = () => {
             value={input.email}
             onChange={handleChange}
           />
-          {errors.email.length > 1 && <p>{errors.email}</p>}
+          <p>{errors.email}</p>
         </div>
 
         <div className="space">
@@ -178,7 +256,7 @@ const BuyProduct = () => {
           {errors.lastName.length > 1 && <p>{errors.lastName}</p>}
         </div>
 
-        <div className="space" >
+        <div className="space">
           {" "}
           <label htmlFor="country">Country :</label>
           <input
@@ -238,7 +316,53 @@ const BuyProduct = () => {
           {errors.reference.length > 1 && <p>{errors.reference}</p>}
         </div>
       </div>
-    </form>
+      <div className="payment-container">
+        <h2>Payment method</h2>
+        <div 
+          className="payment-text"> 
+            <FaRegCreditCard size={23} />   
+            Credit or debit card | Visa, Mastercard and more!
+        </div>
+        <div className="payment">
+          <CardElement />
+        </div>
+        <div className="total">{`Total: $/. ${subTotal*subTotalQuantity}`}</div>
+        <button
+          className="space btn_buy"
+          disabled={!stripe}
+          onClick={() => handleBuy()}
+        >
+          {loading ? "Loading" : "Checkout"}
+        </button>
+      </div>
+          </div>
+        </form>
+      <section className="product-view-container">
+        <h2>Your products</h2>
+        <div className="sub-section">
+          {array &&  array.map((p: any) => {
+            return (
+              <div className="product-content">
+                <img
+                  src={p.product_image}
+                  alt={`product image `}
+                  className={"image_product space"}
+                />
+                <div>
+                  <h3>{p.name}</h3>
+                  <h3 className="space">{`Price: $/. ${p.price}`}</h3>
+                  <h3 className="space">{p.amount && p.amount > 1 ? `Subtotal: $/. ${p.price*p.amount}` : ""}</h3>
+                  <h3>{p.amount > 1 ? `Quantity: ${p.amount}` : ""}</h3>
+                </div>
+              </div>
+            )})}
+        </div>
+        
+      </section>
+    </div>
+      
+    </div>
+    
   );
 };
 

@@ -7,7 +7,7 @@ router.get('/', async(req : any, res) => {
         const page : number = parseInt(req.query.page) - 1 || 0;
         const limit = parseInt(req.query.limit) || 12;
         const search = req.query.search || '';
-        let sort = req.query.sort || 'rating';
+        let sort = req.query.sort || 'name';
         let category = req.query.category || 'All';
 
         const filters= await Products.find();
@@ -57,4 +57,4 @@ router.get('/', async(req : any, res) => {
     }
 })
 export default router;
-// Product
+// Product//////

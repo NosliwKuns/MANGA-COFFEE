@@ -12,7 +12,7 @@ router.put('/resetpass/:id',  async(req, res, next) => {
             const salt = await bCrypt.genSalt(10);
             const hash = await bCrypt.hash(password, salt);
             await User.findByIdAndUpdate((id), {password: hash, status: true});
-            res.status(201).json('contraseña modificada con exito');  
+            res.status(201).json('Password Updated!');  
         };                            
     } catch (error) {
         next(error);

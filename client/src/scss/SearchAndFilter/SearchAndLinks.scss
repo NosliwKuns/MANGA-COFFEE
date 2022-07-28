@@ -1,8 +1,10 @@
 .search-and-links {
+  height: 60px;
   display: flex;
   gap: 1em;
   color: var(--light--200);
   align-items: center;
+
 
   a {
     color: var(--light--200);

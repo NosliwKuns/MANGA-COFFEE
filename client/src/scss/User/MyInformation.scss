@@ -1,0 +1,102 @@
+.container_user_detail_information {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .span_msg_edit_info {
+    background-color: rgb(255, 195, 195);
+    border-style: dashed;
+    border-width: 1px;
+    border-color: red;
+    width: 60vh;
+    padding: 10px;
+    margin: 15px;
+    margin-bottom: 50px;
+  }
+  .container_user_detail_btn_edit {
+    position: absolute;
+    right: 50px;
+    transition: all 250ms ease;
+    &:hover {
+      background-color: rgb(155, 154, 154);
+      border-radius: 100%;
+      padding: 7px;
+    }
+    &:active {
+      background-color: rgb(97, 95, 95);
+      padding: 15px;
+    }
+  }
+  // ? ==============================================
+
+  .user_detail_edit_information_container {
+    margin: 25px;
+    .user_detail_edit_information_input {
+      margin: 11px;
+      font-size: x-large;
+      width: 200px;
+      height: 30px;
+      border: none;
+      background-color: transparent;
+      color: rgb(172, 169, 169);
+      transition: all 250ms ease;
+      border-radius: 8px;
+      &:hover {
+        background-color: rgb(131, 120, 120);
+      }
+    }
+    .user_detail_information {
+
+      margin: 11px;
+      font-size: x-large;
+      width: 500px;
+      max-height: 30px;
+      border: none;
+      background-color: transparent;
+      color: var(--primary);
+      transition: all 250ms ease;
+      border-radius: 8px;
+      margin-left: 16px;
+  }
+}
+}
+.button_edit_info_user_detail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+  background-color: var(--primary) ;
+  padding: 5px;
+  margin: 0px 5px 0px 5px;
+  transition: all 250ms ease;
+  &:hover {
+    background-color: rgb(235, 108, 108);
+  }
+}
+
+.span_msg_delete_account_container {
+  display: flex;
+  justify-content: center;
+  .span_msg_delete_account{
+    background-color: rgb(255, 195, 195);
+    border-style: dashed;
+    border-width: 1px;
+    border-color: red;
+    width: 60vh;
+    padding: 10px;
+    margin: 15px;
+    margin-bottom: 50px;
+  }
+}
+
+.input_forms_admin_interface_delete_view {
+  position: relative;
+  .input_forms_delete_view{
+    position: absolute;
+    width: 15px;
+    right: 9vh;
+    bottom: 16px;
+  }
+}

@@ -1,14 +1,19 @@
 .App {
+  position: relative;
   font-family: sans-serif;
-  text-align: center;
+  /* text-align: center; */
   background: #212429;
+  overflow: hidden;
+  /* display: flex; */
+  min-width: 100vw;
   display: grid;
-  grid-template-columns: min-content auto max(18em);
+  grid-template-columns: min-content 1fr min-content;
+  /* grid-template-columns: min-content auto min-content;
   grid-template-rows: 2.7em 1fr;
   grid-template-areas: 
     "one two three"
-    "one five three";
-  grid-gap: 1em;
+    "one five three"; */
+  gap: 1em;
   height: 100vh;
 
   .one {
@@ -25,10 +30,11 @@
   }
 
   .two {
-    position: relative;
+    /* position: relative;
     display: flex;
     align-items: flex-end;
-    padding-left: 1em;
+    padding-left: 1em; */
+    background: var(--dark--800);
 
     button {
       width: 2.2em;
@@ -51,36 +57,42 @@
   }
 
   .four {
-    grid-area: one;
+    /* grid-area: one; */
     background: var(--dark--600);
-    margin-left: 1em;
+    /* margin-left: 1em;
     margin-top: 1em;
     margin-bottom: 1em;
-    border-radius: 1.2em;
+    border-radius: 1.2em; */
     /* overflow: auto; */
-    width: 17em;
+    width: 260px;
+    flex-shrink: 0;
+    
   
   }
 
   .five {
-    grid-area: five;
+    /* grid-area: five; */
     overflow: auto;
     display: flex;
     flex-direction: column;
+    background: var(--dark--800);
     padding: 0 .4em 0 .7em;
+
+    
   }
   
   .six {
-    display: grid;
-    grid-template-rows: 1fr 1.7fr;
-    grid-gap: 1em;
+    width: 280px;
+    flex-shrink: 0;
+    background: var(--dark--600);
     /* width: 100%; */
-    margin: 0 0.8em 0.8em 0;
+    /* margin: 0 0.8em 0.8em 0; */
+    height: 100vh;
 
-    & > div {
+    /* & > div {
       background: var(--dark--600);
       border-radius: 1.4em;
-    }
+    } */
   }
 
 }
@@ -89,7 +101,7 @@
 
 @media only screen and (max-width: 1300px) {
   .App {
-    grid-template-columns: auto auto max(15em);
+    grid-template-columns: min-content auto max(15em);
 
     .one {
       font-size: 1em;
@@ -97,9 +109,41 @@
   }
 }
 
+@media screen and (max-width: 1210px) {
+  .App {
+    grid-template-columns: min-content 1fr;
+
+    .six {
+      position: fixed;
+      right: 0;
+      top: 0;
+      transition: 0.3s;
+      height: 100%;
+      transform: translateX(280px);
+      z-index: 4;
+    }
+  }
+}
+
 /* -----------mobile----------- */
 
-@media only screen and (max-width: 600px) {
+@media screen and (max-width: 930px) {
+  .App {
+    grid-template-columns: 1fr;
+
+    .four {
+      position: fixed;
+      left: 0;
+      top: 0;
+      transition: 0.3s;
+      height: 100%;
+      transform: translateX(-260px);
+      z-index: 4;
+    }
+  }
+}
+
+/* @media only screen and (max-width: 600px) {
   .App {
     grid-template-columns: 3em auto;
     grid-template-rows: auto 1fr;
@@ -178,7 +222,7 @@
     }
 
   }
-}
+} */
 
 .loading {
   background: #ffffff;

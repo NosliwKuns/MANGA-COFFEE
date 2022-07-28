@@ -19,12 +19,12 @@ router.post('/sendadminnoti/:id', passport.authenticate("jwt", { session: false 
             const template = AdminNotification(msg);
             if (user){
                 sendEmail((user.email), subject, template);
-                res.status(200).json('Correo enviado correctamente')
+                res.status(200).json('The email has been sent successfully!')
             }else{
-                res.status(400).json('Error: usuario no identificado');
+                res.status(400).json('Error: Unidentify User');
             }            
         }else {
-            res.status(400).json('No cuenta con autorizacion para realizar esta accion');
+            res.status(400).json('You are not authorized to do this action');
         }       
     } catch (error) {
         next(error)

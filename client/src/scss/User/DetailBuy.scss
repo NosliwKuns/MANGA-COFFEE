@@ -1,0 +1,30 @@
+.containe_detail_buy{
+    display: flex;
+    justify-content: center;
+    background-color: #343539 ;
+    border-radius: 8px;
+    width: 124vh;
+    padding: 8vh;
+    .detail_buy_title{
+        color: var(--primary);
+        margin: 3vh ;
+        margin-bottom: 5vh;
+        max-width: 40vh;
+        max-height: 20vh;
+        overflow: auto;
+        font-weight: 700;
+        font-size: x-large;
+    }
+    .detail_buy{
+        color: var(--primary);
+        margin: 2vh 4vh ;
+    }
+}
+
+.detail_buy_product_copntainer{
+    margin: 5vh;
+    padding: 3vh;
+    background-color: #3b3c3d;
+    border-radius: 8px;
+
+}

@@ -1,0 +1,105 @@
+/* From uiverse.io by @gagan-gv */
+
+.AboutUs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 20vh);
+    justify-content: center;
+    gap: 2em 4em;
+    height: max-content;
+}
+
+.AboutUsCard {
+    width: 190px;
+    height: 254px;
+    background: var(--dark--600);;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.5s;
+    overflow: hidden;
+   }
+   
+   .AboutUsCard:hover {
+    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.623);
+    background-color: var(--primary);
+   }
+   
+   .AboutUsCard .blob {
+    height: 10px;
+    width: 75%;
+    border-radius: 0 0 30px 30px;
+    margin: 0 auto;
+    background-color: var(--primary);
+    visibility: visible;
+    transition: all 0.3s;
+   }
+   
+   .AboutUsCard:hover .blob {
+    height: 0;
+   }
+   
+   .AboutUsCard .img {
+    display: flex;
+    margin: 30px auto 10px auto;
+    width: 70px;
+    height: 70px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    font-size: 11px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    object-fit: cover;
+   }
+   
+   .AboutUsCard:hover .img {
+    width: 100%;
+    height: 70%;
+    border-radius: 10px 0 0;
+    margin: 0 auto;
+    background-color: var(--dark--600);;
+    z-index: 99999;
+   }
+   
+   .AboutUsCard h2 {
+    display: grid;
+    gap: 0.5em;
+    padding: 15px 10px;
+    font-size: 23px;
+    transition: all 0.1s;
+    z-index: -99;
+    line-height: 17px;
+    color: #fff;
+   }
+   
+   .AboutUsCard span {
+    font-size: 20px;
+   }
+   
+   .AboutUsCard:hover h2 {
+    opacity: 0;
+    width: 100%;
+    position: absolute;
+    transition: all 0.5s;
+   }
+   
+   .AboutUsCard>p {
+    opacity: 0;
+    transition: all 0.75s;
+    
+   }
+   
+   .AboutUsCard>p>.svg {
+    padding: 5px;
+}
+
+.AboutUsCard:hover>p {
+    bottom: 15px;
+    margin-top: 20px;
+    left: 35px;
+    opacity: 1;
+    transition: all 0.1s;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 48px;
+    margin-right: 48px;
+   }
