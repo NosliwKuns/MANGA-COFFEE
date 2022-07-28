@@ -42,7 +42,7 @@ router.put('/resetuser/', (req, res, next) => __awaiter(void 0, void 0, void 0, 
             }
             else {
                 template = (0, index_js_3.default)(users, newuser._id);
-                (0, index_js_1.default)(email, 'Accaunt Confirmation', template);
+                (0, index_js_1.default)(email, 'Account Confirmation', template);
             }
             res.status(201).json({ email, password });
         }

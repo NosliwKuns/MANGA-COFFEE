@@ -25,7 +25,7 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
                     product_image = linkCloudinary.secure_url;
                     const product = new Product({ id_User, name, product_image, description, stock , price, category: [category], title})
                     await product.save();
-                    res.status(201).json("Product addes successfull");                    
+                    res.status(201).json("Product added successfull");                    
                 }else{
                     res.status(400).json("Uncomplete Information");
                 }
