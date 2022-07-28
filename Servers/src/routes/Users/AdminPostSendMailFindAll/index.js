@@ -35,7 +35,7 @@ router.post('/adminmails', passport_1.default.authenticate("jwt", { session: fal
             let template;
             if ((_a = req.files) === null || _a === void 0 ? void 0 : _a.image) {
                 const { image } = req.files;
-                let folderpath = `Users/Admin/Publicidad/${subject}`;
+                let folderpath = `User/Admin/Publicidad/${subject}`;
                 let PublicidadClaudinary = yield (0, index_js_3.Uploadimage)(image.tempFilePath, folderpath);
                 yield fs_extra_1.default.unlink(image.tempFilePath);
                 template = (0, index_js_1.default)(msg, PublicidadClaudinary.secure_url);

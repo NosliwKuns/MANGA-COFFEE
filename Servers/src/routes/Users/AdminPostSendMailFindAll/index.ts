@@ -21,7 +21,7 @@ router.post('/adminmails', passport.authenticate("jwt", { session: false }), Fil
             let template: string;
             if (req.files?.image){
                 const { image }: any = req.files;
-                let folderpath = `Users/Admin/Publicidad/${subject}`;
+                let folderpath = `User/Admin/Publicidad/${subject}`;
                 let PublicidadClaudinary = await Uploadimage(image.tempFilePath, folderpath);
                 await fs.unlink(image.tempFilePath);
                 template = AdminNotiPubli(msg, PublicidadClaudinary.secure_url);
