@@ -343,7 +343,7 @@ const BuyProduct = ({clickBuy, setProduct}: Props) => {
               className={"image_product space"}
             />
             <h3>{p.name}</h3>
-            <h3 className="space">{`$/. Price: ${p.price}`}</h3>
+            <h3 className="space">{`Price: $/.${p.price}`}</h3>
             <h3 className="space">{p.amount && p.amount > 1 ? `$/. Subtotal: ${p.price*p.amount}` : ""}</h3>
             <h3>{p.amount > 1 ? `Quantity: ${p.amount}` : ""}</h3>
           </>

@@ -22,10 +22,12 @@ const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { productDetail } = useAppSelector(state => state.products)
-  const { token, user, verificated } = useAppSelector((state) => state.user);
+  const { token, user, verificated, wishlist } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
   const [addProduct, setAddProduct] = useLocalStorage('prod', [])
+  
+  let wish = wishlist?.find(e => e._id === id) ? true : false;
 
   useEffect(() => {
     dispatch(fetchDetailManga(id))
@@ -138,35 +140,33 @@ const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
   }
 
   return (
-    <div className="five">
-      <h1>{name}</h1>
-      <img src={product_image} alt={`P_${product_image}`} />
-      <span>
-          <button onClick={() => handleClick()}><IoIosHeart /></button>
-      </span>
-      <p>{description}</p>
-      <h2>Price: ${price}</h2>
-      <h2>Rating: {rating}</h2>
-      {
-        comments?.map(e => {
-          return (
-            <div>
-              <h3>{e?.name}</h3>
-              <h3>{e?.body}</h3>
+    <div className="five detail-container-product">
+      <title><h2>{name}</h2></title>
+      <header>
+        <div className='image-container-product'>
+          <img src={product_image} alt={`P_${product_image}`} className="ProductImg"/>
+        </div>
+        <div className='info-container-product'>
+          <div className='wishlist' onClick={() => handleClick()}>
+            <IoIosHeart size="34" color={wish ? "#EA374B" : "#9394A9"}/>
+          </div>
+          <div className='InfoProductDiv'>
+            <h2>Stock: {stock <= 10 
+                        ? "Less than 10" 
+                        : stock === 0 
+                        ? "Out of stock" 
+                        : stock}
+            </h2>
+              <h2>Price: ${price}</h2>
+              <button onClick={() => addToCard(product_image, price, id)} className="addToCartButton">Add to cart</button>
+              <button onClick={() => user && verificated ? handleBuy() : handleNotUser()} className="BuyProductDetailButton">Buy</button>
+            <div className='BuyAndAddButtons'>
             </div>
-          )
-        })
-      }
-      <h2>Stock: {stock <= 10 
-                  ? "Less than 10" 
-                  : stock === 0 
-                  ? "Out of stock" 
-                  : stock}
-      </h2>
-      <button onClick={() => addToCard(product_image, price, id)}>Add to cart</button>
-      <button onClick={() => user && verificated ? handleBuy() : handleNotUser()} >
-        Buy
-      </button>
+          </div>
+        </div>
+      </header>
+      <h2 className='DescriptionProduct'>Description: </h2>
+      <p>{description}</p>
     </div>
   )
 };
