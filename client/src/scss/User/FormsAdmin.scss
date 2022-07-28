@@ -141,3 +141,16 @@
     font-size: 3vh;
   }
 }
+
+.span_msg_loader_add{
+  background-color: rgb(255, 195, 195);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: var(--primary);
+  padding: 20px;
+
+  font-size: 3vh;
+}
