@@ -29,7 +29,7 @@ router.post("/addToWishlist/:_id", passport_1.default.authenticate("jwt", { sess
             res.status(200).send(Usuarios);
         }
         else {
-            res.status(200).send("el producto ya esta en la lista de deseos");
+            res.status(200).send("Already on the wish list");
         }
     }
     catch (error) {

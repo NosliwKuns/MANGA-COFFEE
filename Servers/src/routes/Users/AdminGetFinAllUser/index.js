@@ -28,7 +28,7 @@ router.get('/findall', passport_1.default.authenticate("jwt", { session: false }
             res.status(200).json(userfindall);
         }
         else {
-            res.status(400).json('No cuenta con autorizacion para obtener esta informacion');
+            res.status(400).json('You are not authorized to get this information');
         }
     }
     catch (error) {

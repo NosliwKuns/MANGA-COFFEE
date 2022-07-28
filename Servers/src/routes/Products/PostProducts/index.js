@@ -37,18 +37,18 @@ router.post('/poster/products', passport_1.default.authenticate("jwt", { session
                     product_image = linkCloudinary.secure_url;
                     const product = new index_1.default({ id_User, name, product_image, description, stock, price, category: [category], title });
                     yield product.save();
-                    res.status(201).json("Producto agregado con exito");
+                    res.status(201).json("Product addes successfull");
                 }
                 else {
-                    res.status(400).json("Informacion incompleta");
+                    res.status(400).json("Uncomplete Information");
                 }
             }
             else {
-                res.status(400).json('No cuenta con autorizacion');
+                res.status(400).json('You are not authorized');
             }
         }
         else {
-            res.status(400).json("Usuario no encontardo");
+            res.status(400).json("User not founded");
         }
     }
     catch (error) {

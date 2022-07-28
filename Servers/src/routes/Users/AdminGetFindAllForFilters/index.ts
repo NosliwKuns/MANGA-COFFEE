@@ -26,7 +26,7 @@ router.get('/admin', passport.authenticate("jwt", { session: false }), async(req
                 const data = { category: categorydata, titles: titledata };
                 res.status(200).json(data)
             } else {
-                res.status(400).json('Opcion Invalida')
+                res.status(400).json('No valid option')
             }
         }
     } catch (error) {
