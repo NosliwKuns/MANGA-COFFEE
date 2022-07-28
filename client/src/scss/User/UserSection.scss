@@ -15,7 +15,7 @@
     .photo {
       position: absolute;
       bottom: -35px;
-      left: 37%;
+      left: 31%;
     }
   }
 
@@ -43,22 +43,35 @@
 }
 
 //------------prueba 011 ------- components/User -----
+.image_user_icon {
+  max-width: 15vh;
+  border-radius:50%;
+  height: 83px;
+}
+.image_user {
+  max-width: 20vh;
+  border-radius:50%;
+  height: 115px;
+}
 .banner_user_detail_s_contain {
   position: relative;
 }
 .banner_user_detail_s {
   max-width: 110vh;
+  height: 45vh;
 }
 .banner_user_detail_s_contain_icon {
   position: absolute;
-  left: 58vh;
+  left: 55vh;
   top: 30vh;
+  max-width: 25vh;
 }
 
 .images_container_user_detail {
   display: flex;
   justify-content: center;
   margin: 30px;
+  
 }
 
 .button_delete_account_user_detail {
@@ -127,7 +140,7 @@
   background-color: transparent;
   transition: all 250ms ease;
   border-radius: 8px;
-  &:hover{
+  &:hover {
     background-color: rgb(131, 120, 120);
   }
 }
@@ -142,7 +155,7 @@
   color: rgb(172, 169, 169);
   transition: all 250ms ease;
   border-radius: 8px;
-  &:hover{
+  &:hover {
     background-color: rgb(131, 120, 120);
   }
 }
@@ -170,20 +183,19 @@
 }
 
 .buttons_user_detail_edit_profile_btn {
-    border: none;
-    background-color: #d7727e;
-    color: white;
-    padding: 5px;
-    border-radius: 4px;
-    margin: 5px;
-    transition: all 250ms ease;
+  border: none;
+  background-color: #d7727e;
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  margin: 5px;
+  transition: all 250ms ease;
 
-    &:hover {
-      background-color: #85434b;
-    }
+  &:hover {
+    background-color: #85434b;
+  }
 
-    &:active {
-      background-color: #ed1730;
-    }
-  
+  &:active {
+    background-color: #ed1730;
+  }
 }

@@ -99,7 +99,7 @@ const UserDetail = () => {
 
             <div className="banner_user_detail_s_contain_icon">
               {user_image.length ? (
-                <img src={user_image} alt="user_image" />
+                <img src={user_image} alt="user_image"  className="image_user"/>
               ) : (
                 defaultPic
               )}
