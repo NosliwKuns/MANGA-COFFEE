@@ -33,7 +33,7 @@ router.post('/poster/products', passport.authenticate("jwt", { session: false })
                 res.status(400).json('You are not authorized');           
             }
         } else {
-            res.status(400).json("User not founded")
+            res.status(400).json("User not found")
         }
     } catch (error) {
         next(error)

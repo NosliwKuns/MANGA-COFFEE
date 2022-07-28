@@ -39,11 +39,11 @@ router.post('/register', (req, res, next) => __awaiter(void 0, void 0, void 0, f
             let template;
             if (newuser.verificated) {
                 template = (0, bienvenida_1.default)(users);
-                (0, index_3.default)(email, 'Mensaje de Bienvenida', template);
+                (0, index_3.default)(email, 'Welcome to MangaCoffee', template);
             }
             else {
                 template = (0, index_2.default)(users, newuser._id);
-                (0, index_3.default)(email, 'Confirmacion de cuenta', template);
+                (0, index_3.default)(email, 'Accaunt Confirmation', template);
             }
             res.status(201).json({ token, usuario: newuser });
         }

@@ -30,7 +30,7 @@ router.delete('/deletecart/:id', passport_1.default.authenticate('jwt', { sessio
             res.status(200).json(usern === null || usern === void 0 ? void 0 : usern.cart);
         }
         else {
-            res.status(404).json('user not founded');
+            res.status(404).json('user not found');
         }
     }
     catch (error) {

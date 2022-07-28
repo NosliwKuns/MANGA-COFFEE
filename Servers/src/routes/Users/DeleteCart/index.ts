@@ -16,7 +16,7 @@ router.delete('/deletecart/:id', passport.authenticate('jwt', {session: false}),
             const usern = await User.findById(data.id);
             res.status(200).json(usern?.cart);
         } else {
-            res.status(404).json('user not founded');
+            res.status(404).json('user not found');
         }       
     }
     catch(error){

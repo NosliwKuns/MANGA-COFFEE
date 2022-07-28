@@ -23,10 +23,10 @@ router.post('/register', async (req, res, next) => {
             let template;
             if (newuser.verificated){
                 template = Welcome(users);
-                sendEmail(email, 'Mensaje de Bienvenida', template);
+                sendEmail(email, 'Welcome to MangaCoffee', template);
             } else {
                 template = verificCorreo(users, newuser._id);
-                sendEmail(email, 'Confirmacion de cuenta', template);
+                sendEmail(email, 'Accaunt Confirmation', template);
             }        
             res.status(201).json({token, usuario: newuser});
         } 

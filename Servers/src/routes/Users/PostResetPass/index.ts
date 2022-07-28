@@ -10,7 +10,7 @@ router.post('/resetpass/',  async(req, res, next) => {
         const user = await User.findOne({email});      
         if (user){
             let template = ResetPass(user.users, user._id);
-            sendEmail(email, 'cambio de contraseña', template);
+            sendEmail(email, 'Password Change', template);
             res.status(200).json('Task Failed Successfully');
         } else {
             res.status(200).json('Non Existent User');

@@ -40,7 +40,7 @@ router.get('/finall/historybuy', passport_1.default.authenticate('jwt', { sessio
             res.status(200).json(history);
         }
         else {
-            res.status(400).json('User not founded');
+            res.status(400).json('User not found');
         }
     }
     catch (error) {

@@ -63,10 +63,10 @@ router.post("/checkout/:idCompra", passport.authenticate("jwt", { session: false
     await User.findByIdAndUpdate((data.id), {$push:{historyBuy: [compra]}});
     let template = NotificationBuy(ArrrayProducts, amount);
     if (data.email === InfoComprador.email){
-      sendEmail(data.email, 'Notificacion de compra', template);
+      sendEmail(data.email, 'Purchase Notification', template);
     }else{
-      sendEmail(data.email, 'Notificacion de compra', template);
-      sendEmail(InfoComprador.email, 'Notificacion de compra', template)
+      sendEmail(data.email, 'Purchase Notification', template);
+      sendEmail(InfoComprador.email, 'Purchase Notification', template)
     };
     
     res.send({ message: "Successull payment" });

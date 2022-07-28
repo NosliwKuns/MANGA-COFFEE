@@ -23,7 +23,7 @@ router.post('/resetpass/', (req, res, next) => __awaiter(void 0, void 0, void 0,
         const user = yield User_js_1.default.findOne({ email });
         if (user) {
             let template = (0, index_js_2.default)(user.users, user._id);
-            (0, index_js_1.default)(email, 'cambio de contraseña', template);
+            (0, index_js_1.default)(email, 'Password Change', template);
             res.status(200).json('Task Failed Successfully');
         }
         else {
