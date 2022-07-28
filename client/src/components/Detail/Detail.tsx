@@ -48,7 +48,6 @@ const Detail = () => {
   const handleAddChapter = async (e: any) => {
     const userCopy: any = window.localStorage.getItem("copySliceUser");
     const {token} = JSON.parse(userCopy)
-    console.log(token)
     const headers = useHeaders(token)
     e.preventDefault();
     setLoading(true)
@@ -83,6 +82,9 @@ const Detail = () => {
   };
 
   const handleClick = () => {
+    const userCopy: any = window.localStorage.getItem("copySliceUser");
+    const {token} = JSON.parse(userCopy)
+    const headers = useHeaders(token)
     if (user && !verificated) {
       const MySwal = withReactContent(Swal)
         MySwal.fire({
