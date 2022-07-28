@@ -26,7 +26,7 @@ router.post('/comments/:id', (req, res) => __awaiter(void 0, void 0, void 0, fun
             res.json(product);
         }
         else {
-            res.status(404).json({ message: 'Product not foundh' });
+            res.status(404).json({ message: 'Product not found' });
         }
     }
     catch (error) {

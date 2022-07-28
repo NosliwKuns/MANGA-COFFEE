@@ -48,7 +48,7 @@ router.post('/poster/products', passport_1.default.authenticate("jwt", { session
             }
         }
         else {
-            res.status(400).json("User not founded");
+            res.status(400).json("User not found");
         }
     }
     catch (error) {

@@ -12,7 +12,7 @@ const router = Router();
             await product.save(newcomments);
             res.json(product);
         }else{
-            res.status(404).json({message: 'Product not foundh'});
+            res.status(404).json({message: 'Product not found'});
         }
     }catch(error){
         res.status(500).json({message: 'Error'})

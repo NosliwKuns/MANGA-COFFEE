@@ -28,7 +28,7 @@ router.get('/historybuy/detail/:id', passport_1.default.authenticate('jwt', { se
             res.status(200).json(historyDetail);
         }
         else {
-            res.status(400).json('User not founded');
+            res.status(400).json('User not found');
         }
     }
     catch (error) {
