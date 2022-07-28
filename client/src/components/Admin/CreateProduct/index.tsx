@@ -27,10 +27,10 @@ const CreateProduct = () => {
   });
   console.log(input);
   const [errors, setErrors] = useState<any>({
-    title: "",
-    description: "",
-    price: "",
-    stock: "",
+    title: "please insert a title",
+    description: "please insert a description",
+    price: "enter a valid price",
+    stock: "enter a valid stock",
   });
 
   const [checkedState, setCheckedState] = useState([

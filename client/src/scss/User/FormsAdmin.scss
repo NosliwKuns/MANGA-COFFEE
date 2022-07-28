@@ -111,3 +111,16 @@
     background-color: var(--primary);
   }
 }
+
+.span_msg_error_info {
+  background-color: rgb(255, 195, 195);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: var(--primary);
+  width: 60vh;
+  padding: 10px;
+  margin: 10px;
+}

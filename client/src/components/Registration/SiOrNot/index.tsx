@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { useAppDispatch } from "../../../app/hooks";
 import { siOrNot, userLog } from "../../../features/user/userSlice";
 import Verificate from "../../Verificate";
+import "../../../scss/User/TableAllUsers.scss"
 type inputPropsSiOrNot = {
   email : string ,
   password : string ,
@@ -18,9 +19,10 @@ const SiOrNot = ({ input }: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
   return (
-    <div>
+    <div className="si_or_not_container">
       <h4>This email is already registered, do you want to get it back? </h4>
       <button
+       className="si_si_or_not"
         onClick={async () => {
           const verificated : any = await   dispatch(siOrNot(input, true));
           const MySwal = withReactContent(Swal);
@@ -47,6 +49,7 @@ const SiOrNot = ({ input }: Props) => {
         Si
       </button>
       <button
+      className="not_si_or_not"
         onClick={async () => {
           const verificate = await dispatch(siOrNot(input, false));
           await dispatch (userLog(verificate))

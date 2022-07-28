@@ -16,7 +16,7 @@
     overflow-x: auto;
     font-size: small;
   }
-  .button_true_table_user{
+  .button_true_table_user {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,7 +26,7 @@
     margin: 0px 5px 0px 5px;
     padding: 5px;
   }
-  .button_false_table_user{
+  .button_false_table_user {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,4 +36,34 @@
     padding: 5px;
     margin: 0px 5px 0px 5px;
   }
+}
+
+.not_si_or_not {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: white;
+  background-color: rgb(196, 100, 100);
+  padding: 5px;
+  margin: 0px 5px 0px 5px;
+  width: 40px;
+}
+
+.si_si_or_not {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: rgb(88, 100, 68);
+  border: none;
+  margin: 0px 5px 0px 5px;
+  padding: 5px;
+  width: 40px;
+}
+
+.si_or_not_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

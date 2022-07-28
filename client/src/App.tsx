@@ -32,6 +32,7 @@ import MessageAdmin from './components/Admin/usersTable/Celdas/MessageAdmin';
 import WishList from './components/User/WishList/WishList'
 import DetailEment from './components/UseDetail/HistoryBuy/DetailEment';
 import AboutUs from './components/SideBar/AboutUs/AboutUs'
+import SiOrNot from './components/Registration/SiOrNot';
 
 
 axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api";
