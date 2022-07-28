@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import useHeaders from "../../../app/headers";
@@ -35,11 +35,12 @@ const CreateManga = () => {
   });
 
   const [errors, setErrors] = useState<any>({
-    title: "",
-    description: "",
+    title: "insert a title",
+    description: "insert a description",
     // rating: "",
-    chapter: "",
+    chapter: "enter a valid chapter",
   });
+
   const dispatch = useAppDispatch();
   const [book, setBook] = useState();
   const [image, setImage] = useState();

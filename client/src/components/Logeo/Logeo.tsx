@@ -12,8 +12,9 @@ import { motion, AnimateSharedLayout } from "framer-motion";
 import { validate } from "./func/validate";
 import "../../scss/User/Registration.scss";
 import { cardAnimation, gridAnimation } from "../../Animation";
-import { FcGoogle } from 'react-icons/fc'
-import Registration from './../Registration/Registration';
+import { FcGoogle } from "react-icons/fc";
+import Registration from "./../Registration/Registration";
+import "../../scss/User/FormsAdmin.scss";
 
 const Logeo = () => {
   const space: any = useRef(null);
@@ -58,7 +59,6 @@ const Logeo = () => {
     // ? no te olvides enviar el user name modificado en el reducer
     try {
       await dispatch(userLog(input));
-      alert("acces");
       navigate("/", { replace: true });
       setInput({
         email: "", // segio@
@@ -69,7 +69,6 @@ const Logeo = () => {
         password: "",
       });
     } catch (e: any) {
-
       setError(e.response.data);
     }
   };
@@ -82,8 +81,6 @@ const Logeo = () => {
       setError(e.response.data);
     }
   };
-
-
 
   return (
     <div className="modal-exterior">
@@ -99,95 +96,93 @@ const Logeo = () => {
           variants={cardAnimation}
         >
           <section></section>
-          {
-            move ?
-            <motion.form 
+          {move ? (
+            <motion.form
               variants={gridAnimation}
               animate="show"
               exit="hide"
               ref={space}
-              onSubmit={handleSubmit} 
-              className="form-content">
-            <button 
-              className="btn-close"
-              onClick={() => navigate("/", { replace: true })} 
-            >X
-            </button>
-            {/* <h2 onClick={() => navigate("/", { replace: true })}>Back Home</h2> */}
-            {error && <div> {error}</div>}
-            {/* <div className="form_Registration_title"> */}
-            <h3>Sign In</h3>
+              onSubmit={handleSubmit}
+              className="form-content"
+            >
+              <button
+                className="btn-close"
+                onClick={() => navigate("/", { replace: true })}
+              >
+                X
+              </button>
+              {/* <h2 onClick={() => navigate("/", { replace: true })}>Back Home</h2> */}
+              {/* <div className="form_Registration_title"> */}
+              <h3>Sign In</h3>
+              {error && <div className="span_msg_error_info"> {error}</div>}
 
-            <div className="form-container">
-              <div className="form-group">
-                <input
-                  className="form-input"
-                  type="text"
-                  id="email"
-                  name="email"
-                  placeholder=" "
-                  value={input.email}
-                  onChange={handleChange}
-                />
-                <label htmlFor="email" className="form-label">
-                  Email:
-                </label>
-                <div className="error">
-                  <p>{errors.email}</p>
+              <div className="form-container">
+                <div className="form-group">
+                  <input
+                    className="form-input"
+                    type="text"
+                    id="email"
+                    name="email"
+                    placeholder=" "
+                    value={input.email}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="email" className="form-label">
+                    Email:
+                  </label>
+                  <div className="error">
+                    <p>{errors.email}</p>
+                  </div>
+                </div>
+
+                <div className="form-group show-password">
+                  <input
+                    className="form-input"
+                    type={switchButton ? "text" : "password"}
+                    id="password"
+                    value={input.password}
+                    name="password"
+                    placeholder=" "
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="password" className="form-label">
+                    Password:
+                  </label>
+                  <div
+                    className="eyes"
+                    onClick={() => setSwitchB(!switchButton)}
+                  >
+                    👀
+                  </div>
+                  <div className="error">
+                    <p>{errors.password}</p>
+                  </div>
+                </div>
+                <div>
+                  <button>Sign In</button>
+                </div>
+                <div className="forgot-password">
+                  <Link to={"/rename"}>Forgot Password</Link>
+                </div>
+                <div className="sign-up">
+                  <span>Not a member? </span>
+                  <span className="color-link" onClick={() => setMove(false)}>
+                    {" "}
+                    Sign Up
+                  </span>
+                </div>
+                <div className="line">
+                  <span></span> <h4>or</h4> <span></span>
+                </div>
+                <div className="google-sign-in" onClick={handleGoogleSignin}>
+                  <FcGoogle size={30} />
+                  <h5>Sign In with Google</h5>
                 </div>
               </div>
-
-              <div className="form-group show-password">
-                <input
-                  className="form-input"
-                  type={switchButton ? "text" : "password"}
-                  id="password"
-                  value={input.password}
-                  name="password"
-                  placeholder=" "
-                  onChange={handleChange}
-                />
-                <label htmlFor="password" className="form-label">
-                  Password:
-                </label>
-                <div className="eyes" onClick={() => setSwitchB(!switchButton)}>👀</div>
-                <div className="error">
-                  <p>{errors.password}</p>
-                </div>
-              </div>
-              <div>
-                <button>Sign In</button>
-              </div>
-              <div className="forgot-password">
-                <Link to={"/rename"}>
-                Forgot Password
-                </Link>
-              </div>
-              <div className="sign-up">
-                <span>Not a member?  </span>
-                <span 
-                  className="color-link" 
-                  onClick={() => setMove(false)}
-                > Sign Up
-                </span>
-              </div>
-              <div className="line"><span></span> <h4>or</h4> <span></span></div>
-              <div 
-                className="google-sign-in"
-                onClick={handleGoogleSignin}>
-                <FcGoogle 
-                  size={30}
-                />
-                <h5>Sign In with Google</h5>
-              </div>
-            </div>
-          </motion.form>
-          :
-          <Registration 
-            setMove={setMove}
-          />
-          }
-          
+            </motion.form>
+          ) : (
+            <Registration setMove={setMove} />
+          )}
         </motion.div>
       </motion.div>
     </div>
