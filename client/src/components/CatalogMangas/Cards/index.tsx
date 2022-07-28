@@ -46,7 +46,7 @@ const Cards = ({ res }: Props) => {
               <section>
                 <img src={`${e.cover_image}`} alt={`cover_page_${e._id}`} />
               </section>
-              <motion.header /* variants={h3Animation} animate='show' exit='hide' */>{e.title}</motion.header>
+              <motion.header className='CardsTitle'/* variants={h3Animation} animate='show' exit='hide' */>{e.title}</motion.header>
               </motion.div>
           </Link>
             
