@@ -40,14 +40,9 @@ const Chat = () => {
       setCurrentMessage("");
     }
   };
-
-
-
-
   useEffect(() => {
 
     socket.on("receive_message", (data: any) => {
-
       setMessageList((list) => {
         if (list.includes(data)) {
           return list;
