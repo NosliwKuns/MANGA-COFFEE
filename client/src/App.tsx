@@ -45,6 +45,7 @@ function App() {
   const [product, setProduct] = useLocalStorage('test', []);
   const user = JSON.parse(localUser);
   const location = useLocation();
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   // ---------- states to be used with both mangas and store -------------//
 
@@ -90,12 +91,12 @@ function App() {
       setGenreShop={setGenreShop}
       setQueryShop={setQueryShop}
       setColorF={setColorF}
+      isActive={isActive}
+      setIsActive={setIsActive}
       />
       
       <div className="five">
         <SearchAndFilter 
-          appear={appear}
-          setAppear={setAppear}
           setGenre={setGenre}
           setPage={setPage}
           setQuery={setQuery}
@@ -103,6 +104,8 @@ function App() {
           setQueryShop={setQueryShop}
           res={res}
           resShop={resShop}
+          isActive={isActive}
+          setIsActive={setIsActive}
         />
 
         <AnimatePresence exitBeforeEnter>

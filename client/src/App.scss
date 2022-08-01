@@ -1,18 +1,11 @@
 .App {
   position: relative;
   font-family: sans-serif;
-  /* text-align: center; */
   background: #212429;
   overflow: hidden;
-  /* display: flex; */
   min-width: 100vw;
   display: grid;
   grid-template-columns: min-content 1fr min-content;
-  /* grid-template-columns: min-content auto min-content;
-  grid-template-rows: 2.7em 1fr;
-  grid-template-areas: 
-    "one two three"
-    "one five three"; */
   gap: 1em;
   height: 100vh;
 
@@ -30,10 +23,6 @@
   }
 
   .two {
-    /* position: relative;
-    display: flex;
-    align-items: flex-end;
-    padding-left: 1em; */
     background: var(--dark--800);
 
     button {
@@ -57,16 +46,10 @@
   }
 
   .four {
-    /* grid-area: one; */
     background: var(--dark--600);
-    /* margin-left: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    border-radius: 1.2em; */
-    /* overflow: auto; */
     width: 260px;
     flex-shrink: 0;
-    
+    animation: transform .5s cubic-bezier(0.075, 0.82, 0.165, 1);
   
   }
 

@@ -13,23 +13,24 @@ import { BsFillFilePersonFill } from "react-icons/bs"
 import { useState } from 'react';
 import User from '../User/User';
 import { useLocation } from "react-router-dom";
+import useIsActive from '../../app/customHooks/useIsActive'
 
 type Props = {
     setPageShop: any;
     setGenreShop: any;
     setQueryShop: any;
     setColorF: any;
+    isActive: boolean
+    setIsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SideBar = ({setPageShop, setGenreShop, setQueryShop, setColorF}: Props ) =>{
-    const [transform, setTransform] = useState<boolean>(false);
+const SideBar = ({setPageShop, setGenreShop, setQueryShop, setColorF, isActive, setIsActive}: Props ) =>{
+
     const { pathname, search } = useLocation();
-    const minSidebar = () => {
-        setTransform(!transform);
-    }
+
 
     return(
-        <div className={transform ? "four side-bar-container is-active " : "four side-bar-container"}>
+        <div className={isActive ? "four side-bar-container is-active " : "four side-bar-container"}>
             
             <div className="logo">
                 {/* <span onClick={minSidebar}>a</span> MANGACOFFEE */}
@@ -39,14 +40,14 @@ const SideBar = ({setPageShop, setGenreShop, setQueryShop, setColorF}: Props ) =
             <div className="side-wrapper">
                 <div className="side-title">MENU</div>
                 <div className="side-menu">
-                    <Link to='/' className="">
+                    <Link to='/' onClick={() => setIsActive(!isActive)} className="">
                         <IoMdHome 
                             size={25}
                             color={'#fff'}
                         /> 
                         Home
                     </Link>
-                    <Link to='/shop' className="">
+                    <Link to='/shop' onClick={() => setIsActive(!isActive)} className="">
                         <IoStorefront
                             size={20}
                             color={'#fff'}
@@ -60,13 +61,14 @@ const SideBar = ({setPageShop, setGenreShop, setQueryShop, setColorF}: Props ) =
                             }
                             }}>Shop</span>
                     </Link>
-                    <Link to='/aboutUs'>
+                    <Link to='/aboutUs' onClick={() => setIsActive(!isActive)}>
                         <BsFillFilePersonFill
                         size={20}
                         color={'#fff'}
                         />
                         About Us
                     </Link>
+                    <button onClick={() =>setIsActive(!isActive)}>x</button>
                 </div>
                 
             </div>

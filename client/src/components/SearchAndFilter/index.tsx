@@ -2,10 +2,9 @@ import SearchBar from "./SearchBar/SearchBar";
 import { Link, useLocation } from "react-router-dom";
 import UserButtons from './../UserButtons/index';
 import '../../scss/SearchAndFilter/SearchAndLinks.scss';
+import useIsActive from './../../app/customHooks/useIsActive';
 
 type Props = {
-  appear: boolean;
-  setAppear: React.Dispatch<React.SetStateAction<boolean>>;
   setGenre: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<string | number>>;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -13,9 +12,11 @@ type Props = {
   setQueryShop: any
   res: any
   resShop: any
+  isActive: boolean
+  setIsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop, res, resShop }: Props) => {
+const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop, res, resShop, isActive, setIsActive }: Props) => {
 
   const { pathname, search } = useLocation();
 
@@ -29,7 +30,7 @@ const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop,
             res={res}
             resShop={resShop}
           />
-
+          <button onClick={() => setIsActive(!isActive)}>close</button>
           <Link to='/' >
             <span>Discover</span>
           </Link>
@@ -53,6 +54,7 @@ const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop,
         <section className="display">
            {/* <UserButtons /> */}
         </section>
+        
     </div>
   )
 };
