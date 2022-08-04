@@ -12,7 +12,8 @@ const ProductContextProvider = ({ children } : any) => {
   const [pageShop, setPageShop] = useState<any>(searchParams.get("page") || 1);
   const [category, setCategory] = useState(searchParams.get("category") || "");
   const [queryShop, setQueryShop] = useState(searchParams.get("q") || "");
-  const [shopSort, setshopSort] = useState<string>(searchParams.get("sort") || "")
+  const [shopSort, setshopSort] = useState<string>(searchParams.get("sort") || "");
+  const [product, setProduct] = useLocalStorage('test', []);
 
   const resShop = useFetch(
     queryShop || pageShop || category 
@@ -32,7 +33,9 @@ const ProductContextProvider = ({ children } : any) => {
       setQueryShop,
       shopSort,
       setshopSort,
-      resShop
+      resShop,
+      product,
+      setProduct
     }}>
       {children}
     </ProductContext.Provider>

@@ -19,7 +19,7 @@ type Props = {
 
 const CatalogMangas = ({ /* res, */ /* query, genre, setPage, */ setSearchParams/* , setGenre, colorF, setColorF, page, sort, setSort */ } : Props) => {
   return ( 
-    <div className="five">
+    <div className="m-content">
       <Sorts 
         /* sort={sort}
         setSort={setSort}

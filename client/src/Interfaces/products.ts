@@ -16,4 +16,6 @@ export type ProductContextType = {
   shopSort: any
   setshopSort: any
   resShop: any
+  product: any
+  setProduct: any
 };

@@ -46,7 +46,6 @@ function App() {
 
   const dispatch = useAppDispatch()
   const localUser:any  = localStorage.getItem('copySliceUser')
-  const [product, setProduct] = useLocalStorage('test', []);
   const user = JSON.parse(localUser);
   const location = useLocation();
   const [isActive, setIsActive] = useState<boolean>(false);
@@ -110,6 +109,7 @@ function App() {
           /* setQueryShop={setQueryShop} */
           /* res={res} */
           /* resShop={resShop} */
+          setClickBuy={setClickBuy}
           isActive={isActive}
           setIsActive={setIsActive}
         />
@@ -119,8 +119,8 @@ function App() {
           <Route path="/" element={<DiscoverHome /* res={res} */ />} />
           <Route path="/shop" element={
             <Shop 
-              product={product} 
-              setProduct={setProduct} 
+              /* product={product} 
+              setProduct={setProduct}  */
               /* 
               resShop={resShop}
               pageShop={pageShop}
@@ -163,9 +163,9 @@ function App() {
           <Route path='/newreleases' element={<h1>I'm the New Releases component</h1>} />
           <Route path='/popular' element={<h1>I'm the Popular component</h1>} />
           <Route path='/history' element={<h1>I'm the History component</h1>} />
-          <Route path="/product/:id" element={<ProductDetail product={product} setProduct={setProduct} setClickBuy={setClickBuy}/>} />
+          <Route path="/product/:id" element={<ProductDetail /* product={product} setProduct={setProduct} */ setClickBuy={setClickBuy}/>} />
           <Route path="/categories/:genre" element={<SelectedCategories/>} />
-          <Route path='/buyProduct' element={<BuyProduct clickBuy={clickBuy} setProduct={setProduct}/>}/>
+          <Route path='/buyProduct' element={<BuyProduct clickBuy={clickBuy} /* setProduct={setProduct} *//>}/>
           <Route path='/verificateUser/:id' element={<Verificate/>}/>
           <Route path='/rename' element={<RenamePassword/>}/>
           <Route path='/rename/password/:idUser' element={<RenamePass/>}/>
@@ -176,7 +176,7 @@ function App() {
         </Routes>
         </AnimatePresence>
       </div>
-      <RightSide product={product} setProduct={setProduct} setClickBuy={setClickBuy}/>
+      <RightSide /* product={product} setProduct={setProduct} */ setClickBuy={setClickBuy}/>
       <Chat />
     </div>
     </ProductContextProvider>

@@ -126,7 +126,7 @@ const UserDetail = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form className= 'user-panel-info' onSubmit={handleSubmit}>
         <div className="banner_user_detail_s_contain">
           
           {/* const [switchButtonImage, setSImage] = useState(false)

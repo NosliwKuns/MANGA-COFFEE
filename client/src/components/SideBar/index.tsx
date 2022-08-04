@@ -8,7 +8,7 @@ import { RiHistoryLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import PopularMangas from "../RightSide/PopularMangas";
 import '../../scss/RightSide/SideBar.scss';
-import { GiHamburgerMenu } from "react-icons/gi"
+import { GiAnnexation, GiHamburgerMenu } from "react-icons/gi"
 import { BsFillFilePersonFill } from "react-icons/bs"
 import { BiLogOut } from "react-icons/bi"
 import { useState } from 'react';
@@ -32,25 +32,12 @@ const SideBar = ({/* setPageShop, setGenreShop, setQueryShop, */ /* setColorF, *
 
     const { pathname, search } = useLocation();
     const { setCategory, setPageShop, setQueryShop } : any = useProductContext();
-    const [color, setColor] = useState('');
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { email } = useAppSelector(state => state.user);
-    console.log(email, 'noooo')
 
-    const handleClickHome = () => {
+    const handleClick = () => {
         setIsActive(!isActive);
-        setColor('home');
-    };
-
-    const handleClickShop = () => {
-        setIsActive(!isActive);
-        setColor('shop');
-    };
-
-    const handleClickAbout = () => {
-        setIsActive(!isActive);
-        setColor('about');
     };
 
     const btnLogOut = async () => {
@@ -75,17 +62,17 @@ const SideBar = ({/* setPageShop, setGenreShop, setQueryShop, */ /* setColorF, *
                 <div className="side-title">MENU</div>
                 <div className="side-menu">
                     <Link to='/' 
-                        onClick={handleClickHome} 
-                        className={color === 'home' ? "color-link" : ""}>
+                        onClick={handleClick}
+                        className={pathname === '/' ? "color-link" : ""}>
                         <IoMdHome 
                             size={25}
                             color={'#9394A9'}
                         /> 
                         Home
                     </Link>
-                    <Link to='/shop' 
-                        onClick={handleClickShop} 
-                        className={color === 'shop' ? "color-link" : ""}>
+                    <Link to='/shop'
+                        onClick={handleClick}
+                        className={pathname === '/shop' ? "color-link" : ""}>
                         <IoStorefront
                             size={20}
                             color={'#9394A9'}
@@ -98,16 +85,15 @@ const SideBar = ({/* setPageShop, setGenreShop, setQueryShop, */ /* setColorF, *
                             }
                             }}>Shop</span>
                     </Link>
-                    <Link to='/aboutUs' 
-                        onClick={handleClickAbout}
-                        className={color === 'about' ? "color-link" : ""}>
+                    <Link to='/aboutUs'
+                        onClick={handleClick}
+                        className={pathname === '/aboutUs' ? "color-link" : ""}>
                         <BsFillFilePersonFill
                         size={20}
                         color={'#9394A9'}
                         />
                         About Us
                     </Link>
-                    <button className="btn-hidden" onClick={() =>setIsActive(!isActive)}>x</button>
                 </div>
             </div>
             

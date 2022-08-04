@@ -1,19 +1,18 @@
-import { useAppSelector } from '../../app/hooks';
 import PopularMangas from './PopularMangas';
 import UserButtons from './../UserButtons/index';
 
 type Props = {
-  setProduct: React.Dispatch<React.SetStateAction<any>>;
-  product: any
+  /* setProduct: React.Dispatch<React.SetStateAction<any>>;
+  product: any */
   setClickBuy: any
 }
-const LeftSide = ({ setProduct, product, setClickBuy }: Props) => {
-  const { user } = useAppSelector(state => state.user)
+const LeftSide = ({ /* setProduct, product, */ setClickBuy }: Props) => {
+
   return (
     <div className="six">
       <UserButtons 
-        product={product}  
-        setProduct={setProduct}
+        /* product={product}  
+        setProduct={setProduct} */
         setClickBuy={setClickBuy}/>
       <PopularMangas />
       {/* <div className="greeting">

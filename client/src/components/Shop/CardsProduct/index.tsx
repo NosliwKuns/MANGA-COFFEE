@@ -9,15 +9,15 @@ import useProductContext from '../../../app/customHooks/useProductContex';
 
 
 type Props = {
-  setProduct: React.Dispatch<React.SetStateAction<any>>;
-  product: any
+  /* setProduct: React.Dispatch<React.SetStateAction<any>>;
+  product: any */
   /* resShop: any
   genreShop: any */
 }
 
-const CardsProduct = ({ setProduct, product/* , resShop, genreShop */ }: Props) => {
+const CardsProduct = ({ /* setProduct, product *//* , resShop, genreShop */ }: Props) => {
 
-  const { resShop } : any = useProductContext();
+  const { resShop, product, setProduct } : any = useProductContext();
 
   const addToCard : any = (a : any, b: any, c: any, d: any, e: any) => {
     let order = {
@@ -65,22 +65,25 @@ const CardsProduct = ({ setProduct, product/* , resShop, genreShop */ }: Props) 
         {resShop.data?.products.length ?
       <div className="container">
         <div className="product-grid">
-        <Link 
-          to={`/product/${resShop.data?.products.length >= 1 && resShop.data?.products[0]._id}`} 
-          className="card stacked featured">
-            <img src={resShop.data?.products.length >= 1 &&  resShop.data?.products[0].product_image} alt="product-img" className="card__img"/>
-            <div className="card__content">
-              <h2 className="card__title">{resShop.data?.products.length >= 1 &&  resShop.data?.products[0].name}</h2>
-                  <p>{resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock <= 10 
-                  ? "Less than 10" 
-                  : resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock === 0 
-                  ? "Out of stock" 
-                  : "Available"}
-                  </p>
-              <p className="card__price">${resShop.data?.products.length >= 1 &&  resShop.data?.products[0].price}</p>
-              <button className="btnAddcartToShop" onClick={() => addToCard(resShop.data?.products.length >= 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].price, resShop.data?.products.length >= 1 &&  resShop.data?.products[0]._id, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].name, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock)}>Add to cart</button>
+          <div className="card stacked featured">
+            <Link 
+            to={`/product/${resShop.data?.products.length >= 1 && resShop.data?.products[0]._id}`}>
+              <img src={resShop.data?.products.length >= 1 &&  resShop.data?.products[0].product_image} alt="product-img" className="card__img"/>
+          </Link>
+          <div className="card__content">
+            <h2 className="card__title">{resShop.data?.products.length >= 1 &&  resShop.data?.products[0].name}</h2>
+                <p>{resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock <= 10 
+                ? "Less than 10" 
+                : resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock === 0 
+                ? "Out of stock" 
+                : "Available"}
+                </p>
+            <p className="card__price">${resShop.data?.products.length >= 1 &&  resShop.data?.products[0].price}</p>
+            <button className="btnAddcartToShop" onClick={() => addToCard(resShop.data?.products.length >= 1 &&  resShop.data?.products[0].product_image, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].price, resShop.data?.products.length >= 1 &&  resShop.data?.products[0]._id, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].name, resShop.data?.products.length >= 1 &&  resShop.data?.products[0].stock)}>Add to cart</button>
           </div>
-        </Link>
+          </div>
+        
+        
         <>
         {resShop.data?.products.slice(1).map((e : any) => {
             return (

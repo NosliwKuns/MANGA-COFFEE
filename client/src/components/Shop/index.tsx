@@ -4,8 +4,8 @@ import ShopFilter from './ShopFilter/index'
 import ShopSort from './ShopSort/ShopSort'
 
 type Props = {
-  setProduct: React.Dispatch<React.SetStateAction<any>>;
-  product: any
+  /* setProduct: React.Dispatch<React.SetStateAction<any>>;
+  product: any */
   /* resShop: any
   setPageShop: any
   genreShop: any
@@ -20,7 +20,7 @@ type Props = {
   setshopSort: React.Dispatch<React.SetStateAction<string>> */
 }
 
-const Shop = ({ setProduct, product/* , resShop, setPageShop, genreShop, queryShop, setSearchParams, setGenreShop, setQueryShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort */ }: Props) => {
+const Shop = ({ /* setProduct, product *//* , resShop, setPageShop, genreShop, queryShop, setSearchParams, setGenreShop, setQueryShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort */ }: Props) => {
   return (
     <div className="five">
       <ShopSort 
@@ -41,8 +41,8 @@ const Shop = ({ setProduct, product/* , resShop, setPageShop, genreShop, querySh
       pageShop={pageShop} */
       />
       <CardsProduct 
-        setProduct={setProduct}
-        product={product}
+        /* setProduct={setProduct}
+        product={product} */
         /* resShop={resShop}
         genreShop={genreShop} */
       />

@@ -25,16 +25,6 @@
 
   .two {
     background: var(--dark--800);
-
-    button {
-      width: 2.2em;
-      height: 2.2em;
-      border-radius: 50%;
-    }
-    
-    .display {
-      display: none;
-    }
   }
 
   .three {
@@ -123,6 +113,10 @@
       height: 100%;
       transform: translateX(-260px);
       z-index: 4;
+    }
+
+    .five {
+      padding: 0 .5em 0 .5em;
     }
   }
 }

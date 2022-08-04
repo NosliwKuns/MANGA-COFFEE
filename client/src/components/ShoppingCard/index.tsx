@@ -7,21 +7,22 @@ import '../../scss/Details/Comments.scss'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { BsFillInfoCircleFill } from 'react-icons/bs'
+import useProductContext from '../../app/customHooks/useProductContex';
 
 type Props = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setProduct: React.Dispatch<React.SetStateAction<any>>;
-  product: any
+  /* setProduct: React.Dispatch<React.SetStateAction<any>>;
+  product: any */
   setClickBuy: any
 }
 
-const ShoppingCard = ({ open, setOpen, setProduct, product, setClickBuy } : Props) => {
+const ShoppingCard = ({ open, setOpen, /* setProduct, product, */ setClickBuy } : Props) => {
   const getLocal : any = localStorage.getItem('test');
   const parsLocal = JSON.parse(getLocal);
   const navigate = useNavigate()
-  const { user, verificated } = useAppSelector(state => state.user)
-  console.log(product);
+  const { user, verificated } = useAppSelector(state => state.user);
+  const { product, setProduct } : any = useProductContext();
 
   useEffect(() => {
 
@@ -67,10 +68,9 @@ const ShoppingCard = ({ open, setOpen, setProduct, product, setClickBuy } : Prop
     setProduct([...product]);
   }
 
-  console.log(product);
   const arrAmount = product && product.map((e: any) => e.amount);
   const totalAmount = arrAmount ? arrAmount.reduce((a : number, b : number) => a + b, 0 ) : '';
-  console.log(arrAmount);
+
 
   const handleNotUser = () => {
     if(!user && !verificated) {

@@ -14,11 +14,12 @@ type Props = {
   /* setQueryShop: any */
   /* res: any */
   /* resShop: any */
+  setClickBuy: any
   isActive: boolean
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SearchAndFilter = ({ /* setQuery, setGenre, setPage, setColorF, */ /* setQueryShop, */ /* res, */ /* resShop, */ isActive, setIsActive }: Props) => {
+const SearchAndFilter = ({ setClickBuy, /* setQuery, setGenre, setPage, setColorF, */ /* setQueryShop, */ /* res, */ /* resShop, */ isActive, setIsActive }: Props) => {
 
   const {setGenre, setColorF, setPage, setQuery, setSort } : any = useMangaContext();
   const { pathname, search } = useLocation();
@@ -33,7 +34,7 @@ const SearchAndFilter = ({ /* setQuery, setGenre, setPage, setColorF, */ /* setQ
             /* res={res} */
             /* resShop={resShop} */
           />
-          <button onClick={() => setIsActive(!isActive)}>close</button>
+          
           <Link to='/' >
             <span>Discover</span>
           </Link>
@@ -48,6 +49,19 @@ const SearchAndFilter = ({ /* setQuery, setGenre, setPage, setColorF, */ /* setQ
             }
           }}>Mangas</span>
           </Link>
+
+          <section className="display">
+           <UserButtons setClickBuy={setClickBuy} />
+          </section>
+          {/* <button className='btn-menu' onClick={() => setIsActive(!a)}>close</button> */}
+          <button 
+            className={isActive ? 'hamburger is-active' : 'hamburger'}
+            onClick={() => setIsActive(!isActive)}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </section>
         {/* <section className="display">
           <h2>WishList</h2>
@@ -55,9 +69,7 @@ const SearchAndFilter = ({ /* setQuery, setGenre, setPage, setColorF, */ /* setQ
           <button className="bubble-chat">C</button>
           <button>A</button>
         </section> */}
-        <section className="display">
-           {/* <UserButtons /> */}
-        </section>
+        
         
     </div>
   )
