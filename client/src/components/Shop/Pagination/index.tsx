@@ -12,36 +12,69 @@ type Props = {
 }
 
 const Pagination = (/* { setPageShop, setSearchParams, queryShop, genreShop, resShop }: Props */) =>{
-    const { setPageShop, queryShop, category, resShop } : any = useProductContext();
+    const { setPageShop, queryShop, category, resShop, pageShop, setSearchParams } : any = useProductContext();
     const infoShop = resShop.data
     const pages = Array(infoShop?.totalPages).fill(0)
-    const navigate = useNavigate()
 
     const handleClick = (e: number) =>{
         setPageShop(e);
-        let params : any;
-        if (queryShop) {
-          params = {q: queryShop, page: e}       
-        }
-        if (category) {
-          params = {category: category, page: e}
-        } else {
-          params = {page: e}
-        }
-        navigate({
-          pathname: '/shop',
-          search: `?${createSearchParams(params)}`
+        setSearchParams({
+          page: e,
+          q: queryShop,
+          category: category
         })
       };
+
+    const handleClickPrev = () => {
+      if (pageShop != 1) {
+        setPageShop(Number(pageShop) - 1);
+        setSearchParams({
+          page: pageShop - 1,
+          q: queryShop,
+          category: category
+        })
+      }
+    };
+
+    const handleClickNext = () => {
+      if (pageShop < pages.length) {
+        setPageShop(Number(pageShop) + 1);
+        setSearchParams({
+          page: pageShop + 1,
+          q: queryShop,
+          category: category
+        })
+      }
+    };
+
+    if (resShop.isLoading) {
+      return (
+        <div/>
+      )
+    };
+
     return(
-        <div className='btn'>
-            {pages?.map((_, index) =>(
-                
-                <span >
-                    <button onClick={() => handleClick(index+1)}>{index +1}</button>
-                </span>
-            ))}
-        </div>
+      <div className='paginate-container'>
+      <button 
+        className={pageShop == 1 ? 'btn circle disabled' : 'btn circle'}
+        onClick={handleClickPrev}
+      > {'<'}
+      </button>
+        {pages?.map((_, index) =>(
+            <span >
+                <button
+                className={pageShop == index + 1 ? 'btn circle active' : 'btn circle'}
+                  onClick={() => handleClick(index+1)}
+                >{index +1}
+                </button>
+            </span>
+        ))}
+      <button 
+        className={pageShop == pages.length ? 'btn circle disabled' : 'btn circle'}
+        onClick={handleClickNext}
+      > {'>'}
+      </button>
+    </div>
     )
 };
 

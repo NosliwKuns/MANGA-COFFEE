@@ -25,9 +25,6 @@ const Pagination = ({ /* res, */ /* setPage, */ setSearchParams/* , query, genre
           q: query,
           genre: genre,
         })
-        if(res.isLoading) {
-          alert("LOADING True")
-        }
     };
 
     const handleClickPrev = () => {
@@ -50,15 +47,13 @@ const Pagination = ({ /* res, */ /* setPage, */ setSearchParams/* , query, genre
           genre: genre
         })
       }
-    }
+    };
 
-      if (res.isLoading) {
-        return (
-          <div/>
-        )
-      }
-
-    console.log(page, genre, 'PAGEEEE')
+    if (res.isLoading) {
+      return (
+        <div/>
+      )
+    };
 
     return(
         <div className='paginate-container'>

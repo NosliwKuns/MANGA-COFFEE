@@ -18,4 +18,5 @@ export type ProductContextType = {
   resShop: any
   product: any
   setProduct: any
+  setSearchParams: any
 };

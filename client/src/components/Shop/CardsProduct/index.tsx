@@ -3,9 +3,9 @@ import '../../../scss/Shop/ProductCards.scss';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { FaShoppingCart } from "react-icons/fa";
-// import NotFound from '../../SearchAndFilter/NotFound/NotFound'
 import { BsFillInfoCircleFill } from 'react-icons/bs';
 import useProductContext from '../../../app/customHooks/useProductContex';
+import Loader from '../../Loader';
 
 
 type Props = {
@@ -36,29 +36,36 @@ const CardsProduct = ({ /* setProduct, product *//* , resShop, genreShop */ }: P
       if(!add) setProduct([order, ...product]);
     }
     const MySwal = withReactContent(Swal)
-        MySwal.fire({
-          html: <><FaShoppingCart 
-                    size={26} 
-                    color={'#9394A9'} 
-                    className="cart-icon"
-                  />
-                  <h2 
-                    className='PopUpText'
-                  >Product added to the Cart
-                  </h2>
-                </>,
-          position: 'bottom-end',
-          background: "#212429",
-          showConfirmButton: false,
-          confirmButtonAriaLabel: 'Ok',
-          timer: 1500,
-          buttonsStyling: false,
-          customClass: {
-            confirmButton: 'confirmButton'
-          }
-        })
+      MySwal.fire({
+        html: <><FaShoppingCart 
+                  size={26} 
+                  color={'#9394A9'} 
+                  className="cart-icon"
+                />
+                <h2 
+                  className='PopUpText'
+                >Product added to the Cart
+                </h2>
+              </>,
+        position: 'bottom-end',
+        background: "#212429",
+        showConfirmButton: false,
+        confirmButtonAriaLabel: 'Ok',
+        timer: 1500,
+        buttonsStyling: false,
+        customClass: {
+          confirmButton: 'confirmButton'
+        }
+      })
+  };
+
+  if(resShop.isLoading) {
+    return (
+      <div className="cards-container">
+        <Loader />
+      </div>
+    )
   }
-  
   
   return (
     <div className='product-container'>

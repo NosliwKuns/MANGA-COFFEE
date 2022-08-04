@@ -46,6 +46,7 @@
         display: flex;
         align-items: center;
         border-radius: 0 100vmax 100vmax 0;
+        padding: 7px 0 7px 30px;
         transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 
         &:hover {
@@ -59,7 +60,6 @@
       }
 
       a:not(:last-child) {
-        padding: 7px 0 7px 30px;
         margin-bottom: 4px;
       }
 

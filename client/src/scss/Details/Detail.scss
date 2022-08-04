@@ -119,4 +119,19 @@
     width: 50px;
 }
 
+@media screen and (max-width: 660px) {
+  .detail-container {
+    
+    header {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+      gap: 1em;
+
+      .image-container {
+        justify-self: center;
+      }
+    }
+  }
+}
+
 

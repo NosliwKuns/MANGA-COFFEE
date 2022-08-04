@@ -35,7 +35,8 @@ const ProductContextProvider = ({ children } : any) => {
       setshopSort,
       resShop,
       product,
-      setProduct
+      setProduct,
+      setSearchParams
     }}>
       {children}
     </ProductContext.Provider>

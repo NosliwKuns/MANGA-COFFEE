@@ -25,8 +25,9 @@
             overflow: hidden;
 
             section {
-                width: 22vw;
-                background-image: url("https://71bait.com/wp-content/uploads/2022/04/59485-16462404746687-1920.jpg");
+                width: 24em;
+                /* min-width: 22em; */
+                background-image: url("https://res.cloudinary.com/dbqlsilt2/image/upload/v1659641695/a/one-piece-manga-wallpaper_611916315_xvunkd.jpg");
                 background-size: cover;
                 background-position: center;
                 height: 100%;
@@ -228,7 +229,7 @@
 
 }
 
-@media only screen and (max-width: 1300px) {
+@media screen and (max-width: 700px) {
   .modal-exterior {
     .modal-container {
       .form_Registration_container {
@@ -239,4 +240,6 @@
     }
   }
 }
+
+
 
