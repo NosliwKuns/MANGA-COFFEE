@@ -19,14 +19,14 @@ const Home = ({ res, query, genre, setPage, setSearchParams }: Props) => {
       {/* <BannerMangas />
       <Sort /> */}
       <Cards 
-        res={res}
+        /* res={res} */
       />
       <Pagination 
-        setPage={setPage}
+        /* setPage={setPage}
         query={query}
-        genre={genre}
+        genre={genre} */
         setSearchParams={setSearchParams}
-        res={res}
+        /* res={res} */
       />
     </div>
   )

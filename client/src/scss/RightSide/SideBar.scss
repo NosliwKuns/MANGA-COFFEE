@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: width .4s ease-in-out;
+  transition: transform .4s ease-in-out;
 
   .logo {
     font-family: "DM Sans", sans-serif;
@@ -18,13 +18,11 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    /* position: sticky; */
-    /* top: 0; */
   
   }
 
   .side-wrapper {
-    padding: 30px;
+    padding: 30px 30px 30px 0;
 
     .side-title {
       font-family: "DM Sans", sans-serif;
@@ -32,6 +30,7 @@
       font-size: 17px;
       font-weight: 800;
       margin-bottom: 20px;
+      padding-left: 30px;
     }
 
     .side-menu {
@@ -42,19 +41,40 @@
 
       a {
         font-family: "DM Sans", sans-serif;
-        /* font-weight: 600; */
         text-decoration: none;
         color: #9c9cab;
         display: flex;
         align-items: center;
+        border-radius: 0 100vmax 100vmax 0;
+        padding: 7px 0 7px 30px;
+        transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+        &:hover {
+          background: var(--primary);
+          color: white;
+
+          svg {
+            fill: white;
+          }
+        }
       }
 
       a:not(:last-child) {
-        margin-bottom: 20px;
+        margin-bottom: 4px;
+      }
+
+      .color-link {
+        background: var(--primary);
+        color: white;
+
+        svg {
+          fill: white
+        }
       }
 
       svg {
         margin-right: 16px;
+        width: 28px;
       }
     }
   }
@@ -80,6 +100,34 @@
   .cap {
     animation: icon .4s cubic-bezier(0.445, 0.05, 0.55, 0.95);
     overflow-y: auto;
+  }
+
+  .btn-hidden {
+    display: none;
+  }
+
+  .log-out-btn {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
+    text-align: right;
+
+    span {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: .5em;
+      margin: 0 28px 10px 0;
+      color: var(--light--200);
+      font-family: var(--primary-font);
+      font-size: 19px;
+      cursor: pointer;
+
+      &:hover {
+        color: #fff;
+      }
+    }
   }
 }
 
@@ -134,8 +182,10 @@
 
 
 
-/* @media only screen and (max-width: 1300px) {
+@media screen and (max-width: 930px) {
   .side-bar-container {
-    max-width: max(15em);
+    .btn-hidden {
+      display: block;
+    }
   }
-} */
+}

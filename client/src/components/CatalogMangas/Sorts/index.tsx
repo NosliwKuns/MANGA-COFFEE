@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { createSearchParams, useNavigate } from "react-router-dom";
+import useMangaContext from '../../../app/customHooks/useMangaContext';
 
-type Props = {
+/* type Props = {
   sort: string;
   setSort: React.Dispatch<React.SetStateAction<string>>;
   setPage: any
   setGenre: any
   genre: any
-}
+} */
 
-const Sorts = ({ sort, setSort, setPage, setGenre, genre }: Props) => {
+const Sorts = (/* { sort, setSort, setPage, setGenre, genre }: Props */) => {
   
   const [display, setDisplay] = useState('All')
   const navigate = useNavigate();
+  const { setSort, setPage, setGenre, genre} : any = useMangaContext()
 
   const sortBy = (value: string, text: string) => {
     setSort(value)

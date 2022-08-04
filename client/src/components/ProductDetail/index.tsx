@@ -12,13 +12,14 @@ import { useNavigate } from 'react-router-dom';
 import '../../scss/Shop/ProductDetail.scss'
 import useLocalStorage from '../../app/customHooks/useLocalStorage'
 import { FaShoppingCart } from "react-icons/fa";
+import useProductContext from '../../app/customHooks/useProductContex';
 
 type Props = {
-  setProduct: React.Dispatch<React.SetStateAction<any>>;
-  product: any
+  /* setProduct: React.Dispatch<React.SetStateAction<any>>;
+  product: any */
   setClickBuy: any
 }
-const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
+const ProductDetail = ({ /* setProduct, product,  */setClickBuy }: Props) => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -26,7 +27,8 @@ const ProductDetail = ({ setProduct, product, setClickBuy }: Props) => {
   const { token, user, verificated, wishlist } = useAppSelector((state) => state.user);
   const userId = useAppSelector((state) => state.user.id);
   const headers = useHeaders(token)
-  const [addProduct, setAddProduct] = useLocalStorage('prod', [])
+  const [addProduct, setAddProduct] = useLocalStorage('prod', []);
+  const { product, setProduct } : any = useProductContext();
   
   let wish = wishlist?.find(e => e._id === id) ? true : false;
 

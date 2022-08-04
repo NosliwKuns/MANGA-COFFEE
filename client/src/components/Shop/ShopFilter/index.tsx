@@ -1,19 +1,21 @@
 import { createSearchParams, useNavigate, useLocation } from "react-router-dom";
 import '../../../scss/Shop/FilterShop.scss'
 import { useEffect } from 'react'
+import useProductContext from "../../../app/customHooks/useProductContex";
 
 type Props = {
-  setPageShop: any
+  /* setPageShop: any
   setGenreShop: any
   resShop: any
   colorFShop: any
   setColorShop: any
   pageShop: any
   shopSort: any
-  setshopSort: any
+  setshopSort: any */
 }
 
-const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort } : Props) => {
+const ShopFilter = (/* { setPageShop, setGenreShop, resShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort } : Props */) => {
+  const { setPageShop, setCategory, resShop, colorFShop, setColorFShop, pageShop, shopSort, queryShop} : any = useProductContext();
   const infoShop = resShop.data
   let navigate = useNavigate();
   
@@ -33,16 +35,12 @@ const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorFShop, setColorSh
 
 
   const { pathname, search } = useLocation();
-  console.log(pageShop, "jojo")
-
 
   useEffect(() => {
     if (pathname === "/shop" && search === "") {
       const send = colorFShop.join(',')
-      /* setGenre(send) */
-      console.log("SEEEEEEND", send)
-      const params : any = send || pageShop || shopSort ? { page: pageShop, category: send, sort: shopSort } : '';
-      setGenreShop(send ? send : '')
+      const params : any = send || pageShop || shopSort || queryShop ? { page: pageShop, q: queryShop, category: send, sort: shopSort } : '';
+      setCategory(send ? send : '')
       navigate({
         pathname: "/shop",
         search: `?${createSearchParams(params)}`
@@ -58,9 +56,9 @@ const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorFShop, setColorSh
       ? [...colorFShop, value]
       : [...colorFShop.filter((name : any) => name !== value)]
 
-      setColorShop(newArr)
+      setColorFShop(newArr)
     const send = newArr.join(',')
-    setGenreShop(send ? send : 'All')
+    setCategory(send ? send : 'All')
     setPageShop((prev : any) => {
       console.log((prev = 1), "aqui");
       const params : any = send ? { page: prev, category: send, sort: shopSort } : { page: prev};
@@ -68,7 +66,6 @@ const ShopFilter = ({ setPageShop, setGenreShop, resShop, colorFShop, setColorSh
         pathname: "/shop",
         search: `?${createSearchParams(params)}`
       });
-      /* window.location.replace(`/?${createSearchParams(params)}`) */
     });
   };
 

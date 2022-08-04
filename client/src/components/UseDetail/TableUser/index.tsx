@@ -11,14 +11,14 @@ import MyInformation from "../MyInformation";
 import HistoryBuy from "../HistoryBuy";
 import "../../../scss/User/ButtonsDetailUser.scss";
 
-const UsersTable = () => {
-  const pagAdmin: any = window.localStorage.getItem("pagAdmin");
-  console.log(pagAdmin);
+
+const UsersTable = ({ pag, pagAdmin } : any) => {
+  /* const pagAdmin: any = window.localStorage.getItem("pagAdmin"); */
   const userCopy: any = window.localStorage.getItem("copySliceUser");
   const { token, admin } = JSON.parse(userCopy);
   const headers = useHeaders(token);
   const { allUsers }: any = useAppSelector((state) => state.admin);
-  const [pag, setPag] = useState(pagAdmin);
+  /* const [pag, setPag] = useState(pagAdmin); */
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchAllUser(headers));
@@ -54,30 +54,9 @@ const UsersTable = () => {
     InterfaceUser = <CreateProduct />;
   }
 
-  useEffect(() => {}, [pagAdmin]);
+  /* useEffect(() => {}, [pagAdmin]); */
   return (
     <div className="container_user_detail_buttons_div">
-      <div className="buttons_user_detail_conteiner">
-        <button
-        className={pag === 1 ? "buttons_user_detail_conteiner" : '' }
-          onClick={() => {
-            window.localStorage.setItem("pagAdmin", "1");
-            setPag("1");
-          }}
-        >
-          My Information
-        </button>
-        <button
-          onClick={() => {
-            window.localStorage.setItem("pagAdmin", "2");
-            setPag("2");
-          }}
-        >
-          Purchese History
-        </button>
-        {admin && <AdminTable setPag={setPag} />}
-      </div>
-
       <div>{InterfaceUser}</div>
     </div>
   );

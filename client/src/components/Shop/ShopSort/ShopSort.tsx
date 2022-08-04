@@ -1,27 +1,29 @@
 import { useState } from 'react'
 import { createSearchParams, useNavigate } from "react-router-dom";
+import useProductContext from '../../../app/customHooks/useProductContex';
 
 
 type Props = {
-  shopSort: string;
+  /* shopSort: string;
   setshopSort: React.Dispatch<React.SetStateAction<string>>;
   setPageShop: any
   setGenreShop: any
-  genreShop: any
+  genreShop: any */
 }
 
-const ShopSort = ({ shopSort, setshopSort, setPageShop, setGenreShop, genreShop }: Props) => {
+const ShopSort = ({ /* shopSort, setshopSort, setPageShop, setGenreShop, genreShop  */}: Props) => {
   
   const [display, setDisplay] = useState('All')
   const navigate = useNavigate();
+  const { setShopSort, setPageShop, setCategory, category} : any = useProductContext()
 
   const sortBy = (value: string, text: string) => {
-    setshopSort(value)
+    setShopSort(value)
     setDisplay(text)
     setPageShop((prev : any) : any => {
       console.log((prev = 1), "aqui");
-      genreShop === '' ? setGenreShop("All") : genreShop
-      const params : any = { page: prev, category: genreShop === '' ? "All" : genreShop, sort: value };
+      category === '' ? setCategory("All") : category
+      const params : any = { page: prev, category: category === '' ? "All" : category, sort: value };
       navigate({
           pathname: "/shop",
           search: `?${createSearchParams(params)}`

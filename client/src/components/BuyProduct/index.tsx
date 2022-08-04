@@ -13,14 +13,16 @@ import { validate } from "./func/validate";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { FaRegCreditCard } from "react-icons/fa";
+import useProductContext from "../../app/customHooks/useProductContex";
 
 type Props = {
   clickBuy: any
-  setProduct: any
+  /* setProduct: any */
 }
 
-const BuyProduct = ({clickBuy, setProduct}: Props) => {
+const BuyProduct = ({clickBuy/* , setProduct */}: Props) => {
   const { idProduct } = useParams();
+  const { setProduct } : any = useProductContext();
   const [input, setInput] = useState<any>({
     postalCode: "0",
     country: "",

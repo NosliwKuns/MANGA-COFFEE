@@ -1,30 +1,43 @@
+.m-content {
+  overflow: auto;
+}
+
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 21vh);
+  grid-template-columns: repeat(auto-fit, 20vh);
   justify-content: center;
   height: 100%;
   gap: 2em 4em;
+  margin-top: 2em;
+  min-height: 67vh;
 
   section {
-    height: 30vh;
     border-radius: 1em;
     overflow: hidden;
     margin-bottom: .5em;
     background: var(--dark--100);
+    aspect-ratio: 1/1.5;
+    -webkit-box-shadow: 10px 10px 10px -9px rgba(0,0,0,1);
+    -moz-box-shadow: 10px 10px 10px -9px rgba(0,0,0,1);
+    box-shadow: 10px 10px 10px -9px rgba(0,0,0,1);
 
     img {
       height: 100%;
       width: 100%;
-      object-fit: cover;
+      transition: transform .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      &:hover {
+        transform: scale(1.15);
+      }
     }
   }
 
   .CardsTitle{
     cursor: pointer;
     text-decoration: none;
-    color: #a1b8c8;
+    color: var(--light--200);
     text-align: center;
-}
+  }
 
   .NotSearchFoundMangas{
     text-align: center;

@@ -4,9 +4,9 @@ import ShopFilter from './ShopFilter/index'
 import ShopSort from './ShopSort/ShopSort'
 
 type Props = {
-  setProduct: React.Dispatch<React.SetStateAction<any>>;
-  product: any
-  resShop: any
+  /* setProduct: React.Dispatch<React.SetStateAction<any>>;
+  product: any */
+  /* resShop: any
   setPageShop: any
   genreShop: any
   queryShop: any
@@ -17,41 +17,41 @@ type Props = {
   colorFShop: any
   setColorShop: any
   shopSort: string
-  setshopSort: React.Dispatch<React.SetStateAction<string>>
+  setshopSort: React.Dispatch<React.SetStateAction<string>> */
 }
 
-const Shop = ({ setProduct, product, resShop, setPageShop, genreShop, queryShop, setSearchParams, setGenreShop, setQueryShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort }: Props) => {
+const Shop = ({ /* setProduct, product *//* , resShop, setPageShop, genreShop, queryShop, setSearchParams, setGenreShop, setQueryShop, colorFShop, setColorShop, pageShop, shopSort, setshopSort */ }: Props) => {
   return (
     <div className="five">
       <ShopSort 
-        shopSort={shopSort}
+        /* shopSort={shopSort}
         setshopSort={setshopSort}
         setPageShop={setPageShop}
         setGenreShop={setGenreShop}
-        genreShop={genreShop}
+        genreShop={genreShop} */
         />
       <ShopFilter
-      shopSort={shopSort}
+      /* shopSort={shopSort}
       setshopSort={setshopSort}
       setPageShop={setPageShop}
       setGenreShop={setGenreShop}
       resShop={resShop}
       colorFShop= {colorFShop}
       setColorShop= {setColorShop}
-      pageShop={pageShop}
+      pageShop={pageShop} */
       />
       <CardsProduct 
-        setProduct={setProduct}
-        product={product}
-        resShop={resShop}
-        genreShop={genreShop}
+        /* setProduct={setProduct}
+        product={product} */
+        /* resShop={resShop}
+        genreShop={genreShop} */
       />
       <PaginationShop
-      resShop={resShop}
+      /* resShop={resShop}
       setPageShop={setPageShop}
       genreShop={genreShop}
       queryShop={queryShop}
-      setSearchParams={setSearchParams}
+      setSearchParams={setSearchParams} */
       />
     </div>
   )

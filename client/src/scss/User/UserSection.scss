@@ -4,18 +4,36 @@
   color: var(--light--200);
   overflow: hidden;
   text-align: center;
-  /* flex-shrink: 0; */
   height: 210px;
 
   .banner {
     position: relative;
     background-image: url("https://static.vecteezy.com/system/resources/previews/005/893/690/non_2x/abstract-dark-horizontal-background-black-iron-textured-pattern-with-hexagons-steel-honeycomb-texture-wallpaper-abstract-modern-design-illustration-vector.jpg");
-    // background-size: cover;
-    /* height: 40%; */
+
     .photo {
       position: absolute;
+      
+      left: 50%;
+      transform: translatex(-50%);
       bottom: -35px;
-      left: 31%;
+      border: 3px solid var(--primary);
+      padding: 5px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        height: 84px;
+        width: 84px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      /* svg {
+        width: 100px;
+      } */
     }
   }
 
@@ -32,46 +50,131 @@
     gap: 1em;
   }
 
-  button {
-    background: var(--primary);
-    border: none;
-    padding: 0.3em 0.6em 0.3em 0.6em;
-    color: var(--light);
-    font-size: 1.2em;
-    border-radius: 100vw;
+  .btn {
+    width: 100%;
+    margin: 0 30px 0 30px;
   }
 }
 
-//------------prueba 011 ------- components/User -----
-.image_user_icon {
-  max-width: 15vh;
-  border-radius:50%;
-  height: 83px;
-}
-.image_user {
-  max-width: 20vh;
-  border-radius:50%;
-  height: 115px;
-}
-.banner_user_detail_s_contain {
+//---------------- user perfil ------------------///
+
+
+.top-content {
   position: relative;
-}
-.banner_user_detail_s {
-  max-width: 110vh;
-  height: 45vh;
-}
-.banner_user_detail_s_contain_icon {
-  position: absolute;
-  left: 55vh;
-  top: 30vh;
-  max-width: 25vh;
+  width: 100%;
+
+  .user-banner {
+    width: 100%;
+    height: 40vh;
+    min-height: 240px;
+    max-height: 350px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 1em;
+    background: var(--dark--600);
+
+  }
+
+  .user-picture {
+    position: absolute;
+    bottom: 16px;
+    left: 24px;
+    border-radius: 50%;
+    padding: 0;
+
+
+    img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .account-sections {
+    position: absolute;
+    bottom: 0;
+    padding-left: 185px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    width: 100%;
+    display: flex;
+    border-radius: 0 0 1em 1em;
+    
+    button {
+      background: transparent;
+      padding: 20px 16px;
+      color: var(--light--200);
+      transition: 0.3s;
+      cursor: pointer;
+      font-size: 18px;
+      font-family: var(--primary-font);
+
+      svg {
+        margin-left: 5px;
+        
+      }
+
+      .up {
+        transform: rotate(180deg) translateY(-8px);
+      }
+
+    }
+
+    .active, button:hover {
+      color: #fff;
+      background: #ea374c10;
+      border-bottom: 3px solid var(--primary);
+    }
+
+    .drop-down-create {
+      position: relative;
+
+      .open {
+        position: absolute;
+        background: var(--dark--600);
+        top: 25px;
+        left: 0;
+        border: solid 2px var(--light--200);
+        border-radius: .5em;
+        width: 100%;
+        overflow: hidden;
+        z-index: 3;
+        
+        div {
+          text-align: center;
+          padding: .5em 0 .5em 0;
+          color: var(--light--200);
+          font-size: 18px;
+          font-family: var(--primary-font);
+          cursor: pointer;
+
+          &:hover {
+            background: var(--primary);
+            color: #fff;
+          }
+        }
+
+        svg {
+          margin-left: 10px;
+          color: white
+        }
+      }
+
+      .closed  {
+        display: none;
+      }
+    }
+  }
 }
 
-.images_container_user_detail {
-  display: flex;
-  justify-content: center;
-  margin: 30px;
-  
+
+.user-panel-info {
+  margin-top: 1em;
+
+  .banner_user_detail_s_contain {
+    position: relative;
+  }
 }
 
 .button_delete_account_user_detail {
@@ -197,5 +300,49 @@
 
   &:active {
     background-color: #ed1730;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .top-content{
+    .user-banner {
+      height: 30vh;
+    }
+
+    .user-picture {
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%) translatey(-50%);
+
+      img {
+        height: 16vh;
+        width: 16vh;
+        min-height: 120px;
+        min-width: 120px;
+      }
+    }
+
+    .account-sections {
+      padding-left: 0;
+      width: 100%;
+      justify-content: center;
+      
+      div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        button {
+          padding-top: 9px;
+          padding-bottom: 9px;
+        }
+      }
+
+      .drop-down-create {
+        .open {
+          top: 55px;
+        }
+      }
+    }
   }
 }

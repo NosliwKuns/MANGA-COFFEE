@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsFillHouseDoorFill } from 'react-icons/bs'
 import { IoStorefront } from 'react-icons/io5'
 import { AiTwotoneAppstore } from "react-icons/ai";
@@ -8,68 +8,104 @@ import { RiHistoryLine } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
 import PopularMangas from "../RightSide/PopularMangas";
 import '../../scss/RightSide/SideBar.scss';
-import { GiHamburgerMenu } from "react-icons/gi"
+import { GiAnnexation, GiHamburgerMenu } from "react-icons/gi"
 import { BsFillFilePersonFill } from "react-icons/bs"
+import { BiLogOut } from "react-icons/bi"
 import { useState } from 'react';
 import User from '../User/User';
 import { useLocation } from "react-router-dom";
+import useIsActive from '../../app/customHooks/useIsActive'
+import useProductContext from "../../app/customHooks/useProductContex";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { logOut, logOutUser } from "../../features/user/userSlice";
 
 type Props = {
-    setPageShop: any;
+    /* setPageShop: any;
     setGenreShop: any;
-    setQueryShop: any;
-    setColorF: any;
+    setQueryShop: any; */
+    /* setColorF: any; */
+    isActive: boolean
+    setIsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SideBar = ({setPageShop, setGenreShop, setQueryShop, setColorF}: Props ) =>{
-    const [transform, setTransform] = useState<boolean>(false);
+const SideBar = ({/* setPageShop, setGenreShop, setQueryShop, */ /* setColorF, */ isActive, setIsActive}: Props ) =>{
+
     const { pathname, search } = useLocation();
-    const minSidebar = () => {
-        setTransform(!transform);
-    }
+    const { setCategory, setPageShop, setQueryShop } : any = useProductContext();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const { email } = useAppSelector(state => state.user);
+
+    const handleClick = () => {
+        setIsActive(!isActive);
+    };
+
+    const btnLogOut = async () => {
+        navigate("/", { replace: true });
+        try {
+          await dispatch(logOutUser());
+          await dispatch(logOut());
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
     return(
-        <div className={transform ? "four side-bar-container is-active " : "four side-bar-container"}>
-            
+        <div className={isActive 
+             ? "four side-bar-container is-active " 
+             : "four side-bar-container"}
+        >
             <div className="logo">
-                {/* <span onClick={minSidebar}>a</span> MANGACOFFEE */}
-                {/* <img src="https://res.cloudinary.com/dbqlsilt2/image/upload/v1658858831/a/sin_fondo_blanco_cd6rtl.png" alt="" /> */}
             </div>
             <User />
             <div className="side-wrapper">
                 <div className="side-title">MENU</div>
                 <div className="side-menu">
-                    <Link to='/' className="">
+                    <Link to='/' 
+                        onClick={handleClick}
+                        className={pathname === '/' ? "color-link" : ""}>
                         <IoMdHome 
                             size={25}
-                            color={'#fff'}
+                            color={'#9394A9'}
                         /> 
                         Home
                     </Link>
-                    <Link to='/shop' className="">
+                    <Link to='/shop'
+                        onClick={handleClick}
+                        className={pathname === '/shop' ? "color-link" : ""}>
                         <IoStorefront
                             size={20}
-                            color={'#fff'}
+                            color={'#9394A9'}
                         />
                         <span onClick={() => {
                             if(pathname === '/shop' && search) {
-                                setGenreShop('All');
-                                setColorF([]);
+                                setCategory('All');
                                 setPageShop(1);
                                 setQueryShop('')
                             }
                             }}>Shop</span>
                     </Link>
-                    <Link to='/aboutUs'>
+                    <Link to='/aboutUs'
+                        onClick={handleClick}
+                        className={pathname === '/aboutUs' ? "color-link" : ""}>
                         <BsFillFilePersonFill
                         size={20}
-                        color={'#fff'}
+                        color={'#9394A9'}
                         />
                         About Us
                     </Link>
                 </div>
-                
             </div>
+            
+                {
+                    email ?
+                     <div className="log-out-btn">
+                        <span onClick={btnLogOut}
+                        >Log Out<BiLogOut size={30}/>
+                        </span>
+                    </div>  : ''
+                }
+                
             
             {/* <div onClick={minSidebar}>
                 <GiHamburgerMenu

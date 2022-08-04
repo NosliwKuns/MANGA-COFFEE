@@ -4,48 +4,48 @@ import FilterMangas from "./FilterMangas";
 import Sorts from './Sorts/index';
 
 type Props = {
-  res: object;
-  query: string;
+  /* res: object; */
+  /* query: string;
   genre: string;
   setPage: React.Dispatch<React.SetStateAction<number | string>>;
-  setGenre: React.Dispatch<React.SetStateAction<string>>;
+  setGenre: React.Dispatch<React.SetStateAction<string>>; */
   setSearchParams: (nextInit: any, navigateOptions?: { replace?: boolean | undefined; state?: any; } | undefined) => void;
-  colorF: any;
+  /* colorF: any;
   setColorF : any;
   page: any;
   sort: string;
-  setSort: React.Dispatch<React.SetStateAction<string>>;
+  setSort: React.Dispatch<React.SetStateAction<string>>; */
 }
 
-const CatalogMangas = ({ res, query, genre, setPage, setSearchParams, setGenre, colorF, setColorF, page, sort, setSort } : Props) => {
+const CatalogMangas = ({ /* res, */ /* query, genre, setPage, */ setSearchParams/* , setGenre, colorF, setColorF, page, sort, setSort */ } : Props) => {
   return ( 
-    <div className="five">
+    <div className="m-content">
       <Sorts 
-        sort={sort}
+        /* sort={sort}
         setSort={setSort}
         setPage={setPage}
         setGenre={setGenre}
-        genre={genre}
+        genre={genre} */
         />
       <FilterMangas 
-        sort={sort}
+        /* sort={sort}
         setSort={setSort}
         setPage={setPage}
         setGenre={setGenre}
         colorF={colorF}
         setColorF={setColorF}
         page={page}
-        query={query}
+        query={query} */
       />
       <Cards
-        res={res}
+        /* res={res} */
       />
       <Pagination 
-        setPage={setPage}
+        /* setPage={setPage}
         query={query}
-        genre={genre}
+        genre={genre} */
         setSearchParams={setSearchParams}
-        res={res}
+        /* res={res} */
       />
     </div>
   )

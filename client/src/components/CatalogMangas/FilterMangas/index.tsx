@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { fetchMangaByGenres, fetchGetGenres } from "../../../features/manga/mangaSlice";
 import { useAppDispatch , useAppSelector } from "../../../app/hooks";
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import useLocalStorage from "../../../app/customHooks/useLocalStorage";
 import '../../../scss/Home/FilterManga.scss';
+import { MangaContext } from './../../../context/mangaContex';
+import useMangaContext from '../../../app/customHooks/useMangaContext';
 
-type Props = {
+/* type Props = {
 
   setGenre: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<string | number>>;
@@ -15,24 +17,23 @@ type Props = {
   query: string;
   sort: any;
   setSort: any;
-}
+} */
 
-const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query, sort, setSort } : Props) => {
+const FilterMangas = (/* { setGenre, setPage, colorF, setColorF, page, query, sort, setSort } : Props */) => {
   let navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { genres } = useAppSelector(state => state.mangas);
   const { pathname, search } = useLocation();
-  console.log(page, "jojo")
-  
+  /* const { query } : any = useContext(MangaContext); */
+  const { setGenre, setPage, colorF, setColorF, page, query, sort, setSort } : any = useMangaContext()
 
   useEffect(() => {
     dispatch(fetchGetGenres())
     if (pathname === "/mangas" && search === "") {
       const send = colorF.join(',')
-      /* setGenre(send) */
 
-      const params : any = send || page || query || sort ? { page: page, genre: send, q: query, sort: sort} : '';
       setGenre(send ? send : '')
+      const params : any = send || page || query || sort ? { page: page, genre: send, q: query, sort: sort} : '';
       navigate({
         pathname: "/mangas",
         search: `?${createSearchParams(params)}`
@@ -52,19 +53,15 @@ const FilterMangas = ({ setGenre, setPage, colorF, setColorF, page, query, sort,
     setColorF(newArr)
     const send = newArr.join(',')
     setGenre(send ? send : 'All')
-    setPage((prev) : any => {
+    setPage((prev : any) : any => {
       console.log((prev = 1), "aqui");
       const params : any = send ? { page: prev, genre: send, sort: sort } : { page: prev};
       navigate({
         pathname: "/mangas",
         search: `?${createSearchParams(params)}`
       });
-      /* window.location.replace(`/?${createSearchParams(params)}`) */
     });
   };
-  console.log(colorF, "save me")
-
-
 
   return (
     <>

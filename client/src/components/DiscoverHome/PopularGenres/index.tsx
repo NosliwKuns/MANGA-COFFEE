@@ -11,11 +11,9 @@ import "swiper/css/navigation";
 // import required modules
 import { Pagination, Navigation } from "swiper";
 
-type Props = {
-  res: any;
-}
 
-const PopularGenres = ({ res } : Props) => {
+
+const PopularGenres = () => {
 
 	const popular = [
 		{
