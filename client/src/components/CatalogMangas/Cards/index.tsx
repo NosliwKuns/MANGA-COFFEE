@@ -2,32 +2,26 @@ import '../../../scss/Home/Cards.scss';
 import { Link } from 'react-router-dom';
 import { motion, AnimateSharedLayout } from 'framer-motion'
 import { gridAnimation, cardAnimation, h3Animation } from '../../../Animation.js';
-// import NotFound from '../../SearchAndFilter/NotFound/NotFound'
-import { BsFillInfoCircleFill } from 'react-icons/bs';
 
-/* interface Manga {
-  data: any;
-} */
+import { BsFillInfoCircleFill } from 'react-icons/bs';
+import { MangaContext } from '../../../context/mangaContex'
+import { useContext } from 'react';
+import Loader from './../../Loader/index';
 
 type Props = {
   res: any;
 }
 
-const Cards = ({ res }: Props) => {
+const Cards = (/* { res }: Props */) => {
+
+    const { res } : any = useContext(MangaContext) 
 
     const info = res.data
     const load = Array(12).fill(0)
 
     let display;
     if(res.isLoading) {
-      display = load.map(e => {
-        return (
-          <div>
-            <section></section>
-            <header>Loading</header>
-          </div>
-        )
-      })
+      display = <Loader />
     } else {
       display = info?.mangas.length ? info?.mangas.map((e : any)=> {
         return (
@@ -35,18 +29,14 @@ const Cards = ({ res }: Props) => {
           <Link to={`/mangas/detail/${e._id}`}>
               <motion.div
                 variants={cardAnimation}
-                /* animate='show' */
-                /* exit='hide' */
-                /* animate={{ opacity : 1, scale: 1 }} 
+                animate={{ opacity : 1, scale: 1 }} 
                 initial={{ opacity : 0}} 
-                exit={{ opacity : 0, scale: 0  }}
-                transition={{ duration: .5}} */
-
+                exit={{ opacity : 0, scale: .6  }}
                 layout>
               <section>
                 <img src={`${e.cover_image}`} alt={`cover_page_${e._id}`} />
               </section>
-              <motion.header className='CardsTitle'/* variants={h3Animation} animate='show' exit='hide' */>{e.title}</motion.header>
+              <motion.header className='CardsTitle'variants={h3Animation} animate='show' exit='hide'>{e.title}</motion.header>
               </motion.div>
           </Link>
             
@@ -60,16 +50,18 @@ const Cards = ({ res }: Props) => {
     }
 
     return (
-      <motion.div
-        variants={gridAnimation}
-        animate='show'
-        exit='hide'
-        /* layout  */
-        className="cards-container">
-        <AnimateSharedLayout>
-          { display }
-        </AnimateSharedLayout>
-      </motion.div>
+      <div>
+        <motion.div
+          variants={gridAnimation}
+          animate='show'
+          exit='hide'
+          /* layout  */
+          className="cards-container">
+          {/* <AnimateSharedLayout> */}
+            { display }
+          {/* </AnimateSharedLayout> */}
+        </motion.div>
+      </div>
     )
 };
 

@@ -1,41 +1,60 @@
 import { SetState } from 'immer/dist/internal';
-import React from 'react'
+import { IoMdArrowDropdown } from 'react-icons/io'
 
-const AdminTable = ({setPag}:any)=> {
+const AdminTable = ({setPag, pag, open, setOpen, text, setText, handleClickSections, drop }:any)=> {
+
+  drop.onClick= () => {setOpen(!open)};
+  drop.boolean = open;
+  
   return (
     <>
       <button
-        onClick={() => {
-          window.localStorage.setItem("pagAdmin", "3");
-          setPag("3");
-        }}
+        className={pag === '3' ? 'active' : ''}
+        onClick={() => handleClickSections('3')}
       >
         All Users
       </button>
       <button
-        onClick={() => {
-          window.localStorage.setItem("pagAdmin", "4");
-          setPag("4");
-        }}
+        className={pag === '4' ? 'active' : ''}
+        onClick={() => handleClickSections('4')}
       >
-        Advertising
+        Ads
       </button>
-      <button
-        onClick={() => {
-          window.localStorage.setItem("pagAdmin", "5");
-          setPag("5");
-        }}
-      >
-        Create Manga
-      </button>
-      <button
-        onClick={() => {
-          window.localStorage.setItem("pagAdmin", "6");
-          setPag("6");
-        }}
-      >
-        Create Product
-      </button>
+      <span className="drop-down-create">
+        <button 
+          className={pag === '5' || pag === '6' 
+                      ? 'active' : ''}
+        >{text}
+          <span 
+            onClick={() => setOpen(!open)}
+            ref={drop}
+            id='is-changing'
+          >   
+            <IoMdArrowDropdown
+            className={open ? 'up' : ''}
+            viewBox='0 0 512 262'
+            />
+          </span>
+        </button>
+        <div className={open ? "open" : "closed"}>
+          <div
+          onClick={() => {
+            handleClickSections('5')
+            setText('Manga')
+          }}
+          >
+            Manga
+          </div>
+          <div
+            onClick={() => {
+              handleClickSections('6')
+              setText('Product')
+            }}
+          >
+            Product
+          </div>
+        </div>
+      </span>
     </>
   )
 }

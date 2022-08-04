@@ -9,6 +9,7 @@
   gap: 1em;
   height: 100vh;
 
+
   .one {
     display: grid;
     justify-content: center;
@@ -50,7 +51,7 @@
     width: 260px;
     flex-shrink: 0;
     animation: transform .5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  
+
   }
 
   .five {

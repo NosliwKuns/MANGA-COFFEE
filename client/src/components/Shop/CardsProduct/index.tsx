@@ -5,16 +5,19 @@ import withReactContent from 'sweetalert2-react-content'
 import { FaShoppingCart } from "react-icons/fa";
 // import NotFound from '../../SearchAndFilter/NotFound/NotFound'
 import { BsFillInfoCircleFill } from 'react-icons/bs';
+import useProductContext from '../../../app/customHooks/useProductContex';
 
 
 type Props = {
   setProduct: React.Dispatch<React.SetStateAction<any>>;
   product: any
-  resShop: any
-  genreShop: any
+  /* resShop: any
+  genreShop: any */
 }
 
-const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
+const CardsProduct = ({ setProduct, product/* , resShop, genreShop */ }: Props) => {
+
+  const { resShop } : any = useProductContext();
 
   const addToCard : any = (a : any, b: any, c: any, d: any, e: any) => {
     let order = {
@@ -34,7 +37,16 @@ const CardsProduct = ({ setProduct, product, resShop, genreShop }: Props) => {
     }
     const MySwal = withReactContent(Swal)
         MySwal.fire({
-          html: <><FaShoppingCart size={26} color={'#9394A9'} className="cart-icon"/><h2 className='PopUpText'>Product added to the Cart</h2></>,
+          html: <><FaShoppingCart 
+                    size={26} 
+                    color={'#9394A9'} 
+                    className="cart-icon"
+                  />
+                  <h2 
+                    className='PopUpText'
+                  >Product added to the Cart
+                  </h2>
+                </>,
           position: 'bottom-end',
           background: "#212429",
           showConfirmButton: false,

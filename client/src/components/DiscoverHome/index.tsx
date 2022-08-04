@@ -3,14 +3,14 @@ import PopularGenres from './PopularGenres/index';
 import '../../scss/Home/Discover.scss';
 
 type Props = {
-  res: any;
+  /* res: any; */
 }
 
-const DiscoverHome = ({ res } : Props) => {
+const DiscoverHome = ({ /* res */ } : Props) => {
   return (
     <div className="five discover-section">
       <BannerMangas />
-      <PopularGenres res={res}/>
+      <PopularGenres /* res={res} *//>
     </div>
   )
 };

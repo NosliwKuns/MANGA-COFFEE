@@ -3,32 +3,35 @@ import { Link, useLocation } from "react-router-dom";
 import UserButtons from './../UserButtons/index';
 import '../../scss/SearchAndFilter/SearchAndLinks.scss';
 import useIsActive from './../../app/customHooks/useIsActive';
+import useMangaContext from "../../app/customHooks/useMangaContext";
+
 
 type Props = {
-  setGenre: React.Dispatch<React.SetStateAction<string>>;
+  /* setGenre: React.Dispatch<React.SetStateAction<string>>;
   setPage: React.Dispatch<React.SetStateAction<string | number>>;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  setColorF: any;
-  setQueryShop: any
-  res: any
-  resShop: any
+  setColorF: any; */
+  /* setQueryShop: any */
+  /* res: any */
+  /* resShop: any */
   isActive: boolean
   setIsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop, res, resShop, isActive, setIsActive }: Props) => {
+const SearchAndFilter = ({ /* setQuery, setGenre, setPage, setColorF, */ /* setQueryShop, */ /* res, */ /* resShop, */ isActive, setIsActive }: Props) => {
 
+  const {setGenre, setColorF, setPage, setQuery, setSort } : any = useMangaContext();
   const { pathname, search } = useLocation();
 
   return (
     <div className="two">
         <section className="search-and-links">
           <SearchBar
-            setQuery={setQuery}
-            setPage={setPage}
-            setQueryShop={setQueryShop}
-            res={res}
-            resShop={resShop}
+            /* setQuery={setQuery}
+            setPage={setPage} */
+            /* setQueryShop={setQueryShop} */
+            /* res={res} */
+            /* resShop={resShop} */
           />
           <button onClick={() => setIsActive(!isActive)}>close</button>
           <Link to='/' >
@@ -40,7 +43,8 @@ const SearchAndFilter = ({ setQuery, setGenre, setPage, setColorF, setQueryShop,
               setGenre('All');
               setColorF([]);
               setPage(1);
-              setQuery('')
+              setQuery('');
+              setSort('')
             }
           }}>Mangas</span>
           </Link>

@@ -2,27 +2,14 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { InitialState, logOut } from "../../features/user/userSlice";
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-import { logOutUser } from "../../features/user/userSlice";
 import "../../scss/User/UserSection.scss";
 
 const User = () => {
   const user: InitialState = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const { pathname } = useLocation();
 
-  const btnLogOut = async () => {
-    navigate("/", { replace: true });
-    try {
-      await dispatch(logOutUser());
-      await dispatch(logOut());
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const defaultPic = <FaUserCircle size={70} color={"white"} />;
-  const btn = <button onClick={btnLogOut}>Log Out</button>;
+  const defaultPic = <FaUserCircle size={69} color={"white"} />;
 
   return (
     <div className="user-container">
@@ -54,6 +41,7 @@ const User = () => {
       <div className="btn-section">
         {!user.token ? (
           <button
+          className="btn"
             onClick={() => {
               navigate("/logeo", { replace: true });
             }}
@@ -61,17 +49,17 @@ const User = () => {
             Log in
           </button>
         ) : pathname === "/userDetail" ? (
-          btn
+          ''
         ) : (
           <>
             <button
+              className="btn"
               onClick={() => {
                 navigate("/userDetail", { replace: true });
               }}
             >
-              Detail
+              Perfil
             </button>
-            {btn}
           </>
         )}
       </div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { AiFillEdit } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,8 @@ import {
 } from "../../features/user/userSlice";
 import DeleteAccount from "./DeleteAccount";
 import UsersTable from "./TableUser";
+import UserSections from "./UserSections";
+import useLocalStorage from './../../app/customHooks/useLocalStorage';
 
 const UserDetail = () => {
   const [input, setInput] = useState("");
@@ -25,6 +27,12 @@ const UserDetail = () => {
 
   const [switchButtonImage, setSImage] = useState(false);
   const [switchButtonBanner, setSBanner] = useState(false);
+
+  
+  const pagAdmin: any = window.localStorage.getItem("pagAdmin");
+  const [pag, setPag] = useState(pagAdmin);
+
+  const drop : any = useRef(false)
 
   const {
     token,
@@ -84,27 +92,43 @@ const UserDetail = () => {
   useEffect(() => {
     dispatch(setDetailUser(headers));
   });
+
   return (
-    <div>
+    <div className="five" onClick={() => {
+      if(drop.boolean) {
+        drop.onClick()
+      }
+    }}>
+
+      <div className="top-content">
+       
+        <img
+          src={banner_image}
+          alt="banner_image"
+          className="user-banner"
+        />
+
+        <div className="account-sections">
+          <UserSections 
+            setPag={setPag}
+            pag={pag}
+            admin={admin}
+            drop={drop}
+          />
+        </div>
+
+        <div className="user-picture">
+          {user_image.length ? (
+            <img src={user_image} alt="user_image"  className=""/>
+          ) : (
+            defaultPic
+          )}
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <div className="banner_user_detail_s_contain">
-          <div className="images_container_user_detail">
-            <div>
-              <img
-                src={banner_image}
-                alt="banner_image"
-                className="banner_user_detail_s"
-              />
-            </div>
-
-            <div className="banner_user_detail_s_contain_icon">
-              {user_image.length ? (
-                <img src={user_image} alt="user_image"  className="image_user"/>
-              ) : (
-                defaultPic
-              )}
-            </div>
-          </div>
+          
           {/* const [switchButtonImage, setSImage] = useState(false)
   const [switchButtonBanner, setSBanner] = useState(false) */}
           <div>
@@ -152,7 +176,6 @@ const UserDetail = () => {
               }}
             >
               <AiFillEdit size={30} color={"#64666c"} />
-              {/* <p>edit profile</p>  */}
             </div>
           </div>
         </div>
@@ -169,8 +192,9 @@ const UserDetail = () => {
           ) : (
             <h1 className="name_user_user_detail_h1">{user}</h1>
           )}
+
           <div>
-            {/* <label>Description:</label> */}
+            
             {editProfile ? (
               <input
                 className="user_detail_edit_input_description"
@@ -192,7 +216,10 @@ const UserDetail = () => {
         </div>
       </form>
       <div>
-        <UsersTable />
+        <UsersTable 
+          pag={pag}
+          pagAdmin={pagAdmin}
+        />
         <button
           className="button_delete_account_user_detail"
           onClick={() => setSwitchB(!switchButton)}

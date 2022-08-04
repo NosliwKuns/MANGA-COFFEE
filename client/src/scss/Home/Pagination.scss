@@ -1,10 +1,37 @@
-.btn{
+.btn {
+    color: white;
+    background: var(--primary);
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 100vmax;
+}
+
+.disabled {
+    cursor: auto;
+    opacity: .5;
+}
+
+.paginate-container {
     display: flex;
     gap: 1em;
     justify-content: center;
+    margin-top: 3.5em;
     margin-bottom: 2em;
-    button{
-        width: 2em;
-        height: 2em;
+
+    .circle{
+        width: 2.5em;
+        height: 2.5em;
+    }
+
+    .active {
+        background: var(--dark--800);
+        border: 2px solid var(--primary);
+        font-weight: 600;
+    }
+
+    button:not(.disabled):hover {
+        background: var(--dark--800);
+        border: 2px solid var(--primary);
+        font-weight: 600;     
     }
 }
