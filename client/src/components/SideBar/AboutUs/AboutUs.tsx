@@ -12,7 +12,7 @@ const AboutUs = () => {
             linkedIn: 'https://www.linkedin.com/in/andrea-carvajal-osorio-16866215b/',
         },
         {   
-            picture: 'https://lh3.googleusercontent.com/a-/AFdZucqtuqHfZiw1VYThOHMaijHdnTJnaiscUfcUwHDeeA=s288-p-no',
+            picture: 'https://ca.slack-edge.com/TPRS7H4PN-U0382HBN6A3-348cc52af39e-512',
             name: 'Antoni',
             lastName: 'Quispealaya Jipa',
             gitHub: 'https://github.com/NosliwKuns',
@@ -23,7 +23,7 @@ const AboutUs = () => {
             name: 'Emmanuel',
             lastName: 'Carrillo',
             gitHub: 'https://github.com/EmaPaul',
-            linkedIn: 'https://www.linkedin.com/in/andrea-carvajal-osorio-16866215b/',
+            linkedIn: 'https://www.linkedin.com/in/emmanuel-pa%C3%BAl-carrillo-carpio/',
         },
         {   
             picture: 'https://ca.slack-edge.com/TPRS7H4PN-U038AFM0Q3Y-d37fe52865c7-512',
@@ -37,7 +37,7 @@ const AboutUs = () => {
             name: 'Jesús Eduardo',
             lastName: 'Moreno',
             gitHub: 'https://github.com/librotero',
-            linkedIn: 'https://www.linkedin.com/in/andrea-carvajal-osorio-16866215b/',
+            linkedIn: 'https://www.linkedin.com/in/jes%C3%BAs-eduardo-moreno/',
         },
         {   
             picture: 'https://ca.slack-edge.com/TPRS7H4PN-U02P40ZRMC1-125b2ba2338c-512',
