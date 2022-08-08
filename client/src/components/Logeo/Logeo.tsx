@@ -73,6 +73,13 @@ const Logeo = () => {
     }
   };
 
+  const btnClose =  <button
+                      className="btn-close"
+                      onClick={() => navigate("/", { replace: true })}
+                    >
+                      X
+                    </button>
+
   const handleGoogleSignin = async () => {
     try {
       await dispatch(loginWithGoogle());
@@ -105,14 +112,9 @@ const Logeo = () => {
               onSubmit={handleSubmit}
               className="form-content"
             >
-              <button
-                className="btn-close"
-                onClick={() => navigate("/", { replace: true })}
-              >
-                X
-              </button>
-              {/* <h2 onClick={() => navigate("/", { replace: true })}>Back Home</h2> */}
-              {/* <div className="form_Registration_title"> */}
+              {
+                btnClose
+              }
               <h3>Sign In</h3>
               {error && <div className="span_msg_error_info"> {error}</div>}
 
@@ -181,7 +183,9 @@ const Logeo = () => {
               </div>
             </motion.form>
           ) : (
-            <Registration setMove={setMove} />
+            <Registration 
+            setMove={setMove} 
+            btnClose={btnClose} />
           )}
         </motion.div>
       </motion.div>
