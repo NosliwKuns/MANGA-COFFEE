@@ -3,19 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../app/hooks";
 import { CreateUser, signUp, singUpUser } from "../../features/user/userSlice";
 import { validate } from "../Logeo/func/validate";
-import "../../scss/User/Registration.scss";
 import SiOrNot from "./SiOrNot";
 import { gridAnimation } from "./../../Animation";
 import { motion } from "framer-motion";
 import withReactContent from "sweetalert2-react-content";
 import Swal from "sweetalert2";
-import "../../scss/User/FormsAdmin.scss";
 
 type Props = {
   setMove: React.Dispatch<React.SetStateAction<boolean>>;
+  btnClose: React.ReactElement<React.ReactElement>;
 };
 
-const Registration = ({ setMove }: Props) => {
+const Registration = ({ setMove, btnClose }: Props) => {
   const space: any = useRef(null);
 
   const [input, setInput] = useState<CreateUser>({
@@ -98,7 +97,7 @@ const Registration = ({ setMove }: Props) => {
   };
 
   return (
-    <div className="form-wrapper">
+    
       <motion.form
         variants={gridAnimation}
         animate="show"
@@ -107,6 +106,9 @@ const Registration = ({ setMove }: Props) => {
         onSubmit={handleSubmit}
         className="form-content"
       >
+        {
+          btnClose
+        }
         <h3>Welcome</h3>
         {error && <div className="span_msg_error_info">{error}</div>}
         <div className="form-container">
@@ -166,14 +168,14 @@ const Registration = ({ setMove }: Props) => {
             </div>
           </div>
           <div>
-            <div className="span_msg_error_info">
+            {<div className="span_msg_error_info">
               <span>
                 the password must have 7 digits 
                 -min 1 lowercase 
                 -min 1 uppercase 
                 -min 1 number
               </span>
-            </div>
+            </div>}
             <button>Sign Up</button>
           </div>
           <div className="sign-up">
@@ -185,7 +187,7 @@ const Registration = ({ setMove }: Props) => {
           </div>
         </div>
       </motion.form>
-    </div>
+
   );
 };
 

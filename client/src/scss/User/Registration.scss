@@ -18,7 +18,7 @@
             grid-template-columns: auto 1fr;
             background-color: var(--dark--600);
             width: 800px;
-            border-radius: 8px;
+            border-radius: 1em;
             min-height: 60vh;
             justify-content: center;
             align-items: center;
@@ -26,16 +26,11 @@
 
             section {
                 width: 24em;
-                /* min-width: 22em; */
                 background-image: url("https://res.cloudinary.com/dbqlsilt2/image/upload/v1659641695/a/one-piece-manga-wallpaper_611916315_xvunkd.jpg");
                 background-size: cover;
                 background-position: center;
                 height: 100%;
                 border-radius: 8px 0 0 8px;
-            }
-
-            .form-wrapper {
-              height: 100%;
             }
 
             .form-content {
@@ -87,18 +82,8 @@
                     padding: 10px;
                     border: none;
                     outline: none;
-                    /* border-bottom: 1px solid var(--color); */
                     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif;
-                    /* font-weight: 400; */
                   }
-
-                  /* input:-webkit-autofill,
-                  input:-webkit-autofill:hover, 
-                  input:-webkit-autofill:focus {
-                      -webkit-box-shadow: 0 0 0px 1000px var(--light) inset;
-                      box-shadow: 0 0 0px 1000px var(--light) inset;
-                      border: 1px var(--light--200) solid;
-                  } */
           
                   .form-input:focus + .form-label,
                   .form-input:not(:placeholder-shown) + .form-label {
@@ -229,12 +214,48 @@
 
 }
 
+@media screen and (max-width: 900px) {
+  .modal-exterior {
+    .modal-container {
+      .form_Registration_container {
+        
+        section {
+          width: 40vw;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 700px) {
   .modal-exterior {
     .modal-container {
       .form_Registration_container {
+        grid-template-columns: 1fr;
+        width: 400px;
         section {
-          width: 21em;
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .modal-exterior {
+    .modal-container {
+      padding: 1em;
+
+      .form_Registration_container {
+        grid-template-columns: 1fr;
+        width: 100vw;
+
+        section {
+          display: none;
+        }
+
+        .form-content {
+          padding: 2.2em 2em;
         }
       }
     }
