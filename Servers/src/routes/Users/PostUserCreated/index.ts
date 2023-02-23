@@ -26,7 +26,7 @@ router.post('/register', async (req, res, next) => {
                 sendEmail(email, 'Welcome to MangaCoffee', template);
             } else {
                 template = verificCorreo(users, newuser._id);
-                sendEmail(email, 'Accaunt Confirmation', template);
+                sendEmail(email, 'Account Confirmation', template);
             }        
             res.status(201).json({token, usuario: newuser});
         } 

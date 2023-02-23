@@ -6,7 +6,7 @@ const router = Router();
 router.delete('/:id', async(req, res, next) => {
     const {id} = req.params;
     try {
-        let deleteProduct = await Products.findByIdAndDelete(id);
+        await Products.findByIdAndDelete(id);
         res.json({message: 'Product deleted'});
     } catch (error) {
         next(error)

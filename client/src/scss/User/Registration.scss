@@ -52,9 +52,11 @@
                   border: none;
                   top: 15px;
                   right: 15px;
-                  background: #E8F0FE;
-                  color: var(--dark--800);
-                  font-weight: 700;
+                  background: transparent;
+                  // color: var(--dark--800);
+                  // font-weight: 700;
+                  display: grid;
+                  place-content: center;
                 }
 
                 h3 {
@@ -179,6 +181,7 @@
                     text-align: center;
                     height: 40px;
                     border-radius: 100vh;
+                    cursor: pointer;
                     
                     h5 {
                       font-size: 16px;

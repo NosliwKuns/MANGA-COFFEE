@@ -11,9 +11,9 @@ router.get('/', async(req : any, res) => {
         let genres = req.query.genres || 'All';
 
         const filters= await Manga.find();
-        const data : Array<string> = filters.flatMap(e => e.genres); 
+        const data : Array<String> = filters.flatMap(e => e.genres); 
         const dataArr = new Set(data);
-        const genresOptions : Array<string> = [...dataArr];
+        const genresOptions : Array<String> = [...dataArr];
 
         genres === 'All'
             ? (genres = [...genresOptions])

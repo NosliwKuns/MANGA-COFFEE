@@ -2,6 +2,7 @@ import { async } from "@firebase/util";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { AppThunk } from "../../app/store";
+import { config } from './../../app/config';
 
 const initialState = {
   allUsers: [],
@@ -20,7 +21,7 @@ const adminSlice = createSlice({
 export const fetchAllUser = (headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      "https://manga-coffee.herokuapp.com/api/user/findall",
+      `${config.baseUrl}/user/findall`,
       headers
     );
     await dispatch(initUsers(data));
@@ -30,7 +31,7 @@ export const fetchAllUser = (headers: object): AppThunk => {
 export const switchStatus = (headers: object, id: string): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `https://manga-coffee.herokuapp.com/api/user/swichtstatus/${id}`,
+      `${config.baseUrl}/user/swichtstatus/${id}`,
       null,
       headers
     );
@@ -41,7 +42,7 @@ export const switchStatus = (headers: object, id: string): AppThunk => {
 export const switchBlock = (headers: object, id: string): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `https://manga-coffee.herokuapp.com/api/user/swichtblock/${id}`,
+      `${config.baseUrl}/user/swichtblock/${id}`,
       null,
       headers
     );
@@ -52,7 +53,7 @@ export const switchBlock = (headers: object, id: string): AppThunk => {
 export const switchAdmin = (headers: object, id: string): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `https://manga-coffee.herokuapp.com/api/user/swichtadmin/${id}`,
+      `${config.baseUrl}/user/swichtadmin/${id}`,
       null,
       headers
     );
@@ -69,7 +70,7 @@ export const sendMessageUser = (
   console.log(input);
   return async (dispatch) => {
     const { data } = await axios.post(
-      `https://manga-coffee.herokuapp.com/api/user/sendadminnoti/${id}`,
+      `${config.baseUrl}/sendadminnoti/${id}`,
       input,
       headers
     );
@@ -88,7 +89,7 @@ export const sendAdvertising = (
   image.append("image", imagess[0]);
   return async () => {
     const { data } = await axios.post(
-      "https://manga-coffee.herokuapp.com/api/user/adminmails",
+      `${config.baseUrl}/user/adminmails`,
       image,
       headers
     );
@@ -119,7 +120,7 @@ export const createMangaAdmin = (
     books.append("genres", genres);
 
     const { data } = await axios.post(
-      "https://manga-coffee.herokuapp.com/api/manga",
+      `${config.baseUrl}/manga`,
       books,
       headers
     );
@@ -141,7 +142,7 @@ export const addChapterManga = (
     books.append("files", files);
     books.append("idManga", id);
     const { data } = await axios.put(
-      "https://manga-coffee.herokuapp.com/api/manga/admin/addchapter",
+      `${config.baseUrl}/manga/admin/addchapter`,
       books,
       headers
     );
@@ -153,7 +154,7 @@ export const addChapterManga = (
 
 export const allProductsCreate = (headers:object) : AppThunk => {
   return async () =>{
-    const {data} = await axios.get("https://manga-coffee.herokuapp.com/api/user/admin?type=products",headers)
+    const {data} = await axios.get(`${config.baseUrl}/user/admin?type=products`,headers)
     return data
   }
 } 
@@ -170,7 +171,7 @@ export const createNewProduct = (headers:object, input:any , selectBox:any , sel
   book.append("title",select)
   book.append("product_image",image[0])
   return async () =>{
-    const {data} = await axios.post("https://manga-coffee.herokuapp.com/api/products/poster/products", book,headers)
+    const {data} = await axios.post(`${config.baseUrl}/products/poster/products`, book,headers)
     return data
   }
 } 

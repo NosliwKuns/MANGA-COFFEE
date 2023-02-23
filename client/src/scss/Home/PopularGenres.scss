@@ -1,4 +1,8 @@
-.popular-genres {
+.unique {
+  cursor: pointer;
+}
+
+#popular-genres {
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -12,6 +16,10 @@
     text-align: start;
     margin-top: 1em;
     margin-bottom: .2em;
+  }
+
+  .swiper-slide {
+    cursor: pointer;
   }
 
   .hidden {

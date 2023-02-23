@@ -7,6 +7,7 @@ import SiOrNot from "./SiOrNot";
 import { gridAnimation } from "./../../Animation";
 import { motion } from "framer-motion";
 import withReactContent from "sweetalert2-react-content";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Swal from "sweetalert2";
 
 type Props = {
@@ -97,97 +98,97 @@ const Registration = ({ setMove, btnClose }: Props) => {
   };
 
   return (
-    
-      <motion.form
-        variants={gridAnimation}
-        animate="show"
-        exit="hide"
-        ref={space}
-        onSubmit={handleSubmit}
-        className="form-content"
-      >
-        {
-          btnClose
-        }
-        <h3>Welcome</h3>
-        {error && <div className="span_msg_error_info">{error}</div>}
-        <div className="form-container">
-          <div className="form-group">
-            <input
-              className="form-input"
-              type="text"
-              id="nickname"
-              name="user"
-              placeholder=" "
-              value={input.user}
-              onChange={handleChange}
-            />
-            <label htmlFor="nickname" className="form-label">
-              NickName:
-            </label>
-            <div className="error">
-              <p>{errors.user}</p>
-            </div>
-          </div>
-          <div className="form-group">
-            <input
-              className="form-input"
-              type="text"
-              id="email"
-              name="email"
-              placeholder=" "
-              value={input.email}
-              onChange={handleChange}
-            />
-            <label htmlFor="email" className="form-label">
-              Email:
-            </label>
-            <div className="error">
-              <p>{errors.email}</p>
-            </div>
-          </div>
-
-          <div className="form-group show-password">
-            <input
-              className="form-input"
-              type={switchButton ? "text" : "password"}
-              id="password"
-              value={input.password}
-              name="password"
-              placeholder=" "
-              onChange={handleChange}
-            />
-            <label htmlFor="password" className="form-label">
-              Password:
-            </label>
-            <div className="eyes" onClick={() => setSwitchB(!switchButton)}>
-              👀
-            </div>
-            <div className="error">
-              <p>{errors.password}</p>
-            </div>
-          </div>
-          <div>
-            {<div className="span_msg_error_info">
-              <span>
-                the password must have 7 digits 
-                -min 1 lowercase 
-                -min 1 uppercase 
-                -min 1 number
-              </span>
-            </div>}
-            <button>Sign Up</button>
-          </div>
-          <div className="sign-up">
-            <span>Already have an Account?</span>
-            <span className="color-link" onClick={() => setMove(true)}>
-              {" "}
-              LogIn
-            </span>
+    <motion.form
+      variants={gridAnimation}
+      animate="show"
+      exit="hide"
+      ref={space}
+      onSubmit={handleSubmit}
+      className="form-content"
+    >
+      {btnClose}
+      <h3>Welcome</h3>
+      {error && <div className="span_msg_error_info">{error}</div>}
+      <div className="form-container">
+        <div className="form-group">
+          <input
+            className="form-input"
+            type="text"
+            id="nickname"
+            name="user"
+            placeholder=" "
+            value={input.user}
+            onChange={handleChange}
+          />
+          <label htmlFor="nickname" className="form-label">
+            NickName:
+          </label>
+          <div className="error">
+            <p>{errors.user}</p>
           </div>
         </div>
-      </motion.form>
+        <div className="form-group">
+          <input
+            className="form-input"
+            type="text"
+            id="email"
+            name="email"
+            placeholder=" "
+            value={input.email}
+            onChange={handleChange}
+          />
+          <label htmlFor="email" className="form-label">
+            Email:
+          </label>
+          <div className="error">
+            <p>{errors.email}</p>
+          </div>
+        </div>
 
+        <div className="form-group show-password">
+          <input
+            className="form-input"
+            type={switchButton ? "text" : "password"}
+            id="password"
+            value={input.password}
+            name="password"
+            placeholder=" "
+            onChange={handleChange}
+          />
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
+          <div className="eyes" onClick={() => setSwitchB(!switchButton)}>
+            {switchButton ? (
+              <AiFillEyeInvisible size={22} color={"#343539"} />
+            ) : (
+              <AiFillEye size={22} color={"#343539"} />
+            )}
+          </div>
+          <div className="error">
+            <p>{errors.password}</p>
+          </div>
+        </div>
+        <div>
+          {
+            <div className="span_msg_error_info">
+              <span>
+                the password must have 7 digits -min 1 lowercase -min 1
+                uppercase -min 1 number
+              </span>
+            </div>
+          }
+        </div>
+        <button>Sign Up</button>
+        <div className="sign-up">
+          <span>Already have an Account?</span>
+          <span className="color-link" onClick={() => setMove(true)}>
+            {" "}
+            LogIn
+          </span>
+        </div>
+      </div>
+    </motion.form>
   );
 };
 

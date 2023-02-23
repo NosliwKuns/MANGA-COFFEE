@@ -13,6 +13,8 @@ import { validate } from "./func/validate";
 import "../../scss/User/Registration.scss";
 import { cardAnimation, gridAnimation } from "../../Animation";
 import { FcGoogle } from "react-icons/fc";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { RiCloseCircleFill } from 'react-icons/ri'
 import Registration from "./../Registration/Registration";
 import "../../scss/User/FormsAdmin.scss";
 
@@ -73,12 +75,14 @@ const Logeo = () => {
     }
   };
 
-  const btnClose =  <button
-                      className="btn-close"
-                      onClick={() => navigate("/", { replace: true })}
-                    >
-                      X
-                    </button>
+  const btnClose = (
+    <button
+      className="btn-close"
+      onClick={() => navigate("/", { replace: true })}
+    >
+      <RiCloseCircleFill size={32} color={'#E8F0FE'}/>
+    </button>
+  );
 
   const handleGoogleSignin = async () => {
     try {
@@ -112,9 +116,7 @@ const Logeo = () => {
               onSubmit={handleSubmit}
               className="form-content"
             >
-              {
-                btnClose
-              }
+              {btnClose}
               <h3>Sign In</h3>
               {error && <div className="span_msg_error_info"> {error}</div>}
 
@@ -154,7 +156,11 @@ const Logeo = () => {
                     className="eyes"
                     onClick={() => setSwitchB(!switchButton)}
                   >
-                    👀
+                    {switchButton ? (
+                      <AiFillEyeInvisible size={22} color={"#343539"} />
+                    ) : (
+                      <AiFillEye size={22} color={"#343539"} />
+                    )}
                   </div>
                   <div className="error">
                     <p>{errors.password}</p>
@@ -183,9 +189,7 @@ const Logeo = () => {
               </div>
             </motion.form>
           ) : (
-            <Registration 
-            setMove={setMove} 
-            btnClose={btnClose} />
+            <Registration setMove={setMove} btnClose={btnClose} />
           )}
         </motion.div>
       </motion.div>

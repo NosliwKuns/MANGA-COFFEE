@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const User_js_1 = __importDefault(require("../../../models/Users/User.js"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const router = (0, express_1.Router)();
 router.put('/resetpass/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -22,8 +22,8 @@ router.put('/resetpass/:id', (req, res, next) => __awaiter(void 0, void 0, void 
     try {
         let user = yield User_js_1.default.findById(id);
         if (user) {
-            const salt = yield bcrypt_1.default.genSalt(10);
-            const hash = yield bcrypt_1.default.hash(password, salt);
+            const salt = yield bcryptjs_1.default.genSalt(10);
+            const hash = yield bcryptjs_1.default.hash(password, salt);
             yield User_js_1.default.findByIdAndUpdate((id), { password: hash, status: true });
             res.status(201).json('Password Updated!');
         }
