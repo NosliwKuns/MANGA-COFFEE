@@ -107,7 +107,6 @@ const PopularGenres = () => {
         };
       }
     });
-    console.log(elementos);
   }, []);
 
   return (
@@ -156,9 +155,9 @@ const PopularGenres = () => {
           }}
           className="mySwiper"
         >
-          {popular.map((e: any) => {
+          {popular.map((e: any, i: number) => {
             return (
-              <div onClick={() => alert("helloworld")}>
+              <div key={e+i}>
                 <SwiperSlide>
                   <img className="left" src={e.mangas[0]} alt="" />
                   <img className="center" src={e.mangas[1]} alt="" />

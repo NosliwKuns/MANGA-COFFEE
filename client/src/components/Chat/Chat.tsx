@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { InitialState, logOut } from "../../features/user/userSlice";
 import { useState, useEffect, useRef } from 'react';
 import '../../scss/Chat/Chat.scss';
-const socket = io('https://manga-coffee.herokuapp.com');
+const socket = io('https://manga-coffe-production.up.railway.app');
 import { BiMailSend } from 'react-icons/bi';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import {Link} from 'react-router-dom'
