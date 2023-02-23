@@ -101,7 +101,7 @@ const CardsProduct = ({ /* setProduct, product *//* , resShop, genreShop */ }: P
                 <div className="card__content">
                   <h2 className="card__title">{e.name}</h2>
                   <p>{e.stock <= 10 
-                  ? "Less than 10" 
+                  ? "Less than 10"
                   : e.stock === 0 
                   ? "Out of stock" 
                   : "Available"}

@@ -7,9 +7,9 @@ router.get('/genres', async (_req, res, next)=>{
 
     try{
         const filters= await Manga.find();
-        const data : Array<string> = filters.flatMap(e => e.genres); 
+        const data : Array<String> = filters.flatMap(e => e.genres); 
         const dataArr = new Set(data);
-        const genres : Array<string> = [...dataArr];
+        const genres : Array<String> = [...dataArr];
        
         res.status(200).json(genres)
     }catch (error) {

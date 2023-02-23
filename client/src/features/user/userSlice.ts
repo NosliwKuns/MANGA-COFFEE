@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../firebase";
 import { async } from "@firebase/util";
+import { config } from './../../app/config';
 
 export type Verificated = {
   email: any;
@@ -214,7 +215,7 @@ const userSlice = createSlice({
 
 export const userLog = (user: Verificated): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post("https://manga-coffee.herokuapp.com/api/user/login", {
+    const { data } = await axios.post(`${config.baseUrl}/user/login`, {
       email: user.email,
       password: user.password,
     });
@@ -252,7 +253,7 @@ export const userLog = (user: Verificated): AppThunk => {
 export const singUpUser = (user: CreateUser): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.post(
-      "https://manga-coffee.herokuapp.com/api/user/register",
+      `${config.baseUrl}/user/register`,
       {
         users: user.user,
         email: user.email,
@@ -271,7 +272,7 @@ export const setDetailUser = (headers: object): AppThunk => {
   return async () => {
     try {
       const { data } = await axios.get(
-        `https://manga-coffee.herokuapp.com/api/user/detail`,
+        `${config.baseUrl}/user/profile`,
         headers
       );
     } catch (e) {
@@ -287,7 +288,7 @@ export const FetchFavoriteMangas = (
 ): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.put(
-      `https://manga-coffee.herokuapp.com/api/user/fav/${id}`,
+      `${config.baseUrl}/user/fav/${id}`,
       {
         favorites: mangaId,
       },
@@ -300,7 +301,7 @@ export const FetchFavoriteMangas = (
 export const getFavManga = (id: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      `https://manga-coffee.herokuapp.com/api/user/favorites/${id}`,
+      `${config.baseUrl}/user/favorites/${id}`,
       headers
     );
     console.log(data, "siuuu");
@@ -330,7 +331,7 @@ export const loginWithGoogle = (): AppThunk => {
       user: { displayName, email, phoneNumber, photoURL, emailVerified },
     } = await signInWithPopup(auth, googleProvider);
     const { data } = await axios.post(
-      "https://manga-coffee.herokuapp.com/api/user/register",
+      `${config.baseUrl}/user/register`,
       {
         users: displayName,
         email: email,
@@ -351,7 +352,7 @@ export const loginWithGoogle = (): AppThunk => {
 export const verificatedUser = (id: string | undefined): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      `https://manga-coffee.herokuapp.com/api/user/verificated/${id}`
+      `${config.baseUrl}/user/verificated/${id}`
     );
     const copyInitialState = {
       id: data.usuario._id,
@@ -383,7 +384,7 @@ export const fetchDeleteFavorites = (
 ): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.delete(
-      `https://manga-coffee.herokuapp.com/api/user/?id=${id}&mangaId=${mangaId}`,
+      `${config.baseUrl}/user/?id=${id}&mangaId=${mangaId}`,
       headers
     );
 
@@ -395,7 +396,7 @@ export const renameEmail = (email: string): AppThunk => {
   return async () => {
     try {
       const { data } = await axios.post(
-        "https://manga-coffee.herokuapp.com/api/user/resetpass",
+        `${config.baseUrl}/user/resetpass`,
         { email }
       );
       return data;
@@ -409,7 +410,7 @@ export const renamePassword = (password: string, id: string | undefined) => {
   return async () => {
     try {
       const { data } = await axios.put(
-        `https://manga-coffee.herokuapp.com/api/user/resetpass/${id}`,
+        `${config.baseUrl}/user/resetpass/${id}`,
         { password }
       );
       return data;
@@ -422,7 +423,7 @@ export const renamePassword = (password: string, id: string | undefined) => {
 export const deleteAcount = (headers: object) => {
   return async () => {
     const { data } = await axios.put(
-      "https://manga-coffee.herokuapp.com/api/user/state", {},
+      `${config.baseUrl}/user/state`, {},
       headers
     );
     return data;
@@ -438,7 +439,7 @@ export const siOrNot = (input: any, boolean: boolean) => {
   };
   return async () => {
     const { data } = await axios.put(
-      "https://manga-coffee.herokuapp.com/api/user/resetuser",copyInput);
+      `${config.baseUrl}/user/resetuser`,copyInput);
       return data
   };
 };
@@ -449,7 +450,7 @@ export const FetchAddToWishlist = (
   headers: object
 ): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.post(`https://manga-coffee.herokuapp.com/api/products/addToWishlist/${_id}`,
+    const { data } = await axios.post(`${config.baseUrl}/products/addToWishlist/${_id}`,
       {
         productsId: idProduct,
       },
@@ -462,7 +463,7 @@ export const FetchAddToWishlist = (
 export const FetchGetWishlist = (id: string, headers: object): AppThunk => {
   return async (dispatch) => {
     const { data } = await axios.get(
-      `https://manga-coffee.herokuapp.com/api/products/wishlist/${id}`,
+      `${config.baseUrl}/products/wishlist/${id}`,
       headers
     );
     dispatch(addToWishlist(data.docs));
@@ -475,7 +476,7 @@ export const fetchDeleteWishlist = (
   headers: object
 ): AppThunk => {
   return async (dispatch) => {
-    const { data } = await axios.delete(`https://manga-coffee.herokuapp.com/api/products/?id=${id}&productId=${productId}`, headers);
+    const { data } = await axios.delete(`${config.baseUrl}/products/?id=${id}&productId=${productId}`, headers);
     dispatch(deleteWishlistProducts(data.wishlist));
   };
 };
@@ -485,7 +486,7 @@ export const fetchDeleteWishlist = (
 export const preViewhistoryBuy = (headers: object): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      "https://manga-coffee.herokuapp.com/api/user/finall/historybuy",
+      `${config.baseUrl}/user/finall/historybuy`,
       headers
     );
     return data;
@@ -498,7 +499,7 @@ export const detailElementBuy = (
 ): AppThunk => {
   return async () => {
     const { data } = await axios.get(
-      `https://manga-coffee.herokuapp.com/api/user/historybuy/detail/${id}`,
+      `${config.baseUrl}/historybuy/detail/${id}`,
       headers
     );
     return data;
@@ -520,7 +521,7 @@ export const editProfileAction = (
   books.append("token",token)
   return async () => {
     const { data } = await axios.put(
-      "https://manga-coffee.herokuapp.com/api/user/update",
+      `${config.baseUrl}/user/update`,
       books,
       headers
     );
@@ -544,7 +545,7 @@ export const editInformation = (
   console.log(books)
   return async () => {
     const { data } = await axios.put(
-      "https://manga-coffee.herokuapp.com/api/user/update",
+      `${config.baseUrl}/user/update`,
       books,
       headers
     );

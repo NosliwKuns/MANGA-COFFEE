@@ -35,12 +35,13 @@ import AboutUs from './components/SideBar/AboutUs/AboutUs'
 import SiOrNot from './components/Registration/SiOrNot';
 import { MangaContextProvider } from './context/mangaContex';
 import { ProductContext, ProductContextProvider } from './context/productContex';
-
+import { config } from './app/config';
 /* import { MangaContextType } from './Interfaces/mangas';
+import { config } from './app/config';
 
 export const MangaContext = createContext<MangaContextType | null>(null); */
 
-axios.defaults.baseURL = "https://manga-coffee.herokuapp.com/api";
+axios.defaults.baseURL = config.baseUrl;
 
 function App() {
 

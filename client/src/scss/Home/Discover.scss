@@ -1,59 +1,30 @@
-// img,
-// picture {
-//   max-width: 100%;
-//   display: block;
-// }
-
-// /* Inherit fonts for inputs and buttons */
-// input,
-// button,
-// textarea,
-// select {
-//   font: inherit;
-// }
-
-
 .discover-section {
-  /* .manga-info {
-    background: teal;
-    display: grid;
-    grid-template-areas: 
-            'a b b'
-            'a c c';
-    gap: 1em;
-
-    div {
-      background-color: tan;
-      height: 20em;
-    }
-  } */
-
   .container {
     max-width: 100rem;
     margin-inline: auto;
     padding-inline: 2rem;
   }
-  
+
   .stacked {
     display: grid;
   }
-  
+
   .stacked > * {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
   }
-  
+
   .product-grid {
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
   }
-  
+
   .card {
     aspect-ratio: 1 / 1.5;
     /* border: 3px solid hotpink; */
   }
-  
+
   .card__content {
     background: var(--dark--600);
     align-self: end;
@@ -63,43 +34,101 @@
     color: var(--light);
     overflow: hidden;
   }
-  
+
   .card__title {
     font-size: 1.25rem;
     line-height: 1.1;
     color: var(--primary);
   }
-  
+
   .card__price {
     font-size: 1.75rem;
   }
-  
+
   .card__img {
     width: 100%;
     aspect-ratio: 1 / 1.25;
     object-fit: cover;
   }
 
-  
+  .recent-newa-title {
+    color: var(--light--200);
+    text-align: start;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+  }
+
+  .recent-news-container {
+    display: grid;
+    grid-template-rows: 200px 200px 200px;
+    gap: 2rem;
+    color: #fff;
+    margin-bottom: 2rem;
+    .recent-news-card {
+      display: grid;
+      grid-template-columns: 1fr 2.2fr;
+      background: #343539;
+      gap: 1.5rem;
+      border-radius: 1rem;
+
+      img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 1rem 0 0 1rem;
+      }
+
+      div {
+        padding: 1rem 1rem 1rem 0;
+        display: grid;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .date {
+          font-size: 12px;
+          opacity: 0.5;
+        }
+
+        span {
+          display: grid;
+          height: 100%;
+          margin-bottom: 1rem;
+          
+          h5 {
+            font-size: 20px;
+          }
+
+          .text-content {
+            font-size: 15px;
+            opacity: 0.9;
+          }
+
+          .continue {
+            color: var(--primary);
+            cursor: pointer;
+          }
+        }
+
+      }
+    }
+  }
 }
 
 @media (min-width: 60em) {
-
   .discover-section {
-
     .card__img {
       aspect-ratio: 1 / 1;
     }
-  
+
     .card.featured {
       grid-row: span 2;
       grid-column: span 2;
     }
-  
+
     .card.featured .card__img {
       aspect-ratio: 1 / 1.25;
     }
-  
+
     .card.featured .card__title {
       font-size: 1.75rem;
     }

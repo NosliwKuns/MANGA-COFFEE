@@ -18,7 +18,7 @@ const router = (0, express_1.Router)();
 router.delete('/:id', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     try {
-        let deleteProduct = yield index_js_1.default.findByIdAndDelete(id);
+        yield index_js_1.default.findByIdAndDelete(id);
         res.json({ message: 'Product deleted' });
     }
     catch (error) {

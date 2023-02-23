@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const { Schema, model } = mongoose_1.default;
 ;
 const UserSchema = new Schema({
@@ -133,15 +133,15 @@ UserSchema.pre('save', function (next) {
             return next();
         }
         ;
-        const salt = yield bcrypt_1.default.genSalt(10);
-        const hash = yield bcrypt_1.default.hash(user.password, salt);
+        const salt = yield bcryptjs_1.default.genSalt(10);
+        const hash = yield bcryptjs_1.default.hash(user.password, salt);
         user.password = hash;
         next();
     });
 });
 UserSchema.methods.comparePassword = function (password) {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield bcrypt_1.default.compare(password, this.password);
+        return yield bcryptjs_1.default.compare(password, this.password);
     });
 };
 exports.default = model('User', UserSchema);
